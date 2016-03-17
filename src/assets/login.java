@@ -26,7 +26,7 @@ public class login extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Welcome to Hotel Management System");
+        primaryStage.setTitle("Hotel Management System");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -34,7 +34,7 @@ public class login extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text scenetitle = new Text("Welcome");
+        Text scenetitle = new Text("Welcome to \nHotel Management System");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
