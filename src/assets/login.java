@@ -1,8 +1,7 @@
 package assets;
 
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -64,7 +63,6 @@ public class login extends Application {
             actiontarget.setText("Sign in button pressed");
         });
 
-        setUserAgentStylesheet(STYLESHEET_MODENA);
 
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
