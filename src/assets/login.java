@@ -64,6 +64,8 @@ public class login extends Application {
             actiontarget.setText("Sign in button pressed");
         });
 
+        setUserAgentStylesheet(STYLESHEET_MODENA);
+
         Scene scene = new Scene(grid, 300, 275);
         primaryStage.setScene(scene);
 
