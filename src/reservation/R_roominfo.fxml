@@ -5,12 +5,12 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.Reservation_control">
    <children>
       <VBox alignment="TOP_RIGHT" layoutX="32.0" layoutY="34.0" prefHeight="315.0" prefWidth="127.0" spacing="14.0">
          <children>
             <Label text="Check In :" />
+            <Label text="Duration :" />
             <Label text="Check Out :" />
             <Label text="Adult No :" />
             <Label text="Children No :" />
@@ -27,7 +27,7 @@
          <children>
             <TextField />
             <TextField />
-            <TextField />
+            <TextField editable="false" />
             <TextField />
             <ComboBox fx:id="roomtypecombo" prefHeight="25.0" prefWidth="206.0" />
             <TextField />
