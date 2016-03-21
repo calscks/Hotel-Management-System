@@ -27,3 +27,4 @@
       <Label fx:id="lbltest" alignment="CENTER" layoutX="141.0" layoutY="286.0" text="blah" textAlignment="CENTER" textFill="#831e1e" visible="false" />
    </children>
 </AnchorPane>
+

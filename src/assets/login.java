@@ -62,11 +62,12 @@ public class login extends Application {
         btn.setOnAction(e->{
             actiontarget.setFill(Color.FIREBRICK);
             actiontarget.setText("Sign in button pressed");
+            /*primaryStage.setScene(MainpageScene); */
         });
 
 
-        Scene scene = new Scene(grid, 300, 275);
-        primaryStage.setScene(scene);
+        Scene loginscene = new Scene(grid, 300, 275);
+        primaryStage.setScene(loginscene);
 
         primaryStage.show();
 
