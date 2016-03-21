@@ -20,7 +20,7 @@ public class Reservation_control {
 
     @FXML private ComboBox titlecombo;
     @FXML private ComboBox sidcombo;
-    @FXML private ComboBox nextbtn;
+    @FXML private Button nextbtn;
     @FXML private ComboBox roomtypecombo;
 
     @FXML
