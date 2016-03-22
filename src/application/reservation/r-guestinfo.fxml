@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="388.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.reservation.ResvController">
+    <children>
+        <Label layoutX="6.0" layoutY="6.0" prefHeight="28.0" prefWidth="151.0" text="Guest Information">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Label>
+        <VBox alignment="TOP_RIGHT" layoutX="32.0" layoutY="34.0" prefHeight="315.0" prefWidth="127.0" spacing="10.5">
+            <children>
+                <Label text="Reservation Number :"/>
+                <Label text="Title :"/>
+                <Label text="First Name :"/>
+                <Label text="Last Name :"/>
+                <Label text="Address :"/>
+                <Label text="Post Code :"/>
+                <Label prefHeight="17.0" prefWidth="27.0" text="City :"/>
+                <Label text="Country :"/>
+                <Label text="ID Type :"/>
+                <Label text="ID No. :"/>
+            </children>
+        </VBox>
+        <VBox layoutX="176.0" layoutY="34.0" prefHeight="315.0" prefWidth="192.0" spacing="3.0">
+            <children>
+                <TextField/>
+                <ComboBox fx:id="titlecombo" prefHeight="25.0" prefWidth="200.0" visibleRowCount="2"/>
+                <TextField/>
+                <TextField/>
+                <TextField/>
+                <TextField/>
+                <TextField/>
+                <TextField/>
+                <ComboBox fx:id="idcombo" prefHeight="25.0" prefWidth="200.0"/>
+                <TextField/>
+            </children>
+        </VBox>
+        <Button fx:id="nextbtn" layoutX="327.0" layoutY="349.0" mnemonicParsing="false" text="Next"/>
+    </children>
+</AnchorPane>
