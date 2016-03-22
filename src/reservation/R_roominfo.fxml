@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -7,27 +8,34 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reservation.Reservation_control">
    <children>
-      <VBox alignment="TOP_RIGHT" layoutX="32.0" layoutY="34.0" prefHeight="315.0" prefWidth="127.0" spacing="14.0">
+      <VBox alignment="TOP_RIGHT" layoutX="34.0" layoutY="60.0" prefHeight="251.0" prefWidth="96.0" spacing="18.0">
          <children>
             <Label text="Check In :" />
             <Label text="Duration :" />
             <Label text="Check Out :" />
-            <Label text="Adult No :" />
+            <Label text="Adult No :">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Label>
             <Label text="Children No :" />
             <Label text="Room Type :" />
             <Label text="Room No :" />
          </children>
+         <padding>
+            <Insets top="4.0" />
+         </padding>
       </VBox>
       <Label layoutX="6.0" layoutY="6.0" prefHeight="28.0" prefWidth="151.0" text="Room Information">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <VBox layoutX="176.0" layoutY="34.0" prefHeight="315.0" prefWidth="192.0" spacing="5.0">
+      <VBox layoutX="157.0" layoutY="60.0" prefHeight="264.0" prefWidth="192.0" spacing="10.0">
          <children>
             <TextField />
             <TextField />
             <TextField editable="false" />
+            <TextField />
             <TextField />
             <ComboBox fx:id="roomtypecombo" prefHeight="25.0" prefWidth="206.0" />
             <TextField />
