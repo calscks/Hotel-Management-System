@@ -21,9 +21,7 @@ import java.io.IOException;
 
 public class Login {
 
-    public void loginStage() {
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle("Hotel Management System");
+    public GridPane loginStage() {
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -70,17 +68,12 @@ public class Login {
                 Stage stage2 = new Stage();
                 stage2.setScene(scene2);
                 stage2.show();
-                primaryStage.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
 
-
-        Scene loginScene = new Scene(grid, 300, 275);
-        primaryStage.setScene(loginScene);
-
-        primaryStage.show();
+        return grid;
 
     }
 }

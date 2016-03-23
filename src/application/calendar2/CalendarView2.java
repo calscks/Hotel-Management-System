@@ -16,6 +16,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+//second calendar but acts as combobox
+
 public class CalendarView2 extends Application {
     private Stage stage;
     private DatePicker checkInDatePicker, checkOutDatePicker;

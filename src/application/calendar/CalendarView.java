@@ -1,10 +1,9 @@
 package application.calendar;
 
-//this is the second calender view that opens in a new stage but I still haven't figure out
-//how to control it.
+//this is the first calender view that opens in a new stage but I still haven't figure out
+//how to control it. Please don't touch both the calendar first.
 
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
-import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
@@ -32,5 +31,4 @@ public class CalendarView{
             e.printStackTrace();
         }
     }
-
 }
