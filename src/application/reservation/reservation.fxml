@@ -11,10 +11,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="578.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="578.0" prefWidth="776.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvController">
    <children>
-      <VBox alignment="TOP_RIGHT" layoutX="22.0" layoutY="44.0" spacing="18.0">
+      <VBox alignment="TOP_RIGHT" layoutX="22.0" layoutY="34.0" spacing="18.0">
          <children>
             <Label text="Reservation Number :" />
             <Label text="First Name :" />
@@ -30,60 +29,22 @@
             <Insets top="3.0" />
          </padding>
       </VBox>
-      <VBox layoutX="152.0" layoutY="44.0" spacing="10.0">
+      <VBox layoutX="152.0" layoutY="34.0" spacing="10.0">
          <children>
+            <TextField editable="false" />
             <TextField />
             <TextField />
             <TextField />
             <TextField />
             <TextField />
             <TextField />
-            <TextField />
-            <ComboBox fx:id="idcombo" prefHeight="25.0" prefWidth="200.0" />
+            <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
             <TextField />
          </children>
       </VBox>
-      <VBox alignment="TOP_RIGHT" layoutX="786.0" layoutY="43.0" spacing="18.0">
-         <children>
-            <Label text="Payment Type :">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <Label text="Name on Card :" />
-            <Label text="Card No. :" />
-            <Label text="CVC Code :" />
-            <Label text="Expiration date :" />
-            <Label layoutX="176.0" layoutY="34.0" text="Discount ID :" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="3.0" />
-         </padding>
-      </VBox>
-      <VBox layoutX="892.0" layoutY="43.0" prefHeight="170.0" prefWidth="234.0" spacing="10.0">
-         <children>
-            <ComboBox fx:id="ptypecombo" prefWidth="244.0" visibleRowCount="2" />
-            <TextField />
-            <TextField />
-            <TextField />
-            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="18.0">
-               <children>
-                  <Label text="Month:" />
-                  <ComboBox prefWidth="58.0" />
-                  <Label text="Year:" />
-                  <ComboBox prefWidth="58.0" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-            <TextField />
-         </children>
-      </VBox>
-      <VBox alignment="TOP_RIGHT" layoutX="429.0" layoutY="43.0" spacing="18.0">
+      <VBox alignment="TOP_RIGHT" layoutX="466.0" layoutY="34.0" spacing="18.0">
          <children>
             <Label text="Check In :" />
-            <Label text="Duration :" />
             <Label text="Check Out :" />
             <Label text="Adult No :">
                <VBox.margin>
@@ -98,92 +59,56 @@
             <Insets top="3.0" />
          </padding>
       </VBox>
-      <VBox layoutX="513.0" layoutY="44.0" spacing="10.0">
+      <VBox layoutX="546.0" layoutY="31.0" spacing="10.0">
          <children>
+            <DatePicker prefWidth="205.0" />
+            <DatePicker prefWidth="205.0" />
             <TextField />
             <TextField />
-            <TextField editable="false" />
-            <TextField />
-            <TextField />
-            <ComboBox fx:id="roomtypecombo" prefHeight="25.0" prefWidth="206.0" />
+            <ComboBox fx:id="resvRoomType_CBox" prefHeight="25.0" prefWidth="206.0" />
             <TextField />
          </children>
+         <padding>
+            <Insets top="3.0" />
+         </padding>
       </VBox>
-      <TableView layoutX="25.0" layoutY="387.0" prefHeight="149.0" prefWidth="328.0">
+      <TableView layoutX="25.0" layoutY="377.0" prefHeight="149.0" prefWidth="328.0">
         <columns>
           <TableColumn prefWidth="107.0" text="First Name" />
           <TableColumn prefWidth="109.0" text="Last Name" />
             <TableColumn prefWidth="115.0" text="Passport No" />
         </columns>
       </TableView>
-      <Label layoutX="125.0" layoutY="370.0" text="Group members (If Any)" textFill="#541b1b" />
-      <Button layoutX="302.0" layoutY="539.0" mnemonicParsing="false" text="Delete" />
-      <Button layoutX="242.0" layoutY="539.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
-      <GridPane layoutX="410.0" layoutY="387.0" prefHeight="149.0" prefWidth="309.0" style="-fx-border-color: #cccccc;">
+      <Label layoutX="125.0" layoutY="360.0" text="Group members (If Any)" textFill="#541b1b" />
+      <Button layoutX="302.0" layoutY="529.0" mnemonicParsing="false" text="Delete" />
+      <Button layoutX="242.0" layoutY="529.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
+      <GridPane hgap="10.0" layoutX="443.0" layoutY="265.0" prefHeight="149.0" prefWidth="309.0" style="-fx-border-color: #cccccc;" vgap="10.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.0" minWidth="10.0" prefWidth="15.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="0.0" prefWidth="96.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="41.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.0" minWidth="10.0" prefWidth="16.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="97.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="82.0" minWidth="10.0" prefWidth="46.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="4" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="2" />
-            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="5" />
-            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.halignment="CENTER" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label text="Label" GridPane.columnIndex="1" />
+            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Label" GridPane.columnIndex="3" />
+            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <AnchorPane layoutX="763.0" layoutY="253.0" prefHeight="283.0" prefWidth="363.0" style="-fx-border-color: #ababab;">
-         <children>
-            <VBox alignment="CENTER_RIGHT" layoutX="25.0" layoutY="14.0" spacing="14.0">
-               <children>
-                  <Label text="Reference No :">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="10.0" text="Total :">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="27.0" text="Discount :">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="44.0" text="Tax :">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="61.0" text="Deposit :">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-            </VBox>
-         </children>
-      </AnchorPane>
+      <Button layoutX="663.0" layoutY="526.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="89.0" text="Next &gt;&gt;" />
    </children>
-</AnchorPane>
+</fx:root>
