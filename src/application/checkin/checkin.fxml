@@ -66,11 +66,12 @@
             <Insets top="3.0" />
          </padding>
       </VBox>
-      <TableView layoutX="25.0" layoutY="377.0" prefHeight="149.0" prefWidth="328.0">
+      <TableView editable="true" layoutX="25.0" layoutY="377.0" prefHeight="149.0" prefWidth="328.0">
          <columns>
-            <TableColumn prefWidth="107.0" text="First Name" />
-            <TableColumn prefWidth="109.0" text="Last Name" />
-            <TableColumn prefWidth="115.0" text="Passport No" />
+            <TableColumn prefWidth="79.0" text="First Name" />
+            <TableColumn prefWidth="83.0" text="Last Name" />
+            <TableColumn prefWidth="86.0" text="Passport No" />
+            <TableColumn prefWidth="79.0" text="Age Group" />
          </columns>
       </TableView>
       <Label layoutX="125.0" layoutY="360.0" text="Group members (If Any)" textFill="#541b1b" />
