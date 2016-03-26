@@ -32,10 +32,10 @@
                   <Label text="Extra Bed Limit" GridPane.rowIndex="5" />
                   <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <VBox.margin>
                   <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
