@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="827.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvPayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvPayController">
    <children>
       <AnchorPane layoutX="388.0" layoutY="40.0" prefHeight="349.0" prefWidth="411.0" style="-fx-border-color: #ababab;">
          <children>
@@ -169,5 +169,6 @@
          </children>
       </VBox>
       <Button layoutX="546.0" layoutY="397.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Reserve" />
+      <Button layoutX="28.0" layoutY="400.0" mnemonicParsing="false" text="&lt;&lt; Back" />
    </children>
-</fx:root>
+</AnchorPane>

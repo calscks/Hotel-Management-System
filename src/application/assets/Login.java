@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Login {
+public class Login{
 
     public GridPane loginStage() {
 
@@ -46,7 +46,7 @@ public class Login {
         grid.add(pwd, 1, 2);
 
         Button btn = new Button("Sign in");
-        Button btn1 = new Button("Jump");
+        Button btn1 = new Button("Jump"); //temporary jump to another stage button
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
@@ -63,11 +63,13 @@ public class Login {
 
         btn1.setOnAction(e->{
             try {
-                Parent root1 = FXMLLoader.load(getClass().getResource("/application/reservation/r-guestinfo.fxml"));
+                Parent root1 = FXMLLoader.load (getClass().getResource("/application/reservation/reservation.fxml"));
                 Scene scene2 = new Scene(root1);
                 Stage stage2 = new Stage();
                 stage2.setScene(scene2);
                 stage2.show();
+                Stage tempStage = (Stage) btn1.getScene().getWindow();
+                tempStage.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

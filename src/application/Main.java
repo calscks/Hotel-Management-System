@@ -13,8 +13,8 @@ public class Main extends Application {
         P.show();
     }
 
-    public Scene newScene(){
-        return new Scene(new Login().loginStage(), 300, 275);
+    private Scene newScene(){
+        return new Scene(new Login().loginStage());
     }
 
     public static void main(String[] args) {
