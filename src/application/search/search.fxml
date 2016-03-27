@@ -44,7 +44,7 @@
                <children>
                   <Label text="Selected No:" />
                   <Label text="Selected Type:" GridPane.rowIndex="1" />
-                  <Label text="Selected Status:" GridPane.rowIndex="2" />
+                  <Label text="Status:" GridPane.rowIndex="2" />
                   <TextField GridPane.columnIndex="1" />
                   <TextField prefHeight="25.0" prefWidth="166.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
