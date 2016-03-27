@@ -76,7 +76,7 @@
             <columns>
                 <TableColumn prefWidth="107.0" text="First Name" />
                 <TableColumn prefWidth="109.0" text="Last Name" />
-                <TableColumn prefWidth="115.0" text="Passport No" />
+                <TableColumn prefWidth="115.0" text="Room No" />
             </columns>
         </TableView>
         <Label layoutX="25.0" layoutY="360.0" text="Guests" textFill="#541b1b" />
