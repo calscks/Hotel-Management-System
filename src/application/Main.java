@@ -20,12 +20,12 @@ public class Main extends Application {
         P.show();
     }
 
-    public Boolean connStatus(){
+    private Boolean connStatus(){
         Connection c = null;
 
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:Data.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dsdswwData.sqlite");
             return true;
         } catch (Exception e) {
             Alert conAlert = new Alert(Alert.AlertType.ERROR);
@@ -33,8 +33,8 @@ public class Main extends Application {
             conAlert.setHeaderText("Database Connection Problem");
             conAlert.setContentText(e.getClass().getName() + ": " + e.getMessage());
             conAlert.showAndWait();
+            return false;
         }
-        return false;
     }
 
     private Scene newScene() {
