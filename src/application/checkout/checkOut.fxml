@@ -127,5 +127,6 @@
             <Insets top="3.0" />
          </padding>
       </VBox>
+      <Button layoutX="353.0" layoutY="481.0" mnemonicParsing="false" text="Check out" />
    </children>
 </AnchorPane>
