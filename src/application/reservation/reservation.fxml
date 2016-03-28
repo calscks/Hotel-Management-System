@@ -13,11 +13,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="578.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvController">
     <children>
-        <VBox alignment="TOP_RIGHT" layoutX="22.0" layoutY="34.0" spacing="18.0">
+        <VBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="19.0" spacing="18.0">
             <children>
                 <Label text="Reservation Number :" />
                 <Label text="First Name :" />
                 <Label text="Last Name :" />
+            <Label text="Phone Number :" />
                 <Label text="Address :" />
                 <Label text="Post Code :" />
                 <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
@@ -29,7 +30,7 @@
                 <Insets top="3.0" />
             </padding>
         </VBox>
-        <VBox layoutX="152.0" layoutY="34.0" spacing="10.0">
+        <VBox layoutX="153.0" layoutY="19.0" spacing="10.0">
             <children>
                 <TextField editable="false" />
                 <TextField />
@@ -40,6 +41,7 @@
                 <TextField />
                 <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
                 <TextField />
+            <TextField />
             </children>
         </VBox>
         <VBox alignment="TOP_RIGHT" layoutX="466.0" layoutY="34.0" spacing="18.0">
