@@ -99,7 +99,7 @@
                <children>
                   <RadioButton mnemonicParsing="false" text="Morning" GridPane.rowIndex="1" />
                   <RadioButton mnemonicParsing="false" text="Night" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <RadioButton mnemonicParsing="false" text="One Day" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <RadioButton mnemonicParsing="false" text="Whole Day" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Label text="Duration :" />
                   <Button mnemonicParsing="false" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <GridPane.margin>

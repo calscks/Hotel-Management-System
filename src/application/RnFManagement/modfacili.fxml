@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="578.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RnFManagement.ModFaciliController">
+   <children>
+      <VBox layoutX="353.0" layoutY="35.0" prefHeight="517.0" prefWidth="408.0" spacing="10.0">
+         <children>
+            <Label text="Faclity Details">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <GridPane hgap="10.0" prefHeight="319.0" prefWidth="381.0" vgap="10.0">
+               <children>
+                  <Label text="Facility Name :" GridPane.rowIndex="1" />
+                  <Label text="Facility Description :" GridPane.rowIndex="2" />
+                  <Label text="Facility Availability :" GridPane.rowIndex="3" />
+                  <Label text="Reservation Price :" GridPane.rowIndex="4" />
+                  <TextArea prefHeight="97.0" prefWidth="292.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets right="20.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                  <GridPane prefHeight="63.0" prefWidth="239.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <CheckBox mnemonicParsing="false" text="Morning">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </CheckBox>
+                        <CheckBox mnemonicParsing="false" text="Whole Day" GridPane.columnIndex="2" />
+                        <CheckBox mnemonicParsing="false" text="Night" GridPane.columnIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <GridPane hgap="5.0" prefHeight="61.0" prefWidth="194.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <Label text="Half Day :" />
+                        <Label text="Full Day :" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="73.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="166.0" minWidth="10.0" prefWidth="166.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </GridPane>
+                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets right="20.0" />
+                     </GridPane.margin>
+                  </TextField>
+                  <Label text="Facility ID :" />
+                  <TextField GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets right="20.0" />
+                     </GridPane.margin>
+                  </TextField>
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="178.0" minWidth="10.0" prefWidth="117.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="307.0" minWidth="10.0" prefWidth="291.0" />
+               </columnConstraints>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="97.0" minHeight="10.0" prefHeight="95.0" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="68.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="81.0" minHeight="0.0" prefHeight="60.0" valignment="TOP" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <GridPane alignment="CENTER" hgap="10.0" vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" text="Add New Facility" />
+                  <Button mnemonicParsing="false" text="Edit Facility" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" text="Delete Facility" GridPane.columnIndex="2" />
+               </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </GridPane>
+         </children>
+      </VBox>
+      <VBox layoutX="22.0" layoutY="35.0" prefHeight="444.0" prefWidth="299.0" spacing="10.0">
+         <children>
+            <Label text="Current Facilities">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <TableView prefHeight="393.0" prefWidth="299.0">
+              <columns>
+                  <TableColumn text="Facility ID." />
+                <TableColumn prefWidth="100.0" text="Facility Name" />
+                <TableColumn prefWidth="118.0" text="Facility Status" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
