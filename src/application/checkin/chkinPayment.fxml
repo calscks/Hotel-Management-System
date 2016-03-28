@@ -173,6 +173,6 @@
             <TextField />
          </children>
       </VBox>
-      <Button layoutX="546.0" layoutY="397.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Reserve" />
+      <Button layoutX="546.0" layoutY="397.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Check In" />
    </children>
 </AnchorPane>

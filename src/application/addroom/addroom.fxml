@@ -24,12 +24,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Type:" />
-                  <Label text="Room/Facility No.:" GridPane.rowIndex="1" />
-                  <Label text="Room/Facility Type:" GridPane.rowIndex="2" />
-                  <Label text="Location:" GridPane.rowIndex="3" />
-                  <Label text="Pax per Room:" GridPane.rowIndex="4" />
-                  <Label text="Extra Bed Limit" GridPane.rowIndex="5" />
+                  <Label text="Type :" />
+                  <Label text="Room No. :" GridPane.rowIndex="1" />
+                  <Label text="Room Type :" GridPane.rowIndex="2" />
+                  <Label text="Location :" GridPane.rowIndex="3" />
+                  <Label text="Pax per Room :" GridPane.rowIndex="4" />
+                  <Label text="Extra Bed Limit :" GridPane.rowIndex="5" />
                   <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -77,6 +77,6 @@
             </GridPane>
          </children>
       </VBox>
-      <Button layoutX="357.0" layoutY="470.0" mnemonicParsing="false" text="Add Room/Facility" />
+      <Button layoutX="352.0" layoutY="464.0" mnemonicParsing="false" text="Add Room" />
    </children>
 </AnchorPane>
