@@ -42,12 +42,6 @@
             <children>
                 <Label text="Check In :" />
                 <Label text="Check Out :" />
-                <Label text="Adult No :">
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                </Label>
-                <Label text="Children No :" />
                 <Label text="Room Type :" />
                 <Label text="Room No :" />
             </children>
@@ -59,8 +53,6 @@
             <children>
                 <DatePicker prefWidth="205.0" />
                 <DatePicker prefWidth="205.0" />
-                <TextField />
-                <TextField />
                 <ComboBox fx:id="cInRoomType_CBox" prefHeight="25.0" prefWidth="206.0" />
                 <TextField />
             </children>
