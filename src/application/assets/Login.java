@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class Login{
 
-    public GridPane loginStage() {
+    public GridPane loginScene() {
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
