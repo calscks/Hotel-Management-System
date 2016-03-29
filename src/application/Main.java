@@ -28,6 +28,7 @@ public class Main extends Application {
 
     private void createTable() {
         Connection c;
+        PreparedStatement tableQuery;
         String[] create;
         create = new String[]{"CREATE TABLE IF NOT EXISTS Admin\n" +
                 "(\n" +
@@ -72,9 +73,9 @@ public class Main extends Application {
                         "    EmpUName TEXT,\n" +
                         "    EmpPwd TEXT,\n" +
                         "    Authority TEXT\n" +
-                        ");\n" +
-                        "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpID_uindex ON Employee (EmpID);\n" +
-                        "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpUname_uindex ON Employee (EmpUName);\n",
+                        ");\n",
+                "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpID_uindex ON Employee (EmpID);\n",
+                "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpUname_uindex ON Employee (EmpUName);\n",
                 "CREATE TABLE IF NOT EXISTS FacBooking\n" +
                         "(\n" +
                         "    BookID INTEGER PRIMARY KEY,\n" +
@@ -158,18 +159,19 @@ public class Main extends Application {
                         "    MaxPax INTEGER,\n" +
                         "    ExtBedLimit INTEGER,\n" +
                         "    Rate_ExtSingleBed REAL\n" +
-                        ");"};
+                        ");"}; //each comma separates between values in the
+        // array in case you didn't notice
         try {
             Class.forName("org.sqlite.JDBC").newInstance();
             c = DriverManager.getConnection("jdbc:sqlite:Data2.sqlite");
             DatabaseMetaData meta = c.getMetaData();
             ResultSet chkTable = meta.getTables(null, null, "Employee", new String[]{"TABLE"});
             if (chkTable.next()) {
-                System.out.print("Exists");
+                System.out.print("Db exists");
             } else {
                 System.out.print("Does not exists, creating a new db");
                 for (String aCreate : create) {
-                    PreparedStatement tableQuery = c.prepareStatement(aCreate);
+                    tableQuery = c.prepareStatement(aCreate);
                     tableQuery.executeUpdate();
                 }
             }
