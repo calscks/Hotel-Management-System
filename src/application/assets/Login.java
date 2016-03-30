@@ -63,13 +63,15 @@ public class Login{
 
         btn1.setOnAction(e->{
             try {
-                Parent root1 = FXMLLoader.load (getClass().getResource("/application/reservation/reservation.fxml"));
-                Scene scene2 = new Scene(root1);
-                Stage stage2 = new Stage();
-                stage2.setScene(scene2);
-                stage2.show();
-                Stage tempStage = (Stage) btn1.getScene().getWindow();
-                tempStage.close();
+                Parent root = FXMLLoader.load (getClass().getResource("/application/reservation/reservation.fxml"));
+                Scene mainScene = new Scene(root);
+                Stage mainStage = new Stage();
+                mainStage.setMinWidth(800);
+                mainStage.setMinHeight(600);
+                mainStage.setScene(mainScene);
+                mainStage.show();
+                Stage prevStage = (Stage) btn1.getScene().getWindow();
+                prevStage.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
