@@ -11,148 +11,153 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="578.0" prefWidth="776.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvController">
-    <children>
-        <VBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="19.0" spacing="18.0">
-            <children>
-                <Label text="Reservation Number :" />
-                <Label text="First Name :" />
-                <Label text="Last Name :" />
-            <Label text="Phone Number :" />
-                <Label text="Address :" />
-                <Label text="Post Code :" />
-                <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
-                <Label text="Country :" />
-                <Label text="ID Type :" />
-                <Label text="ID No. :" />
-            </children>
-            <padding>
-                <Insets top="3.0" />
-            </padding>
-        </VBox>
-        <VBox layoutX="153.0" layoutY="19.0" spacing="10.0">
-            <children>
-                <TextField editable="false" />
-                <TextField />
-                <TextField />
-                <TextField />
-                <TextField />
-                <TextField />
-                <TextField />
-                <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
-                <TextField />
-            <TextField />
-            </children>
-        </VBox>
-        <TableView layoutX="25.0" layoutY="377.0" prefHeight="149.0" prefWidth="328.0">
-            <columns>
-                <TableColumn prefWidth="107.0" text="First Name" />
-                <TableColumn prefWidth="109.0" text="Last Name" />
-                <TableColumn prefWidth="115.0" text="Room No" />
-            </columns>
-        </TableView>
-        <Label layoutX="25.0" layoutY="360.0" text="Guests" textFill="#541b1b" />
-        <Button layoutX="302.0" layoutY="529.0" mnemonicParsing="false" text="Delete" />
-        <Button layoutX="242.0" layoutY="529.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
-        <Button layoutX="698.0" layoutY="19.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Next &gt;&gt;" textAlignment="CENTER" />
-      <VBox layoutX="388.0" layoutY="203.0" prefHeight="349.0" prefWidth="336.0" spacing="8.0" style="-fx-border-color: #808080;">
-         <children>
-            <CheckBox mnemonicParsing="false" text="Facility" />
-            <TableView prefHeight="112.0" prefWidth="307.0">
-              <columns>
-                <TableColumn prefWidth="106.0" text="Facility type" />
-                <TableColumn prefWidth="58.0" text="Price" />
-                  <TableColumn prefWidth="154.0" text="Booking Date" />
-              </columns>
-            </TableView>
-            <GridPane hgap="10.0" prefHeight="156.0" prefWidth="319.0" vgap="10.0">
-              <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="62.0" valignment="TOP" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Facility Type :" GridPane.rowIndex="1" />
-                  <Label text="Booking Date :" GridPane.rowIndex="2" />
-                  <DatePicker prefWidth="205.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label text="Comments :" GridPane.rowIndex="3" />
-                  <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-            <GridPane hgap="10.0" vgap="10.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <RadioButton mnemonicParsing="false" text="Morning" GridPane.rowIndex="1" />
-                  <RadioButton mnemonicParsing="false" text="Night" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <RadioButton mnemonicParsing="false" text="Whole Day" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Label text="Duration :" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="45.0" />
-                     </GridPane.margin>
-                  </Button>
-               </children>
-            </GridPane>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </VBox>
-      <GridPane hgap="10.0" layoutX="388.0" layoutY="23.0" prefHeight="168.0" prefWidth="305.0" style="-fx-border-color: #808080;" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="98.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="207.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-              <VBox alignment="TOP_RIGHT" prefHeight="164.0" prefWidth="144.0" spacing="18.0" GridPane.rowIndex="1">
+
+<ScrollPane prefHeight="609.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="746.0" prefHeight="604.0" prefWidth="765.0">
+          <children>
+              <VBox alignment="TOP_RIGHT" layoutX="25.0" layoutY="19.0" spacing="18.0">
                   <children>
-                      <Label text="Check In :" />
-                      <Label text="Check Out :" />
-                      <Label text="Room Type :" />
-                      <Label text="Room No :" />
+                      <Label text="Reservation Number :" />
+                      <Label text="First Name :" />
+                      <Label text="Last Name :" />
+                  <Label text="Phone Number :" />
+                      <Label text="Address :" />
+                      <Label text="Post Code :" />
+                      <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
+                      <Label text="Country :" />
+                      <Label text="ID Type :" />
+                      <Label text="ID No. :" />
                   </children>
                   <padding>
                       <Insets top="3.0" />
                   </padding>
               </VBox>
-              <VBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <VBox layoutX="153.0" layoutY="19.0" spacing="10.0">
                   <children>
-                      <DatePicker prefWidth="205.0" />
-                      <DatePicker prefWidth="205.0" />
-                      <ComboBox fx:id="resvRoomType_CBox" prefHeight="25.0" prefWidth="206.0" />
+                      <TextField editable="false" />
                       <TextField />
+                      <TextField />
+                      <TextField />
+                      <TextField />
+                      <TextField />
+                      <TextField />
+                      <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
+                      <TextField />
+                  <TextField />
                   </children>
-                  <padding>
-                      <Insets top="3.0" />
-                  </padding>
               </VBox>
-            <CheckBox mnemonicParsing="false" text="Rooms" />
-         </children>
-         <padding>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-         </padding>
-      </GridPane>
-    </children>
-</AnchorPane>
+              <TableView layoutX="25.0" layoutY="377.0" prefHeight="176.0" prefWidth="328.0">
+                  <columns>
+                      <TableColumn prefWidth="107.0" text="First Name" />
+                      <TableColumn prefWidth="109.0" text="Last Name" />
+                      <TableColumn prefWidth="115.0" text="Room No" />
+                  </columns>
+              </TableView>
+              <Label layoutX="25.0" layoutY="360.0" text="Guests" textFill="#541b1b" />
+              <Button layoutX="302.0" layoutY="562.0" mnemonicParsing="false" text="Delete" />
+              <Button layoutX="242.0" layoutY="562.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
+              <Button layoutX="660.0" layoutY="562.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Next &gt;&gt;" textAlignment="CENTER" />
+            <VBox layoutX="388.0" layoutY="203.0" prefHeight="349.0" prefWidth="336.0" spacing="8.0" style="-fx-border-color: #808080;">
+               <children>
+                  <CheckBox mnemonicParsing="false" text="Facility" />
+                  <TableView prefHeight="112.0" prefWidth="307.0">
+                    <columns>
+                      <TableColumn prefWidth="106.0" text="Facility type" />
+                      <TableColumn prefWidth="58.0" text="Price" />
+                        <TableColumn prefWidth="154.0" text="Booking Date" />
+                    </columns>
+                  </TableView>
+                  <GridPane hgap="10.0" prefHeight="156.0" prefWidth="319.0" vgap="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="62.0" valignment="TOP" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Facility Type :" GridPane.rowIndex="1" />
+                        <Label text="Booking Date :" GridPane.rowIndex="2" />
+                        <DatePicker prefWidth="205.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Comments :" GridPane.rowIndex="3" />
+                        <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox prefHeight="25.0" prefWidth="156.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     </children>
+                  </GridPane>
+                  <GridPane hgap="10.0" vgap="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <RadioButton mnemonicParsing="false" text="Morning" GridPane.rowIndex="1" />
+                        <RadioButton mnemonicParsing="false" text="Night" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <RadioButton mnemonicParsing="false" text="Whole Day" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label text="Duration :" />
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="45.0" />
+                           </GridPane.margin>
+                        </Button>
+                     </children>
+                  </GridPane>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </VBox>
+            <GridPane hgap="10.0" layoutX="388.0" layoutY="23.0" prefHeight="168.0" prefWidth="336.0" style="-fx-border-color: #808080;" vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="98.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="207.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="164.0" minHeight="10.0" prefHeight="164.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                    <VBox alignment="TOP_RIGHT" prefHeight="164.0" prefWidth="144.0" spacing="18.0" GridPane.rowIndex="1">
+                        <children>
+                            <Label text="Check In :" />
+                            <Label text="Check Out :" />
+                            <Label text="Room Type :" />
+                            <Label text="Room No :" />
+                        </children>
+                        <padding>
+                            <Insets top="3.0" />
+                        </padding>
+                    </VBox>
+                    <VBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <children>
+                            <DatePicker prefWidth="205.0" />
+                            <DatePicker prefWidth="205.0" />
+                            <ComboBox fx:id="resvRoomType_CBox" prefHeight="25.0" prefWidth="206.0" />
+                            <TextField />
+                        </children>
+                        <padding>
+                            <Insets top="3.0" />
+                        </padding>
+                    </VBox>
+                  <CheckBox mnemonicParsing="false" text="Rooms" />
+               </children>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </GridPane>
+          </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
