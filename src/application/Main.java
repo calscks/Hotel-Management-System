@@ -163,7 +163,7 @@ public class Main extends Application {
         // array in case you didn't notice
         try {
             Class.forName("org.sqlite.JDBC").newInstance();
-            c = DriverManager.getConnection("jdbc:sqlite:Data2.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:Data.sqlite");
             DatabaseMetaData meta = c.getMetaData();
             ResultSet chkTable = meta.getTables(null, null, "Employee", new String[]{"TABLE"});
             if (chkTable.next()) {
