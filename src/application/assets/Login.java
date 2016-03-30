@@ -9,8 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -63,8 +62,11 @@ public class Login{
 
         btn1.setOnAction(e->{
             try {
+                StackPane rootPane = new StackPane();
                 Parent root = FXMLLoader.load (getClass().getResource("/application/reservation/reservation.fxml"));
-                Scene mainScene = new Scene(root);
+                Parent root2 = FXMLLoader.load(getClass().getResource("/application/slidemenu/slidemenu.fxml"));
+                rootPane.getChildren().addAll(root, root2);
+                Scene mainScene = new Scene(rootPane);
                 Stage mainStage = new Stage();
                 mainStage.setMinWidth(800);
                 mainStage.setMinHeight(600);
