@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvRoomController">
     <children>
-        <GridPane hgap="10.0" layoutX="384.0" layoutY="41.0" prefHeight="285.0" prefWidth="327.0" style="-fx-border-color: #808080;" vgap="10.0">
+        <GridPane hgap="10.0" layoutX="384.0" layoutY="41.0" prefHeight="285.0" prefWidth="301.0" style="-fx-border-color: #808080;" vgap="10.0">
             <children>
                 <VBox alignment="TOP_RIGHT" prefHeight="164.0" prefWidth="144.0" spacing="18.0" GridPane.rowIndex="1">
                     <children>
@@ -20,9 +20,9 @@
                         <Insets top="3.0" />
                     </padding>
                 </VBox>
-                <VBox prefHeight="164.0" prefWidth="187.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <VBox prefHeight="154.0" prefWidth="194.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                  <ComboBox prefWidth="150.0" />
+                  <ComboBox prefHeight="25.0" prefWidth="210.0" />
                   <TextField />
                   <Label text="RM XX.XX" />
                     </children>
@@ -35,7 +35,10 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
-                <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin></Button>
             </children>
             <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="98.0" />
