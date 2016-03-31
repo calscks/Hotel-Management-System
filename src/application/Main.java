@@ -18,9 +18,9 @@ public class Main extends Application {
     }
 
     private Scene newScene() {
-        return new Scene(new Login().loginScene());
+        return new Scene(new Login().loginGrid());
         /**interpreted as:
-         * Scene x = new Scene(new Login().loginScene());
+         * Scene x = new Scene(new Login().loginGrid());
          * return x;
          */
     }

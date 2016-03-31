@@ -20,7 +20,7 @@ import java.io.IOException;
 
 public class Login{
 
-    public GridPane loginScene() {
+    public GridPane loginGrid() {
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
