@@ -6,14 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.effect.Bloom;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.MotionBlur;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
 
