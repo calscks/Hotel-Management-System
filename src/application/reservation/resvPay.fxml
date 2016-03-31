@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
@@ -171,6 +172,7 @@
             </VBox>
             <Button layoutX="733.0" layoutY="501.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Reserve" />
             <Button layoutX="233.0" layoutY="504.0" mnemonicParsing="false" text="&lt;&lt; Back" />
+            <Button layoutX="623.0" layoutY="501.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Save" />
          </children>
       </AnchorPane>
    </content>

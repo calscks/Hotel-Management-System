@@ -57,7 +57,7 @@
               <Label layoutX="237.0" layoutY="398.0" text="Guests" textFill="#541b1b" />
               <Button layoutX="519.0" layoutY="599.0" mnemonicParsing="false" text="Delete" />
               <Button layoutX="459.0" layoutY="599.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
-              <Button layoutX="900.0" layoutY="599.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Next &gt;&gt;" textAlignment="CENTER" />
+              <Button layoutX="941.0" layoutY="599.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" text="Next &gt;&gt;" textAlignment="CENTER" />
             <VBox layoutX="628.0" layoutY="52.0" prefHeight="257.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Rooms" />
