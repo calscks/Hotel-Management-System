@@ -63,9 +63,9 @@ public class Login{
         btn1.setOnAction(e->{
             try {
                 StackPane rootPane = new StackPane();
-                Parent root = FXMLLoader.load (getClass().getResource("/application/reservation/reservation.fxml"));
+                //Parent root = FXMLLoader.load (getClass().getResource("/application/reservation/reservation.fxml"));
                 Parent root2 = FXMLLoader.load(getClass().getResource("/application/slidemenu/slidemenu.fxml"));
-                rootPane.getChildren().addAll(root, root2);
+                rootPane.getChildren().addAll(root2);
                 Scene mainScene = new Scene(rootPane);
                 Stage mainStage = new Stage();
                 mainStage.setMinWidth(800);
