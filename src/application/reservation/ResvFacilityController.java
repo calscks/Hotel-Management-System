@@ -5,7 +5,7 @@ package application.reservation;/**
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class ResvFaciliController extends Application {
+public class ResvFacilityController extends Application {
 
     public static void main(String[] args) {
         launch(args);
