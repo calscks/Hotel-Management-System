@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvRoomController">
+    <children>
+        <GridPane hgap="10.0" layoutX="384.0" layoutY="41.0" prefHeight="285.0" prefWidth="327.0" style="-fx-border-color: #808080;" vgap="10.0">
+            <children>
+                <VBox alignment="TOP_RIGHT" prefHeight="164.0" prefWidth="144.0" spacing="18.0" GridPane.rowIndex="1">
+                    <children>
+                  <Label text="Type :" />
+                        <Label text="Amount :" />
+                        <Label text="Price :" />
+                    </children>
+                    <padding>
+                        <Insets top="3.0" />
+                    </padding>
+                </VBox>
+                <VBox prefHeight="164.0" prefWidth="187.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                  <ComboBox prefWidth="150.0" />
+                  <TextField />
+                  <Label text="RM XX.XX" />
+                    </children>
+                    <padding>
+                        <Insets top="3.0" />
+                    </padding>
+                </VBox>
+                <Label text="Service">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Label>
+                <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="98.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="207.0" />
+            </columnConstraints>
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </padding>
+            <rowConstraints>
+                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="22.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="74.0" valignment="TOP" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <TableView layoutX="38.0" layoutY="41.0" prefHeight="228.0" prefWidth="327.0">
+            <columns>
+                <TableColumn prefWidth="94.0" text="Service" />
+                <TableColumn prefWidth="132.0" text="Status" />
+                <TableColumn prefWidth="99.0" text="Description" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

@@ -99,7 +99,8 @@
                      <columns>
                         <TableColumn prefWidth="126.0" text="Additional Service" />
                         <TableColumn prefWidth="75.0" text="Price" />
-                        <TableColumn prefWidth="95.0" text="Amount" />
+                        <TableColumn prefWidth="66.0" text="Amount" />
+                        <TableColumn prefWidth="121.0" text="Description" />
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
