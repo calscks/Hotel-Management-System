@@ -62,7 +62,7 @@
       </TableView>
       <GridPane hgap="10.0" layoutX="48.0" layoutY="285.0" prefHeight="48.0" prefWidth="311.0">
          <children>
-            <Label text="Facility type :" />
+            <Label text="Room type :" />
             <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Search" GridPane.columnIndex="2" />
             <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
          </children>

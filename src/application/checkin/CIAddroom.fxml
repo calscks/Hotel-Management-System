@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvRoomController">
+    <children>
+        <GridPane hgap="10.0" layoutX="384.0" layoutY="41.0" prefHeight="285.0" prefWidth="327.0" style="-fx-border-color: #808080;" vgap="10.0">
+            <children>
+                <VBox alignment="TOP_RIGHT" prefHeight="164.0" prefWidth="144.0" spacing="18.0" GridPane.rowIndex="1">
+                    <children>
+                        <Label text="Check In :" />
+                        <Label text="Check Out :" />
+                        <Label text="Room Type :" />
+                        <Label text="Room No :" />
+                    </children>
+                    <padding>
+                        <Insets top="3.0" />
+                    </padding>
+                </VBox>
+                <VBox prefHeight="164.0" prefWidth="187.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <DatePicker prefWidth="205.0" />
+                        <DatePicker prefWidth="205.0" />
+                        <ComboBox fx:id="resvRoomType_CBox" prefHeight="25.0" prefWidth="206.0" />
+                        <TextField />
+                    </children>
+                    <padding>
+                        <Insets top="3.0" />
+                    </padding>
+                </VBox>
+                <Label text="Room Details">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Label>
+                <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Check" GridPane.rowIndex="2" />
+                <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="98.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="207.0" />
+            </columnConstraints>
+            <padding>
+                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+            </padding>
+            <rowConstraints>
+                <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="22.0" valignment="TOP" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="74.0" valignment="TOP" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+        <TableView layoutX="38.0" layoutY="41.0" prefHeight="228.0" prefWidth="327.0">
+            <columns>
+                <TableColumn prefWidth="94.0" text="Rooms" />
+                <TableColumn prefWidth="132.0" text="Booked date" />
+                <TableColumn prefWidth="99.0" text="Available Time" />
+            </columns>
+        </TableView>
+        <GridPane hgap="10.0" layoutX="48.0" layoutY="285.0" prefHeight="48.0" prefWidth="311.0">
+            <children>
+                <Label text="Room type :" />
+                <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Search" GridPane.columnIndex="2" />
+                <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+            </children>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="10.0" prefWidth="67.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="124.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="67.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+        </GridPane>
+    </children>
+</AnchorPane>
