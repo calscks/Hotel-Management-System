@@ -24,6 +24,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label text="Type :" />
@@ -38,6 +39,8 @@
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Room Price :" GridPane.rowIndex="6" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -45,41 +48,7 @@
                   </GridPane>
                </children>
             </VBox>
-            <VBox layoutX="626.0" layoutY="130.0" prefHeight="337.0" prefWidth="304.0">
-               <children>
-                  <Label text="Tariff">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                  <GridPane hgap="10.0" vgap="10.0">
-                    <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label text="Single Bed:" />
-                        <Label text="Double Bed:" GridPane.rowIndex="1" />
-                        <Label text="Extra Single Bed:" GridPane.rowIndex="2" />
-                        <Label text="RMX.XX" GridPane.columnIndex="1" />
-                        <Label text="RM.XXX" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="RMX.XX" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </padding>
-                  </GridPane>
-               </children>
-            </VBox>
-            <Button layoutX="564.0" layoutY="520.0" mnemonicParsing="false" text="Add Room" />
+            <Button layoutX="501.0" layoutY="467.0" mnemonicParsing="false" text="Add Room" />
          </children>
       </AnchorPane>
    </content>
