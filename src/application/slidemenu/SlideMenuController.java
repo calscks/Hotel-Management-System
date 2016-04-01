@@ -32,11 +32,11 @@ public class SlideMenuController implements Initializable {
     @FXML
     private Button menu_ResvMod;
 
-    private Boolean addResvLoaded;
+    private Boolean addResvLoaded; //these bools are used to check whether a specific fxml is loaded or not
     private Boolean modResvLoaded;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) { //initialise when load
         try {
             Content();
         } catch (IOException e) {
@@ -49,8 +49,8 @@ public class SlideMenuController implements Initializable {
         mainContent.getChildren().clear();
         mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
                 "/reservation.fxml")));
-        addResvLoaded = true;
-        modResvLoaded = false;
+        addResvLoaded = true; //set true initially since add reservation UI is the first to be loaded
+        modResvLoaded = false; //false because it isn't loaded initially
 
         menu_ResvAdd.setOnAction((ActionEvent event) -> {
             if (!addResvLoaded) {
@@ -61,10 +61,13 @@ public class SlideMenuController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                System.out.print(mainContent.getChildren());
             }
+            //set to true because it is loaded, so when menu_ResvAdd is clicked again, nothing happens
             addResvLoaded = true;
+            //set to false so that menu_ResvMod action can be toggled when clicked
             modResvLoaded = false;
+
+            slideMenuCompact();
         });
 
         menu_ResvMod.setOnAction((ActionEvent event) -> {
@@ -79,6 +82,7 @@ public class SlideMenuController implements Initializable {
             }
             modResvLoaded = true;
             addResvLoaded = false;
+            slideMenuCompact();
         });
     }
 
@@ -88,9 +92,12 @@ public class SlideMenuController implements Initializable {
         TranslateTransition closeMenu = new TranslateTransition(new Duration(250), leftMenu);
         TranslateTransition closeMenuQuick = new TranslateTransition(new Duration(50), leftMenu);
 
+        //clickPane will appear when menu slides in, its function is to capture clicks outside the menu from user and
+        //slide the menu out
         Pane clickPane = new Pane();
 
         clickPane.setOpacity(0);
+        //if you notice in slidemenu.fxml there is an AnchorPane behind mainContent used to make setting sizes easier
         AnchorPane.setTopAnchor(clickPane, 50.0);
         AnchorPane.setLeftAnchor(clickPane, 0.0);
         AnchorPane.setRightAnchor(clickPane, 0.0);
@@ -100,13 +107,13 @@ public class SlideMenuController implements Initializable {
             if (leftMenu.getTranslateX() != 0) {
                 openMenu.play();
                 addBlur(mainContent);
-                mainContent.getChildren().add(1, clickPane);
+                mainContent.getChildren().add(1, clickPane); //add the clickPane!
 
                 clickPane.setOnMouseClicked((MouseEvent me) -> {
                     closeMenuQuick.setToX(-(leftMenu.getWidth()));
                     closeMenuQuick.play();
                     removeBlur(mainContent);
-                    mainContent.getChildren().remove(clickPane);
+                    mainContent.getChildren().remove(clickPane); //remove the clickPane when it's being clicked on!
                     btn_Menu.setSelected(false);
                 });
             } else {
@@ -116,6 +123,15 @@ public class SlideMenuController implements Initializable {
                 mainContent.getChildren().remove(clickPane);
             }
         });
+    }
+
+    private void slideMenuCompact(){
+        if (leftMenu.getTranslateX() == 0) {
+            TranslateTransition closeMenuQuick = new TranslateTransition(new Duration(100), leftMenu);
+            closeMenuQuick.setToX(-(leftMenu.getWidth()));
+            closeMenuQuick.play();
+            removeBlur(mainContent);
+        }
     }
 
     private static void removeBlur(Node node) {
