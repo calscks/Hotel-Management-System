@@ -14,7 +14,7 @@
         </AnchorPane>
         <ToolBar prefHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <Button fx:id="btn_Menu" text="Button" />
+            <ToggleButton fx:id="btn_Menu" maxHeight="36.0" maxWidth="36.0" minHeight="36.0" minWidth="36.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="36.0" style="-fx-graphic: url('/images/menu_black.png');" />
             </items>
         </ToolBar>
     </children>

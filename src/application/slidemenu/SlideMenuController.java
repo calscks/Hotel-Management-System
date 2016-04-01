@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 public class SlideMenuController implements Initializable {
 
     @FXML
-    private Button btn_Menu;
+    private ToggleButton btn_Menu;
     @FXML
     private AnchorPane leftMenu;
     @FXML
