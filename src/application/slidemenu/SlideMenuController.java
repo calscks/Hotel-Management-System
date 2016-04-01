@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
@@ -32,6 +31,7 @@ public class SlideMenuController implements Initializable {
     private Button menu_ResvMod;
 
     private Boolean addResvLoaded;
+    private Boolean modResvLoaded;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -48,6 +48,7 @@ public class SlideMenuController implements Initializable {
         mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
                 "/reservation.fxml")));
         addResvLoaded = true;
+        modResvLoaded = false;
 
         menu_ResvAdd.setOnAction((ActionEvent event) -> {
             if (!addResvLoaded) {
@@ -60,16 +61,22 @@ public class SlideMenuController implements Initializable {
                 }
                 System.out.print(mainContent.getChildren());
             }
+            addResvLoaded = true;
+            modResvLoaded = false;
         });
 
         menu_ResvMod.setOnAction((ActionEvent event) -> {
-            mainContent.getChildren().clear();
-            try {
-                mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
-                        "/resvedit.fxml")));
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!modResvLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+                            "/resvedit.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            modResvLoaded = true;
+            addResvLoaded = false;
         });
     }
 
