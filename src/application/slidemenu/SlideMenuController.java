@@ -58,7 +58,7 @@ public class SlideMenuController implements Initializable {
             mainContent.getChildren().clear();
             try {
                 mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
-                        "/ResvEdit.fxml")));
+                        "/resvedit.fxml")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
