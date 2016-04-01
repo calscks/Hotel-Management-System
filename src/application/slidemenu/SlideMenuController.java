@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -84,20 +85,26 @@ public class SlideMenuController implements Initializable {
         TranslateTransition openMenu = new TranslateTransition(new Duration(250), leftMenu);
         openMenu.setToX(0);
         TranslateTransition closeMenu = new TranslateTransition(new Duration(250), leftMenu);
+        TranslateTransition closeMenuQuick = new TranslateTransition(new Duration(50), leftMenu);
 
         btn_Menu.setOnAction((ActionEvent evt) -> {
             if (leftMenu.getTranslateX() != 0) {
                 openMenu.play();
-                blurOut(mainContent);
+                addBlur(mainContent);
+                mainContent.setOnMouseClicked((MouseEvent me) -> {
+                    closeMenuQuick.setToX(-(leftMenu.getWidth()));
+                    closeMenuQuick.play();
+                    removeBlur(mainContent);
+                });
             } else {
                 closeMenu.setToX(-(leftMenu.getWidth()));
                 closeMenu.play();
-                blurIn(mainContent);
+                removeBlur(mainContent);
             }
         });
     }
 
-    private static void blurIn(Node node) {
+    private static void removeBlur(Node node) {
         GaussianBlur blur = (GaussianBlur) node.getEffect();
         Timeline timeline = new Timeline();
         KeyValue kv = new KeyValue(blur.radiusProperty(), 0.0);
@@ -107,7 +114,7 @@ public class SlideMenuController implements Initializable {
         timeline.play();
     }
 
-    private static void blurOut(Node node) {
+    private static void addBlur(Node node) {
         GaussianBlur blur = new GaussianBlur(0.0);
         node.setEffect(blur);
         Timeline timeline = new Timeline();
