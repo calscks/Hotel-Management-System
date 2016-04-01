@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
@@ -30,6 +31,8 @@ public class SlideMenuController implements Initializable {
     @FXML
     private Button menu_ResvMod;
 
+    private Boolean addResvLoaded;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -44,16 +47,21 @@ public class SlideMenuController implements Initializable {
         mainContent.getChildren().clear();
         mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
                 "/reservation.fxml")));
+        addResvLoaded = true;
 
         menu_ResvAdd.setOnAction((ActionEvent event) -> {
-            mainContent.getChildren().clear();
-            try {
-                mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
-                        "/reservation.fxml")));
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!addResvLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+                            "/reservation.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.print(mainContent.getChildren());
             }
         });
+
         menu_ResvMod.setOnAction((ActionEvent event) -> {
             mainContent.getChildren().clear();
             try {
