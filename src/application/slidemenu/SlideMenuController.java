@@ -10,6 +10,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
@@ -87,19 +88,32 @@ public class SlideMenuController implements Initializable {
         TranslateTransition closeMenu = new TranslateTransition(new Duration(250), leftMenu);
         TranslateTransition closeMenuQuick = new TranslateTransition(new Duration(50), leftMenu);
 
+        Pane clickPane = new Pane();
+
+        clickPane.setOpacity(0);
+        AnchorPane.setTopAnchor(clickPane, 50.0);
+        AnchorPane.setLeftAnchor(clickPane, 0.0);
+        AnchorPane.setRightAnchor(clickPane, 0.0);
+        AnchorPane.setBottomAnchor(clickPane, 0.0);
+
         btn_Menu.setOnAction((ActionEvent evt) -> {
             if (leftMenu.getTranslateX() != 0) {
                 openMenu.play();
                 addBlur(mainContent);
-                mainContent.setOnMouseClicked((MouseEvent me) -> {
+                mainContent.getChildren().add(1, clickPane);
+
+                clickPane.setOnMouseClicked((MouseEvent me) -> {
                     closeMenuQuick.setToX(-(leftMenu.getWidth()));
                     closeMenuQuick.play();
                     removeBlur(mainContent);
+                    mainContent.getChildren().remove(clickPane);
+                    btn_Menu.setSelected(false);
                 });
             } else {
                 closeMenu.setToX(-(leftMenu.getWidth()));
                 closeMenu.play();
                 removeBlur(mainContent);
+                mainContent.getChildren().remove(clickPane);
             }
         });
     }
