@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
@@ -24,6 +25,10 @@ public class SlideMenuController implements Initializable {
     private AnchorPane leftMenu;
     @FXML
     private StackPane mainContent;
+    @FXML
+    private Button menu_ResvAdd;
+    @FXML
+    private Button menu_ResvMod;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -37,7 +42,27 @@ public class SlideMenuController implements Initializable {
 
     private void Content() throws IOException {
         mainContent.getChildren().clear();
-        mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation/reservation.fxml")));
+        mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+                "/reservation.fxml")));
+
+        menu_ResvAdd.setOnAction((ActionEvent event) -> {
+            mainContent.getChildren().clear();
+            try {
+                mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+                        "/reservation.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        menu_ResvMod.setOnAction((ActionEvent event) -> {
+            mainContent.getChildren().clear();
+            try {
+                mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+                        "/ResvEdit.fxml")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void SlideMenuAnimate() {
@@ -57,7 +82,7 @@ public class SlideMenuController implements Initializable {
         });
     }
 
-    private static void blurIn (Node node){
+    private static void blurIn(Node node) {
         GaussianBlur blur = (GaussianBlur) node.getEffect();
         Timeline timeline = new Timeline();
         KeyValue kv = new KeyValue(blur.radiusProperty(), 0.0);
@@ -67,7 +92,7 @@ public class SlideMenuController implements Initializable {
         timeline.play();
     }
 
-    private static void blurOut(Node node){
+    private static void blurOut(Node node) {
         GaussianBlur blur = new GaussianBlur(0.0);
         node.setEffect(blur);
         Timeline timeline = new Timeline();
