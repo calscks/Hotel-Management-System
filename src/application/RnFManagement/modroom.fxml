@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RnFManagement.EditRoomController">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RnFManagement.AddRoomController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="675.0" prefWidth="1200.0">
          <children>
@@ -56,8 +56,9 @@
                   </GridPane>
                   <TableView prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                      <TableColumn prefWidth="114.0" text="Room/Facility No." />
-                      <TableColumn prefWidth="70.0" text="Room Type" />
+                      <TableColumn prefWidth="115.0" text="Room/Facility No." />
+                      <TableColumn prefWidth="91.0" text="Room Type" />
+                        <TableColumn prefWidth="98.0" text="Status" />
                     </columns>
                      <VBox.margin>
                         <Insets top="7.0" />
@@ -66,6 +67,7 @@
                   <GridPane alignment="CENTER" hgap="5.0" vgap="5.0">
                     <columnConstraints>
                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
@@ -76,6 +78,7 @@
                               <Insets />
                            </GridPane.margin>
                         </Button>
+                        <Button mnemonicParsing="false" text="Add new room " GridPane.columnIndex="1" />
                      </children>
                      <padding>
                         <Insets bottom="3.0" left="14.0" right="14.0" top="20.0" />
@@ -123,7 +126,19 @@
                   </GridPane>
                </children>
             </VBox>
-            <Button alignment="CENTER" layoutX="765.0" layoutY="425.0" mnemonicParsing="false" text="Edit" />
+            <GridPane hgap="10.0" layoutX="683.0" layoutY="416.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Edit" />
+                  <Button mnemonicParsing="false" text="Confirm" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
          </children>
       </AnchorPane>
    </content>
