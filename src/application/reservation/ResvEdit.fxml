@@ -55,11 +55,6 @@
                               <Insets />
                            </GridPane.margin>
                         </TextField>
-                        <Button mnemonicParsing="false" text="Search" GridPane.columnIndex="2">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </Button>
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />

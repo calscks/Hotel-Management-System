@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<ScrollPane prefHeight="404.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="743.0">
+         <children>
+            <GridPane hgap="10.0" layoutX="416.0" layoutY="113.0" prefHeight="120.0" prefWidth="300.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <VBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Label text="Total Amount :">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Additional Taxes :">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Amount to be Paid :">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="117.0" spacing="10.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label text="RM0.00">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="RM0.00">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="RM0.00">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </GridPane>
+            <VBox layoutX="28.0" layoutY="113.0" prefHeight="229.0" prefWidth="355.0" spacing="8.0" style="-fx-border-color: #808080;">
+               <children>
+                  <Label text="Services" />
+                  <TableView prefHeight="155.0" prefWidth="369.0">
+                     <columns>
+                        <TableColumn prefWidth="99.0" text="Service" />
+                        <TableColumn prefWidth="85.0" text="Price per pax" />
+                        <TableColumn prefWidth="64.0" text="Amount" />
+                        <TableColumn prefWidth="88.0" text="Total" />
+                     </columns>
+                  </TableView>
+                  <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
+                     <columnConstraints>
+                        <ColumnConstraints />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <padding>
+                        <Insets left="140.0" />
+                     </padding>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </VBox>
+            <Button layoutX="529.0" layoutY="308.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="74.0" text="Confirm" />
+            <Button layoutX="28.0" layoutY="66.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="74.0" text="Back" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

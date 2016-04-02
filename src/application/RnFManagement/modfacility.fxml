@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RnFManagement.ModFacController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="675.0" prefWidth="1200.0">
@@ -107,8 +106,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button mnemonicParsing="false" text="Add New Facility" />
-                        <Button mnemonicParsing="false" text="Edit Facility" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" text="Confirm" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" text="Edit Facility" />
                         <Button mnemonicParsing="false" text="Delete Facility" GridPane.columnIndex="2" />
                      </children>
                      <padding>
@@ -127,13 +126,14 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TableView prefHeight="393.0" prefWidth="299.0">
+                  <TableView prefHeight="355.0" prefWidth="299.0">
                     <columns>
                         <TableColumn text="Facility ID." />
                       <TableColumn prefWidth="100.0" text="Facility Name" />
                       <TableColumn prefWidth="118.0" text="Facility Status" />
                     </columns>
                   </TableView>
+                  <Button mnemonicParsing="false" text="Add New Facility" />
                </children>
             </VBox>
          </children>
