@@ -9,7 +9,6 @@
    <children>
       <VBox alignment="TOP_RIGHT" layoutX="73.0" layoutY="37.0" spacing="18.0">
          <children>
-            <Label text="Reservation Number :" />
             <Label text="First Name :" />
             <Label text="Last Name :" />
             <Label text="Phone number :" />
@@ -26,7 +25,6 @@
       </VBox>
       <VBox layoutX="199.0" layoutY="35.0" spacing="10.0">
          <children>
-            <TextField editable="false" />
             <TextField />
             <TextField />
             <TextField />
@@ -38,6 +36,6 @@
             <TextField />
          </children>
       </VBox>
-      <Button layoutX="206.0" layoutY="395.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
+      <Button layoutX="206.0" layoutY="353.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
    </children>
 </AnchorPane>

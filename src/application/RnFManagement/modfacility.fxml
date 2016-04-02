@@ -62,7 +62,10 @@
                         </TextArea>
                         <GridPane hgap="5.0" prefHeight="61.0" prefWidth="194.0" vgap="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
-                              <TextField GridPane.columnIndex="1" />
+                              <TextField GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets right="20.0" />
+                                 </GridPane.margin></TextField>
                               <Label text="Per Hour :" />
                            </children>
                            <columnConstraints>
