@@ -58,5 +58,6 @@
                 <ToggleButton fx:id="btn_Menu" maxHeight="36.0" maxWidth="36.0" minHeight="36.0" minWidth="36.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="36.0" style="-fx-graphic: url('/resource/image/menu_black.png');" />
             </items>
         </ToolBar>
+      <StackPane layoutX="1200.0" layoutY="141.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="50.0" />
     </children>
 </AnchorPane>
