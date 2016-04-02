@@ -1,4 +1,4 @@
 package application.checkout;
 
-public class ChkOutController {
+public class COController {
 }

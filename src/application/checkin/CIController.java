@@ -1,4 +1,4 @@
 package application.checkin;
 
-public class ChkInController {
+public class CIController {
 }
