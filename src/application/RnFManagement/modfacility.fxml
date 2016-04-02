@@ -12,10 +12,10 @@
          <children>
             <VBox layoutX="562.0" layoutY="79.0" prefHeight="528.0" prefWidth="408.0" spacing="10.0">
                <children>
-                  <GridPane prefHeight="90.0" prefWidth="386.0">
+                  <GridPane hgap="10.0" prefHeight="102.0" prefWidth="408.0" vgap="10.0">
                     <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="108.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="280.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
@@ -30,9 +30,20 @@
                         </Label>
                         <Label text="Search by :" GridPane.rowIndex="1" />
                         <Label text="comboboxselected" GridPane.rowIndex="2" />
-                        <ComboBox prefHeight="25.0" prefWidth="189.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </ComboBox>
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </TextField>
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </GridPane>
                   <Label text="Faclity Details">
                      <font>
