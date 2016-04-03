@@ -1,11 +1,11 @@
 package application.checkin;/**
- * Created by User on 1/4/2016.
+ * Created by User on 31/3/2016.
  */
 
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class AddGuest extends Application {
+public class CiAddServController extends Application {
 
     public static void main(String[] args) {
         launch(args);

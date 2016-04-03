@@ -5,7 +5,7 @@ package application.checkin;/**
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class CiAddServ extends Application {
+public class CIAddRoomController extends Application {
 
     public static void main(String[] args) {
         launch(args);
