@@ -5,7 +5,7 @@ package application.checkin;/**
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class AddGroupController extends Application {
+public class CIAddGroupController extends Application {
 
     public static void main(String[] args) {
         launch(args);
