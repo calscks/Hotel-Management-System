@@ -5,7 +5,7 @@ package application.checkin;/**
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class AddGroupMem extends Application {
+public class AddGuest extends Application {
 
     public static void main(String[] args) {
         launch(args);
