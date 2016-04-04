@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvEditController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="675.0" prefWidth="1200.0">
+         <children>
+            <VBox layoutX="226.0" layoutY="112.0" prefHeight="469.0" prefWidth="406.0">
+               <children>
+                  <Label text="Search Using :">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <GridPane hgap="10.0" prefHeight="70.0" prefWidth="400.0" style="-fx-border-color: #808080;" vgap="10.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="10.0" prefWidth="184.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="10.0" prefWidth="211.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <RadioButton mnemonicParsing="false" text="Reservation No.">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="ResvSearchGroup" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Customer Last Name" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <RadioButton mnemonicParsing="false" text="Customer First Name" toggleGroup="$ResvSearchGroup" GridPane.rowIndex="1" />
+                        <RadioButton mnemonicParsing="false" text="Room Number" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </padding>
+                  </GridPane>
+                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="406.0">
+                     <children>
+                        <Label text="Search : " />
+                        <TextField prefHeight="25.0" prefWidth="245.0" />
+                     </children>
+                  </HBox>
+                  <TableView prefHeight="242.0" prefWidth="401.0">
+                    <columns>
+                      <TableColumn editable="false" prefWidth="95.0" sortable="false" text="Reservation No." />
+                      <TableColumn editable="false" prefWidth="100.0" sortable="false" text="First Name" />
+                        <TableColumn editable="false" prefWidth="96.0" sortable="false" text="Last Name" />
+                        <TableColumn editable="false" prefWidth="108.0" sortable="false" text="Room No" />
+                    </columns>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="10.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <GridPane alignment="CENTER">
+                    <columnConstraints>
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="56.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="147.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="140.0" minWidth="10.0" prefWidth="140.0" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="96.0" minWidth="10.0" prefWidth="62.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button disable="true" mnemonicParsing="false" text="Cancel Reservation" GridPane.columnIndex="2">
+                           <GridPane.margin>
+                              <Insets left="24.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button disable="true" mnemonicParsing="false" text="Edit" GridPane.columnIndex="1" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </GridPane>
+               </children>
+            </VBox>
+            <VBox layoutX="670.0" layoutY="112.0" prefHeight="451.0" prefWidth="342.0">
+               <children>
+                  <Label text="Reservation Details">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="410.0" prefWidth="305.0">
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="410.0" prefWidth="178.0" spacing="18.0">
+                           <children>
+                              <Label text="Reservation Number :" />
+                              <Label text="First Name :" />
+                              <Label text="Last Name :" />
+                              <Label text="Phone Number :" />
+                              <Label text="Address :" />
+                              <Label text="Post Code :" />
+                              <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
+                              <Label text="Country :" />
+                              <Label text="ID Type :" />
+                              <Label text="ID No. :" />
+                              <Label text="Check In Date :" />
+                              <Label text="Check Out Date :" />
+                           </children>
+                           <padding>
+                              <Insets right="3.0" top="3.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="410.0" prefWidth="212.0" spacing="10.0">
+                           <children>
+                              <TextField editable="false" />
+                              <TextField editable="false" />
+                              <TextField editable="false" />
+                              <TextField editable="false" />
+                              <TextField editable="false" />
+                              <TextField editable="false" />
+                              <TextField editable="false" />
+                              <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
+                              <TextField editable="false" />
+                              <TextField editable="false" />
+                              <DatePicker editable="false" prefHeight="25.0" prefWidth="189.0" />
+                              <DatePicker editable="false" prefHeight="25.0" prefWidth="190.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button layoutX="794.0" layoutY="581.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" text="Confirm Edit" />
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

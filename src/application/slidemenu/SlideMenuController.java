@@ -47,7 +47,7 @@ public class SlideMenuController implements Initializable {
 
     private void Content() throws IOException {
         mainContent.getChildren().clear();
-        mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+        mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/reservation" +
                 "/reservation.fxml")));
         addResvLoaded = true;
         modResvLoaded = false;
@@ -56,7 +56,7 @@ public class SlideMenuController implements Initializable {
             if (!addResvLoaded) {
                 mainContent.getChildren().clear();
                 try {
-                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/reservation" +
                             "/reservation.fxml")));
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -73,7 +73,7 @@ public class SlideMenuController implements Initializable {
             if (!modResvLoaded) {
                 mainContent.getChildren().clear();
                 try {
-                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/reservation" +
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/reservation" +
                             "/resvedit.fxml")));
                 } catch (IOException e) {
                     e.printStackTrace();
