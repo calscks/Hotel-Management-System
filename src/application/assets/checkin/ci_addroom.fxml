@@ -6,21 +6,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="395.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="84.0" layoutY="48.0" text="Room Details">
+      <Label layoutX="50.0" layoutY="17.0" text="Room Details">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TableView layoutX="405.0" layoutY="69.0" prefHeight="195.0" prefWidth="311.0">
+      <TableView layoutX="371.0" layoutY="38.0" prefHeight="195.0" prefWidth="311.0">
          <columns>
             <TableColumn prefWidth="145.0" text="Available room" />
             <TableColumn prefWidth="164.0" text="Room Type" />
          </columns>
       </TableView>
-      <Button layoutX="529.0" layoutY="309.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
-      <HBox layoutX="84.0" layoutY="69.0" prefHeight="340.0" prefWidth="311.0" spacing="5.0">
+      <Button layoutX="495.0" layoutY="278.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
+      <HBox layoutX="50.0" layoutY="38.0" prefHeight="258.0" prefWidth="311.0" spacing="5.0">
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="340.0" prefWidth="124.0" spacing="23.0">
                <children>
@@ -46,7 +46,7 @@
             <Insets top="10.0" />
          </padding>
       </HBox>
-      <HBox layoutX="405.0" layoutY="276.0" prefHeight="33.0" prefWidth="311.0" spacing="10.0">
+      <HBox alignment="CENTER" layoutX="371.0" layoutY="243.0" prefHeight="33.0" prefWidth="311.0" spacing="10.0">
          <children>
             <Label prefHeight="17.0" prefWidth="150.0" text="Room No :" />
             <TextField prefHeight="25.0" prefWidth="331.0">
