@@ -58,7 +58,7 @@
                               <Insets right="20.0" />
                            </GridPane.margin>
                         </TextField>
-                        <Label text="Facility ID :" />
+                        <Label text="Facility Number :" />
                         <TextField GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets right="20.0" />
