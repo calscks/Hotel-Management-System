@@ -10,8 +10,8 @@
    <children>
       <TableView layoutX="25.0" layoutY="75.0" prefHeight="271.0" prefWidth="311.0">
          <columns>
-            <TableColumn prefWidth="103.0" text="Available room" />
-            <TableColumn prefWidth="130.0" text="Room Type" />
+            <TableColumn prefWidth="153.0" text="Available room" />
+            <TableColumn prefWidth="157.0" text="Room Type" />
          </columns>
       </TableView>
       <GridPane hgap="10.0" layoutX="25.0" layoutY="27.0" prefHeight="48.0" prefWidth="311.0">
@@ -76,7 +76,6 @@
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                <children>
                   <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Check" />
                </children>
                <VBox.margin>
                   <Insets top="15.0" />
