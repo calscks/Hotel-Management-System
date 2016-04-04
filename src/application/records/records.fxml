@@ -6,24 +6,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<ScrollPane prefHeight="768.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="890.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0">
          <children>
-            <VBox layoutX="83.0" layoutY="14.0" prefHeight="76.0" prefWidth="95.0" spacing="19.0">
+            <VBox layoutX="239.0" layoutY="17.0" prefHeight="76.0" prefWidth="95.0" spacing="19.0">
                <children>
                   <Label text="Search For :" />
                   <Label text="comboboxlabel :" />
                </children>
             </VBox>
-            <VBox layoutX="209.0" layoutY="14.0" prefHeight="76.0" prefWidth="200.0" spacing="10.0">
+            <VBox layoutX="365.0" layoutY="17.0" prefHeight="76.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <ComboBox prefHeight="25.0" prefWidth="216.0" />
                   <TextField />
                </children>
             </VBox>
-            <AnchorPane layoutX="447.0" layoutY="62.0" prefHeight="364.0" prefWidth="411.0" style="-fx-border-color: #ababab;">
+            <AnchorPane layoutX="603.0" layoutY="17.0" prefHeight="412.0" prefWidth="409.0" style="-fx-border-color: #ababab;">
                <children>
                   <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" spacing="12.0">
                      <children>
@@ -151,7 +150,7 @@
                   <TextArea layoutX="189.0" layoutY="39.0" prefHeight="128.0" prefWidth="204.0" />
                </children>
             </AnchorPane>
-            <VBox layoutX="209.0" layoutY="90.0" spacing="10.0">
+            <VBox layoutX="365.0" layoutY="93.0" spacing="10.0">
                <children>
                   <TextField editable="false" />
                   <TextField />
@@ -165,7 +164,7 @@
                   <TextField />
                </children>
             </VBox>
-            <VBox alignment="TOP_RIGHT" layoutX="65.0" layoutY="90.0" spacing="18.0">
+            <VBox alignment="TOP_RIGHT" layoutX="221.0" layoutY="93.0" spacing="18.0">
                <children>
                   <Label text="Reservation Number :" />
                   <Label text="First Name :" />
@@ -182,7 +181,7 @@
                   <Insets top="3.0" />
                </padding>
             </VBox>
-            <VBox layoutX="33.0" layoutY="445.0" prefHeight="210.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
+            <VBox layoutX="189.0" layoutY="448.0" prefHeight="210.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Rooms" />
                   <TableView prefHeight="159.0" prefWidth="318.0">
@@ -201,7 +200,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
             </VBox>
-            <VBox layoutX="449.0" layoutY="445.0" prefHeight="210.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
+            <VBox layoutX="605.0" layoutY="448.0" prefHeight="210.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Facility" />
                   <TableView prefHeight="159.0" prefWidth="318.0">
