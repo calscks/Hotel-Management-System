@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<ScrollPane prefHeight="768.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="890.0">
+         <children>
+            <VBox layoutX="83.0" layoutY="14.0" prefHeight="76.0" prefWidth="95.0" spacing="19.0">
+               <children>
+                  <Label text="Search For :" />
+                  <Label text="comboboxlabel :" />
+               </children>
+            </VBox>
+            <VBox layoutX="209.0" layoutY="14.0" prefHeight="76.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ComboBox prefHeight="25.0" prefWidth="216.0" />
+                  <TextField />
+               </children>
+            </VBox>
+            <AnchorPane layoutX="447.0" layoutY="62.0" prefHeight="364.0" prefWidth="411.0" style="-fx-border-color: #ababab;">
+               <children>
+                  <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" spacing="12.0">
+                     <children>
+                        <Label text="Reference No :">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text="Total :">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="27.0" text="Discount :">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="44.0" text="Tax :">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="61.0" text="Deposit :">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox layoutX="118.0" layoutY="14.0" spacing="12.0">
+                     <children>
+                        <Label text="RefNo">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="RM">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="RM">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="RM">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="RM">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Label layoutX="73.0" layoutY="187.0" text="SUBTOTAL: ">
+                     <font>
+                        <Font name="System Bold Italic" size="28.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="231.0" layoutY="187.0" text="RMX.XX">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Label>
+                  <GridPane hgap="10.0" layoutX="104.0" layoutY="236.0" prefHeight="90.0" prefWidth="204.0" vgap="10.0">
+                     <children>
+                        <Label text="Balance :" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="RMX.xx" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                        <Label text="Amount Paid:" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="RMX.xx" GridPane.columnIndex="1">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="93.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="101.0" />
+                     </columnConstraints>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <Label layoutX="250.0" layoutY="14.0" text="Extra Notes" textFill="#901f1f">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+                  <TextArea layoutX="189.0" layoutY="39.0" prefHeight="128.0" prefWidth="204.0" />
+               </children>
+            </AnchorPane>
+            <VBox layoutX="209.0" layoutY="90.0" spacing="10.0">
+               <children>
+                  <TextField editable="false" />
+                  <TextField />
+                  <TextField />
+                  <TextField />
+                  <TextField />
+                  <TextField />
+                  <TextField />
+                  <ComboBox fx:id="chkinIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField />
+                  <TextField />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_RIGHT" layoutX="65.0" layoutY="90.0" spacing="18.0">
+               <children>
+                  <Label text="Reservation Number :" />
+                  <Label text="First Name :" />
+                  <Label text="Last Name :" />
+                  <Label text="Phone Number :" />
+                  <Label text="Address :" />
+                  <Label text="Post Code :" />
+                  <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
+                  <Label text="Country :" />
+                  <Label text="ID Type :" />
+                  <Label text="ID No. :" />
+               </children>
+               <padding>
+                  <Insets top="3.0" />
+               </padding>
+            </VBox>
+            <VBox layoutX="33.0" layoutY="445.0" prefHeight="210.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
+               <children>
+                  <Label text="Rooms" />
+                  <TableView prefHeight="159.0" prefWidth="318.0">
+                     <columns>
+                        <TableColumn prefWidth="106.0" text="Reserved Rooms" />
+                        <TableColumn prefWidth="81.0" text="Room Type" />
+                        <TableColumn prefWidth="109.0" text="Booking Date" />
+                        <TableColumn prefWidth="92.0" text="Ending Date" />
+                     </columns>
+                  </TableView>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </VBox>
+            <VBox layoutX="449.0" layoutY="445.0" prefHeight="210.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
+               <children>
+                  <Label text="Facility" />
+                  <TableView prefHeight="159.0" prefWidth="318.0">
+                     <columns>
+                        <TableColumn prefWidth="106.0" text="Booked facilities" />
+                        <TableColumn prefWidth="86.0" text="Facility Price" />
+                        <TableColumn prefWidth="108.0" text="Booking Date" />
+                        <TableColumn prefWidth="88.0" text="Ending Date" />
+                     </columns>
+                  </TableView>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
