@@ -2,8 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -40,10 +40,7 @@
                      <children>
                         <Label text="Facility Name :" GridPane.rowIndex="1" />
                         <Label text="Facility Description :" GridPane.rowIndex="2" />
-                        <Label text="Facility Price :" GridPane.rowIndex="3">
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding></Label>
+                        <Label text="Facility Price :" GridPane.rowIndex="3" />
                         <TextArea prefWidth="271.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets right="20.0" />
@@ -60,30 +57,18 @@
                               <Insets right="20.0" />
                            </GridPane.margin>
                         </TextField>
-                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="47.0">
+                              <VBox prefHeight="80.0" prefWidth="151.0" spacing="10.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" text="Daily Basis">
-                                       <padding>
-                                          <Insets top="10.0" />
-                                       </padding>
-                                    </RadioButton>
-                                    <TextField prefWidth="147.0" promptText="Price per Day">
-                                       <HBox.margin>
-                                          <Insets top="5.0" />
-                                       </HBox.margin>
-                                    </TextField>
+                                    <CheckBox mnemonicParsing="false" text="CheckBox" />
+                                    <CheckBox mnemonicParsing="false" text="CheckBox" />
+                                    <CheckBox mnemonicParsing="false" text="CheckBox" />
                                  </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="37.0">
-                                 <children>
-                                    <RadioButton mnemonicParsing="false" text="Hourly Basis" />
-                                    <TextField promptText="Price per Hour" />
-                                 </children>
-                              </HBox>
+                              </VBox>
+                              <VBox prefHeight="80.0" prefWidth="246.0" />
                            </children>
-                        </VBox>
+                        </HBox>
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
