@@ -6,82 +6,59 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvRoomController">
-   <children>
-      <TableView layoutX="25.0" layoutY="75.0" prefHeight="271.0" prefWidth="311.0">
-         <columns>
-            <TableColumn prefWidth="153.0" text="Available room" />
-            <TableColumn prefWidth="157.0" text="Room Type" />
-         </columns>
-      </TableView>
-      <GridPane hgap="10.0" layoutX="25.0" layoutY="27.0" prefHeight="48.0" prefWidth="311.0">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.reservation.ResvRoomController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0">
          <children>
-            <Label text="Room type :" />
-            <Button mnemonicParsing="false" prefHeight="15.0" prefWidth="64.0" text="Search" GridPane.columnIndex="2" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-         </children>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="10.0" prefWidth="67.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="145.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="67.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-      </GridPane>
-      <VBox layoutX="347.0" layoutY="33.0" prefHeight="314.0" prefWidth="359.0" style="-fx-border-color: #808080;">
-         <children>
-            <GridPane hgap="10.0" prefHeight="285.0" prefWidth="327.0" vgap="10.0">
+            <Label layoutX="284.0" layoutY="157.0" text="Room Details">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <TableView layoutX="605.0" layoutY="178.0" prefHeight="195.0" prefWidth="311.0">
+               <columns>
+                  <TableColumn prefWidth="145.0" text="Available room" />
+                  <TableColumn prefWidth="164.0" text="Room Type" />
+               </columns>
+            </TableView>
+            <Button layoutX="729.0" layoutY="418.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
+            <HBox layoutX="284.0" layoutY="178.0" prefHeight="340.0" prefWidth="311.0" spacing="5.0">
                <children>
-                  <VBox alignment="TOP_RIGHT" prefHeight="164.0" prefWidth="144.0" spacing="18.0" GridPane.rowIndex="1">
+                  <VBox alignment="TOP_RIGHT" prefHeight="340.0" prefWidth="124.0" spacing="23.0">
                      <children>
+                        <Label text="Room Type :" />
                         <Label text="Check In :" />
                         <Label text="Check Out :" />
-                        <Label text="Room Type :" />
-                        <Label text="Room No :" />
                      </children>
-                     <padding>
-                        <Insets top="3.0" />
-                     </padding>
                   </VBox>
-                  <VBox prefHeight="164.0" prefWidth="187.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <VBox prefHeight="340.0" prefWidth="268.0" spacing="14.0">
                      <children>
-                        <DatePicker prefWidth="205.0" />
-                        <DatePicker prefWidth="205.0" />
                         <ComboBox fx:id="resvRoomType_CBox" prefHeight="25.0" prefWidth="206.0" />
-                        <TextField />
+                        <DatePicker prefWidth="205.0" />
+                        <DatePicker prefWidth="205.0" />
+                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Search">
+                           <VBox.margin>
+                              <Insets left="40.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
-                     <padding>
-                        <Insets top="3.0" />
-                     </padding>
                   </VBox>
-                  <Label text="Room Details">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
                </children>
-               <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="98.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="207.0" minWidth="10.0" prefWidth="207.0" />
-               </columnConstraints>
                <padding>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                  <Insets top="10.0" />
                </padding>
-               <rowConstraints>
-                  <RowConstraints maxHeight="87.0" minHeight="10.0" prefHeight="22.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="229.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+            </HBox>
+            <HBox layoutX="605.0" layoutY="385.0" prefHeight="33.0" prefWidth="311.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
+                  <Label prefHeight="17.0" prefWidth="150.0" text="Room No :" />
+                  <TextField prefHeight="25.0" prefWidth="331.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
                </children>
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin>
             </HBox>
          </children>
-      </VBox>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </content>
+</ScrollPane>
