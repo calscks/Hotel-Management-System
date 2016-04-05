@@ -27,7 +27,7 @@
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="675.0" prefWidth="1223.0">
          <children>
-            <VBox layoutX="33.0" layoutY="32.0" prefHeight="454.0" prefWidth="406.0">
+            <VBox layoutX="33.0" layoutY="32.0" prefHeight="612.0" prefWidth="406.0">
                <children>
                   <Label text="Search Using :">
                      <VBox.margin>
@@ -68,7 +68,7 @@
                         <TextField prefHeight="25.0" prefWidth="245.0" />
                      </children>
                   </HBox>
-                  <TableView prefHeight="242.0" prefWidth="401.0">
+                  <TableView prefHeight="364.0" prefWidth="401.0">
                     <columns>
                       <TableColumn editable="false" prefWidth="95.0" sortable="false" text="Reservation No." />
                       <TableColumn editable="false" prefWidth="100.0" sortable="false" text="First Name" />
@@ -147,7 +147,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Button layoutX="773.0" layoutY="601.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" text="Confirm Edit" />
+            <Button layoutX="773.0" layoutY="611.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" text="Confirm Edit" />
             <VBox layoutX="820.0" layoutY="313.0" prefHeight="270.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Facility" />
