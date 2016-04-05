@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -17,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.RnFManagement.AddRoomController">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.RnFManagement.AddRoomController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="675.0" prefWidth="1200.0">
          <children>
@@ -76,15 +81,13 @@
                   </Label>
                   <GridPane hgap="10.0" prefHeight="413.0" prefWidth="309.0" vgap="10.0">
                      <children>
-                        <Label text="Type :" />
+                        <Label text="Room Category :" />
                         <Label text="Room No. :" GridPane.rowIndex="1" />
                         <Label text="Room Type :" GridPane.rowIndex="2" />
                         <Label text="Pax per Room :" GridPane.rowIndex="3" />
                         <Label text="Extra Bed :" GridPane.rowIndex="5" />
-                        <ComboBox prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <ComboBox prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Twin Bed Price :" GridPane.rowIndex="7" />
                         <Label text="Full Bed Price :" GridPane.rowIndex="8" />
                         <Label text="Queen Bed Price :" GridPane.rowIndex="9" />
@@ -106,6 +109,8 @@
                            </font>
                         </Label>
                         <ChoiceBox prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField GridPane.columnIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="112.0" />
