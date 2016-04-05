@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -66,24 +67,23 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox layoutX="615.0" layoutY="95.0" prefHeight="485.0" prefWidth="304.0" spacing="6.0">
+            <VBox layoutX="615.0" layoutY="95.0" prefHeight="485.0" prefWidth="315.0" spacing="6.0">
                <children>
                   <Label text="Room Details">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <GridPane hgap="10.0" prefHeight="417.0" prefWidth="298.0" vgap="10.0">
+                  <GridPane hgap="10.0" prefHeight="413.0" prefWidth="309.0" vgap="10.0">
                      <children>
                         <Label text="Type :" />
                         <Label text="Room No. :" GridPane.rowIndex="1" />
                         <Label text="Room Type :" GridPane.rowIndex="2" />
                         <Label text="Pax per Room :" GridPane.rowIndex="3" />
-                        <Label text="Extra Bed Limit :" GridPane.rowIndex="5" />
+                        <Label text="Extra Bed :" GridPane.rowIndex="5" />
                         <ComboBox prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <ComboBox prefHeight="25.0" prefWidth="204.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Twin Bed Price :" GridPane.rowIndex="7" />
                         <Label text="Full Bed Price :" GridPane.rowIndex="8" />
@@ -95,15 +95,21 @@
                         <TextField layoutX="120.0" layoutY="313.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <Label text="Room Price :" GridPane.rowIndex="4" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Extra Bed Prices" underline="true" GridPane.halignment="LEFT" GridPane.rowIndex="6">
+                        <Label text="Extra Bed Prices*" underline="true" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Bold Italic" size="13.0" />
                            </font>
                         </Label>
+                        <Label text="*Leave blank to exclude certain type(s) of extra bed" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="System Italic" size="10.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                      </children>
                      <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="188.0" />
+                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="112.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="187.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints vgrow="SOMETIMES" />
@@ -112,8 +118,8 @@
                         <RowConstraints vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
