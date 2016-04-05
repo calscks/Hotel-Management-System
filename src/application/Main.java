@@ -30,7 +30,8 @@ public class Main extends Application {
         Connection c = null;
         PreparedStatement tableQuery;
         String[] create;
-        create = new String[]{"CREATE TABLE IF NOT EXISTS Admin\n" +
+        create = new String[]{
+                "CREATE TABLE IF NOT EXISTS Admin\n" +
                 "(\n" +
                 "    AUName TEXT PRIMARY KEY,\n" +
                 "    APwd TEXT\n" +
@@ -141,10 +142,9 @@ public class Main extends Application {
                         "    Bal_Total REAL,\n" +
                         "    CCardNo INTEGER,\n" +
                         "    DiscountID TEXT,\n" +
-                        "    PayDate TEXT\n" +
+                        "    PayDate TEXT,\n" +
                         "    ResvNo INTEGER,\n" +
-                        "    CIO_ID INTEGER" +
-                        ");\n",
+                        "    CIO_ID INTEGER);\n",
                 "CREATE TABLE IF NOT EXISTS Reservation\n" +
                         "(\n" +
                         "    CustID INTEGER PRIMARY KEY,\n" +
@@ -154,7 +154,7 @@ public class Main extends Application {
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Room\n" +
                         "(\n" +
-                        "    RoomNo TEXT,\n" +
+                        "    RoomNo TEXT PRIMARY KEY,\n" +
                         "    RoomTypeID INTEGER\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS RoomAvailability\n" +
