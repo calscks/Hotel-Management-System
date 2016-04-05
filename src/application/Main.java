@@ -27,7 +27,7 @@ public class Main extends Application {
 
 
     private void createTable() {
-        Connection c;
+        Connection c = null;
         PreparedStatement tableQuery;
         String[] create;
         create = new String[]{"CREATE TABLE IF NOT EXISTS Admin\n" +
@@ -37,11 +37,12 @@ public class Main extends Application {
                 ");\n",
                 "CREATE TABLE IF NOT EXISTS CheckInOut\n" +
                         "(\n" +
-                        "    CustID INTEGER PRIMARY KEY,\n" +
+                        "    CustID INTEGER,\n" +
                         "    CheckInDate TEXT,\n" +
                         "    CheckOutDate TEXT,\n" +
-                        "    RoomID INTEGER,\n" +
-                        "    Status TEXT\n" +
+                        "    Status TEXT,\n" +
+                        "    CIO_ID INTEGER PRIMARY KEY,\n" +
+                        "    RoomNo TEXT\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS CustAddress\n" +
                         "(\n" +
@@ -49,15 +50,15 @@ public class Main extends Application {
                         "    Address TEXT,\n" +
                         "    PostCode TEXT,\n" +
                         "    City TEXT,\n" +
-                        "    Country TEXT,\n" +
-                        "    Blacklisted TEXT\n" +
+                        "    Country TEXT\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Customer\n" +
                         "(\n" +
+                        "    CustID TEXT PRIMARY KEY,\n" +
+                        "    CustID_Type TEXT,\n" +
                         "    CustFName TEXT,\n" +
                         "    CustLName TEXT,\n" +
-                        "    CustID_Type TEXT,\n" +
-                        "    CustID INTEGER PRIMARY KEY\n" +
+                        "    Blacklisted TEXT\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS CustomerGroup\n" +
                         "(\n" +
@@ -76,19 +77,34 @@ public class Main extends Application {
                         ");\n",
                 "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpID_uindex ON Employee (EmpID);\n",
                 "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpUname_uindex ON Employee (EmpUName);\n",
-                "CREATE TABLE IF NOT EXISTS FacBooking\n" +
+                "CREATE TABLE IF NOT EXISTS ExtPayList\n" +
                         "(\n" +
-                        "    BookID INTEGER PRIMARY KEY,\n" +
-                        "    BookDateTime TEXT,\n" +
-                        "    BookDuration TEXT,\n" +
-                        "    FacID INTEGER\n" +
+                        "    ID INTEGER,\n" +
+                        "    ExtPaymentDetails TEXT,\n" +
+                        "    Price REAL\n" +
+                        ");\n",
+                "CREATE TABLE IF NOT EXISTS ExtPayment\n" +
+                        "(\n" +
+                        "    ExtPaymentID INTEGER PRIMARY KEY,\n" +
+                        "    CIO_ID INTEGER,\n" +
+                        "    ExtPayListID INTEGER,\n" +
+                        "    Total REAL\n" +
+                        ");\n",
+                "CREATE TABLE IF NOT EXISTS FacBookedDate\n" +
+                        "(\n" +
+                        "    FacNo TEXT,\n" +
+                        "    Date TEXT,\n" +
+                        "    Morning INTEGER,\n" +
+                        "    Night INTEGER,\n" +
+                        "    WholeDay INTEGER,\n" +
+                        "    ResvNo INTEGER\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS FacType\n" +
                         "(\n" +
-                        "    FacID INTEGER PRIMARY KEY,\n" +
+                        "    FacNo TEXT PRIMARY KEY,\n" +
                         "    FacName TEXT,\n" +
                         "    FacDesc TEXT,\n" +
-                        "    FacStatus TEXT\n" +
+                        "    FacPrice REAL\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Invoice\n" +
                         "(\n" +
@@ -126,39 +142,47 @@ public class Main extends Application {
                         "    CCardNo INTEGER,\n" +
                         "    DiscountID TEXT,\n" +
                         "    PayDate TEXT\n" +
+                        "    ResvNo INTEGER,\n" +
+                        "    CIO_ID INTEGER" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Reservation\n" +
                         "(\n" +
                         "    CustID INTEGER PRIMARY KEY,\n" +
                         "    CheckInDate TEXT,\n" +
                         "    CheckOutDate TEXT,\n" +
-                        "    RoomID INTEGER\n" +
+                        "    ResvNo INTEGER\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Room\n" +
                         "(\n" +
-                        "    RoomID INTEGER PRIMARY KEY,\n" +
                         "    RoomNo TEXT,\n" +
-                        "    RoomStatus TEXT,\n" +
                         "    RoomTypeID INTEGER\n" +
                         ");\n",
-                "CREATE TABLE IF NOT EXISTS RoomAddon\n" +
+                "CREATE TABLE IF NOT EXISTS RoomAvailability\n" +
                         "(\n" +
-                        "    RoomID INTEGER PRIMARY KEY,\n" +
-                        "    AddonTypeID INTEGER\n" +
-                        ");\n",
-                "CREATE TABLE IF NOT EXISTS RoomAddonType\n" +
+                        "    RoomNo TEXT,\n" +
+                        "    Date_CI TEXT,\n" +
+                        "    Date_CO TEXT\n" +
+                        ");",
+                "CREATE TABLE IF NOT EXISTS RoomBooking\n" +
                         "(\n" +
-                        "    AddonTypeID INTEGER PRIMARY KEY,\n" +
-                        "    AddonName TEXT,\n" +
-                        "    AddonPrice REAL\n" +
-                        ");\n",
+                        "    ResvNo INTEGER,\n" +
+                        "    RoomNo TEXT\n" +
+                        ");",
                 "CREATE TABLE IF NOT EXISTS RoomType\n" +
                         "(\n" +
                         "    TypeID INTEGER PRIMARY KEY,\n" +
+                        "    TypeGroup TEXT,\n" +
                         "    TypeName TEXT,\n" +
                         "    MaxPax INTEGER,\n" +
-                        "    ExtBedLimit INTEGER,\n" +
-                        "    Rate_ExtSingleBed REAL\n" +
+                        "    Rate_extTwin REAL,\n" +
+                        "    Rate_extFull REAL,\n" +
+                        "    Rate_extQueen REAL,\n" +
+                        "    Rate_extKing REAL\n" +
+                        ");",
+                "CREATE TABLE IF NOT EXISTS variables\n" +
+                        "(\n" +
+                        "    deposit REAL,\n" +
+                        "    taxrate REAL\n" +
                         ");"}; //each comma separates between values in the
         // array in case you didn't notice
         try {
@@ -181,6 +205,14 @@ public class Main extends Application {
             conAlert.setHeaderText("Database Connection Problem");
             conAlert.setContentText(e.getClass().getName() + ": " + e.getMessage());
             conAlert.showAndWait();
+        } finally {
+            try {
+                if (c != null) {
+                    c.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
