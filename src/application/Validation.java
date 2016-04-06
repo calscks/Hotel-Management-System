@@ -4,9 +4,14 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
-
+/**please use these validations on any text fields you want.
+ * Usage:
+ * <code>
+ *     theTextField.addEventFilter(KeyEvent.KEY_TYPED, Validation.oneOfTheMethodsBelow( int maxLength));
+ * </code>
+ * <p>validNo</p>
+ * <p>validChar</p>*/
 public class Validation {
-
     public static EventHandler<KeyEvent> validNo(final Integer maxLength) {
         return e -> {
             TextField tf = (TextField) e.getSource();

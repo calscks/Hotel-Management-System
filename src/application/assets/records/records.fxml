@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0">
          <children>
-            <VBox layoutX="239.0" layoutY="17.0" prefHeight="76.0" prefWidth="95.0" spacing="19.0">
-               <children>
-                  <Label text="Search For :" />
-                  <Label text="comboboxlabel :" />
-               </children>
-            </VBox>
-            <VBox layoutX="365.0" layoutY="17.0" prefHeight="76.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <ComboBox prefHeight="25.0" prefWidth="216.0" />
-                  <TextField />
-               </children>
-            </VBox>
             <AnchorPane layoutX="603.0" layoutY="17.0" prefHeight="412.0" prefWidth="409.0" style="-fx-border-color: #ababab;">
                <children>
                   <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" spacing="12.0">
@@ -150,8 +147,13 @@
                   <TextArea layoutX="189.0" layoutY="39.0" prefHeight="128.0" prefWidth="204.0" />
                </children>
             </AnchorPane>
-            <VBox layoutX="365.0" layoutY="93.0" spacing="10.0">
+            <VBox layoutX="313.0" layoutY="15.0" prefHeight="404.0" prefWidth="217.0" spacing="10.0">
                <children>
+                  <ComboBox prefHeight="25.0" prefWidth="216.0" />
+                  <TextField>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></TextField>
                   <TextField editable="false" />
                   <TextField />
                   <TextField />
@@ -159,13 +161,18 @@
                   <TextField />
                   <TextField />
                   <TextField />
-                  <ComboBox fx:id="chkinIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
+                  <ComboBox fx:id="chkinIdType_CBox" prefHeight="25.0" prefWidth="217.0" />
                   <TextField />
                   <TextField />
                </children>
             </VBox>
-            <VBox alignment="TOP_RIGHT" layoutX="221.0" layoutY="93.0" spacing="18.0">
+            <VBox alignment="TOP_RIGHT" layoutX="189.0" layoutY="15.0" spacing="18.0">
                <children>
+                  <Label text="Search For :" />
+                  <Label text="comboboxlabel :">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin></Label>
                   <Label text="Reservation Number :" />
                   <Label text="First Name :" />
                   <Label text="Last Name :" />

@@ -31,9 +31,27 @@ public class SlideMenuController implements Initializable {
     private Button menu_ResvAdd;
     @FXML
     private Button menu_ResvMod;
+    @FXML
+    private Button menu_CI;
+    @FXML
+    private Button menu_CO;
+    @FXML
+    private Button menu_ModRoom;
+    @FXML
+    private Button menu_ModFac;
+    @FXML
+    private Button menu_SRecord;
+    @FXML
+    private Button menu_Report;
 
     private Boolean addResvLoaded;
     private Boolean modResvLoaded;
+    private Boolean CILoaded;
+    private Boolean COLoaded;
+    private Boolean modRoomLoaded;
+    private Boolean modFacLoaded;
+    private Boolean sRecLoaded;
+    private Boolean ReportLoaded;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,6 +69,12 @@ public class SlideMenuController implements Initializable {
                 "/reservation.fxml")));
         addResvLoaded = true;
         modResvLoaded = false;
+        CILoaded = false;
+        COLoaded = false;
+        modRoomLoaded = false;
+        modFacLoaded = false;
+        sRecLoaded = false;
+        ReportLoaded = false;
 
         menu_ResvAdd.setOnAction((ActionEvent event) -> {
             if (!addResvLoaded) { //addResvLoaded == false
@@ -65,6 +89,13 @@ public class SlideMenuController implements Initializable {
             }
             addResvLoaded = true;
             modResvLoaded = false;
+            CILoaded = false;
+            COLoaded = false;
+            modRoomLoaded = false;
+            modFacLoaded = false;
+            sRecLoaded = false;
+            ReportLoaded = false;
+
             slideMenuCompact();
             btn_Menu.setSelected(false);
         });
@@ -73,14 +104,159 @@ public class SlideMenuController implements Initializable {
             if (!modResvLoaded) {
                 mainContent.getChildren().clear();
                 try {
-                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/reservation" +
-                            "/resvedit.fxml")));
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "reservation/resvedit.fxml")));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            modResvLoaded = true;
             addResvLoaded = false;
+            modResvLoaded = true;
+            CILoaded = false;
+            COLoaded = false;
+            modRoomLoaded = false;
+            modFacLoaded = false;
+            sRecLoaded = false;
+            ReportLoaded = false;
+
+            slideMenuCompact();
+            btn_Menu.setSelected(false);
+        });
+
+        menu_CI.setOnAction((ActionEvent event) -> {
+            if (!CILoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "checkin/checkin.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            addResvLoaded = false;
+            modResvLoaded = false;
+            CILoaded = true;
+            COLoaded = false;
+            modRoomLoaded = false;
+            modFacLoaded = false;
+            sRecLoaded = false;
+            ReportLoaded = false;
+
+            slideMenuCompact();
+            btn_Menu.setSelected(false);
+        });
+
+        menu_CO.setOnAction((ActionEvent event) -> {
+            if (!COLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "checkout/checkout.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            addResvLoaded = false;
+            modResvLoaded = true;
+            CILoaded = false;
+            COLoaded = true;
+            modRoomLoaded = false;
+            modFacLoaded = false;
+            sRecLoaded = false;
+            ReportLoaded = false;
+
+            slideMenuCompact();
+            btn_Menu.setSelected(false);
+        });
+
+        menu_ModRoom.setOnAction((ActionEvent event) -> {
+            if (!modRoomLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "RnFManagement/modroom.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            addResvLoaded = false;
+            modResvLoaded = true;
+            CILoaded = false;
+            COLoaded = false;
+            modRoomLoaded = true;
+            modFacLoaded = false;
+            sRecLoaded = false;
+            ReportLoaded = false;
+
+            slideMenuCompact();
+            btn_Menu.setSelected(false);
+        });
+
+        menu_ModFac.setOnAction((ActionEvent event) -> {
+            if (!modFacLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "RnFManagement/modfacility.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            addResvLoaded = false;
+            modResvLoaded = true;
+            CILoaded = false;
+            COLoaded = false;
+            modRoomLoaded = false;
+            modFacLoaded = true;
+            sRecLoaded = false;
+            ReportLoaded = false;
+
+            slideMenuCompact();
+            btn_Menu.setSelected(false);
+        });
+
+        menu_SRecord.setOnAction((ActionEvent event) -> {
+            if (!sRecLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "records/records.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            addResvLoaded = false;
+            modResvLoaded = true;
+            CILoaded = false;
+            COLoaded = false;
+            modRoomLoaded = false;
+            modFacLoaded = false;
+            sRecLoaded = true;
+            ReportLoaded = false;
+
+            slideMenuCompact();
+            btn_Menu.setSelected(false);
+        });
+
+        menu_Report.setOnAction((ActionEvent event) -> {
+            if (!ReportLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "reports/dailyreport.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            addResvLoaded = false;
+            modResvLoaded = true;
+            CILoaded = false;
+            COLoaded = false;
+            modRoomLoaded = false;
+            modFacLoaded = false;
+            sRecLoaded = false;
+            ReportLoaded = true;
+
             slideMenuCompact();
             btn_Menu.setSelected(false);
         });
