@@ -1,6 +1,7 @@
 package application.assets;
 
 import application.DBConnection;
+import application.Validation;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -38,6 +40,7 @@ public class Login{
         grid.add(userName, 0, 1);
 
         TextField userTextField = new TextField();
+        userTextField.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(10));
         grid.add(userTextField, 1, 1);
 
         Label pw = new Label("Password:");
