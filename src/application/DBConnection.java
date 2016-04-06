@@ -4,13 +4,16 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 
-/**Create object DBConnection in your class. E.g.
+/**Create object DBConnection in your class before any methods. E.g.
  * <p><code>DBConnection somename = new DBConnection(String dbName)</code></p>
+ * 
  * It will set the connection because setCon is called in the constructor.
+ * 
  * TO execute a query (get data from db) for your ResultSet, do:
  * <p><code>ResultSet yourSet = somename.ExecuteQuery(SQL string)</code></p>
+ * 
  * TO execute some queries that change db contents such as CREATE, INSERT etc, do:
- * <p><code>somename.execute(SQL string)</code></p>
+ * <p><code>somename.executeUpdate(SQL string)</code></p>
  * */
 
 public class DBConnection {
@@ -18,7 +21,7 @@ public class DBConnection {
     private Connection c = null;
     Statement statement = null;
 
-    public DBConnection(String dbName){
+    public DBConnection(String dbName){ //this is a constructor
         this.dbName = dbName;
         try {
             setCon();
@@ -237,7 +240,7 @@ public class DBConnection {
         return statement.executeQuery(query);
     }
 
-    public void commitSQL(String query) throws SQLException{
+    public void executeUpdate(String query) throws SQLException{
         statement.executeUpdate(query);
     }
 }

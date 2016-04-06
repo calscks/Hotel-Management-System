@@ -66,19 +66,19 @@ public class Login {
             String findUName = "SELECT EmpUName,EmpID FROM Employee WHERE EmpUName='" + userTextField.getText() + "';";
             //language=SQLite
             String UserMatch = "SELECT EmpUName,EmpID FROM Employee WHERE EmpUName='" + userTextField.getText() +
-                    "' AND EmpPwd='"+ pwd.getText() + "';";
+                    "' AND EmpPwd='" + pwd.getText() + "';";
             try {
-                ResultSet rs = db.executeQuery(findUName);
-                if (!rs.next()){
+                ResultSet rs = db.executeQuery(findUName); //this checks for whether username exists or not first
+                if (!rs.next()) { //resultset stores our values always on the next row.
                     Alert UNameNotFound = new Alert(Alert.AlertType.WARNING);
                     UNameNotFound.setTitle("Username not found");
                     UNameNotFound.setHeaderText("Username not found!");
                     UNameNotFound.setContentText("Username not found! Please contact the administrator of the" +
-                            "system to add your username and password.");
+                            " system to add your username and password.");
                     UNameNotFound.showAndWait();
                 } else {
-                    rs = db.executeQuery(UserMatch);
-                    if (!rs.next()){
+                    rs = db.executeQuery(UserMatch); //then only check for whether uname and pwd match or not
+                    if (!rs.next()) {
                         Alert NotMatch = new Alert(Alert.AlertType.ERROR);
                         NotMatch.setTitle("Warning");
                         NotMatch.setHeaderText("Login Error");
@@ -102,7 +102,7 @@ public class Login {
         return grid;
     }
 
-    public void newStage(){
+    public void newStage() {
         try {
             StackPane rootPane = new StackPane();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/slidemenu/" +
