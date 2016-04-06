@@ -24,4 +24,16 @@ public class Validation {
             }
         };
     }
+
+    public static EventHandler<KeyEvent> validChar(final Integer maxLength) {
+        return e -> {
+            TextField txt_TextField = (TextField) e.getSource();
+            if (txt_TextField.getText().length() >= maxLength) {
+                e.consume();
+            }
+            if (!e.getCharacter().matches("[A-Za-z]")) {
+                e.consume();
+            }
+        };
+    }
 }

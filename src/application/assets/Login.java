@@ -40,7 +40,7 @@ public class Login{
         grid.add(userName, 0, 1);
 
         TextField userTextField = new TextField();
-        userTextField.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(10));
+        userTextField.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         grid.add(userTextField, 1, 1);
 
         Label pw = new Label("Password:");
