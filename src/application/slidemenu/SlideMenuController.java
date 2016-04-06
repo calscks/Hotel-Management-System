@@ -53,7 +53,7 @@ public class SlideMenuController implements Initializable {
         modResvLoaded = false;
 
         menu_ResvAdd.setOnAction((ActionEvent event) -> {
-            if (!addResvLoaded) {
+            if (!addResvLoaded) { //addResvLoaded == false
                 mainContent.getChildren().clear();
                 try {
                     mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/reservation" +
