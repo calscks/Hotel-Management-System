@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +44,8 @@ public class SlideMenuController implements Initializable {
     private Button menu_SRecord;
     @FXML
     private Button menu_Report;
+    @FXML
+    public TitledPane submenu_RNF;
 
     private Boolean addResvLoaded;
     private Boolean modResvLoaded;

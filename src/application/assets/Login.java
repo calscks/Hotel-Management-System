@@ -2,29 +2,31 @@ package application.assets;
 
 import application.DBConnection;
 import application.Validation;
+import application.slidemenu.SlideMenuController;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import java.io.IOException;
 
-public class Login{
+import javax.jws.soap.SOAPBinding;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Login {
+    DBConnection db = new DBConnection("Data.sqlite");
 
     public GridPane loginGrid() {
-
-        DBConnection.getCon("Data.sqlite");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -40,7 +42,7 @@ public class Login{
         grid.add(userName, 0, 1);
 
         TextField userTextField = new TextField();
-        userTextField.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        userTextField.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(20));
         grid.add(userTextField, 1, 1);
 
         Label pw = new Label("Password:");
@@ -50,25 +52,54 @@ public class Login{
         grid.add(pwd, 1, 2);
 
         Button btn = new Button("Sign in");
-        Button btn1 = new Button("Jump"); //temporary jump to another stage button
+        btn.disableProperty().bind(
+                Bindings.isEmpty(userTextField.textProperty()).or(Bindings.isEmpty(pwd.textProperty()))
+        ); //disable sign in button when 2 fields are empty
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
-        hbBtn.getChildren().add(btn1);
         grid.add(hbBtn, 1, 4);
 
         final Text actionTarget = new Text();
         grid.add(actionTarget, 1, 6);
 
-        btn.setOnAction(e->{
-            actionTarget.setFill(Color.FIREBRICK);
-            actionTarget.setText("Sign in button pressed");
-        });
+        btn.setOnAction(e -> {
+            String findUName = "SELECT EmpUName,EmpID FROM Employee WHERE EmpUName='" + userTextField.getText() + "';";
+            //language=SQLite
+            String UserMatch = "SELECT EmpUName,EmpID FROM Employee WHERE EmpUName='" + userTextField.getText() +
+                    "' AND EmpPwd='"+ pwd.getText() + "';";
+            try {
+                ResultSet rs = db.executeQuery(findUName);
+                if (!rs.next()){
+                    Alert UNameNotFound = new Alert(Alert.AlertType.WARNING);
+                    UNameNotFound.setTitle("Username not found");
+                    UNameNotFound.setHeaderText("Username not found!");
+                    UNameNotFound.setContentText("Username not found! Please contact the administrator of the" +
+                            "system to add your username and password.");
+                    UNameNotFound.showAndWait();
+                } else {
+                    rs = db.executeQuery(UserMatch);
+                    if (!rs.next()){
+                        Alert NotMatch = new Alert(Alert.AlertType.WARNING);
+                        NotMatch.setTitle("Warning");
+                        NotMatch.setHeaderText("Login Error");
+                        NotMatch.setContentText("Username or password do not match.");
+                        NotMatch.showAndWait();
+                        return;
+                    }
 
-        btn1.setOnAction(e->{
+                }
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
             try {
                 StackPane rootPane = new StackPane();
-                Parent root = FXMLLoader.load(getClass().getResource("/application/slidemenu/slidemenu.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/slidemenu/" +
+                        "slidemenu.fxml"));
+                Parent root = loader.load();
+                SlideMenuController controller = loader.<SlideMenuController>getController();
+                //submenu_RNF.setManaged(false);
                 rootPane.getChildren().addAll(root);
                 Scene mainScene = new Scene(rootPane);
                 Stage mainStage = new Stage();
@@ -76,16 +107,14 @@ public class Login{
                 mainStage.setMinHeight(600);
                 mainStage.setScene(mainScene);
                 mainStage.show();
-                Stage prevStage = (Stage) btn1.getScene().getWindow();
+                Stage prevStage = (Stage) btn.getScene().getWindow();
                 prevStage.close();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
         });
 
-        DBConnection.closeCon();
-
+        db.closeCon();
         return grid;
-
     }
 }

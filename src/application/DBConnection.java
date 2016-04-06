@@ -5,9 +5,21 @@ import javafx.scene.control.Alert;
 import java.sql.*;
 
 public class DBConnection {
-    private static Connection c = null;
+    private String dbName;
+    private PreparedStatement preparedStatement = null;
 
-    public static Connection getCon(String dbname) {
+    public DBConnection(String dbName){
+        this.dbName = dbName;
+        try {
+            setCon();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Connection c = null;
+
+    public void setCon() throws Exception {
         String[] create = new String[]{
                 "CREATE TABLE IF NOT EXISTS Admin\n" +
                         "(\n" +
@@ -165,17 +177,19 @@ public class DBConnection {
         // array in case you didn't notice
         try {
             Class.forName("org.sqlite.JDBC").newInstance();
-            c = DriverManager.getConnection("jdbc:sqlite:" + dbname);
+            c = DriverManager.getConnection("jdbc:sqlite:" + dbName);
             DatabaseMetaData meta = c.getMetaData();
             ResultSet chkTable = meta.getTables(null, null, "Employee", new String[]{"TABLE"});
             if (chkTable.next()) {
                 System.out.print("Db exists");
+                chkTable.close();
             } else {
                 System.out.print("Does not exists, creating a new db");
-                for (String aCreate : create) {
+                for (String aCreate : create) { //loop the string[] create array
                     PreparedStatement tableQuery = c.prepareStatement(aCreate);
                     tableQuery.executeUpdate();
                 }
+                chkTable.close();
             }
         } catch (InstantiationException | IllegalAccessException | SQLException | ClassNotFoundException e) {
             Alert conAlert = new Alert(Alert.AlertType.ERROR);
@@ -184,12 +198,12 @@ public class DBConnection {
             conAlert.setContentText(e.getClass().getName() + ": " + e.getMessage());
             conAlert.showAndWait();
         }
-        return c;
     }
 
-    public static void closeCon() {
+    public void closeCon() {
         try {
             if (c == null || c.isClosed()) {
+                System.out.println("This shouldn't be happening @ DBConnection.java Line 200");
                 return;
             }
         } catch (SQLException e) {
@@ -201,5 +215,13 @@ public class DBConnection {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ResultSet executeQuery(String query) throws SQLException {
+        return preparedStatement.executeQuery(query);
+    }
+
+    public void commitSQL(String query) throws SQLException{
+        preparedStatement.executeUpdate();
     }
 }
