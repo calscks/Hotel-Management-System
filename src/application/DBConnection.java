@@ -4,9 +4,19 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 
+/**Create object DBConnection in your class. E.g.
+ * <p><code>DBConnection somename = new DBConnection(String dbName)</code></p>
+ * It will set the connection because setCon is called in the constructor.
+ * TO execute a query (get data from db) for your ResultSet, do:
+ * <p><code>ResultSet yourSet = somename.ExecuteQuery(SQL string)</code></p>
+ * TO execute some queries that change db contents such as CREATE, INSERT etc, do:
+ * <p><code>somename.execute(SQL string)</code></p>
+ * */
+
 public class DBConnection {
     private String dbName;
-    private PreparedStatement preparedStatement = null;
+    private Connection c = null;
+    Statement statement = null;
 
     public DBConnection(String dbName){
         this.dbName = dbName;
@@ -17,9 +27,7 @@ public class DBConnection {
         }
     }
 
-    private Connection c = null;
-
-    public void setCon() throws Exception {
+    public void setCon(){
         String[] create = new String[]{
                 "CREATE TABLE IF NOT EXISTS Admin\n" +
                         "(\n" +
@@ -177,19 +185,27 @@ public class DBConnection {
         // array in case you didn't notice
         try {
             Class.forName("org.sqlite.JDBC").newInstance();
-            c = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+            Connection c = DriverManager.getConnection("jdbc:sqlite:" + dbName);
             DatabaseMetaData meta = c.getMetaData();
             ResultSet chkTable = meta.getTables(null, null, "Employee", new String[]{"TABLE"});
             if (chkTable.next()) {
                 System.out.print("Db exists");
-                chkTable.close();
             } else {
                 System.out.print("Does not exists, creating a new db");
                 for (String aCreate : create) { //loop the string[] create array
                     PreparedStatement tableQuery = c.prepareStatement(aCreate);
                     tableQuery.executeUpdate();
                 }
-                chkTable.close();
+            }
+            try {
+                statement = c.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    c.close();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
             }
         } catch (InstantiationException | IllegalAccessException | SQLException | ClassNotFoundException e) {
             Alert conAlert = new Alert(Alert.AlertType.ERROR);
@@ -198,12 +214,12 @@ public class DBConnection {
             conAlert.setContentText(e.getClass().getName() + ": " + e.getMessage());
             conAlert.showAndWait();
         }
+
     }
 
     public void closeCon() {
         try {
             if (c == null || c.isClosed()) {
-                System.out.println("This shouldn't be happening @ DBConnection.java Line 200");
                 return;
             }
         } catch (SQLException e) {
@@ -218,10 +234,10 @@ public class DBConnection {
     }
 
     public ResultSet executeQuery(String query) throws SQLException {
-        return preparedStatement.executeQuery(query);
+        return statement.executeQuery(query);
     }
 
     public void commitSQL(String query) throws SQLException{
-        preparedStatement.executeUpdate();
+        statement.executeUpdate(query);
     }
 }

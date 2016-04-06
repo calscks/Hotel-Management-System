@@ -17,14 +17,13 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login {
     DBConnection db = new DBConnection("Data.sqlite");
+    Button btn = new Button("Sign in");
 
     public GridPane loginGrid() {
 
@@ -51,7 +50,7 @@ public class Login {
         PasswordField pwd = new PasswordField();
         grid.add(pwd, 1, 2);
 
-        Button btn = new Button("Sign in");
+
         btn.disableProperty().bind(
                 Bindings.isEmpty(userTextField.textProperty()).or(Bindings.isEmpty(pwd.textProperty()))
         ); //disable sign in button when 2 fields are empty
@@ -80,41 +79,48 @@ public class Login {
                 } else {
                     rs = db.executeQuery(UserMatch);
                     if (!rs.next()){
-                        Alert NotMatch = new Alert(Alert.AlertType.WARNING);
+                        Alert NotMatch = new Alert(Alert.AlertType.ERROR);
                         NotMatch.setTitle("Warning");
                         NotMatch.setHeaderText("Login Error");
                         NotMatch.setContentText("Username or password do not match.");
                         NotMatch.showAndWait();
-                        return;
+                    } else {
+                        Alert success = new Alert(Alert.AlertType.INFORMATION);
+                        success.setTitle("Success");
+                        success.setHeaderText("Login Successful");
+                        success.showAndWait();
+                        newStage();
                     }
 
                 }
             } catch (SQLException e1) {
                 e1.printStackTrace();
             }
-
-            try {
-                StackPane rootPane = new StackPane();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/slidemenu/" +
-                        "slidemenu.fxml"));
-                Parent root = loader.load();
-                SlideMenuController controller = loader.<SlideMenuController>getController();
-                //submenu_RNF.setManaged(false);
-                rootPane.getChildren().addAll(root);
-                Scene mainScene = new Scene(rootPane);
-                Stage mainStage = new Stage();
-                mainStage.setMinWidth(800);
-                mainStage.setMinHeight(600);
-                mainStage.setScene(mainScene);
-                mainStage.show();
-                Stage prevStage = (Stage) btn.getScene().getWindow();
-                prevStage.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
         });
 
         db.closeCon();
         return grid;
+    }
+
+    public void newStage(){
+        try {
+            StackPane rootPane = new StackPane();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/slidemenu/" +
+                    "slidemenu.fxml"));
+            Parent root = loader.load();
+            SlideMenuController controller = loader.<SlideMenuController>getController();
+            //submenu_RNF.setManaged(false);
+            rootPane.getChildren().addAll(root);
+            Scene mainScene = new Scene(rootPane);
+            Stage mainStage = new Stage();
+            mainStage.setMinWidth(800);
+            mainStage.setMinHeight(600);
+            mainStage.setScene(mainScene);
+            mainStage.show();
+            Stage prevStage = (Stage) btn.getScene().getWindow();
+            prevStage.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 }

@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
+
 public class Main extends Application {
     @Override
     public void start(Stage P) throws Exception {
@@ -13,7 +15,7 @@ public class Main extends Application {
         P.show();
     }
 
-    private Scene newScene() {
+    private Scene newScene() throws SQLException {
         return new Scene(new Login().loginGrid());
         /**interpreted as:
          * Scene x = new Scene(new Login().loginGrid());
