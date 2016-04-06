@@ -1,5 +1,6 @@
 package application.assets;
 
+import application.DBConnection;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +21,8 @@ import java.io.IOException;
 public class Login{
 
     public GridPane loginGrid() {
+
+        DBConnection.getCon("Data.sqlite");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -76,6 +79,8 @@ public class Login{
                 e1.printStackTrace();
             }
         });
+
+        DBConnection.closeCon();
 
         return grid;
 
