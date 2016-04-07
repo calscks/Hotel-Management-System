@@ -42,7 +42,7 @@
             </VBox>
             <VBox layoutX="345.0" layoutY="48.0" spacing="10.0">
                <children>
-                  <TextField fx:id="tf_ciResvNum" editable="false" />
+                  <TextField fx:id="tf_ciResvNum" />
                   <TextField fx:id="tf_ciFirstName" />
                   <TextField fx:id="tf_ciLastName" />
                   <TextField fx:id="tf_ciPhoneNo" />
@@ -145,6 +145,7 @@
                </padding>
             </VBox>
             <CheckBox fx:id="checkbox_ciGroupMember" layoutX="201.0" layoutY="397.0" mnemonicParsing="false" text="Group Members" />
+            <Button fx:id="button" layoutX="545.0" layoutY="48.0" mnemonicParsing="false" text="Button" />
          </children>
       </AnchorPane>
    </content>
