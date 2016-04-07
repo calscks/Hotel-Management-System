@@ -19,22 +19,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="359.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.checkin.CIAddRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="385.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.checkin.CIAddRoomController">
    <children>
-      <Label layoutX="62.0" layoutY="21.0" text="Room Details">
+      <Label layoutX="76.0" layoutY="54.0" text="Room Details">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TableView layoutX="392.0" layoutY="31.0" prefHeight="195.0" prefWidth="311.0">
+      <TableView layoutX="406.0" layoutY="64.0" prefHeight="195.0" prefWidth="311.0">
          <columns>
             <TableColumn prefWidth="64.0" text="Room No" />
             <TableColumn prefWidth="147.0" text="Room Category" />
             <TableColumn prefWidth="99.0" text="Room Type" />
          </columns>
       </TableView>
-      <Button layoutX="516.0" layoutY="305.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
-      <HBox layoutX="43.0" layoutY="61.0" prefWidth="311.0" spacing="5.0">
+      <Button layoutX="530.0" layoutY="338.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
+      <HBox layoutX="57.0" layoutY="94.0" prefWidth="311.0" spacing="5.0">
          <children>
             <VBox alignment="TOP_RIGHT" prefWidth="124.0" spacing="30.0">
                <children>
@@ -57,7 +57,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox layoutX="392.0" layoutY="238.0" prefHeight="62.0" prefWidth="311.0" spacing="10.0">
+      <HBox layoutX="406.0" layoutY="271.0" prefHeight="62.0" prefWidth="311.0" spacing="10.0">
          <children>
             <VBox alignment="TOP_RIGHT" prefHeight="62.0" prefWidth="110.0" spacing="16.0">
                <children>
@@ -79,6 +79,11 @@
             </VBox>
          </children>
       </HBox>
-      <Button layoutX="167.0" layoutY="238.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Search" />
+      <Button layoutX="181.0" layoutY="271.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Search" />
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="176.0" text="Check In - Add Room">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
