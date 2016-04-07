@@ -54,4 +54,17 @@ public class Validation {
             }
         };
     }
+
+    public static EventHandler<KeyEvent> validCharNoCommaDot(final Integer maxLength) {
+        return e -> {
+            TextField txt_TextField = (TextField) e.getSource();
+            if (txt_TextField.getText().length() >= maxLength) {
+                e.consume();
+            }
+            if (!e.getCharacter().matches("[A-Za-z0-9,.]")) {
+                e.consume();
+            }
+        };
+    }
+
 }

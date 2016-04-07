@@ -45,13 +45,13 @@
                       <TextField editable="false" />
                       <TextField fx:id="tf_fname" />
                       <TextField fx:id="tf_lname" />
-                      <TextField />
-                      <TextField />
-                      <TextField />
-                      <TextField />
+                      <TextField fx:id="tf_phoneno" />
+                      <TextField fx:id="tf_address" />
+                      <TextField fx:id="tf_postcode" />
+                      <TextField fx:id="tf_city" />
                       <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
-                      <TextField />
-                  <TextField />
+                      <TextField fx:id="tf_idtype" />
+                  <TextField fx:id="tf_idno" />
                   </children>
               </VBox>
               <TableView editable="true" layoutX="237.0" layoutY="423.0" prefHeight="176.0" prefWidth="358.0">
