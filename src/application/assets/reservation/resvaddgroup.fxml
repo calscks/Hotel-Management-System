@@ -35,7 +35,7 @@
             </children>
         </VBox>
         <Button layoutX="206.0" layoutY="201.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
-      <Label layoutX="14.0" layoutY="7.0" prefHeight="26.0" prefWidth="274.0" text="Reservation - add Group Member">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="274.0" text="Reservation - add Group Member">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
