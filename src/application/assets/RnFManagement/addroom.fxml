@@ -19,9 +19,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="369.0" minWidth="361.0" prefHeight="512.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="369.0" minWidth="361.0" prefHeight="529.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="76.0" layoutY="26.0" prefHeight="460.0" prefWidth="351.0">
+      <VBox layoutX="76.0" layoutY="65.0" prefHeight="460.0" prefWidth="351.0">
          <children>
             <GridPane hgap="10.0" prefHeight="415.0" prefWidth="403.0" vgap="10.0">
                <children>
@@ -84,5 +84,15 @@
             </HBox>
          </children>
       </VBox>
+      <Label layoutX="14.0" layoutY="13.0" prefHeight="26.0" prefWidth="264.0" text="Room Management">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="15.0" layoutY="39.0" prefHeight="26.0" prefWidth="123.0" text="Add new Rooms">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

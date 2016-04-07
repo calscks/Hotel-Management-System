@@ -151,6 +151,11 @@
                   </GridPane>
                </children>
             </VBox>
+            <Label layoutX="281.0" layoutY="44.0" prefHeight="26.0" prefWidth="264.0" text="Room Management">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </content>

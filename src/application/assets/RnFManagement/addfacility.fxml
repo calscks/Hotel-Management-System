@@ -28,7 +28,7 @@
                <children>
                   <Label text="Add new facility">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
                   <GridPane hgap="10.0" prefHeight="270.0" prefWidth="428.0" vgap="10.0">
@@ -99,6 +99,11 @@
                </children>
             </VBox>
             <Button layoutX="566.0" layoutY="502.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="69.0" text="Add" />
+            <Label layoutX="386.0" layoutY="81.0" prefHeight="26.0" prefWidth="264.0" text="Facility Management">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </content>
