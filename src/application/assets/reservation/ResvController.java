@@ -60,6 +60,6 @@ public class ResvController implements Initializable{
         tf_postcode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
         tf_city.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
         tf_idtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
-        tf_idno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(10));
+        tf_idno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(20));
     }
 }
