@@ -12,12 +12,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CIController {
+    DBConnection db = new DBConnection("Data.sqite");
 
    @FXML
     private Button btn_ciNext;
     @FXML
     private TextField tf_ciResvNum;
-    Connection c = DBConnection.getCon("Data.sqlite");
     Statement statement = null;
     private void initialize(){
         tf_ciResvNum.textProperty().addListener(new ChangeListener<String>() {

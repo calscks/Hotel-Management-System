@@ -43,8 +43,8 @@
               <VBox layoutX="381.0" layoutY="52.0" spacing="10.0">
                   <children>
                       <TextField editable="false" />
-                      <TextField />
-                      <TextField />
+                      <TextField fx:id="tf_fname" />
+                      <TextField fx:id="tf_lname" />
                       <TextField />
                       <TextField />
                       <TextField />
