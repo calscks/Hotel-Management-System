@@ -69,12 +69,12 @@
             <VBox layoutX="615.0" layoutY="81.0" prefHeight="257.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Rooms" />
-                  <TableView prefHeight="159.0" prefWidth="318.0">
+                  <TableView fx:id="roomtable" prefHeight="159.0" prefWidth="318.0">
                      <columns>
-                        <TableColumn prefWidth="59.0" text="Room No" />
-                        <TableColumn prefWidth="128.0" text="Room Type" />
-                        <TableColumn prefWidth="109.0" text="Booking Date" />
-                        <TableColumn prefWidth="92.0" text="Ending Date" />
+                        <TableColumn fx:id="ciroomno" prefWidth="59.0" text="Room No" />
+                        <TableColumn fx:id="ciroomtype" prefWidth="128.0" text="Room Type" />
+                        <TableColumn fx:id="cicid" prefWidth="109.0" text="Booking Date" />
+                        <TableColumn fx:id="cicod" prefWidth="92.0" text="Ending Date" />
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
@@ -146,7 +146,7 @@
                </padding>
             </VBox>
             <CheckBox fx:id="checkbox_ciGroupMember" layoutX="224.0" layoutY="430.0" mnemonicParsing="false" text="Group Members" />
-            <Button fx:id="button" layoutX="568.0" layoutY="81.0" mnemonicParsing="false" text="Button" />
+            <Button fx:id="button" layoutX="568.0" layoutY="81.0" mnemonicParsing="false" text="Search" />
             <Label layoutX="224.0" layoutY="46.0" prefHeight="25.0" prefWidth="87.0" text="Check In">
                <font>
                   <Font name="System Bold" size="17.0" />
