@@ -58,9 +58,9 @@ public class CIController implements Initializable{
                 String sql ="select * from Reservation rsv " +
                         "Inner join Customer cust on rsv.custid = cust.custid " +
                         "Inner join CustAddress address on cust.custid = address.custid " +
-                        "Inner join checkinout cio on address.custid = cio.custid " +
-                        "Inner join room room on cio.roomno = room.roomno " +
-                        "inner join roomtype rtype on room.roomtypeid = rtype.typeid ";
+                        "Inner join CheckInOut cio on address.custid = cio.custid " +
+                        "Inner join Room room on cio.roomno = room.roomno " +
+                        "inner join RoomType rtype on room.roomtypeid = rtype.typeid ";
                 ResultSet data = c.executeQuery(sql);
                 data.next();
                 ObservableList<String> roomtable = FXCollections.observableArrayList();

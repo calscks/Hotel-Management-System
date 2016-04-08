@@ -20,8 +20,8 @@
               <columns>
                 <TableColumn prefWidth="75.0" text="ID" />
                 <TableColumn prefWidth="75.0" text="Username" />
-                  <TableColumn prefWidth="75.0" text="First Name" />
-                  <TableColumn prefWidth="75.0" text="Last Name" />
+                  <TableColumn prefWidth="75.0" text="Password" />
+                  <TableColumn prefWidth="75.0" text="Authority" />
                   <TableColumn prefWidth="75.0" text="Authority" />
               </columns>
             </TableView>
@@ -41,10 +41,6 @@
          <children>
             <Label text="Employee Username :" />
             <Label text="Employee Password :" />
-            <Label text="First Name :" />
-            <Label text="Last Name :" />
-            <Label text="Phone Number :" />
-            <Label text="E-Mail :" />
             <Label text="Authority :" />
          </children>
          <padding>
@@ -55,16 +51,12 @@
          <children>
             <TextField editable="false" />
             <TextField />
-            <TextField />
-            <TextField />
-            <TextField />
-            <TextField />
             <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
          </children>
       </VBox>
       <Button layoutX="82.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Add" />
       <Button layoutX="155.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Edit" />
-      <Button layoutX="497.0" layoutY="362.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" text="Switchable" />
+      <Button layoutX="478.0" layoutY="285.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" text="Switchable" />
       <Label layoutX="670.0" layoutY="8.0" text="Logout" textFill="#0037a4" underline="true" />
       <Button layoutX="230.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Delete" />
    </children>

@@ -63,44 +63,70 @@ public class Login {
         grid.add(actionTarget, 1, 6);
 
         btn.setOnAction(e -> {
-            String findUName = "SELECT EmpUName,EmpID FROM Employee WHERE EmpUName='" + userTextField.getText() + "';";
+            String findAdmin = "SELECT * FROM Admin WHERE UName='" + userTextField.getText() + "'";
+
+            String adminMatch = "SELECT * FROM Admin WHERE UName='" + userTextField.getText() +
+                    "' AND Pwd='" + pwd.getText() + "';";
+
+            String findUName = "SELECT * FROM Employee WHERE EmpUName='" + userTextField.getText() + "';";
             //language=SQLite
-            String UserMatch = "SELECT EmpUName,EmpID FROM Employee WHERE EmpUName='" + userTextField.getText() +
+            String UserMatch = "SELECT * FROM Employee WHERE EmpUName='" + userTextField.getText() +
                     "' AND EmpPwd='" + pwd.getText() + "';";
+
+            ResultSet rs = null;
             try {
-                ResultSet rs = db.executeQuery(findUName); //this checks for whether username exists or not first
-                if (!rs.next()) { //resultset stores our values always on the next row.
-                    Alert UNameNotFound = new Alert(Alert.AlertType.WARNING);
-                    UNameNotFound.setTitle("Username not found");
-                    UNameNotFound.setHeaderText("Username not found!");
-                    UNameNotFound.setContentText("Username not found! Please contact the administrator of the" +
-                            " system to add your username and password.");
-                    UNameNotFound.showAndWait();
-                } else {
-                    rs = db.executeQuery(UserMatch); //then only check for whether uname and pwd match or not
-                    if (!rs.next()) {
-                        Alert NotMatch = new Alert(Alert.AlertType.ERROR);
-                        NotMatch.setTitle("Warning");
-                        NotMatch.setHeaderText("Login Error");
-                        NotMatch.setContentText("Username or password do not match.");
-                        NotMatch.showAndWait();
-                    } else {
+                rs = db.executeQuery(findAdmin);
+                if(rs.next()){
+                    rs = db.executeQuery(adminMatch);
+                    if (rs.next()){
                         Alert success = new Alert(Alert.AlertType.INFORMATION);
                         success.setTitle("Success");
-                        success.setHeaderText("Login Successful");
+                        success.setHeaderText("Login Successful as Admin");
                         success.showAndWait();
-                        newStage();
+                        adminStage();
                     }
+                } else{
+                    try {
+                        rs = db.executeQuery(findUName); //this checks for whether username exists or not first
+                        if (!rs.next()) { //resultset stores our values always on the next row.
+                            Alert UNameNotFound = new Alert(Alert.AlertType.WARNING);
+                            UNameNotFound.setTitle("Username not found");
+                            UNameNotFound.setHeaderText("Username not found!");
+                            UNameNotFound.setContentText("Username not found! Please contact the administrator of the" +
+                                    " system to add your username and password.");
+                            UNameNotFound.showAndWait();
+                        } else {
+                            rs = db.executeQuery(UserMatch); //then only check for whether uname and pwd match or not
+                            if (!rs.next()) {
+                                Alert NotMatch = new Alert(Alert.AlertType.ERROR);
+                                NotMatch.setTitle("Warning");
+                                NotMatch.setHeaderText("Login Error");
+                                NotMatch.setContentText("Username or password do not match.");
+                                NotMatch.showAndWait();
+                            } else {
+                                Alert success = new Alert(Alert.AlertType.INFORMATION);
+                                success.setTitle("Success");
+                                success.setHeaderText("Login Successful");
+                                success.showAndWait();
+                                newStage();
+                            }
 
+                        }
+                    } catch (SQLException e2) {
+                        e2.printStackTrace();
+                    }
                 }
-            } catch (SQLException e1) {
+            } catch (SQLException | IOException e1) {
                 e1.printStackTrace();
             }
+
+
         });
 
         db.closeCon();
         return grid;
     }
+
 
     public void newStage() {
         try {
@@ -122,5 +148,18 @@ public class Login {
         } catch (IOException e1) {
             e1.printStackTrace();
         }
+    }
+
+    private void adminStage() throws IOException {
+        StackPane adminPane = new StackPane();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/assets/admin.fxml"));
+        Parent root = loader.load();
+        adminPane.getChildren().addAll(root);
+        Scene adminScene = new Scene(adminPane);
+        Stage adminStage = new Stage();
+        adminStage.setScene(adminScene);
+        adminStage.show();
+        Stage prevStage = (Stage) btn.getScene().getWindow();
+        prevStage.close();
     }
 }
