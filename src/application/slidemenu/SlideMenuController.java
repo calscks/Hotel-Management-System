@@ -8,11 +8,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
 
@@ -160,7 +163,7 @@ public class SlideMenuController implements Initializable {
                 }
             }
             addResvLoaded = false;
-            modResvLoaded = true;
+            modResvLoaded = false;
             CILoaded = false;
             COLoaded = true;
             modRoomLoaded = false;
@@ -183,7 +186,7 @@ public class SlideMenuController implements Initializable {
                 }
             }
             addResvLoaded = false;
-            modResvLoaded = true;
+            modResvLoaded = false;
             CILoaded = false;
             COLoaded = false;
             modRoomLoaded = true;
@@ -206,7 +209,7 @@ public class SlideMenuController implements Initializable {
                 }
             }
             addResvLoaded = false;
-            modResvLoaded = true;
+            modResvLoaded = false;
             CILoaded = false;
             COLoaded = false;
             modRoomLoaded = false;
@@ -229,7 +232,7 @@ public class SlideMenuController implements Initializable {
                 }
             }
             addResvLoaded = false;
-            modResvLoaded = true;
+            modResvLoaded = false;
             CILoaded = false;
             COLoaded = false;
             modRoomLoaded = false;
@@ -252,7 +255,7 @@ public class SlideMenuController implements Initializable {
                 }
             }
             addResvLoaded = false;
-            modResvLoaded = true;
+            modResvLoaded = false;
             CILoaded = false;
             COLoaded = false;
             modRoomLoaded = false;
@@ -271,6 +274,13 @@ public class SlideMenuController implements Initializable {
         TranslateTransition closeMenu = new TranslateTransition(new Duration(250), leftMenu);
         TranslateTransition closeMenuQuick = new TranslateTransition(new Duration(50), leftMenu);
 
+        DropShadow ds = new DropShadow();
+        ds.setBlurType(BlurType.GAUSSIAN);
+        ds.setRadius(10);
+        ds.setWidth(21.0);
+        ds.setHeight(21.0);
+        ds.setColor(Color.rgb(0,0,0,0.92));
+
         Pane clickPane = new Pane();
 
         clickPane.setOpacity(0);
@@ -281,6 +291,7 @@ public class SlideMenuController implements Initializable {
 
         btn_Menu.setOnAction((ActionEvent evt) -> {
             if (leftMenu.getTranslateX() != 0) {
+                leftMenu.setEffect(ds);
                 openMenu.play();
                 addBlur(mainContent);
                 mainContent.getChildren().add(1, clickPane);
@@ -288,6 +299,7 @@ public class SlideMenuController implements Initializable {
                 clickPane.setOnMouseClicked((MouseEvent me) -> {
                     closeMenuQuick.setToX(-(leftMenu.getWidth()));
                     closeMenuQuick.play();
+                    leftMenu.setEffect(null);
                     removeBlur(mainContent);
                     mainContent.getChildren().remove(clickPane);
                     btn_Menu.setSelected(false);
@@ -295,6 +307,7 @@ public class SlideMenuController implements Initializable {
             } else {
                 closeMenu.setToX(-(leftMenu.getWidth()));
                 closeMenu.play();
+                leftMenu.setEffect(null);
                 removeBlur(mainContent);
                 mainContent.getChildren().remove(clickPane);
             }
@@ -307,6 +320,7 @@ public class SlideMenuController implements Initializable {
             closeMenuQuick.setToX(-(leftMenu.getWidth()));
             closeMenuQuick.play();
             removeBlur(mainContent);
+            leftMenu.setEffect(null);
             //mainContent.getChildren().remove(1);
         }
     }
