@@ -47,18 +47,34 @@ public class AdminController implements Initializable{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        tbcol_id.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("empId"));
-        tbcol_uname.setCellValueFactory(new PropertyValueFactory<Employee, String>("empUname"));
-        tbcol_pwd.setCellValueFactory(new PropertyValueFactory<Employee, String>("empPwd"));
-        tbcol_auth.setCellValueFactory(new PropertyValueFactory<Employee, String>("empAuth"));
-
+        //need to do like this to set the cell value factory.
+        //For example the "empId" must be presented as a property inside my Employee data model class
+        //inside the <>, I have alrd defined in the TableColumn instance variables, pls check above, e.g.
+        //<Employee, Integer>
+        // datamodel   type
+        tbcol_id.setCellValueFactory(new PropertyValueFactory<>("empId"));
+        tbcol_uname.setCellValueFactory(new PropertyValueFactory<>("empUname"));
+        tbcol_pwd.setCellValueFactory(new PropertyValueFactory<>("empPwd"));
+        tbcol_auth.setCellValueFactory(new PropertyValueFactory<>("empAuth"));
         table_empList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 return;
             }
             System.out.println(newValue.getEmpUname());
-            //i can get the username of each rows after selecting the row!!
+            //for debugging purpose, can get the value
         });
+
+        table_empList.setRowFactory(tv -> {
+            TableRow<Employee> selRow = new TableRow<>();
+            selRow.setOnMouseClicked(me -> {
+                if (me.getClickCount() == 2 && (!selRow.isEmpty())){ //detects double-click!!
+                    Employee empdata = table_empList.getSelectionModel().getSelectedItem();
+                    System.out.print(empdata.getEmpId()); //after double-click can print!
+                }
+            });
+            return selRow; //have to return for setRowFactory
+        });
+
 
     }
 
@@ -67,15 +83,15 @@ public class AdminController implements Initializable{
         ObservableList<Employee> data = FXCollections.observableArrayList();
         String selEmp = "SELECT * FROM Employee;";
         ResultSet rs = db.executeQuery(selEmp);
-        while (rs.next()){
-            Employee emp = new Employee();
+        while (rs.next()){ //do this pls
+            Employee emp = new Employee(); //create an object for Employee everytime a next occurs
             emp.setEmpId(rs.getInt("EmpID"));
             emp.setEmpUname(rs.getString("EmpUName"));
             emp.setEmpPwd(rs.getString("EmpPwd"));
             emp.setEmpAuth(rs.getString("Authority"));
-            data.add(emp); //dunno this works or not
-            System.out.println(data.toString()); //it prints the memory location of Employee class
-            System.out.println(emp.getEmpId()); //confirm works, can get the username, but iterate only once when empid has 2
+            data.add(emp);
+            System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
+            System.out.println(emp.getEmpId()); //for debugging, confirm works, can get the username
         }
         table_empList.setItems(data);
     }
