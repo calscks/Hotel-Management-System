@@ -10,6 +10,7 @@ public class ResvPayController{
     @FXML
     private AnchorPane resvPayPane;
 
+    //getter that mentioned in the reservation controller
     public Button getBtn_resvBack() {
         return btn_resvBack;
     }

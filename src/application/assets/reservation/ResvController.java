@@ -62,12 +62,11 @@ public class ResvController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         validations();
-        String [] locale = Locale.getISOCountries();
-        //ObservableList<String> cList = FXCollections.observableArrayList();
-        for (String countryCode: locale){
+        String [] locale = Locale.getISOCountries(); //store short form of countries in array
+        for (String countryCode: locale){ //loop the array
             Locale country = new Locale("", countryCode);
-            //System.out.println(country.getDisplayCountry()); //for test if can print out or not
-            cbox_country.getItems().add(country.getDisplayCountry());
+            //System.out.println(country.getDisplayCountry()); //can print out whole list of country
+            cbox_country.getItems().add(country.getDisplayCountry()); //add countries into cbox!
         }
         new AutoCompleteCBoxListener<>(cbox_country);
 
@@ -92,7 +91,7 @@ public class ResvController implements Initializable{
 
         //get the controller of the fxmlloader (which is the payment controller)
         ResvPayController controller = loadpayment.getController();
-        controller.getBtn_resvBack().setOnMouseClicked(me->{
+        controller.getBtn_resvBack().setOnMouseClicked(me->{ //getter from the payment controller
             Timeline timeline = new Timeline(); //set fade out
             KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
             timeline.getKeyFrames().add(kf);
@@ -102,7 +101,7 @@ public class ResvController implements Initializable{
         });
     }
 
-    public void validations(){
+    private void validations(){
         tf_fname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_lname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_phoneno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));

@@ -72,10 +72,12 @@
                   <Label text="Rooms" />
                   <TableView fx:id="table_resvRoom" prefHeight="159.0" prefWidth="318.0">
                      <columns>
-                        <TableColumn fx:id="tbcol_roomcat" prefWidth="106.0" text="Room Category" />
-                        <TableColumn fx:id="tbcol_roomtype" prefWidth="81.0" text="Room Type" />
-                        <TableColumn fx:id="tbcol_roombookdate" prefWidth="109.0" text="Booking Date" />
-                        <TableColumn fx:id="tbcol_enddate" prefWidth="92.0" text="Ending Date" />
+                        <TableColumn fx:id="tbcol_roomcat" prefWidth="90.0" text="Room Category" />
+                        <TableColumn fx:id="tbcol_roomtype" prefWidth="108.0" text="Room Type" />
+                        <TableColumn fx:id="tbcol_roomno" prefWidth="71.0" text="Room No" />
+                        <TableColumn fx:id="tbcol_roomci" prefWidth="89.0" text="Check In" />
+                        <TableColumn fx:id="tbcol_roomco" prefWidth="89.0" text="Check Out" />
+                        <TableColumn fx:id="tbcol_xtrabed" prefWidth="91.0" text="Extra Bed Type" />
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
@@ -110,19 +112,15 @@
             <VBox layoutX="592.0" layoutY="365.0" prefHeight="257.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Facility" />
-                  <ScrollPane prefViewportHeight="159.0" prefViewportWidth="389.0">
-                     <content>
-                        <TableView fx:id="table_resvFac" prefHeight="159.0" prefWidth="465.0">
-                           <columns>
-                              <TableColumn fx:id="tbcol_fac" prefWidth="106.0" text="Booked facilities" />
-                              <TableColumn fx:id="tbcol_facprice" prefWidth="86.0" text="Facility Price" />
-                              <TableColumn fx:id="tbcol_facbookdate" prefWidth="103.0" text="Booking Date" />
-                              <TableColumn fx:id="tbcol_facbooktime" prefWidth="93.0" text="Booking Time" />
-                              <TableColumn fx:id="tbcol_duration" prefWidth="75.0" text="Duration" />
-                           </columns>
-                        </TableView>
-                     </content>
-                  </ScrollPane>
+                  <TableView fx:id="table_resvFac" prefHeight="159.0" prefWidth="465.0">
+                     <columns>
+                        <TableColumn fx:id="tbcol_fac" prefWidth="106.0" text="Booked facilities" />
+                        <TableColumn fx:id="tbcol_facprice" prefWidth="86.0" text="Facility Price" />
+                        <TableColumn fx:id="tbcol_facbookdate" prefWidth="103.0" text="Booking Date" />
+                        <TableColumn fx:id="tbcol_facbooktime" prefWidth="93.0" text="Booking Time" />
+                        <TableColumn fx:id="tbcol_duration" prefWidth="75.0" text="Duration" />
+                     </columns>
+                  </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
                      <children>
                         <Button fx:id="btn_addfac" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add" GridPane.columnIndex="1">
