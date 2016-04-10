@@ -1,20 +1,22 @@
 package application.assets.reservation;
 
-//recreating ResvController to tidy up codes
-
-
 import application.assets.AutoCompleteCBoxListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import java.awt.*;
 import application.Validation;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -34,6 +36,8 @@ public class ResvController implements Initializable{
     private ObservableList<Integer> year = FXCollections.observableArrayList(year1, year2, year3, year4, year5, year6, year7);
 */
     @FXML
+    private AnchorPane resvPane;
+    @FXML
     private TextField tf_fname;
     @FXML
     private TextField tf_lname;
@@ -49,9 +53,11 @@ public class ResvController implements Initializable{
     private TextField tf_idtype;
     @FXML
     private TextField tf_idno;
-
     @FXML
     private ComboBox<String> cbox_country;
+
+    @FXML
+    private Button btn_resvNext;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,10 +66,40 @@ public class ResvController implements Initializable{
         //ObservableList<String> cList = FXCollections.observableArrayList();
         for (String countryCode: locale){
             Locale country = new Locale("", countryCode);
-            System.out.println(country.getDisplayCountry());
+            //System.out.println(country.getDisplayCountry()); //for test if can print out or not
             cbox_country.getItems().add(country.getDisplayCountry());
         }
         new AutoCompleteCBoxListener<>(cbox_country);
+
+        //bottom onwards are how I access back button from the payment controller (of payment fxml)
+        FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
+                "reservation/resvpay.fxml")); //create a fxmlloader
+        AnchorPane payment = null;
+        try {
+            payment = loadpayment.load(); //load it
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        AnchorPane finalPayment = payment; //set as another anchorpane called finalpayment
+        btn_resvNext.setOnMouseClicked(me->{
+            FadeTransition ft = new FadeTransition(Duration.millis(320), finalPayment);
+            ft.setFromValue(0.0); //add a simple fade in transition
+            ft.setToValue(1.0);
+            ft.play();
+            resvPane.getChildren().add(finalPayment);
+        });
+
+        //get the controller of the fxmlloader (which is the payment controller)
+        ResvPayController controller = loadpayment.getController();
+        controller.getBtn_resvBack().setOnMouseClicked(me->{
+            Timeline timeline = new Timeline(); //set fade out
+            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
+            timeline.getKeyFrames().add(kf);
+            //when the timeline is finished (finished fade out) then invoke remove the finalpayment
+            timeline.setOnFinished(se-> resvPane.getChildren().removeAll(finalPayment));
+            timeline.play();
+        });
     }
 
     public void validations(){
@@ -76,4 +112,5 @@ public class ResvController implements Initializable{
         tf_idtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         tf_idno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(20));
     }
+
 }

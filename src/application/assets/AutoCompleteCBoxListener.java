@@ -24,6 +24,9 @@ public class AutoCompleteCBoxListener <T> {
      * Re-designed based on
      * <a href="http://tech.chitgoks.com/2013/08/20/how-to-create-autocomplete-combobox-or-textfield-in-java-fx-2/">
      * This original structure</a>
+     *
+     * How to call this function:<br>
+     * new AutoCompleteCBoxListener(Combobox cboxName)
      */
     public AutoCompleteCBoxListener(ComboBox<T> comboBox){
         this.comboBox = comboBox;
