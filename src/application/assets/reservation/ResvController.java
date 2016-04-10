@@ -3,6 +3,7 @@ package application.assets.reservation;
 //recreating ResvController to tidy up codes
 
 
+import application.assets.AutoCompleteCBoxListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
@@ -62,6 +63,7 @@ public class ResvController implements Initializable{
             System.out.println(country.getDisplayCountry());
             cbox_country.getItems().add(country.getDisplayCountry());
         }
+        new AutoCompleteCBoxListener<>(cbox_country);
     }
 
     public void validations(){
