@@ -28,6 +28,9 @@
                      <effect>
                         <DropShadow blurType="GAUSSIAN" height="26.93" radius="11.4825" />
                      </effect>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
                   <Label fx:id="lbl_smRole" text="Role:    Staff" textFill="#d7d7d7">
                      <font>
@@ -36,6 +39,9 @@
                      <effect>
                         <DropShadow blurType="GAUSSIAN" height="26.93" radius="11.4825" />
                      </effect>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
                   </Label>
                   <HBox alignment="TOP_CENTER">
                      <children>
@@ -66,7 +72,7 @@
                   <InnerShadow blurType="GAUSSIAN" color="#1e1d1d" height="26.93" radius="13.705" width="29.89" />
                </effect>
                <padding>
-                  <Insets left="10.0" top="10.0" />
+                  <Insets top="10.0" />
                </padding>
             </VBox>
                 <VBox layoutX="20.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: rgba(0, 100, 100, 0.5);" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
