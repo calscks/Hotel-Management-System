@@ -41,7 +41,7 @@
               </VBox>
               <VBox layoutX="345.0" layoutY="81.0" spacing="10.0">
                   <children>
-                      <TextField editable="false" style="-fx-background-color: #7d8187; -fx-text-fill: floralwhite" text="sdsdsdsd">
+                      <TextField editable="false" style="-fx-background-color: #7d8187; -fx-text-fill: floralwhite">
                      <effect>
                         <InnerShadow blurType="GAUSSIAN" color="#464646" />
                      </effect></TextField>
@@ -52,16 +52,16 @@
                       <TextField fx:id="tf_postcode" />
                       <TextField fx:id="tf_city" />
                       <ComboBox fx:id="cbox_country" editable="true" prefHeight="25.0" prefWidth="200.0" />
-                      <TextField fx:id="tf_idtype" />
+                  <ComboBox fx:id="cbox_idtype" prefHeight="25.0" prefWidth="200.0" />
                   <TextField fx:id="tf_idno" />
                   </children>
               </VBox>
               <TableView fx:id="table_gmembers" editable="true" layoutX="201.0" layoutY="452.0" prefHeight="171.0" prefWidth="358.0">
                   <columns>
-                      <TableColumn fx:id="tbcol_fname" prefWidth="92.0" text="First Name" />
-                      <TableColumn fx:id="tbcol_lname" prefWidth="97.0" text="Last Name" />
-                      <TableColumn fx:id="tbcol_idno" prefWidth="96.0" text="Passport/IC No" />
-                  <TableColumn fx:id="tbcol_roomno" prefWidth="72.0" text="Room No" />
+                      <TableColumn fx:id="tbcol_memfname" prefWidth="92.0" text="First Name" />
+                      <TableColumn fx:id="tbcol_memlname" prefWidth="97.0" text="Last Name" />
+                      <TableColumn fx:id="tbcol_memidno" prefWidth="96.0" text="Passport/IC No" />
+                  <TableColumn fx:id="tbcol_memroomno" prefWidth="72.0" text="Room No" />
                   </columns>
               </TableView>
               <Button fx:id="btn_delguest" layoutX="508.0" layoutY="632.0" mnemonicParsing="false" text="Delete" />
