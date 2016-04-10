@@ -1,4 +1,4 @@
-package application.assets;
+package application.assets.admin;
 
 import application.DBConnection;
 import javafx.collections.FXCollections;

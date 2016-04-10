@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SlideMenuController implements Initializable {
@@ -50,7 +51,7 @@ public class SlideMenuController implements Initializable {
     @FXML
     private Button menu_Report;
     @FXML
-    public TitledPane submenu_RNF;
+    private TitledPane submenu_RNF;
 
     @FXML
     private Label lbl_smWelcome;
@@ -75,6 +76,11 @@ public class SlideMenuController implements Initializable {
 
         lbl_smWelcome.setText("Welcome, " + LoginData.getUname() + "!");
         lbl_smRole.setText("Role: " + LoginData.getAuth());
+        if (Objects.equals(LoginData.getAuth(), "staff") || Objects.equals(LoginData.getAuth(), "Staff")) {
+            submenu_RNF.setManaged(false);
+        } else if (Objects.equals(LoginData.getAuth(), "manager") || Objects.equals(LoginData.getAuth(), "Manager")) {
+            submenu_RNF.setManaged(true);
+        }
         try {
             Content();
         } catch (IOException e) {
@@ -293,7 +299,7 @@ public class SlideMenuController implements Initializable {
         ds.setRadius(10);
         ds.setWidth(21.0);
         ds.setHeight(21.0);
-        ds.setColor(Color.rgb(0,0,0,0.92));
+        ds.setColor(Color.rgb(0, 0, 0, 0.92));
 
         Pane clickPane = new Pane();
 
@@ -328,7 +334,7 @@ public class SlideMenuController implements Initializable {
         });
     }
 
-    private void slideMenuCompact(){
+    private void slideMenuCompact() {
         if (leftMenu.getTranslateX() == 0) {
             TranslateTransition closeMenuQuick = new TranslateTransition(new Duration(100), leftMenu);
             closeMenuQuick.setToX(-(leftMenu.getWidth()));

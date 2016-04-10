@@ -1,4 +1,4 @@
-package application.assets;
+package application.assets.admin;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

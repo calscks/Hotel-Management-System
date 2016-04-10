@@ -2,7 +2,6 @@ package application.assets;
 
 import application.DBConnection;
 import application.Validation;
-import application.slidemenu.SlideMenuController;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -33,7 +32,7 @@ public class Login {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text sceneTitle = new Text("Welcome to \nHotel Management System");
+        Text sceneTitle = new Text("Welcome to \nDrizzle Hotel Management\nSystem");
         sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(sceneTitle, 0, 0, 2, 1);
 
@@ -137,8 +136,6 @@ public class Login {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/slidemenu/" +
                     "slidemenu.fxml"));
             Parent root = loader.load();
-            SlideMenuController controller = loader.<SlideMenuController>getController();
-            //submenu_RNF.setManaged(false);
             rootPane.getChildren().addAll(root);
             Scene mainScene = new Scene(rootPane);
             Stage mainStage = new Stage();
@@ -155,7 +152,7 @@ public class Login {
 
     private void adminStage() throws IOException {
         StackPane adminPane = new StackPane();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/assets/admin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/assets/admin/admin.fxml"));
         Parent root = loader.load();
         adminPane.getChildren().addAll(root);
         Scene adminScene = new Scene(adminPane);

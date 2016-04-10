@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class Main extends Application {
     @Override
     public void start(Stage P) throws Exception {
-        P.setTitle("Hotel Management System");
+        P.setTitle("Drizzle Hotel Management System");
         P.setScene(this.newScene());
         P.show();
     }
