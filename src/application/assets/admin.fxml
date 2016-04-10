@@ -16,7 +16,7 @@
    <children>
       <ScrollPane layoutX="30.0" layoutY="45.0">
          <content>
-            <TableView fx:id="table_empList" prefHeight="351.0" prefWidth="304.0">
+            <TableView fx:id="table_empList" editable="true" prefHeight="351.0" prefWidth="304.0">
               <columns>
                 <TableColumn fx:id="tbcol_id" prefWidth="75.0" text="ID" />
                 <TableColumn fx:id="tbcol_uname" prefWidth="75.0" text="Username" />

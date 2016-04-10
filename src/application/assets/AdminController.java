@@ -1,8 +1,6 @@
 package application.assets;
 
 import application.DBConnection;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,15 +15,15 @@ import java.util.ResourceBundle;
 
 public class AdminController implements Initializable{
     @FXML
-    private TableView<Emp> table_empList;
+    private TableView<Employee> table_empList;
     @FXML
-    private TableColumn<Emp, Integer> tbcol_id;
+    private TableColumn<Employee, Integer> tbcol_id;
     @FXML
-    private TableColumn<Emp, String> tbcol_uname;
+    private TableColumn<Employee, String> tbcol_uname;
     @FXML
-    private TableColumn<Emp, String> tbcol_pwd;
+    private TableColumn<Employee, String> tbcol_pwd;
     @FXML
-    private TableColumn<Emp, String> tbcol_auth;
+    private TableColumn<Employee, String> tbcol_auth;
 
     @FXML
     private TextField tf_uname;
@@ -44,30 +42,40 @@ public class AdminController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        tbcol_id.setCellValueFactory(new PropertyValueFactory<>("emp_id"));
-        tbcol_uname.setCellValueFactory(new PropertyValueFactory<>("emp_uname"));
-        tbcol_pwd.setCellValueFactory(new PropertyValueFactory<>("emp_pwd"));
-        tbcol_auth.setCellValueFactory(new PropertyValueFactory<>("emp_auth"));
         try {
             insertData();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        tbcol_id.setCellValueFactory(new PropertyValueFactory<Employee, Integer>("empId"));
+        tbcol_uname.setCellValueFactory(new PropertyValueFactory<Employee, String>("empUname"));
+        tbcol_pwd.setCellValueFactory(new PropertyValueFactory<Employee, String>("empPwd"));
+        tbcol_auth.setCellValueFactory(new PropertyValueFactory<Employee, String>("empAuth"));
+
+        table_empList.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                return;
+            }
+            System.out.println(newValue.getEmpUname());
+            //i can get the username of each rows after selecting the row!!
+        });
+
     }
 
     public void insertData() throws SQLException {
         DBConnection db = new DBConnection("Data.sqlite");
-        ObservableList<Emp> data = FXCollections.observableArrayList();
-        String selEmp = "SELECT * FROM Employee";
+        ObservableList<Employee> data = FXCollections.observableArrayList();
+        String selEmp = "SELECT * FROM Employee;";
         ResultSet rs = db.executeQuery(selEmp);
         while (rs.next()){
-            Emp emp = new Emp();
-            emp.setEmp_id(rs.getInt(1));
-            emp.setEmp_uname(rs.getString(2));
-            emp.setEmp_pwd(rs.getString(3));
-            emp.setEmp_auth(rs.getString(4));
-            data.add(emp);
-            System.out.print(emp.getEmpUname());
+            Employee emp = new Employee();
+            emp.setEmpId(rs.getInt("EmpID"));
+            emp.setEmpUname(rs.getString("EmpUName"));
+            emp.setEmpPwd(rs.getString("EmpPwd"));
+            emp.setEmpAuth(rs.getString("Authority"));
+            data.add(emp); //dunno this works or not
+            System.out.println(data.toString()); //it prints the memory location of Employee class
+            System.out.println(emp.getEmpId()); //confirm works, can get the username, but iterate only once when empid has 2
         }
         table_empList.setItems(data);
     }
