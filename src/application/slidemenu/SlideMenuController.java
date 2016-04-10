@@ -1,11 +1,13 @@
 package application.slidemenu;
 
+import application.assets.LoginData;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.BlurType;
@@ -50,6 +52,15 @@ public class SlideMenuController implements Initializable {
     @FXML
     public TitledPane submenu_RNF;
 
+    @FXML
+    private Label lbl_smWelcome;
+    @FXML
+    private Label lbl_smRole;
+    @FXML
+    private Label lbl_smDAT;
+    @FXML
+    private Button btn_smLogout;
+
     private Boolean addResvLoaded;
     private Boolean modResvLoaded;
     private Boolean CILoaded;
@@ -61,6 +72,9 @@ public class SlideMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        lbl_smWelcome.setText("Welcome, " + LoginData.getUname() + "!");
+        lbl_smRole.setText("Role: " + LoginData.getAuth());
         try {
             Content();
         } catch (IOException e) {

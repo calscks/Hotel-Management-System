@@ -108,7 +108,10 @@ public class Login {
                                 success.setTitle("Success");
                                 success.setHeaderText("Login Successful");
                                 success.showAndWait();
-                                newStage();
+                                LoginData detail = new LoginData();
+                                detail.setUname(rs.getString("EmpUName"));
+                                detail.setAuth(rs.getString("Authority"));
+                                staffStage();
                             }
 
                         }
@@ -128,7 +131,7 @@ public class Login {
     }
 
 
-    public void newStage() {
+    public void staffStage() {
         try {
             StackPane rootPane = new StackPane();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/slidemenu/" +
