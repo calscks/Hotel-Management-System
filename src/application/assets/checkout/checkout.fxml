@@ -82,7 +82,7 @@
                         <TextField fx:id="tf_coAddress" />
                         <TextField fx:id="tf_coPostCode" />
                         <TextField />
-                        <TextField />
+                        <ComboBox fx:id="cbox_coCountry" prefWidth="150.0" />
                      </children>
                   </VBox>
                </children>
