@@ -25,6 +25,8 @@ public class ResvRoomController implements Initializable {
     @FXML
     private TableColumn<ModelRoom, String> tbcol_roomtype;
     @FXML
+    private  TableColumn<ModelRoom, String> tbcol_roomprice;
+    @FXML
     private ComboBox<String> cbox_roomcat;
     @FXML
     private ComboBox<String> cbox_roomtype;
@@ -89,18 +91,30 @@ public class ResvRoomController implements Initializable {
 
         //for search button
         btn_roomsearch.setOnMouseClicked(me -> {
+            ObservableList<ModelRoom> data = FXCollections.observableArrayList();
             String roomCat = cbox_roomcat.getSelectionModel().getSelectedItem();
             String roomType = cbox_roomtype.getSelectionModel().getSelectedItem();
             String ciDate = date_ci.getValue().toString();
             String coDate = date_co.getValue().toString();
             //this query so hard
-            String query = "SELECT r.RoomNo, rt.TypeName, rt.RoomPrice FROM Room r " +
+            String query = "SELECT r.RoomNo,rt.TypeGroup, rt.TypeName, rt.RoomPrice FROM Room r " +
                     "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID " +
-                    "WHERE (r.RoomNo NOT IN (SELECT RoomNo FROM RoomBooking)) AND " +
-                    "(date('2016-04-15') NOT BETWEEN " +
-                    "date((SELECT Date_CI FROM RoomBooking)) AND " +
-                    "date((SELECT Date_CO FROM RoomBooking)))";
-
+                    "WHERE (r.RoomNo NOT IN (SELECT RoomNo FROM RoomBooking WHERE " +
+                    "date('" + ciDate + "') BETWEEN date(Date_CI) AND date(Date_CO))) AND " +
+                    "rt.TypeGroup = '" + roomCat + "' AND rt.TypeName = '" + roomType + "'";
+            try {
+                ResultSet rs = db.executeQuery(query);
+                while (rs.next()){
+                    ModelRoom mdRoom = new ModelRoom();
+                    mdRoom.setRoomcat(rs.getString("TypeGroup"));
+                    mdRoom.setRtype(rs.getString("TypeName"));
+                    mdRoom.setRoomno(rs.getString("RoomNo"));
+                    data.add(mdRoom);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            table_rooms.setItems(data);
         });
 
     }
