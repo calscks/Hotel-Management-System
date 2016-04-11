@@ -3,12 +3,14 @@ package application.assets;
 import application.DBConnection;
 import application.Validation;
 import javafx.beans.binding.Bindings;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -47,6 +49,14 @@ public class Login {
         grid.add(pw, 0, 2);
 
         PasswordField pwd = new PasswordField();
+        //prevents copy, cut and paste for pwd
+        pwd.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.isControlDown()){
+                if (event.getCode() == KeyCode.C || event.getCode() == KeyCode.V || event.getCode() == KeyCode.X){
+                    event.consume();
+                }
+            }
+        });
         grid.add(pwd, 1, 2);
 
 

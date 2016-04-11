@@ -91,8 +91,10 @@ public class ResvRoomController implements Initializable {
         btn_roomsearch.setOnMouseClicked(me -> {
             String roomCat = cbox_roomcat.getSelectionModel().getSelectedItem();
             String roomType = cbox_roomtype.getSelectionModel().getSelectedItem();
-
-
+            String ciDate = date_ci.getValue().toString();
+            String coDate = date_co.getValue().toString();
+            String query = "SELECT r.RoomNo FROM Room r " +
+                    "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID";
 
         });
 
