@@ -93,8 +93,13 @@ public class ResvRoomController implements Initializable {
             String roomType = cbox_roomtype.getSelectionModel().getSelectedItem();
             String ciDate = date_ci.getValue().toString();
             String coDate = date_co.getValue().toString();
-            String query = "SELECT r.RoomNo FROM Room r " +
-                    "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID";
+            //this query so hard
+            String query = "SELECT r.RoomNo, rt.TypeName, rt.RoomPrice FROM Room r " +
+                    "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID " +
+                    "WHERE (r.RoomNo NOT IN (SELECT RoomNo FROM RoomBooking)) AND " +
+                    "(date('2016-04-15') NOT BETWEEN " +
+                    "date((SELECT Date_CI FROM RoomBooking)) AND " +
+                    "date((SELECT Date_CO FROM RoomBooking)))";
 
         });
 
