@@ -9,28 +9,37 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class ResvRoomController implements Initializable {
-    @FXML private TableView<ModelRoom> table_rooms;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomno;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomcat;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomtype;
-    @FXML private ComboBox<String> cbox_roomcat;
-    @FXML private ComboBox<String> cbox_roomtype;
-    @FXML private ComboBox<String> cbox_xtrabed;
-    @FXML private DatePicker date_ci;
-    @FXML private DatePicker date_co;
-    @FXML private Button btn_roomAdd;
-    @FXML private Button btn_roomsearch;
-    @FXML private TextField tf_roomno;
+    @FXML
+    private TableView<ModelRoom> table_rooms;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomno;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomcat;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomtype;
+    @FXML
+    private ComboBox<String> cbox_roomcat;
+    @FXML
+    private ComboBox<String> cbox_roomtype;
+    @FXML
+    private ComboBox<String> cbox_xtrabed;
+    @FXML
+    private DatePicker date_ci;
+    @FXML
+    private DatePicker date_co;
+    @FXML
+    private Button btn_roomAdd;
+    @FXML
+    private Button btn_roomsearch;
+    @FXML
+    private TextField tf_roomno;
 
 
     DBConnection db = new DBConnection("Data.sqlite");
@@ -78,6 +87,14 @@ public class ResvRoomController implements Initializable {
         //I created CIODateDisabler.java for check in and out! You can apply it like this.
         new CIODateDisabler(date_ci, date_co);
 
-    }
+        //for search button
+        btn_roomsearch.setOnMouseClicked(me -> {
+            String roomCat = cbox_roomcat.getSelectionModel().getSelectedItem();
+            String roomType = cbox_roomtype.getSelectionModel().getSelectedItem();
 
+
+
+        });
+
+    }
 }

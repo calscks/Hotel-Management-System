@@ -4,8 +4,10 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Tooltip;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 /*
 How to use:
@@ -23,6 +25,34 @@ public class CIODateDisabler {
 
         disableCiDate();
         disableCoDate();
+
+        //convert to an sqlite-acceptable date format
+        final String datePattern = "yyyy-MM-dd";
+        StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter =
+                    DateTimeFormatter.ofPattern(datePattern);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        };
+
+        this.ciDatePicker.setConverter(converter);
+        this.coDatePicker.setConverter(converter);
 
     }
 
