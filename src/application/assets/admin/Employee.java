@@ -18,7 +18,7 @@ public class Employee {
     private SimpleStringProperty empAuth = new SimpleStringProperty();
 
     //basically these returning properties let my admin table to observe the properties of this data model
-    public SimpleIntegerProperty empIdProperty() {
+        public SimpleIntegerProperty empIdProperty() {
         return empId;
     }
 
@@ -35,6 +35,7 @@ public class Employee {
     }
 
     //these getters are used if my above property accessors are not present, and also i can do validation +
+
     //debugging with these gets!
 
     public String getEmpAuth() {
