@@ -7,7 +7,12 @@ import javafx.util.Callback;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
+/*
+How to use:
+new CIODateDisabler(1, 2)
+1: Your check in date picker
+2: Your check out date picker
+ */
 public class CIODateDisabler {
     private DatePicker ciDatePicker;
     private DatePicker coDatePicker;
