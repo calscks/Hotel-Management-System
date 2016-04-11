@@ -126,7 +126,7 @@
                   </GridPane>
                </children>
             </VBox>
-            <VBox layoutX="225.0" layoutY="79.0" prefHeight="487.0" prefWidth="299.0" spacing="10.0">
+            <VBox layoutX="171.0" layoutY="79.0" prefHeight="487.0" prefWidth="353.0" spacing="10.0">
                <children>
                   <GridPane hgap="10.0" prefHeight="102.0" prefWidth="408.0" vgap="10.0">
                     <columnConstraints>
@@ -145,8 +145,8 @@
                            </font>
                         </Label>
                         <Label text="Search by :" GridPane.rowIndex="1" />
-                        <Label text="comboboxselected" GridPane.rowIndex="2" />
-                        <ComboBox prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="lbl_cboxselection" text="comboboxselected" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cbox_searchby" onAction="#labelchange" prefHeight="25.0" prefWidth="367.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
