@@ -61,6 +61,8 @@ public class ResvController implements Initializable{
 
         addGuest();
 
+        addRoom();
+
         //store short form of countries in array
         String [] locale = Locale.getISOCountries();
         //loop the array
@@ -126,6 +128,29 @@ public class ResvController implements Initializable{
             }
             guestStage.setResizable(false); //disable resize
             guestStage.setAlwaysOnTop(true); //set topmost
+        });
+    }
+
+    public void addRoom(){
+        FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/reservation/resvroom.fxml"));
+        btn_addroom.setOnMouseClicked( me->{
+            Stage roomStage = new Stage();
+            StackPane roomPane = new StackPane();
+            ScrollPane rootPane = new ScrollPane(roomPane);
+            Parent root = null;
+            try {
+                root = loadRoom.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            roomPane.getChildren().addAll(root);
+            Scene guestScene = new Scene(rootPane);
+            roomStage.setScene(guestScene);
+            roomStage.initModality(Modality.APPLICATION_MODAL);
+            roomStage.show();
+            roomStage.setResizable(false);
+            roomStage.setAlwaysOnTop(true);
         });
     }
 
