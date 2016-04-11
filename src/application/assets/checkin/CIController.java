@@ -1,6 +1,7 @@
 package application.assets.checkin;
 
 import application.DBConnection;
+import application.assets.admin.Employee;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import application.DBConnection.*;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import javax.swing.table.*;
@@ -45,9 +47,15 @@ public class CIController implements Initializable{
     @FXML
     private TextField tf_ciIDNo;
     @FXML
-    private ComboBox<String> Cbox_ciCountry;
+    private TableView<Room> roomtable;
     @FXML
-    private TableColumn ciroomno;
+    private TableColumn<Room, String> ciroomno;
+    @FXML
+    private TableColumn<Room, String> ciroomtype;
+    @FXML
+    private TableColumn<Room, String> cicid;
+    @FXML
+    private TableColumn<Room, String> cicod;
 
 
     @Override
@@ -60,11 +68,16 @@ public class CIController implements Initializable{
                         "Inner join CustAddress address on cust.custid = address.custid " +
                         "Inner join CheckInOut cio on address.custid = cio.custid " +
                         "Inner join Room room on cio.roomno = room.roomno " +
-                        "inner join RoomType rtype on room.roomtypeid = rtype.typeid ";
+                        "inner join RoomType rtype on room.roomtypeid = rtype.typeid " +
+                        "inner join facbookeddate fbd on rsv.resvno = fbd.resvno " +
+                        "inner join factype ftype on fbd.facno = ftype.facno " +
+                        "where resvno =" +tf_ciResvNum.getText();
                 ResultSet data = c.executeQuery(sql);
-                data.next();
-                ObservableList<String> roomtable = FXCollections.observableArrayList();
+                ObservableList<Room> rtable = FXCollections.observableArrayList();
 
+                data.next();
+                //ObservableList<CIController> roomtable = FXCollections.observableArrayList();
+                //table.setItems(roomtable);
                 String firstname = data.getString("CustFName");
                 String lastname = data.getString("CustLName");
                 String address = data.getString("Address");
@@ -72,11 +85,11 @@ public class CIController implements Initializable{
                 String city = data.getString("City");
                 String country = data.getString("Country");
                 String idtype = data.getString("CustID_Type");
-                String idno = data.getString("CustID");
-                String roomno = data.getString("roomno");
+                String idno= data.getString("CustID");
+                /*String rooo mno = data.getString("roomno");
                 String rtype = data.getString("typename");
                 String cidate = data.getString("checkindate");
-                String codate = data.getString("checkoutdate");
+                String codate = data.getString("checkoutdate");*/
 
 
                 tf_ciFirstName.setText(firstname);
@@ -86,10 +99,29 @@ public class CIController implements Initializable{
                 tf_ciIDNo.setText(idno);
                 tf_ciIDType.setText(idtype);
                 tf_ciPostCode.setText(postcode);
-                //roomtable.set(ciroomno.setText(roomno));
-                //cbox_ciCountry.setText(country);
+                Room rm = new Room(); //create an object for Employee everytime a next occurs
+                rm.setRoomno(data.getString("roomno"));
+                rm.setRtype(data.getString("typename"));
+                rm.setCidate(data.getString("checkindate"));
+                rm.setCodate(data.getString("checkoutdate"));
+                rtable.add(rm);
+                System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
+                System.out.println(rm.getroomno()); //for debugging, confirm works, can get the username
 
-            } catch (SQLException e1) {
+                ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
+                ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+                cicid.setCellValueFactory(new PropertyValueFactory<>("cidate"));
+                cicod.setCellValueFactory(new PropertyValueFactory<>("codate"));
+                roomtable.setItems(rtable);
+
+
+                /*ciroomno.setCellValueFactory(new PropertyValueFactory("roomno"));
+                ciroomtype.setCellValueFactory(new PropertyValueFactory("rtype"));
+                cicid.setCellValueFactory(new PropertyValueFactory("cidate"));
+                cicod.setCellValueFactory(new PropertyValueFactory("codate"));
+*/
+            }
+            catch (SQLException e1) {
                 e1.printStackTrace();
             }
         });

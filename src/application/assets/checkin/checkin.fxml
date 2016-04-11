@@ -110,10 +110,10 @@
             <VBox layoutX="747.0" layoutY="365.0" prefHeight="257.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Facility" />
-                  <TableView prefHeight="159.0" prefWidth="318.0">
+                  <TableView fx:id="cifactable" prefHeight="159.0" prefWidth="318.0">
                      <columns>
-                        <TableColumn prefWidth="106.0" text="Booked facilities" />
-                        <TableColumn prefWidth="86.0" text="Facility Price" />
+                        <TableColumn fx:id="bookfaccol" prefWidth="106.0" text="Booked facilities" />
+                        <TableColumn fx:id="facprice" prefWidth="86.0" text="Facility Price" />
                         <TableColumn prefWidth="108.0" text="Booking Date" />
                         <TableColumn prefWidth="88.0" text="Ending Date" />
                      </columns>
