@@ -18,14 +18,16 @@ public class AutoCompleteCBoxListener <T> {
      * Credits to JulianG and Mateus Viccari from Stack Overflow!<br>
      * Following codes are re-furbished and re-design by both experts. They answered the related
      * auto-complete questions below:<br>
-     * See
+     *
+     * See:
      * <a href="http://stackoverflow.com/questions/19924852/autocomplete-combobox-in-javafx">
      * The question and answers from Stack Overflow</a><br>
-     * Re-designed based on
+     *
+     * Re-designed based on:
      * <a href="http://tech.chitgoks.com/2013/08/20/how-to-create-autocomplete-combobox-or-textfield-in-java-fx-2/">
      * This original structure</a>
      *
-     * How to call this function:<br>
+     * How to call this function:
      * new AutoCompleteCBoxListener(Combobox cboxName)
      */
     public AutoCompleteCBoxListener(ComboBox<T> comboBox){

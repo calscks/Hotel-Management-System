@@ -1,9 +1,8 @@
 package application.assets.reservation;
 
 import application.DBConnection;
+import application.assets.CIODateDisabler;
 import application.assets.ModelRoom;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,30 +19,18 @@ import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class ResvRoomController implements Initializable {
-    @FXML
-    private TableView<ModelRoom> table_rooms;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomno;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomcat;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomtype;
-    @FXML
-    private ComboBox<String> cbox_roomcat;
-    @FXML
-    private ComboBox<String> cbox_roomtype;
-    @FXML
-    private ComboBox<String> cbox_xtrabed;
-    @FXML
-    private DatePicker date_ci;
-    @FXML
-    private DatePicker date_co;
-    @FXML
-    private Button btn_roomAdd;
-    @FXML
-    private Button btn_roomsearch;
-    @FXML
-    private TextField tf_roomno;
+    @FXML private TableView<ModelRoom> table_rooms;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomno;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomcat;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomtype;
+    @FXML private ComboBox<String> cbox_roomcat;
+    @FXML private ComboBox<String> cbox_roomtype;
+    @FXML private ComboBox<String> cbox_xtrabed;
+    @FXML private DatePicker date_ci;
+    @FXML private DatePicker date_co;
+    @FXML private Button btn_roomAdd;
+    @FXML private Button btn_roomsearch;
+    @FXML private TextField tf_roomno;
 
 
     DBConnection db = new DBConnection("Data.sqlite");
@@ -88,51 +75,8 @@ public class ResvRoomController implements Initializable {
             }
         });
 
-        //for check in datePicker
-        date_ci.setValue(LocalDate.now());
-        //obtained from oracle doc on how to disable date on datePicker, customised for my needs
-        final Callback<DatePicker, DateCell> disableCiDate = new Callback<DatePicker, DateCell>() {
-            @Override
-            public DateCell call(final DatePicker datePicker) {
-                return new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item.isBefore(LocalDate.now())) {
-                            setDisable(true);
-                            setStyle("-fx-background-color: #c46067;");
-                        }
-                    }
-                };
-            }
-        };
-        //set the above dayCellFactory into date_ci datePicker
-        date_ci.setDayCellFactory(disableCiDate);
-
-        //for check out datePicker, disable dates before check in date
-        final Callback<DatePicker, DateCell> disableCoDate = new Callback<DatePicker, DateCell>() {
-            @Override
-            public DateCell call(final DatePicker datePicker) {
-                return new DateCell() {
-                    @Override
-                    public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item.isBefore(date_ci.getValue().plusDays(1))) {
-                            setDisable(true);
-                            setStyle("-fx-background-color: #ff9b83;");
-                        }
-                        long dayCount = ChronoUnit.DAYS.between(
-                                date_ci.getValue(), item
-                        );
-                        setTooltip(new Tooltip(
-                                "Staying for " + dayCount + " days")
-                        );
-                    }
-                };
-            }
-        };
-        date_co.setDayCellFactory(disableCoDate);
-
+        //I created CIODateDisabler.java for check in and out! You can apply it like this.
+        new CIODateDisabler(date_ci, date_co);
 
     }
 
