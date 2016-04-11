@@ -78,8 +78,10 @@ public class SlideMenuController implements Initializable {
         lbl_smRole.setText("Role: " + LoginData.getAuth());
         if (Objects.equals(LoginData.getAuth(), "staff") || Objects.equals(LoginData.getAuth(), "Staff")) {
             submenu_RNF.setManaged(false);
+            submenu_RNF.setVisible(false);
         } else if (Objects.equals(LoginData.getAuth(), "manager") || Objects.equals(LoginData.getAuth(), "Manager")) {
             submenu_RNF.setManaged(true);
+            submenu_RNF.setVisible(true);
         }
         try {
             Content();

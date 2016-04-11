@@ -41,7 +41,7 @@
                      <children>
                         <Label text="Room No :" GridPane.rowIndex="1" />
                         <Label text="Room Type :" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tf_roomno" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <ComboBox prefHeight="25.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="Search :">
                            <font>
@@ -86,18 +86,18 @@
                         <Label text="Room Type :" GridPane.rowIndex="2" />
                         <Label text="Pax per Room :" GridPane.rowIndex="3" />
                         <Label text="Extra Bed :" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="tf_roomno2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="tf_paxperroom" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Twin Bed Price :" GridPane.rowIndex="7" />
                         <Label text="Full Bed Price :" GridPane.rowIndex="8" />
                         <Label text="Queen Bed Price :" GridPane.rowIndex="9" />
                         <Label layoutX="25.0" layoutY="317.0" text="King Bed Price :" GridPane.rowIndex="10" />
-                        <TextField layoutX="120.0" layoutY="193.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField layoutX="120.0" layoutY="231.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField layoutX="120.0" layoutY="272.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <TextField layoutX="120.0" layoutY="313.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="tf_twinbedprice" layoutX="120.0" layoutY="193.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="tf_fullbedprice" layoutX="120.0" layoutY="231.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="tf_queenbedprice" layoutX="120.0" layoutY="272.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <TextField fx:id="tf_kingbedprice" layoutX="120.0" layoutY="313.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <Label text="Room Price :" GridPane.rowIndex="4" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="tf_roomprice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Label text="Extra Bed Prices*" underline="true" GridPane.halignment="LEFT" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Bold Italic" size="13.0" />
@@ -109,8 +109,8 @@
                            </font>
                         </Label>
                         <ChoiceBox prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="tf_roomcategory" GridPane.columnIndex="1" />
+                        <TextField fx:id="tf_roomtype" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="112.0" />

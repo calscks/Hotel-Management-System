@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 public class ResvController implements Initializable{
 
     @FXML private AnchorPane resvPane;
+    @FXML private TextField tf_resvno;
     @FXML private TextField tf_fname;
     @FXML private TextField tf_lname;
     @FXML private TextField tf_phoneno;
@@ -60,6 +61,8 @@ public class ResvController implements Initializable{
         validations();
 
         addGuest();
+
+        addRoom();
 
         //store short form of countries in array
         String [] locale = Locale.getISOCountries();
@@ -129,7 +132,31 @@ public class ResvController implements Initializable{
         });
     }
 
+    public void addRoom(){
+        FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/reservation/resvroom.fxml"));
+        btn_addroom.setOnMouseClicked( me->{
+            Stage roomStage = new Stage();
+            StackPane roomPane = new StackPane();
+            ScrollPane rootPane = new ScrollPane(roomPane);
+            Parent root = null;
+            try {
+                root = loadRoom.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            roomPane.getChildren().addAll(root);
+            Scene guestScene = new Scene(rootPane);
+            roomStage.setScene(guestScene);
+            roomStage.initModality(Modality.APPLICATION_MODAL);
+            roomStage.show();
+            roomStage.setResizable(false);
+            roomStage.setAlwaysOnTop(true);
+        });
+    }
+
     private void validations(){
+        tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_fname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_lname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_phoneno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));

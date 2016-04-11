@@ -67,4 +67,16 @@ public class Validation {
         };
     }
 
+    public static EventHandler<KeyEvent> validPrice(final Integer maxLength) {
+        return e -> {
+            TextField txt_TextField = (TextField) e.getSource();
+            if (txt_TextField.getText().length() >= maxLength) {
+                e.consume();
+            }
+            if (!e.getCharacter().matches("[A-Z0-9.]")) {
+                e.consume();
+            }
+        };
+    }
+
 }
