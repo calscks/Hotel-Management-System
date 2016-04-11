@@ -61,19 +61,20 @@ public class CIController implements Initializable{
         DBConnection c = new DBConnection("Data.sqlite");
         button.setOnAction(e-> {
             try {
-                String sql ="select * from Reservation rsv " +
+                String sql = "select * from Reservation rsv " +
                         "Inner join Customer cust on rsv.custid = cust.custid " +
                         "Inner join CustAddress address on cust.custid = address.custid " +
                         "Inner join CheckInOut cio on address.custid = cio.custid " +
-                        "Inner join ModelRoom room on cio.roomno = room.roomno " +
+                        "Inner join roombooking rbk on rsv.resvno = rbk.resvno " +
+                        /*"Inner join Room room on cio.roomno = room.roomno " +
                         "inner join RoomType rtype on room.roomtypeid = rtype.typeid " +
                         "inner join facbookeddate fbd on rsv.resvno = fbd.resvno " +
-                        "inner join factype ftype on fbd.facno = ftype.facno " +
-                        "where resvno =" +tf_ciResvNum.getText();
+                        "inner join factype ftype on fbd.facno = ftype.facno " +*/
+                        "where rsv.resvno =" +tf_ciResvNum.getText();
                 ResultSet data = c.executeQuery(sql);
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
 
-                data.next();
+                //data.next();
                 //ObservableList<CIController> roomtable = FXCollections.observableArrayList();
                 //table.setItems(roomtable);
                 String firstname = data.getString("CustFName");
@@ -83,7 +84,7 @@ public class CIController implements Initializable{
                 String city = data.getString("City");
                 String country = data.getString("Country");
                 String idtype = data.getString("CustID_Type");
-                String idno= data.getString("CustID");
+                String idno = data.getString("CustID");
                 /*String rooo mno = data.getString("roomno");
                 String rtype = data.getString("typename");
                 String cidate = data.getString("checkindate");
@@ -97,15 +98,16 @@ public class CIController implements Initializable{
                 tf_ciIDNo.setText(idno);
                 tf_ciIDType.setText(idtype);
                 tf_ciPostCode.setText(postcode);
-                ModelRoom rm = new ModelRoom();
+                while (data.next()){
+                    ModelRoom rm = new ModelRoom();
                 rm.setRoomno(data.getString("roomno"));
-                rm.setRtype(data.getString("typename"));
-                rm.setCidate(data.getString("checkindate"));
-                rm.setCodate(data.getString("checkoutdate"));
+                rm.setRtype(data.getString("roomtypename"));
+                rm.setCidate(data.getString("date_ci"));
+                rm.setCodate(data.getString("date_co"));
                 rtable.add(rm);
                 System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
                 System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
-
+            }
                 ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
                 cicid.setCellValueFactory(new PropertyValueFactory<>("cidate"));
