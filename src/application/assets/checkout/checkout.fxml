@@ -74,13 +74,13 @@
                   </VBox>
                   <VBox spacing="10.0" GridPane.columnIndex="1">
                      <children>
-                        <TextField editable="false" />
-                        <TextField />
-                        <TextField />
-                        <ComboBox fx:id="chkOutIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
-                        <TextField />
-                        <TextField />
-                        <TextField />
+                        <TextField fx:id="tf_coRoomNo" />
+                        <TextField fx:id="tf_coFirstName" />
+                        <TextField fx:id="tf_coLastName" />
+                        <ComboBox fx:id="cbox_coIDType" prefHeight="25.0" prefWidth="200.0" />
+                        <TextField fx:id="tf_coIDNo" />
+                        <TextField fx:id="tf_coAddress" />
+                        <TextField fx:id="tf_coPostCode" />
                         <TextField />
                         <TextField />
                      </children>

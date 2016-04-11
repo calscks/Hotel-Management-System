@@ -115,7 +115,7 @@
                         <TableColumn fx:id="bookfaccol" prefWidth="106.0" text="Booked facilities" />
                         <TableColumn fx:id="facprice" prefWidth="86.0" text="Facility Price" />
                         <TableColumn prefWidth="108.0" text="Booking Date" />
-                        <TableColumn prefWidth="88.0" text="Ending Date" />
+                        <TableColumn prefWidth="88.0" text="Booking Time" />
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
