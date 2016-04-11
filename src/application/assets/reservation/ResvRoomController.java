@@ -10,10 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class ResvRoomController implements Initializable {
@@ -84,5 +87,53 @@ public class ResvRoomController implements Initializable {
                 }
             }
         });
+
+        //for check in datePicker
+        date_ci.setValue(LocalDate.now());
+        //obtained from oracle doc on how to disable date on datePicker, customised for my needs
+        final Callback<DatePicker, DateCell> disableCiDate = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(LocalDate.now())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #c46067;");
+                        }
+                    }
+                };
+            }
+        };
+        //set the above dayCellFactory into date_ci datePicker
+        date_ci.setDayCellFactory(disableCiDate);
+
+        //for check out datePicker, disable dates before check in date
+        final Callback<DatePicker, DateCell> disableCoDate = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(date_ci.getValue().plusDays(1))) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ff9b83;");
+                        }
+                        long dayCount = ChronoUnit.DAYS.between(
+                                date_ci.getValue(), item
+                        );
+                        setTooltip(new Tooltip(
+                                "Staying for " + dayCount + " days")
+                        );
+                    }
+                };
+            }
+        };
+        date_co.setDayCellFactory(disableCoDate);
+
+
     }
+
 }
