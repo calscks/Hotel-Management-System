@@ -153,7 +153,7 @@ public class DBConnection {
                         "    CheckOutDate TEXT,\n" +
                         "    ResvNo INTEGER\n" +
                         ");\n",
-                "CREATE TABLE IF NOT EXISTS Room\n" +
+                "CREATE TABLE IF NOT EXISTS ModelRoom\n" +
                         "(\n" +
                         "    RoomNo TEXT PRIMARY KEY,\n" +
                         "    RoomTypeID INTEGER\n" +

@@ -1,25 +1,18 @@
 package application.assets.checkin;
 
 import application.DBConnection;
-import application.assets.admin.Employee;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import application.assets.ModelRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import application.DBConnection.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
-import javax.swing.table.*;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class CIController implements Initializable{
@@ -47,15 +40,15 @@ public class CIController implements Initializable{
     @FXML
     private TextField tf_ciIDNo;
     @FXML
-    private TableView<Room> roomtable;
+    private TableView<ModelRoom> roomtable;
     @FXML
-    private TableColumn<Room, String> ciroomno;
+    private TableColumn<ModelRoom, String> ciroomno;
     @FXML
-    private TableColumn<Room, String> ciroomtype;
+    private TableColumn<ModelRoom, String> ciroomtype;
     @FXML
-    private TableColumn<Room, String> cicid;
+    private TableColumn<ModelRoom, String> cicid;
     @FXML
-    private TableColumn<Room, String> cicod;
+    private TableColumn<ModelRoom, String> cicod;
 
 
     @Override
@@ -67,13 +60,13 @@ public class CIController implements Initializable{
                         "Inner join Customer cust on rsv.custid = cust.custid " +
                         "Inner join CustAddress address on cust.custid = address.custid " +
                         "Inner join CheckInOut cio on address.custid = cio.custid " +
-                        "Inner join Room room on cio.roomno = room.roomno " +
+                        "Inner join ModelRoom room on cio.roomno = room.roomno " +
                         "inner join RoomType rtype on room.roomtypeid = rtype.typeid " +
                         "inner join facbookeddate fbd on rsv.resvno = fbd.resvno " +
                         "inner join factype ftype on fbd.facno = ftype.facno " +
                         "where resvno =" +tf_ciResvNum.getText();
                 ResultSet data = c.executeQuery(sql);
-                ObservableList<Room> rtable = FXCollections.observableArrayList();
+                ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
 
                 data.next();
                 //ObservableList<CIController> roomtable = FXCollections.observableArrayList();
@@ -99,7 +92,7 @@ public class CIController implements Initializable{
                 tf_ciIDNo.setText(idno);
                 tf_ciIDType.setText(idtype);
                 tf_ciPostCode.setText(postcode);
-                Room rm = new Room();
+                ModelRoom rm = new ModelRoom();
                 rm.setRoomno(data.getString("roomno"));
                 rm.setRtype(data.getString("typename"));
                 rm.setCidate(data.getString("checkindate"));
