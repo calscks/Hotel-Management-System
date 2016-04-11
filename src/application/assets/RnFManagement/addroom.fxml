@@ -30,14 +30,14 @@
                   <Label text="Room Type :" GridPane.rowIndex="2" />
                   <Label text="Pax per Room :" GridPane.rowIndex="3" />
                   <Label text="Extra Bed :" GridPane.rowIndex="5" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="tf_roomno" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="tf_paxperroom" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Room Price :" GridPane.rowIndex="4" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="tf_roomprice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="tf_kingbedprice" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <TextField fx:id="tf_queenbedprice" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <TextField fx:id="tf_fullbedprice" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="tf_twinbedprice" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <Label text="Extra Bed Prices*" underline="true" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Bold Italic" size="13.0" />
@@ -53,8 +53,8 @@
                         <Font name="System Italic" size="10.0" />
                      </font>
                   </Label>
-                  <TextField GridPane.columnIndex="1" />
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="tf_roomcategory" GridPane.columnIndex="1" />
+                  <TextField fx:id="tf_roomtype" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="142.0" />
