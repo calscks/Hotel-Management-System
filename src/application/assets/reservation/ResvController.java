@@ -106,12 +106,13 @@ public class ResvController implements Initializable{
     }
 
     public void addGuest(){
+        FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/reservation/resvaddgroup.fxml"));
+
         btn_addguest.setOnMouseClicked(me->{
             Stage guestStage = new Stage();
             StackPane guestPane = new StackPane();
             ScrollPane rootPane = new ScrollPane(guestPane);
-            FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
-                    "/reservation/resvaddgroup.fxml"));
             try {
                 Parent root = loadGuest.load();
                 guestPane.getChildren().addAll(root);

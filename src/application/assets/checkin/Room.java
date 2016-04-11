@@ -26,20 +26,19 @@ public class Room {
     public SimpleStringProperty codateProperty() { return codate;}
 
 
-
-    public String getroomno() {
+    public String getRoomno() {
         return roomno.get();
     }
 
-    public String getrtype() {
+    public String getRtype() {
         return rtype.get();
     }
 
-    public String getcidate() {
+    public String getCidate() {
         return cidate.get();
     }
 
-    public String getcodate() {
+    public String getCodate() {
         return codate.get();
     }
 

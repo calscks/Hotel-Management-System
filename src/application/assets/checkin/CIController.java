@@ -99,14 +99,14 @@ public class CIController implements Initializable{
                 tf_ciIDNo.setText(idno);
                 tf_ciIDType.setText(idtype);
                 tf_ciPostCode.setText(postcode);
-                Room rm = new Room(); //create an object for Employee everytime a next occurs
+                Room rm = new Room();
                 rm.setRoomno(data.getString("roomno"));
                 rm.setRtype(data.getString("typename"));
                 rm.setCidate(data.getString("checkindate"));
                 rm.setCodate(data.getString("checkoutdate"));
                 rtable.add(rm);
                 System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
-                System.out.println(rm.getroomno()); //for debugging, confirm works, can get the username
+                System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
 
                 ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
