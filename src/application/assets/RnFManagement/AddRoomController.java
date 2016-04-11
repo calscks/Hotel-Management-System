@@ -16,7 +16,7 @@ public class AddRoomController implements Initializable{
     @FXML private TextField tf_paxperroom;
     @FXML private TextField tf_roomprice;
     @FXML private TextField tf_twinbedprice;
-    @FXML private TextField tf_fullbedpricey;
+    @FXML private TextField tf_fullbedprice;
     @FXML private TextField tf_queenbedprice;
     @FXML private TextField tf_kingbedprice;
 
@@ -33,7 +33,7 @@ public class AddRoomController implements Initializable{
         tf_paxperroom.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_roomprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_twinbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
-        tf_fullbedpricey.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_fullbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_queenbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_kingbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
     }

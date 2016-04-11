@@ -93,7 +93,7 @@
                         <Label text="Queen Bed Price :" GridPane.rowIndex="9" />
                         <Label layoutX="25.0" layoutY="317.0" text="King Bed Price :" GridPane.rowIndex="10" />
                         <TextField fx:id="tf_twinbedprice" layoutX="120.0" layoutY="193.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="tf_fullbedpricey" layoutX="120.0" layoutY="231.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="tf_fullbedprice" layoutX="120.0" layoutY="231.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <TextField fx:id="tf_queenbedprice" layoutX="120.0" layoutY="272.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <TextField fx:id="tf_kingbedprice" layoutX="120.0" layoutY="313.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <Label text="Room Price :" GridPane.rowIndex="4" />
