@@ -27,6 +27,7 @@ import java.util.ResourceBundle;
 public class ResvController implements Initializable{
 
     @FXML private AnchorPane resvPane;
+    @FXML private TextField tf_resvno;
     @FXML private TextField tf_fname;
     @FXML private TextField tf_lname;
     @FXML private TextField tf_phoneno;
@@ -130,6 +131,7 @@ public class ResvController implements Initializable{
     }
 
     private void validations(){
+        tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_fname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_lname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_phoneno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));

@@ -70,7 +70,7 @@
             </VBox>
             <VBox prefWidth="241.0" spacing="8.0">
                <children>
-                  <TextField prefHeight="25.0" prefWidth="331.0" />
+                  <TextField fx:id="tf_roomno" prefHeight="25.0" prefWidth="331.0" />
                   <ChoiceBox prefHeight="25.0" prefWidth="244.0" />
                </children>
                <HBox.margin>
