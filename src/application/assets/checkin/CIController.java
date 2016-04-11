@@ -1,6 +1,7 @@
 package application.assets.checkin;
 
 import application.DBConnection;
+import application.Validation;
 import application.assets.ModelRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -27,6 +29,8 @@ public class CIController implements Initializable{
     private Button button;
     @FXML
     private TextField tf_ciLastName;
+    @FXML
+    private TextField tf_ciPhoneNo;
     @FXML
     private ComboBox cbox_ciCountry;
     @FXML
@@ -53,6 +57,7 @@ public class CIController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        validation();
         DBConnection c = new DBConnection("Data.sqlite");
         button.setOnAction(e-> {
             try {
@@ -118,6 +123,18 @@ public class CIController implements Initializable{
                 e1.printStackTrace();
             }
         });
+    }
+
+    private void validation() {
+        tf_ciResvNum.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(10));
+        tf_ciFirstName.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
+        tf_ciLastName.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
+        tf_ciPhoneNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));
+        tf_ciAddress.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
+        tf_ciPostCode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
+        tf_ciCity.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
+        tf_ciIDType.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        tf_ciIDNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(20));
     }
 }
 
