@@ -3,6 +3,7 @@ package application.assets.reservation;
 import application.DBConnection;
 import application.assets.CIODateDisabler;
 import application.assets.ModelRoom;
+import application.assets.admin.Employee;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,9 +11,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javax.lang.model.type.NullType;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ResvRoomController implements Initializable {
@@ -25,7 +28,7 @@ public class ResvRoomController implements Initializable {
     @FXML
     private TableColumn<ModelRoom, String> tbcol_roomtype;
     @FXML
-    private  TableColumn<ModelRoom, String> tbcol_roomprice;
+    private TableColumn<ModelRoom, String> tbcol_roomprice;
     @FXML
     private ComboBox<String> cbox_roomcat;
     @FXML
@@ -42,6 +45,10 @@ public class ResvRoomController implements Initializable {
     private Button btn_roomsearch;
     @FXML
     private TextField tf_roomno;
+    @FXML
+    private Label lbl_extBedPrice;
+    @FXML
+    private Label lbl_totalRoomPrice;
 
 
     DBConnection db = new DBConnection("Data.sqlite");
@@ -51,6 +58,7 @@ public class ResvRoomController implements Initializable {
         tbcol_roomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
         tbcol_roomcat.setCellValueFactory(new PropertyValueFactory<>("roomcat"));
         tbcol_roomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+        tbcol_roomprice.setCellValueFactory(new PropertyValueFactory<>("roomprice"));
 
         //for room category combobox
         ObservableList<String> roomCategory = FXCollections.observableArrayList();
@@ -97,13 +105,15 @@ public class ResvRoomController implements Initializable {
             String ciDate = date_ci.getValue().toString();
 
             table_rooms.getItems().clear(); //prevent keep on adding
+            tf_roomno.clear(); //clear the field
+            cbox_xtrabed.getItems().clear();
 
             //this query so hard
             //this query means to select a table with another table joined (on the 1st table's room type id column =
             //2nd table's room type id column, with the condition of the room no does not present inside
             // RoomBooking which the selected checkin date clashes with other cio dates of the
             // particular room no. This query also matches the chosen type catergory and room type.
-            String query = "SELECT r.RoomNo,rt.TypeGroup, rt.TypeName, rt.RoomPrice, " +
+            String query = "SELECT r.RoomNo, rt.TypeGroup, rt.TypeName, rt.RoomPrice, " +
                     "rt.Rate_extTwin, rt.Rate_extFull, rt.Rate_extQueen, rt.Rate_extKing " +
                     "FROM Room r " +
                     "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID " +
@@ -112,11 +122,13 @@ public class ResvRoomController implements Initializable {
                     "rt.TypeGroup = '" + roomCat + "' AND rt.TypeName = '" + roomType + "'";
             try {
                 ResultSet rs = db.executeQuery(query);
-                while (rs.next()){
+                while (rs.next()) {
                     ModelRoom mdRoom = new ModelRoom();
+                    String rPrice = String.format(Locale.UK, "%.2f", rs.getFloat("RoomPrice"));
                     mdRoom.setRoomcat(rs.getString("TypeGroup"));
                     mdRoom.setRtype(rs.getString("TypeName"));
                     mdRoom.setRoomno(rs.getString("RoomNo"));
+                    mdRoom.setRoomprice(rPrice);
                     data.add(mdRoom);
                 }
             } catch (SQLException e) {
@@ -124,6 +136,59 @@ public class ResvRoomController implements Initializable {
             }
             table_rooms.setItems(data);
 
+        });
+
+        //for row double clicking
+        table_rooms.setRowFactory(tv->{
+            TableRow<ModelRoom> selRow = new TableRow<>();
+            selRow.setOnMouseClicked(me -> {
+                if (me.getClickCount() == 2 && (!selRow.isEmpty())) {
+                    ModelRoom room = new ModelRoom();
+                    room = table_rooms.getSelectionModel().getSelectedItem();
+                    tf_roomno.clear();
+                    cbox_xtrabed.getItems().clear();
+                    tf_roomno.setText(room.getRoomno());
+
+                    String query = "SELECT r.RoomNo, rt.TypeGroup, rt.TypeName, rt.RoomPrice, " +
+                            "rt.Rate_extTwin, rt.Rate_extFull, rt.Rate_extQueen, rt.Rate_extKing " +
+                            "FROM Room r " +
+                            "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID " +
+                            "WHERE r.RoomNo = '" + room.getRoomno() + "'";
+
+                    try {
+                        ResultSet rs = db.executeQuery(query);
+                        if (rs.next()){
+                            //i re-set the resultset rs with rs.getFloat(sth)!
+                            //if it get a null value from certain column specified,
+                            //the rs will be null.
+                            Float twin = rs.getFloat("Rate_extTwin");
+                            //so after re-setting, and if rs right now is not null,
+                            if (!rs.wasNull()){
+                                cbox_xtrabed.getItems().add("Twin Bed");
+                            }
+
+                            Float full = rs.getFloat("Rate_extFull");
+                            if (!rs.wasNull()){
+                                cbox_xtrabed.getItems().add("Full bed");
+                            }
+
+                            Float queen = rs.getFloat("Rate_extQueen");
+                            if (!rs.wasNull()){
+                                cbox_xtrabed.getItems().add("Queen Bed");
+                            }
+
+                            Float king = rs.getFloat("Rate_extKing");
+                            if (!rs.wasNull()){
+                                cbox_xtrabed.getItems().add("King Bed");
+                            }
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            return selRow;
         });
 
     }
