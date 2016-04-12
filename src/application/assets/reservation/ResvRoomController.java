@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -169,11 +170,11 @@ public class ResvRoomController implements Initializable {
                     try {
                         ResultSet rs = db.executeQuery(query);
                         if (rs.next()){
-                            //i re-set the resultset rs with rs.getFloat(sth)!
-                            //if it get a null value from certain column specified,
+                            //i re-set the resultSet rs with rs.getFloat(sth)! need to do like this
+                            //if it gets a null value from certain column specified,
                             //the rs will be null.
                             Float twin = rs.getFloat("Rate_extTwin");
-                            //so after re-setting, and if rs right now is not null,
+                            //so after re-setting, and see if rs right now is not null,
                             if (!rs.wasNull()){
                                 cbox_xtrabed.getItems().add("Twin Bed");
                             }
@@ -219,7 +220,7 @@ public class ResvRoomController implements Initializable {
                 }
             }
 
-            //same but different type, if selected full bed, just copy pasta for the rest
+            //same but different type, if selected full bed. Just copy pasta and edit a bit for the rest
             if (Objects.equals(cbox_xtrabed.getSelectionModel().getSelectedItem(), "Full Bed")){
                 try {
                     ResultSet rs = db.executeQuery(query);
@@ -249,7 +250,7 @@ public class ResvRoomController implements Initializable {
 
         }); //set xtra bed price done
 
-        //set the total price
+        //set the total price, need to consider booking duration
 
 
     }

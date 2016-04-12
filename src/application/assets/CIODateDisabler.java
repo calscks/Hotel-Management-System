@@ -18,6 +18,7 @@ new CIODateDisabler(1, 2)
 public class CIODateDisabler {
     private DatePicker ciDatePicker;
     private DatePicker coDatePicker;
+    private Long duration;
 
     public CIODateDisabler(DatePicker ciDatePicker, DatePicker coDatePicker){
         this.ciDatePicker = ciDatePicker;
@@ -92,12 +93,16 @@ public class CIODateDisabler {
                             setDisable(true);
                             setStyle("-fx-background-color: #ff9b83;");
                         }
-                        long dayCount = ChronoUnit.DAYS.between(ciDatePicker.getValue(), item);
-                        setTooltip(new Tooltip("Staying for " + dayCount + " days"));
+                        duration = ChronoUnit.DAYS.between(ciDatePicker.getValue(), item);
+                        setTooltip(new Tooltip("Staying for " + duration + " days"));
                     }
                 };
             }
         };
         coDatePicker.setDayCellFactory(disableCoDate);
+    }
+
+    public Long getDuration() {
+        return duration;
     }
 }
