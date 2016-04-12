@@ -164,8 +164,8 @@
                   <TableView prefHeight="251.0" prefWidth="299.0">
                     <columns>
                         <TableColumn text="Facility ID." />
-                      <TableColumn prefWidth="100.0" text="Facility Name" />
-                      <TableColumn prefWidth="118.0" text="Facility Status" />
+                      <TableColumn prefWidth="84.0" text="Facility Name" />
+                      <TableColumn prefWidth="121.0" text="Facility Description" />
                     </columns>
                   </TableView>
                   <HBox prefWidth="299.0" spacing="14.0">

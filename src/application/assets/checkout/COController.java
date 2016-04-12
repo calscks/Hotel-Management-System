@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import application.assets.AutoCompleteCBoxListener;
 
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -30,9 +31,12 @@ public class COController implements Initializable {
         }
    DBConnection c = new DBConnection("Data.sqlite");
         tf_coRoomNo.textProperty().addListener((observable, oldValue, newValue)->{
+
             String sql = "";
+
             try {
-                c.executeQuery("");
+               ResultSet codata =  c.executeQuery(sql);
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }

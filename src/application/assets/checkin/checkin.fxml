@@ -73,9 +73,10 @@
                   <TableView fx:id="roomtable" prefHeight="159.0" prefWidth="318.0">
                      <columns>
                         <TableColumn fx:id="ciroomno" prefWidth="59.0" text="Room No" />
-                        <TableColumn fx:id="ciroomtype" prefWidth="128.0" text="Room Type" />
-                        <TableColumn fx:id="cicid" prefWidth="109.0" text="Booking Date" />
-                        <TableColumn fx:id="cicod" prefWidth="92.0" text="Ending Date" />
+                        <TableColumn fx:id="ciroomtype" prefWidth="71.0" text="Room Type" />
+                        <TableColumn prefWidth="82.0" text="Room Price" />
+                        <TableColumn fx:id="cicid" prefWidth="85.0" text="Booking Date" />
+                        <TableColumn fx:id="cicod" prefWidth="91.0" text="Ending Date" />
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
