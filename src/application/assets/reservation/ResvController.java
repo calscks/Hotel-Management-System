@@ -254,6 +254,11 @@ public class ResvController implements Initializable {
         tbcol_roomco.setCellValueFactory(new PropertyValueFactory<>("codate"));
         tbcol_xtrabed.setCellValueFactory(new PropertyValueFactory<>("extbedtype"));
         tbcol_rprice.setCellValueFactory(new PropertyValueFactory<>("roomprice"));
+
+        tbcol_memfname.setCellValueFactory(new PropertyValueFactory<>("memFName"));
+        tbcol_memlname.setCellValueFactory(new PropertyValueFactory<>("memLName"));
+        tbcol_memidno.setCellValueFactory(new PropertyValueFactory<>("idNo"));
+        tbcol_memroomno.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
     }
 
 }
