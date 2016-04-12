@@ -19,7 +19,7 @@ import java.sql.*;
 public class DBConnection {
     private String dbName;
     private Connection c = null;
-    Statement statement = null;
+    private Statement statement = null;
 
     public DBConnection(String dbName){ //this is a constructor
         this.dbName = dbName;
@@ -30,7 +30,7 @@ public class DBConnection {
         }
     }
 
-    public void setCon(){
+    private void setCon(){
         String[] create = new String[]{
                 "CREATE TABLE IF NOT EXISTS Admin\n" +
                         "(\n" +

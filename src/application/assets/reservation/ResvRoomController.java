@@ -3,7 +3,8 @@ package application.assets.reservation;
 import application.DBConnection;
 import application.assets.CIODateDisabler;
 import application.assets.ModelRoom;
-import application.assets.admin.Employee;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,12 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import javax.lang.model.type.NullType;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.StringJoiner;
 
 public class ResvRoomController implements Initializable {
     @FXML
@@ -49,6 +51,8 @@ public class ResvRoomController implements Initializable {
     private Label lbl_extBedPrice;
     @FXML
     private Label lbl_totalRoomPrice;
+    @FXML
+    private Label lbl_roomPrice;
 
 
     DBConnection db = new DBConnection("Data.sqlite");
@@ -59,6 +63,10 @@ public class ResvRoomController implements Initializable {
         tbcol_roomcat.setCellValueFactory(new PropertyValueFactory<>("roomcat"));
         tbcol_roomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
         tbcol_roomprice.setCellValueFactory(new PropertyValueFactory<>("roomprice"));
+
+        lbl_roomPrice.setText(null);
+        lbl_extBedPrice.setText(null);
+        lbl_totalRoomPrice.setText(null);
 
         //for room category combobox
         ObservableList<String> roomCategory = FXCollections.observableArrayList();
@@ -92,7 +100,7 @@ public class ResvRoomController implements Initializable {
                     e.printStackTrace();
                 }
             }
-        });
+        }); //room category selection done
 
         //I created CIODateDisabler.java for check in and out! You can apply it like this.
         new CIODateDisabler(date_ci, date_co);
@@ -107,6 +115,8 @@ public class ResvRoomController implements Initializable {
             table_rooms.getItems().clear(); //prevent keep on adding
             tf_roomno.clear(); //clear the field
             cbox_xtrabed.getItems().clear();
+            lbl_extBedPrice.setText(null);
+            lbl_totalRoomPrice.setText(null);
 
             //this query so hard
             //this query means to select a table with another table joined (on the 1st table's room type id column =
@@ -136,7 +146,7 @@ public class ResvRoomController implements Initializable {
             }
             table_rooms.setItems(data);
 
-        });
+        }); //room search done
 
         //for row double clicking
         table_rooms.setRowFactory(tv->{
@@ -148,6 +158,7 @@ public class ResvRoomController implements Initializable {
                     tf_roomno.clear();
                     cbox_xtrabed.getItems().clear();
                     tf_roomno.setText(room.getRoomno());
+                    lbl_roomPrice.setText(room.getRoomprice());
 
                     String query = "SELECT r.RoomNo, rt.TypeGroup, rt.TypeName, rt.RoomPrice, " +
                             "rt.Rate_extTwin, rt.Rate_extFull, rt.Rate_extQueen, rt.Rate_extKing " +
@@ -169,7 +180,7 @@ public class ResvRoomController implements Initializable {
 
                             Float full = rs.getFloat("Rate_extFull");
                             if (!rs.wasNull()){
-                                cbox_xtrabed.getItems().add("Full bed");
+                                cbox_xtrabed.getItems().add("Full Bed");
                             }
 
                             Float queen = rs.getFloat("Rate_extQueen");
@@ -185,11 +196,61 @@ public class ResvRoomController implements Initializable {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-
                 }
             });
             return selRow;
-        });
+        }); //double click row done
+
+        //need to set extra bed price, means need a change listener!
+        cbox_xtrabed.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String roomNo = tf_roomno.getText();
+            String query = "SELECT r.RoomNo, rt.Rate_extTwin, rt.Rate_extFull, " +
+                    "rt.Rate_extQueen, rt.Rate_extKing FROM Room r " +
+                    "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID " +
+                    "WHERE r.RoomNo = '" + roomNo + "'";
+
+            //if selected twin bed
+            if (Objects.equals(cbox_xtrabed.getSelectionModel().getSelectedItem(), "Twin Bed")){
+                try {
+                    ResultSet rs = db.executeQuery(query);
+                    lbl_extBedPrice.setText(String.format(Locale.UK, "%.2f", rs.getFloat("Rate_extTwin")));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            //same but different type, if selected full bed, just copy pasta for the rest
+            if (Objects.equals(cbox_xtrabed.getSelectionModel().getSelectedItem(), "Full Bed")){
+                try {
+                    ResultSet rs = db.executeQuery(query);
+                    lbl_extBedPrice.setText(String.format(Locale.UK, "%.2f", rs.getFloat("Rate_extFull")));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (Objects.equals(cbox_xtrabed.getSelectionModel().getSelectedItem(), "Queen Bed")){
+                try {
+                    ResultSet rs = db.executeQuery(query);
+                    lbl_extBedPrice.setText(String.format(Locale.UK, "%.2f", rs.getFloat("Rate_extQueen")));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (Objects.equals(cbox_xtrabed.getSelectionModel().getSelectedItem(), "King Bed")){
+                try {
+                    ResultSet rs = db.executeQuery(query);
+                    lbl_extBedPrice.setText(String.format(Locale.UK, "%.2f", rs.getFloat("Rate_extKing")));
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }); //set xtra bed price done
+
+        //set the total price
+
 
     }
 }
