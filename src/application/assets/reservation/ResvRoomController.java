@@ -95,9 +95,17 @@ public class ResvRoomController implements Initializable {
             String roomCat = cbox_roomcat.getSelectionModel().getSelectedItem();
             String roomType = cbox_roomtype.getSelectionModel().getSelectedItem();
             String ciDate = date_ci.getValue().toString();
-            String coDate = date_co.getValue().toString();
+
+            table_rooms.getItems().clear(); //prevent keep on adding
+
             //this query so hard
-            String query = "SELECT r.RoomNo,rt.TypeGroup, rt.TypeName, rt.RoomPrice FROM Room r " +
+            //this query means to select a table with another table joined (on the 1st table's room type id column =
+            //2nd table's room type id column, with the condition of the room no does not present inside
+            // RoomBooking which the selected checkin date clashes with other cio dates of the
+            // particular room no. This query also matches the chosen type catergory and room type.
+            String query = "SELECT r.RoomNo,rt.TypeGroup, rt.TypeName, rt.RoomPrice, " +
+                    "rt.Rate_extTwin, rt.Rate_extFull, rt.Rate_extQueen, rt.Rate_extKing " +
+                    "FROM Room r " +
                     "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID " +
                     "WHERE (r.RoomNo NOT IN (SELECT RoomNo FROM RoomBooking WHERE " +
                     "date('" + ciDate + "') BETWEEN date(Date_CI) AND date(Date_CO))) AND " +
@@ -115,6 +123,7 @@ public class ResvRoomController implements Initializable {
                 e.printStackTrace();
             }
             table_rooms.setItems(data);
+
         });
 
     }

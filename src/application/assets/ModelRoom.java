@@ -9,6 +9,7 @@ public class ModelRoom {
     private SimpleStringProperty cidate = new SimpleStringProperty();
     private SimpleStringProperty codate = new SimpleStringProperty();
     private SimpleStringProperty extBedType = new SimpleStringProperty();
+    private SimpleStringProperty roomprice = new SimpleStringProperty();
 
     public SimpleStringProperty roomcatProperty() {
         return roomcat;
@@ -30,6 +31,10 @@ public class ModelRoom {
 
     public SimpleStringProperty extBedTypeProperty() {
         return extBedType;
+    }
+
+    public SimpleStringProperty roompriceProperty() {
+        return roomprice;
     }
 
     public String getRoomcat() {
@@ -54,6 +59,10 @@ public class ModelRoom {
 
     public String getExtBedType() {
         return extBedType.get();
+    }
+
+    public String getRoomprice() {
+        return roomprice.get();
     }
 
     //these setters are important to set database column value into each properties of this data model class
@@ -81,6 +90,10 @@ public class ModelRoom {
 
     public void setExtBedType(String extBedType) {
         this.extBedType.set(extBedType);
+    }
+
+    public void setRoomprice(String roomprice) {
+        this.roomprice.set(roomprice);
     }
 
     //if u don't understand getters and setters then ggwp
