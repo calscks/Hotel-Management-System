@@ -71,7 +71,7 @@ public class CIController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         validation();
         DBConnection c = new DBConnection("Data.sqlite");
-        button.setOnAction(e-> {
+        tf_ciResvNum.textProperty().addListener((observable, oldValue,newValue)-> {
             try {
                 String sql = "select * from Reservation rsv " +
                         "Inner join Customer cust on rsv.custid = cust.custid " +
