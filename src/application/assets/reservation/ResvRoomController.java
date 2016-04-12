@@ -3,8 +3,6 @@ package application.assets.reservation;
 import application.DBConnection;
 import application.assets.CIODateDisabler;
 import application.assets.ModelRoom;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,11 +13,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.StringJoiner;
 
 public class ResvRoomController implements Initializable {
     @FXML
@@ -104,7 +102,9 @@ public class ResvRoomController implements Initializable {
         }); //room category selection done
 
         //I created CIODateDisabler.java for check in and out! You can apply it like this.
-        new CIODateDisabler(date_ci, date_co);
+        CIODateDisabler date = new CIODateDisabler(date_ci, date_co);
+        //date will be used (line 255) for counting total days (using the function getDuration() inside
+        // CIODateDisabler
 
         //for search button
         btn_roomsearch.setOnMouseClicked(me -> {
@@ -156,10 +156,10 @@ public class ResvRoomController implements Initializable {
                 if (me.getClickCount() == 2 && (!selRow.isEmpty())) {
                     ModelRoom room = new ModelRoom();
                     room = table_rooms.getSelectionModel().getSelectedItem();
+
                     tf_roomno.clear();
                     cbox_xtrabed.getItems().clear();
-                    tf_roomno.setText(room.getRoomno());
-                    lbl_roomPrice.setText(room.getRoomprice());
+
 
                     String query = "SELECT r.RoomNo, rt.TypeGroup, rt.TypeName, rt.RoomPrice, " +
                             "rt.Rate_extTwin, rt.Rate_extFull, rt.Rate_extQueen, rt.Rate_extKing " +
@@ -167,6 +167,7 @@ public class ResvRoomController implements Initializable {
                             "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID " +
                             "WHERE r.RoomNo = '" + room.getRoomno() + "'";
 
+                    //this for adding extra bed types into extra bed cbox
                     try {
                         ResultSet rs = db.executeQuery(query);
                         if (rs.next()){
@@ -197,6 +198,29 @@ public class ResvRoomController implements Initializable {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
+
+                    tf_roomno.setText(room.getRoomno());
+                    lbl_roomPrice.setText(room.getRoomprice());
+
+                    //set the total price, need to consider booking duration!
+                    //bottom line means        condition
+                    Float total = lbl_roomPrice.getText() != null ?
+                            //            value if true                val if false
+                            Float.parseFloat(lbl_roomPrice.getText()) : null;
+
+                    //set date1 to value of chosen check in date (toString() converts to yyyy-mm-dd)
+                    LocalDate date1 = LocalDate.parse(date_ci.getValue().toString());
+                    //date 2 to value of chosen checkout date
+                    LocalDate date2 = LocalDate.parse(date_co.getValue().toString());
+                    //compare day difference between date1 and 2
+                    Long dur = ChronoUnit.DAYS.between(date1, date2);
+                    //convert long dur to integer
+                    Integer duration = dur.intValue();
+                    //total = total x duration
+                    total *= duration;
+                    //set total price with 2 d.p.
+                    lbl_totalRoomPrice.setText(String.format(Locale.UK, "%.2f", total));
+
                 }
             });
             return selRow;
@@ -248,9 +272,26 @@ public class ResvRoomController implements Initializable {
                 }
             }
 
+            //have to redo the price again to prevent keep on adding while changing different extbed type
+            Float extPrice = Float.parseFloat(lbl_extBedPrice.getText());
+            Float total = Float.parseFloat(lbl_roomPrice.getText());
+
+            LocalDate date1 = LocalDate.parse(date_ci.getValue().toString());
+            LocalDate date2 = LocalDate.parse(date_co.getValue().toString());
+            Long dur = ChronoUnit.DAYS.between(date1, date2);
+            Integer duration = dur.intValue();
+            total *= duration;
+            lbl_totalRoomPrice.setText(String.format(Locale.UK, "%.2f", total));
+
+            total += extPrice;
+
+            lbl_totalRoomPrice.setText(String.format(Locale.UK, "%.2f", total));
+
         }); //set xtra bed price done
 
-        //set the total price, need to consider booking duration
+
+
+
 
 
     }

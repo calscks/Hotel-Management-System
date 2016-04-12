@@ -101,8 +101,4 @@ public class CIODateDisabler {
         };
         coDatePicker.setDayCellFactory(disableCoDate);
     }
-
-    public Long getDuration() {
-        return duration;
-    }
 }
