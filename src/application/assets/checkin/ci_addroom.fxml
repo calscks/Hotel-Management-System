@@ -36,10 +36,11 @@
       <Button layoutX="530.0" layoutY="338.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Add" />
       <HBox layoutX="57.0" layoutY="94.0" prefWidth="311.0" spacing="5.0">
          <children>
-            <VBox alignment="TOP_RIGHT" prefWidth="124.0" spacing="30.0">
+            <VBox alignment="TOP_RIGHT" prefWidth="124.0" spacing="29.0">
                <children>
                   <Label text="Room Category :" />
                   <Label text="RoomType :" />
+                  <Label text="Label" />
                   <Label text="Check In :" />
                   <Label text="Check Out :" />
                </children>
@@ -47,10 +48,11 @@
                   <Insets top="3.0" />
                </padding>
             </VBox>
-            <VBox prefWidth="225.0" spacing="22.0">
+            <VBox prefWidth="225.0" spacing="23.0">
                <children>
                   <ComboBox fx:id="cbox_ciroomtype" prefHeight="25.0" prefWidth="206.0" />
                   <ComboBox prefHeight="25.0" prefWidth="269.0" />
+                  <Label text="Label" />
                   <DatePicker prefWidth="205.0" />
                   <DatePicker prefWidth="205.0" />
                </children>
@@ -79,7 +81,7 @@
             </VBox>
          </children>
       </HBox>
-      <Button layoutX="181.0" layoutY="271.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Search" />
+      <Button layoutX="139.0" layoutY="338.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="64.0" text="Search" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="176.0" text="Check In - Add Room">
          <font>
             <Font name="System Bold" size="17.0" />

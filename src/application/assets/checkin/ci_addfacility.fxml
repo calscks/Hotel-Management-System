@@ -72,13 +72,15 @@
       <GridPane hgap="10.0" layoutX="432.0" layoutY="84.0" prefHeight="248.0" prefWidth="302.0" vgap="10.0">
          <children>
             <Label text="Facility No :" GridPane.rowIndex="1" />
-            <Label text="Comments :" GridPane.rowIndex="3" />
-            <TextArea prefHeight="67.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Booking Time :" GridPane.rowIndex="4" />
+            <Label text="Comments :" GridPane.rowIndex="4" />
+            <TextArea prefHeight="67.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Booking Time :" GridPane.rowIndex="5" />
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Facility :" GridPane.rowIndex="2" />
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Price:" GridPane.rowIndex="3" />
+            <Label text="pricelabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,8 +89,9 @@
          <rowConstraints>
             <RowConstraints />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="97.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="36.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="92.0" valignment="TOP" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="78.0" minHeight="9.0" prefHeight="37.0" valignment="TOP" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
