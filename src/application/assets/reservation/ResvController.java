@@ -133,22 +133,20 @@ public class ResvController implements Initializable{
     }
 
     public void addRoom(){
-        FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/reservation/resvroom.fxml"));
+
         btn_addroom.setOnMouseClicked( me->{
+            FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
+                    "/reservation/resvroom.fxml"));
             Stage roomStage = new Stage();
-            StackPane roomPane = new StackPane();
-            ScrollPane rootPane = new ScrollPane(roomPane);
-            Parent root = null;
+            AnchorPane roomPane = new AnchorPane();
             try {
-                root = loadRoom.load();
+                roomPane = loadRoom.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            roomPane.getChildren().addAll(root);
-            Scene guestScene = new Scene(rootPane);
+            Scene guestScene = new Scene(roomPane);
             roomStage.setScene(guestScene);
-            roomStage.initModality(Modality.APPLICATION_MODAL);
+            //roomStage.initModality(Modality.APPLICATION_MODAL);
             roomStage.show();
             roomStage.setResizable(false);
             roomStage.setAlwaysOnTop(true);
