@@ -71,6 +71,7 @@ public class CIController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         validation();
         DBConnection c = new DBConnection("Data.sqlite");
+
         tf_ciResvNum.textProperty().addListener((observable, oldValue,newValue)-> {
             try {
                 String sql = "select * from Reservation rsv " +
@@ -81,6 +82,9 @@ public class CIController implements Initializable{
                         "Inner join facbookeddate fbd on rsv.resvno = fbd.resvno  " +
                         "INNER JOIN factype ftype on fbd.FacNo = ftype.FacNo " +
                         "where fbd.ResvNo =" +tf_ciResvNum.getText();
+                String sql2 = "select * from FacBookedDate fbd " +
+                        "INNER JOIN FacType ftype on fbd.FacNo = ftype.FacNo " +
+                        "where ResvNo =" +tf_ciResvNum.getText();
                 ResultSet data = c.executeQuery(sql);
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
                 ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
@@ -116,11 +120,12 @@ public class CIController implements Initializable{
                 rm.setCidate(data.getString("date_ci"));
                 rm.setCodate(data.getString("date_co"));
                 rtable.add(rm);
+                    //ResultSet data2 = c.executeQuery(sql2);
                     ModelFacility fc = new ModelFacility();
                     fc.setbookedfac(data.getString("facno"));
                     fc.setfacprice(data.getString("facmornprice"));
                     fc.setbookedfacdate(data.getString("date"));
-                    fc.setbookedfactime(data.getInt("morning"));
+                    fc.setbookedfactime(data.getString("time"));
                     ftable.add(fc);
                 System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
                 System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the usernameSystem.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username

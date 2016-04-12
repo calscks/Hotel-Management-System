@@ -7,7 +7,7 @@ public class ModelFacility {
     private SimpleStringProperty bookedfac = new SimpleStringProperty();
     private SimpleStringProperty facprice = new SimpleStringProperty();
     private SimpleStringProperty bookedfacdate = new SimpleStringProperty();
-    private SimpleIntegerProperty bookedfactime = new SimpleIntegerProperty();
+    private SimpleStringProperty bookedfactime = new SimpleStringProperty();
     private SimpleStringProperty facno = new SimpleStringProperty();
     private SimpleStringProperty facname = new SimpleStringProperty();
     private SimpleStringProperty facdesc = new SimpleStringProperty();
@@ -24,7 +24,7 @@ public class ModelFacility {
         return bookedfacdate;
     }
 
-    public SimpleIntegerProperty bookedfactimeProperty() {
+    public SimpleStringProperty bookedfactimeProperty() {
         return bookedfactime;
     }
 
@@ -52,7 +52,7 @@ public class ModelFacility {
         return bookedfacdate.get();
     }
 
-    public Integer getbookedfactime() {
+    public String getbookedfactime() {
         return bookedfactime.get();
     }
 
@@ -83,7 +83,7 @@ public class ModelFacility {
         this.bookedfacdate.set(bookedfacdate);
     }
 
-    public void setbookedfactime(Integer bookedfactime) {
+    public void setbookedfactime(String bookedfactime) {
         this.bookedfactime.set(bookedfactime);
     }
 
