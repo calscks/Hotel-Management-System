@@ -2,6 +2,7 @@ package application.assets.checkin;
 
 import application.DBConnection;
 import application.Validation;
+import application.assets.ModelFacility;
 import application.assets.ModelRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,6 +54,17 @@ public class CIController implements Initializable{
     private TableColumn<ModelRoom, String> cicid;
     @FXML
     private TableColumn<ModelRoom, String> cicod;
+    @FXML
+    private TableView<ModelFacility> cifactable;
+    @FXML
+    private TableColumn<ModelFacility, String> bookfaccol;
+    @FXML
+    private TableColumn<ModelFacility, String> facprice;
+    @FXML
+    private TableColumn<ModelFacility, String> facdate;
+    @FXML
+    private TableColumn<ModelFacility, Integer> factime;
+
 
 
     @Override
@@ -66,13 +78,12 @@ public class CIController implements Initializable{
                         "Inner join CustAddress address on cust.custid = address.custid " +
                         "Inner join CheckInOut cio on address.custid = cio.custid " +
                         "Inner join roombooking rbk on rsv.resvno = rbk.resvno " +
-                        /*"Inner join Room room on cio.roomno = room.roomno " +
-                        "inner join RoomType rtype on room.roomtypeid = rtype.typeid " +
-                        "inner join facbookeddate fbd on rsv.resvno = fbd.resvno " +
-                        "inner join factype ftype on fbd.facno = ftype.facno " +*/
-                        "where rsv.resvno =" +tf_ciResvNum.getText();
+                        "Inner join facbookeddate fbd on rsv.resvno = fbd.resvno  " +
+                        "INNER JOIN factype ftype on fbd.FacNo = ftype.FacNo " +
+                        "where fbd.ResvNo =" +tf_ciResvNum.getText();
                 ResultSet data = c.executeQuery(sql);
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
+                ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
 
                 //data.next();
                 //ObservableList<CIController> roomtable = FXCollections.observableArrayList();
@@ -105,19 +116,32 @@ public class CIController implements Initializable{
                 rm.setCidate(data.getString("date_ci"));
                 rm.setCodate(data.getString("date_co"));
                 rtable.add(rm);
+                    ModelFacility fc = new ModelFacility();
+                    fc.setbookedfac(data.getString("facno"));
+                    fc.setfacprice(data.getString("facmornprice"));
+                    fc.setbookedfacdate(data.getString("date"));
+                    fc.setbookedfactime(data.getInt("morning"));
+                    ftable.add(fc);
                 System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
-                System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
-            }
+                System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the usernameSystem.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
+                    //System.out.println(fc.getfacname()); //for debugging, confirm works, can get the username
+
+                }
                 ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
                 cicid.setCellValueFactory(new PropertyValueFactory<>("cidate"));
                 cicod.setCellValueFactory(new PropertyValueFactory<>("codate"));
                 roomtable.setItems(rtable);
+                bookfaccol.setCellValueFactory(new PropertyValueFactory<>("bookedfac"));
+                facprice.setCellValueFactory(new PropertyValueFactory<>("facprice"));
+                facdate.setCellValueFactory(new PropertyValueFactory<>("bookedfacdate"));
+                factime.setCellValueFactory(new PropertyValueFactory<>("bookedfactime"));
+                cifactable.setItems(ftable);
 
 
                 /*ciroomno.setCellValueFactory(new PropertyValueFactory("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory("rtype"));
-                cicid.setCellValueFactory(new PropertyValueFactory("cidate"));
+                cicid.setCellValueFactoryinner join factype ftype on fbd.FacNo = ftype.FacNonew PropertyValueFactory("cidate"));
                 cicod.setCellValueFactory(new PropertyValueFactory("codate"));
 */
             }
