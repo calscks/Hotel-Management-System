@@ -1,17 +1,20 @@
 package application.assets.RnFManagement;
 
+import application.DBConnection;
 import application.Validation;
+import application.assets.ModelFacility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
-import javafx.scene.control.ComboBox;
 
 import javax.activation.CommandObject;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 /**
@@ -20,27 +23,29 @@ import java.util.ResourceBundle;
 
 public class ModFacController implements Initializable{
 
-    ObservableList<String> selectbyitems = FXCollections.observableArrayList("FacilityID","FacilityName","FacilityStatus");
+    ObservableList<String> selectbyitems = FXCollections.observableArrayList("FacilityID","FacilityName");
 
     @FXML private TextField tf_searchby;
     @FXML private TextField tf_facno;
     @FXML private TextField tf_facname;
+    @FXML private TextArea ta_facdesc;
     @FXML private TextField tf_morning;
     @FXML private TextField tf_night;
     @FXML private TextField tf_wholeday;
     @FXML private Label lbl_cboxselection;
     @FXML private ComboBox cbox_searchby;
+    @FXML private TableView<ModelFacility> modfactable;
+    @FXML private TableColumn<ModelFacility, String> tb_facid;
+    @FXML private TableColumn<ModelFacility, String> tb_facname;
+    @FXML private TableColumn<ModelFacility, String> tb_facdesc;
 
     @FXML
     private void labelchange(){
         if (cbox_searchby.getValue().equals("FacilityID")){
             lbl_cboxselection.setText("FacilityID :");
         }
-        else if (cbox_searchby.getValue().equals("FacilityName")){
-            lbl_cboxselection.setText("FacilityName :");
-        }
         else{
-            lbl_cboxselection.setText("FacilityStatus :");
+            lbl_cboxselection.setText("FacilityName :");
         }
     }
 
@@ -50,6 +55,46 @@ public class ModFacController implements Initializable{
         validation();
 
         cbox_searchby.setItems(selectbyitems);
+
+        DBConnection c = new DBConnection("Data.sqlite");
+        tf_searchby.textProperty().addListener((observable, oldValue,newValue)-> {
+            if (lbl_cboxselection.getText().equals("FacilityID :")){
+                try {
+                    String sql = "select * from FacType" +
+                            "where facno=" +tf_searchby.getText();
+                    ResultSet data = c.executeQuery(sql);
+                    ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
+
+                    String facname = data.getString("FacName");
+                    String facdesc = data.getString("FacDesc");
+                    String facmornprice = data.getString("FacMornPrice");
+                    String facnightprice = data.getString("FacNightPrice");
+                    String facwholeprice = data.getString("FacWholePrice");
+
+                    tf_facname.setText(facname);
+                    ta_facdesc.setText(facdesc);
+                    tf_morning.setText(facmornprice);
+                    tf_night.setText(facnightprice);
+                    tf_wholeday.setText(facwholeprice);
+                    while (data.next()){
+                        ModelFacility fac = new ModelFacility();
+                        fac.setfacno(data.getString("facno"));
+                        fac.setfacname(data.getString("facname"));
+                        fac.setfacdesc(data.getString("facdesc"));
+                        ftable.add(fac);
+
+                    }
+                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("facno"));
+                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("facname"));
+                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("facdesc"));
+                }
+                catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+
+        });
+
     }
 
     private void validation() {

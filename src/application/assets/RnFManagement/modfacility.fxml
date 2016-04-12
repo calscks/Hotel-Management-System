@@ -87,7 +87,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <TextArea prefHeight="92.0" prefWidth="261.0" />
+                              <TextArea fx:id="ta_facdesc" prefHeight="92.0" prefWidth="261.0" />
                            </children>
                         </HBox>
                      </children>
@@ -161,11 +161,11 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </GridPane>
-                  <TableView prefHeight="251.0" prefWidth="299.0">
+                  <TableView fx:id="modfactable" prefHeight="251.0" prefWidth="299.0">
                     <columns>
-                        <TableColumn text="Facility ID." />
-                      <TableColumn prefWidth="84.0" text="Facility Name" />
-                      <TableColumn prefWidth="121.0" text="Facility Description" />
+                        <TableColumn fx:id="tb_facid" text="Facility ID." />
+                      <TableColumn fx:id="tb_facname" prefWidth="84.0" text="Facility Name" />
+                      <TableColumn fx:id="tb_facdesc" prefWidth="121.0" text="Facility Description" />
                     </columns>
                   </TableView>
                   <HBox prefWidth="299.0" spacing="14.0">

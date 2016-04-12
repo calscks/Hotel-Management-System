@@ -8,12 +8,15 @@ public class ModelFacility {
     private SimpleStringProperty facprice = new SimpleStringProperty();
     private SimpleStringProperty bookedfacdate = new SimpleStringProperty();
     private SimpleIntegerProperty bookedfactime = new SimpleIntegerProperty();
+    private SimpleStringProperty facno = new SimpleStringProperty();
+    private SimpleStringProperty facname = new SimpleStringProperty();
+    private SimpleStringProperty facdesc = new SimpleStringProperty();
 
     public SimpleStringProperty bookedfacProperty() {
         return bookedfac;
     }
 
-    public SimpleStringProperty facnameProperty() {
+    public SimpleStringProperty facpriceProperty() {
         return facprice;
     }
 
@@ -25,11 +28,23 @@ public class ModelFacility {
         return bookedfactime;
     }
 
+    public SimpleStringProperty bookedfacnoProperty() {
+        return facno;
+    }
+
+    public SimpleStringProperty bookedfacnameProperty() {
+        return facname;
+    }
+
+    public SimpleStringProperty bookedfacdescProperty() {
+        return facdesc;
+    }
+
     public String getbookedfac() {
         return bookedfac.get();
     }
 
-    public String getfacname() {
+    public String getfacprice() {
         return facprice.get();
     }
 
@@ -39,6 +54,18 @@ public class ModelFacility {
 
     public Integer getbookedfactime() {
         return bookedfactime.get();
+    }
+
+    public String getfacno() {
+        return facno.get();
+    }
+
+    public String getfacname() {
+        return facname.get();
+    }
+
+    public String getfacdesc() {
+        return facdesc.get();
     }
 
     //these setters are important to set database column value into each properties of this data model class
@@ -60,6 +87,17 @@ public class ModelFacility {
         this.bookedfactime.set(bookedfactime);
     }
 
+    public void setfacno(String facno) {
+        this.facno.set(facno);
+    }
+
+    public void setfacname(String facname) {
+        this.facname.set(facname);
+    }
+
+    public void setfacdesc(String facdesc) {
+        this.facdesc.set(facdesc);
+    }
 
     //if u don't understand getters and setters then ggwp
 }
