@@ -22,9 +22,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="413.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvFacilityController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvFacilityController">
    <children>
-      <VBox layoutX="39.0" layoutY="63.0" prefHeight="329.0" prefWidth="375.0" spacing="8.0">
+      <VBox layoutX="39.0" layoutY="63.0" prefHeight="377.0" prefWidth="375.0" spacing="8.0">
          <children>
             <Label text="Facility Check">
                <font>
@@ -58,7 +58,7 @@
                   </VBox>
                </children>
             </HBox>
-            <TableView prefHeight="225.0" prefWidth="395.0">
+            <TableView prefHeight="275.0" prefWidth="375.0">
               <columns>
                 <TableColumn prefWidth="89.0" text="Facility" />
                   <TableColumn prefWidth="84.0" text="Facility No" />
@@ -68,19 +68,17 @@
             </TableView>
          </children>
       </VBox>
-      <Button layoutX="559.0" layoutY="357.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Add" />
+      <Button layoutX="568.0" layoutY="406.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Add" />
       <GridPane hgap="10.0" layoutX="432.0" layoutY="84.0" prefHeight="248.0" prefWidth="302.0" vgap="10.0">
          <children>
             <Label text="Facility No :" GridPane.rowIndex="1" />
-            <Label text="Comments :" GridPane.rowIndex="4" />
-            <TextArea prefHeight="67.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Booking Time :" GridPane.rowIndex="5" />
+            <Label text="Comments :" GridPane.rowIndex="3" />
+            <TextArea prefHeight="67.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Booking Time :" GridPane.rowIndex="4" />
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Facility :" GridPane.rowIndex="2" />
             <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Price:" GridPane.rowIndex="3" />
-            <Label text="pricelabel" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -90,7 +88,6 @@
             <RowConstraints />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="28.0" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="36.0" valignment="TOP" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="92.0" valignment="TOP" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="78.0" minHeight="9.0" prefHeight="37.0" valignment="TOP" vgrow="SOMETIMES" />
          </rowConstraints>
@@ -105,5 +102,33 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
+      <HBox layoutX="473.0" layoutY="332.0" prefHeight="59.0" prefWidth="261.0" style="-fx-border-color: #898989;">
+         <children>
+            <VBox alignment="TOP_RIGHT" prefHeight="83.0" prefWidth="182.0" spacing="16.0">
+               <children>
+                  <Label text="Price :">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+            <VBox prefHeight="83.0" prefWidth="194.0" spacing="16.0">
+               <children>
+                  <Label fx:id="lbl_totalRoomPrice" text="RM0.00">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
