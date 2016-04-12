@@ -57,41 +57,86 @@ public class ModFacController implements Initializable{
         cbox_searchby.setItems(selectbyitems);
 
         DBConnection c = new DBConnection("Data.sqlite");
+
         tf_searchby.textProperty().addListener((observable, oldValue,newValue)-> {
             if (lbl_cboxselection.getText().equals("FacilityID :")){
                 try {
-                    String sql = "select * from FacType" +
-                            "where facno=" +tf_searchby.getText();
+                    String sql = "select * from FacType ft " +
+                            "where ft.facno=" +tf_searchby.getText();
                     ResultSet data = c.executeQuery(sql);
                     ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
 
-                    String facname = data.getString("FacName");
-                    String facdesc = data.getString("FacDesc");
-                    String facmornprice = data.getString("FacMornPrice");
-                    String facnightprice = data.getString("FacNightPrice");
-                    String facwholeprice = data.getString("FacWholePrice");
+                    String modfacno = data.getString("FacNo");
+                    String modfacname = data.getString("FacName");
+                    String modfacdesc = data.getString("FacDesc");
+                    String modfacmornprice = data.getString("FacMornPrice");
+                    String modfacnightprice = data.getString("FacNightPrice");
+                    String modfacwholeprice = data.getString("FacWholePrice");
 
-                    tf_facname.setText(facname);
-                    ta_facdesc.setText(facdesc);
-                    tf_morning.setText(facmornprice);
-                    tf_night.setText(facnightprice);
-                    tf_wholeday.setText(facwholeprice);
+                    tf_facno.setText(modfacno);
+                    tf_facname.setText(modfacname);
+                    ta_facdesc.setText(modfacdesc);
+                    tf_morning.setText(modfacmornprice);
+                    tf_night.setText(modfacnightprice);
+                    tf_wholeday.setText(modfacwholeprice);
                     while (data.next()){
                         ModelFacility fac = new ModelFacility();
-                        fac.setfacno(data.getString("facno"));
-                        fac.setfacname(data.getString("facname"));
-                        fac.setfacdesc(data.getString("facdesc"));
+                        fac.setfacno(data.getString("FacNo"));
+                        fac.setfacname(data.getString("FacName"));
+                        fac.setfacdesc(data.getString("FacDesc"));
                         ftable.add(fac);
+                        System.out.println(fac.getfacno());
 
                     }
-                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("facno"));
-                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("facname"));
-                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("facdesc"));
+                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("modfacno"));
+                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("modfacname"));
+                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("modfacdesc"));
+                    modfactable.setItems(ftable);
                 }
                 catch (SQLException e1) {
                     e1.printStackTrace();
                 }
+
             }
+            /*else if (lbl_cboxselection.getText().equals("FacilityName :")){
+                try {
+                    String sql = "select * from FacType ft " +
+                            "where ft.facname=" +tf_searchby.getText();
+                    ResultSet data2 = c.executeQuery(sql);
+                    ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
+
+                    String modfacno = data2.getString("FacNo");
+                    String modfacname = data2.getString("FacName");
+                    String modfacdesc = data2.getString("FacDesc");
+                    String modfacmornprice = data2.getString("FacMornPrice");
+                    String modfacnightprice = data2.getString("FacNightPrice");
+                    String modfacwholeprice = data2.getString("FacWholePrice");
+
+                    tf_facno.setText(modfacno);
+                    tf_facname.setText(modfacname);
+                    ta_facdesc.setText(modfacdesc);
+                    tf_morning.setText(modfacmornprice);
+                    tf_night.setText(modfacnightprice);
+                    tf_wholeday.setText(modfacwholeprice);
+                    while (data2.next()){
+                        ModelFacility fac = new ModelFacility();
+                        fac.setfacno(data2.getString("facno"));
+                        fac.setfacname(data2.getString("facname"));
+                        fac.setfacdesc(data2.getString("facdesc"));
+                        ftable.add(fac);
+
+                    }
+                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("modfacno"));
+                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("modfacname"));
+                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("modfacdesc"));
+                    modfactable.setItems(ftable);
+                }
+                catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+            }*/
+
 
         });
 

@@ -8,9 +8,9 @@ public class ModelFacility {
     private SimpleStringProperty facprice = new SimpleStringProperty();
     private SimpleStringProperty bookedfacdate = new SimpleStringProperty();
     private SimpleStringProperty bookedfactime = new SimpleStringProperty();
-    private SimpleStringProperty facno = new SimpleStringProperty();
-    private SimpleStringProperty facname = new SimpleStringProperty();
-    private SimpleStringProperty facdesc = new SimpleStringProperty();
+    private SimpleStringProperty modfacno = new SimpleStringProperty();
+    private SimpleStringProperty modfacname = new SimpleStringProperty();
+    private SimpleStringProperty modfacdesc = new SimpleStringProperty();
 
     public SimpleStringProperty bookedfacProperty() {
         return bookedfac;
@@ -29,15 +29,15 @@ public class ModelFacility {
     }
 
     public SimpleStringProperty bookedfacnoProperty() {
-        return facno;
+        return modfacno;
     }
 
     public SimpleStringProperty bookedfacnameProperty() {
-        return facname;
+        return modfacname;
     }
 
     public SimpleStringProperty bookedfacdescProperty() {
-        return facdesc;
+        return modfacdesc;
     }
 
     public String getbookedfac() {
@@ -57,15 +57,15 @@ public class ModelFacility {
     }
 
     public String getfacno() {
-        return facno.get();
+        return modfacno.get();
     }
 
     public String getfacname() {
-        return facname.get();
+        return modfacname.get();
     }
 
     public String getfacdesc() {
-        return facdesc.get();
+        return modfacdesc.get();
     }
 
     //these setters are important to set database column value into each properties of this data model class
@@ -88,15 +88,15 @@ public class ModelFacility {
     }
 
     public void setfacno(String facno) {
-        this.facno.set(facno);
+        this.modfacno.set(facno);
     }
 
     public void setfacname(String facname) {
-        this.facname.set(facname);
+        this.modfacname.set(facname);
     }
 
     public void setfacdesc(String facdesc) {
-        this.facdesc.set(facdesc);
+        this.modfacdesc.set(facdesc);
     }
 
     //if u don't understand getters and setters then ggwp
