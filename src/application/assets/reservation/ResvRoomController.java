@@ -226,7 +226,7 @@ public class ResvRoomController implements Initializable {
             return selRow;
         }); //double click row done
 
-        //need to set extra bed price, means need a change listener!
+        //need to set extra bed price, means need a change listener! At the same time, total price
         cbox_xtrabed.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             String roomNo = tf_roomno.getText();
             String query = "SELECT r.RoomNo, rt.Rate_extTwin, rt.Rate_extFull, " +
@@ -287,12 +287,42 @@ public class ResvRoomController implements Initializable {
 
             lbl_totalRoomPrice.setText(String.format(Locale.UK, "%.2f", total));
 
-        }); //set xtra bed price done
+        }); //set xtra bed price and total price done
+    }
 
 
 
+    //button add (let resvController accesses what it will do), below are all the getter methods button add will use
+    //from the resvController
+    public Button getBtn_roomAdd() {
+        return btn_roomAdd;
+    }
 
+    public String getRoomCat(){
+        return cbox_roomcat.getSelectionModel().getSelectedItem();
+    }
 
+    public String getRoomType(){
+        return cbox_roomtype.getSelectionModel().getSelectedItem();
+    }
 
+    public String getRoomNo(){
+        return tf_roomno.getText();
+    }
+
+    public String getCI(){
+        return date_ci.getValue().toString();
+    }
+
+    public String getCO(){
+        return date_co.getValue().toString();
+    }
+
+    public String getExtBed(){
+        return cbox_xtrabed.getSelectionModel().getSelectedItem();
+    }
+
+    public String getTotal(){
+        return lbl_totalRoomPrice.getText();
     }
 }

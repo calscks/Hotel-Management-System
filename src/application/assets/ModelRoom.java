@@ -1,6 +1,4 @@
 package application.assets;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ModelRoom {
@@ -9,7 +7,7 @@ public class ModelRoom {
     private SimpleStringProperty rtype = new SimpleStringProperty();
     private SimpleStringProperty cidate = new SimpleStringProperty();
     private SimpleStringProperty codate = new SimpleStringProperty();
-    private SimpleStringProperty extBedType = new SimpleStringProperty();
+    private SimpleStringProperty extbedtype = new SimpleStringProperty();
     private SimpleStringProperty roomprice = new SimpleStringProperty();
 
     public SimpleStringProperty roomcatProperty() {
@@ -30,8 +28,8 @@ public class ModelRoom {
 
     public SimpleStringProperty codateProperty() { return codate;}
 
-    public SimpleStringProperty extBedTypeProperty() {
-        return extBedType;
+    public SimpleStringProperty extbedtypeProperty() {
+        return extbedtype;
     }
 
     public SimpleStringProperty roompriceProperty() {
@@ -58,8 +56,8 @@ public class ModelRoom {
         return codate.get();
     }
 
-    public String getExtBedType() {
-        return extBedType.get();
+    public String getExtbedtype() {
+        return extbedtype.get();
     }
 
     public String getRoomprice() {
@@ -89,8 +87,8 @@ public class ModelRoom {
         this.codate.set(codate);
     }
 
-    public void setExtBedType(String extBedType) {
-        this.extBedType.set(extBedType);
+    public void setExtbedtype(String extbedtype) {
+        this.extbedtype.set(extbedtype);
     }
 
     public void setRoomprice(String roomprice) {
