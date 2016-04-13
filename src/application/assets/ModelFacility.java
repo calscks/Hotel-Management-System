@@ -28,15 +28,15 @@ public class ModelFacility {
         return bookedfactime;
     }
 
-    public SimpleStringProperty bookedfacnoProperty() {
+    public SimpleStringProperty modfacnoProperty() {
         return modfacno;
     }
 
-    public SimpleStringProperty bookedfacnameProperty() {
+    public SimpleStringProperty modfacnameProperty() {
         return modfacname;
     }
 
-    public SimpleStringProperty bookedfacdescProperty() {
+    public SimpleStringProperty modfacdescProperty() {
         return modfacdesc;
     }
 

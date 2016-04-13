@@ -10,6 +10,8 @@ import application.assets.AutoCompleteCBoxListener;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -18,28 +20,43 @@ public class COController implements Initializable {
     @FXML private TextField tf_coRoomNo;
     @FXML private TextField tf_coFirstName;
     @FXML private TextField tf_coLastName;
+    @FXML private TextField tf_coIDNo;
+
     @FXML private ComboBox<String> cbox_coCountry;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         new AutoCompleteCBoxListener(cbox_coCountry);
-    String [] locale = Locale.getISOCountries();
+        String [] locale = Locale.getISOCountries();
         for(String countrycode: locale){
             Locale country = new Locale("", countrycode);
             cbox_coCountry.getItems().add(country.getDisplayCountry());
 
         }
-   DBConnection c = new DBConnection("Data.sqlite");
-        tf_coRoomNo.textProperty().addListener((observable, oldValue, newValue)->{
+         DBConnection c = new DBConnection("Data.sqlite");
+        tf_coRoomNo.textProperty().addListener((observable, oldValue, newValue)-> {
+        try {
+            String sql = "SELECT * FROM CheckInOut\n" +
+                    "  INNER JOIN Room using (RoomNo)\n" +
+                    "  INNER JOIN Roomtype on Room.RoomTypeID = RoomType.TypeID\n" +
+                    "  INNER JOIN Customer USING (CustID)\n" +
+                    "  INNER JOIN CustAddress USING (CustID)\n" +
+                    "  WHERE RoomNo ="+ "'"+ tf_coRoomNo.getText() + "'";
 
-            String sql = "";
+            ResultSet codata = c.executeQuery(sql);
 
-            try {
-               ResultSet codata =  c.executeQuery(sql);
+            String customerfname = codata.getString("CustFName");
+            String customerid = codata.getString("CustID");
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            tf_coIDNo.setText(customerid);
+            tf_coFirstName.setText(customerfname);
+
+
+        }
+        catch(SQLException t1){
+        t1.printStackTrace();
+        }
         });
 
 
