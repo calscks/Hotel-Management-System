@@ -25,7 +25,7 @@ public class AddRoomController implements Initializable{
     @FXML private ComboBox<String > cbox_extrabed;
 
     public Button getbtn_addroom(){ return btn_addroom; }
-    //not sure right or wrong!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //not sure right or wrong!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public String getRoomCat() { return tf_roomcategory.getText(); }
 
     public String getRoomNo() { return tf_roomno.getText(); }
