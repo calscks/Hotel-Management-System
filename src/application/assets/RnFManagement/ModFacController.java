@@ -62,7 +62,7 @@ public class ModFacController implements Initializable{
             if (lbl_cboxselection.getText().equals("FacilityID :")){
                 try {
                     String sql = "select * from FacType ft " +
-                            "where ft.facno=" +tf_searchby.getText();
+                            "where ft.FacNo=" +tf_searchby.getText();
                     ResultSet data = c.executeQuery(sql);
                     ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
 
@@ -85,7 +85,7 @@ public class ModFacController implements Initializable{
                         fac.setfacname(data.getString("FacName"));
                         fac.setfacdesc(data.getString("FacDesc"));
                         ftable.add(fac);
-                        System.out.println(fac.getfacno());
+                       // System.out.println(fac.getfacno());
 
                     }
                     tb_facid.setCellValueFactory(new PropertyValueFactory<>("modfacno"));
@@ -98,10 +98,10 @@ public class ModFacController implements Initializable{
                 }
 
             }
-            /*else if (lbl_cboxselection.getText().equals("FacilityName :")){
+            else if (lbl_cboxselection.getText().equals("FacilityName :")){
                 try {
                     String sql = "select * from FacType ft " +
-                            "where ft.facname=" +tf_searchby.getText();
+                            "where ft.FacName=" +tf_searchby.getText();
                     ResultSet data2 = c.executeQuery(sql);
                     ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
 
@@ -135,7 +135,7 @@ public class ModFacController implements Initializable{
                     e1.printStackTrace();
                 }
 
-            }*/
+            }
 
 
         });
