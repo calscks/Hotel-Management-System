@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="369.0" minWidth="361.0" prefHeight="529.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="369.0" minWidth="361.0" prefHeight="529.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.RnFManagement.AddRoomController">
    <children>
       <VBox layoutX="76.0" layoutY="65.0" prefHeight="460.0" prefWidth="351.0">
          <children>
@@ -47,7 +47,7 @@
                   <Label text="Full Bed Price :" GridPane.rowIndex="8" />
                   <Label text="Queen Bed Price :" GridPane.rowIndex="9" />
                   <Label text="King Bed Price :" GridPane.rowIndex="10" />
-                  <ChoiceBox prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ChoiceBox fx:id="cbox_extrabed" prefHeight="25.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="*Leave blank to exclude certain type(s) of extra bed" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font name="System Italic" size="10.0" />
@@ -79,7 +79,7 @@
             </GridPane>
             <HBox alignment="CENTER" prefHeight="44.0" prefWidth="423.0">
                <children>
-                  <Button mnemonicParsing="false" text="Add Room" />
+                  <Button fx:id="btn_addroom" mnemonicParsing="false" text="Add Room" />
                </children>
             </HBox>
          </children>
