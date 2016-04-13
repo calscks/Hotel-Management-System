@@ -39,9 +39,10 @@ public class ModRoomController implements Initializable{
 
         tf_roomno.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                String sql = "select * from RoomType rt "+
-                        "Inner join Room rm on rt.typeid = rm.roomtypeid"+
-                        "where rm.roomno="+tf_roomno.getText();
+                //language=SQLite
+                String sql = "SELECT * FROM Room rm " +
+                        "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
+                        "WHERE ";
                 ResultSet data = c.executeQuery(sql);
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
 
