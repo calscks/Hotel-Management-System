@@ -24,7 +24,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="514.0" prefWidth="773.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvFacilityController">
    <children>
-      <Label layoutX="39.0" layoutY="14.0" prefHeight="26.0" prefWidth="172.0" text="Check In - Facility">
+      <Label layoutX="39.0" layoutY="14.0" prefHeight="26.0" prefWidth="172.0" text="Check in - Facility">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
@@ -68,23 +68,21 @@
             </VBox>
          </children>
       </HBox>
-      <VBox layoutX="28.0" layoutY="40.0" prefHeight="268.0" prefWidth="319.0">
+      <VBox layoutX="39.0" layoutY="40.0" prefHeight="358.0" prefWidth="319.0" spacing="10.0">
          <children>
             <Label text="Facility Details">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <GridPane hgap="10.0" prefHeight="259.0" prefWidth="301.0" vgap="10.0">
+            <GridPane hgap="10.0" prefHeight="143.0" prefWidth="319.0" vgap="10.0">
                <children>
-                  <Label text="Facility No :" GridPane.rowIndex="1" />
-                  <Label text="Comments :" GridPane.rowIndex="3" />
-                  <TextArea fx:id="tf_comment" prefHeight="67.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Booking Time :" GridPane.rowIndex="4" />
-                  <TextField fx:id="tf_facno" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Facility :" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="cbox_booktime" editable="true" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="cbox_fac2" editable="true" prefHeight="25.0" prefWidth="227.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Booking Time :" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="cbox_booktime" editable="true" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="Facility : " GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbox_fac1" editable="true" prefHeight="25.0" prefWidth="289.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="Booking Date : " GridPane.rowIndex="2" />
+                  <DatePicker fx:id="date_bookdate" prefHeight="25.0" prefWidth="222.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="127.0" minWidth="10.0" prefWidth="85.0" />
@@ -92,30 +90,32 @@
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="97.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="78.0" minHeight="9.0" prefHeight="37.0" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="78.0" minHeight="9.0" prefHeight="37.0" valignment="CENTER" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
+            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Search">
+               <VBox.margin>
+                  <Insets left="120.0" />
+               </VBox.margin>
+            </Button>
          </children>
       </VBox>
       <VBox layoutX="378.0" layoutY="52.0" prefHeight="314.0" prefWidth="375.0" spacing="8.0">
          <children>
-            <TableView fx:id="table_fac" prefHeight="247.0" prefWidth="375.0">
+            <TableView fx:id="table_fac" prefHeight="158.0" prefWidth="375.0">
                <columns>
                   <TableColumn fx:id="tbcol_fac" prefWidth="89.0" text="Facility" />
-                  <TableColumn fx:id="tbcol_facno" prefWidth="84.0" text="Facility No" />
-                  <TableColumn fx:id="tbcol_bookeddate" prefWidth="93.0" text="Booked date" />
-                  <TableColumn fx:id="tbcol_time" prefWidth="107.0" text="Available Time" />
+                  <TableColumn fx:id="tbcol_facno" prefWidth="139.0" text="Facility No" />
+                  <TableColumn fx:id="tbcol_bookeddate" prefWidth="146.0" text="Booked date" />
                </columns>
             </TableView>
             <HBox prefHeight="60.0" prefWidth="333.0">
                <children>
                   <VBox alignment="CENTER_RIGHT" prefHeight="65.0" prefWidth="88.0" spacing="23.0">
                      <children>
-                        <Label text="Facility : " />
-                        <Label text="Booking Date : " />
+                        <Label text="Facility No :" />
                      </children>
                      <padding>
                         <Insets right="3.0" />
@@ -126,20 +126,33 @@
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="292.0" spacing="15.0">
                      <children>
-                        <ComboBox fx:id="cbox_fac1" editable="true" prefHeight="25.0" prefWidth="289.0" />
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                           <children>
-                              <DatePicker fx:id="date_bookdate" prefHeight="25.0" prefWidth="222.0" />
-                              <Button fx:id="btn_check" mnemonicParsing="false" text="Check!" />
-                           </children>
-                        </HBox>
+                        <TextField fx:id="tf_facno" editable="false" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="60.0" prefWidth="333.0">
+               <children>
+                  <VBox alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="97.0" spacing="23.0">
+                     <children>
+                        <Label alignment="TOP_RIGHT" contentDisplay="TOP" text="Comments :" />
+                     </children>
+                     <padding>
+                        <Insets right="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="292.0" spacing="15.0">
+                     <children>
+                        <TextArea fx:id="tf_comment" prefHeight="67.0" prefWidth="146.0" />
                      </children>
                   </VBox>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="136.0" layoutY="308.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Search" />
       <Button fx:id="btn_addfac2" layoutX="574.0" layoutY="465.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Cancel" />
    </children>
 </AnchorPane>
