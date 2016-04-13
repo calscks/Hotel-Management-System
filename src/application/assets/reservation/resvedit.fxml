@@ -166,7 +166,7 @@
                   </ScrollPane>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Edit" GridPane.columnIndex="1">
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -206,7 +206,7 @@
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Edit" GridPane.columnIndex="1">
+                        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add" GridPane.columnIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>

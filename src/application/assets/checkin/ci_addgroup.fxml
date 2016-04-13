@@ -13,29 +13,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="274.0" prefWidth="472.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="293.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvAddGroupController">
    <children>
-      <VBox alignment="TOP_RIGHT" layoutX="73.0" layoutY="43.0" spacing="18.0">
+      <VBox alignment="TOP_RIGHT" layoutX="40.0" layoutY="60.0" spacing="18.0">
          <children>
             <Label text="First Name :" />
             <Label text="Last Name :" />
             <Label text="ID Type :" />
-            <Label text="ID No. :" />
+            <Label text="ID No :" />
+            <Label text="Room No :" />
          </children>
          <padding>
-            <Insets top="3.0" />
+            <Insets top="1.0" />
          </padding>
       </VBox>
-      <VBox layoutX="199.0" layoutY="41.0" spacing="10.0">
+      <VBox layoutX="144.0" layoutY="56.0" spacing="10.0">
          <children>
-            <TextField />
-            <TextField />
-            <ComboBox fx:id="cInIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
-            <TextField />
+            <TextField fx:id="tf_fname" />
+            <TextField fx:id="tf_lname" />
+            <ComboBox fx:id="cbox_idtype" prefHeight="25.0" prefWidth="200.0" />
+            <TextField fx:id="tf_idno" />
+            <ComboBox fx:id="cbox_roomno" prefHeight="25.0" prefWidth="200.0" />
          </children>
       </VBox>
-      <Button layoutX="206.0" layoutY="201.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="263.0" text="Check In - Add Group Member">
+      <Button layoutX="161.0" layoutY="237.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
+      <Label layoutX="40.0" layoutY="22.0" prefHeight="26.0" text="Add group members">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
