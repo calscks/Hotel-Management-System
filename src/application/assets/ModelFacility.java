@@ -56,9 +56,7 @@ public class ModelFacility {
         return bookedfactime.get();
     }
 
-    public String getfacno() {
-        return modfacno.get();
-    }
+    public String getfacno() {return modfacno.get();}
 
     public String getfacname() {
         return modfacname.get();
@@ -87,16 +85,16 @@ public class ModelFacility {
         this.bookedfactime.set(bookedfactime);
     }
 
-    public void setfacno(String facno) {
-        this.modfacno.set(facno);
+    public void setfacno(String modfacno) {
+        this.modfacno.set(modfacno);
     }
 
-    public void setfacname(String facname) {
-        this.modfacname.set(facname);
+    public void setfacname(String modfacname) {
+        this.modfacname.set(modfacname);
     }
 
-    public void setfacdesc(String facdesc) {
-        this.modfacdesc.set(facdesc);
+    public void setfacdesc(String modfacdesc) {
+        this.modfacdesc.set(modfacdesc);
     }
 
     //if u don't understand getters and setters then ggwp
