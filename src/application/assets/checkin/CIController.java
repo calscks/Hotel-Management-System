@@ -3,6 +3,7 @@ package application.assets.checkin;
 import application.DBConnection;
 import application.Validation;
 import application.assets.ModelFacility;
+import application.assets.ModelGroupMember;
 import application.assets.ModelRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,6 +65,16 @@ public class CIController implements Initializable{
     private TableColumn<ModelFacility, String> facdate;
     @FXML
     private TableColumn<ModelFacility, Integer> factime;
+    @FXML
+    private TableView<ModelGroupMember> grouptable;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupFirstName;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupLastName;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupIDno;
+    @FXML
+    private TableColumn<ModelGroupMember, Integer> tableC_ciGroupRoomNo;
 
 
 
@@ -71,17 +82,34 @@ public class CIController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         validation();
         DBConnection c = new DBConnection("Data.sqlite");
-
+        tf_ciIDNo.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                String sql3 = "select * from Reservation rsv " +
+                        "INNER JOIN Customer cust on rsv.CustID = cust.CustID " +
+                        "INNER JOIN CustomerGroup custgroup on cust.CustID = custgroup.G_CustID " +
+                        "where cust.CustID = "+tf_ciIDNo.getText();
+                ResultSet data3 = c.executeQuery(sql3);
+                ObservableList<ModelGroupMember> gtable = FXCollections.observableArrayList();
+                while (data3.next()) {
+                    ModelGroupMember gm = new ModelGroupMember();
+                    gm.setMemFName(data3.getString("CustFname"));
+                    gm.setMemLName(data3.getString("custlname"));
+                    gm.setIdNo(data3.getString("G_custid"));
+                    gm.setRoomNo(data3.getString("passportno"));
+                    gtable.add(gm);
+                }
+            }catch (SQLException e2) {
+                e2.printStackTrace();
+            }
+                });
         tf_ciResvNum.textProperty().addListener((observable, oldValue,newValue)-> {
             try {
                 String sql = "select * from Reservation rsv " +
                         "Inner join Customer cust on rsv.custid = cust.custid " +
                         "Inner join CustAddress address on cust.custid = address.custid " +
                         "Inner join CheckInOut cio on address.custid = cio.custid " +
-                        "Inner join roombooking rbk on rsv.resvno = rbk.resvno " +
-                        "Inner join facbookeddate fbd on rsv.resvno = fbd.resvno  " +
-                        "INNER JOIN factype ftype on fbd.FacNo = ftype.FacNo " +
-                        "where fbd.ResvNo =" +tf_ciResvNum.getText();
+                        "Inner join roombooking rbk on rsv.resvno = rbk.resvno  " +
+                        "where rsv.ResvNo = " +tf_ciResvNum.getText();
                 String sql2 = "select * from FacBookedDate fbd " +
                         "INNER JOIN FacType ftype on fbd.FacNo = ftype.FacNo " +
                         "where ResvNo =" +tf_ciResvNum.getText();
@@ -120,17 +148,21 @@ public class CIController implements Initializable{
                 rm.setCidate(data.getString("date_ci"));
                 rm.setCodate(data.getString("date_co"));
                 rtable.add(rm);
-                    //ResultSet data2 = c.executeQuery(sql2);
+
+                System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
+                System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the usernameSystem.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
+                    //System.out.println(fc.getfacname()); //for debugging, confirm works, can get the username
+
+                }
+                ResultSet data2 = c.executeQuery(sql2);
+
+                while (data2.next()){
                     ModelFacility fc = new ModelFacility();
                     fc.setbookedfac(data.getString("facno"));
                     fc.setfacprice(data.getString("facmornprice"));
                     fc.setbookedfacdate(data.getString("date"));
                     fc.setbookedfactime(data.getString("time"));
                     ftable.add(fc);
-                System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
-                System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the usernameSystem.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
-                    //System.out.println(fc.getfacname()); //for debugging, confirm works, can get the username
-
                 }
                 ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
