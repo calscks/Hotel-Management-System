@@ -80,7 +80,7 @@ public class ModFacController implements Initializable{
                     tf_morning.setText(modfacmornprice);
                     tf_night.setText(modfacnightprice);
                     tf_wholeday.setText(modfacwholeprice);
-                   // while (data.next()){
+                    while (data.next()){
                         ModelFacility fac = new ModelFacility();
                         fac.setfacno(data.getString("FacNo"));
                         fac.setfacname(data.getString("FacName"));
@@ -88,7 +88,7 @@ public class ModFacController implements Initializable{
                         ftable.add(fac);
                        // System.out.println(fac.getfacno());
 
-                   // }
+                    }
                     tb_facid.setCellValueFactory(new PropertyValueFactory<>("modfacno"));
                     tb_facname.setCellValueFactory(new PropertyValueFactory<>("modfacname"));
                     tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("modfacdesc"));

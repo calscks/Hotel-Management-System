@@ -42,7 +42,7 @@
                   <Insets top="3.0" />
                </padding>
             </VBox>
-            <VBox layoutX="500.0" layoutY="81.0" spacing="10.0">
+            <VBox layoutX="506.0" layoutY="81.0" spacing="10.0">
                <children>
                   <TextField fx:id="tf_ciResvNum" />
                   <TextField fx:id="tf_ciFirstName" />
@@ -56,11 +56,11 @@
                   <TextField fx:id="tf_ciIDNo" />
                </children>
             </VBox>
-            <TableView editable="true" layoutX="356.0" layoutY="452.0" prefHeight="176.0" prefWidth="358.0">
+            <TableView fx:id="grouptable" layoutX="356.0" layoutY="452.0" prefHeight="176.0" prefWidth="358.0">
                <columns>
                   <TableColumn fx:id="tableC_ciGroupFirstName" prefWidth="92.0" text="First Name" />
                   <TableColumn fx:id="tableC_ciGroupLastName" prefWidth="97.0" text="Last Name" />
-                  <TableColumn fx:id="tableC_ciGroupIDno" prefWidth="96.0" text="Passport/IC No" />
+                  <TableColumn fx:id="tableC_ciIcno" prefWidth="96.0" text="Passport/IC No" />
                   <TableColumn fx:id="tableC_ciGroupRoomNo" prefWidth="70.0" text="Room No" />
                </columns>
             </TableView>
@@ -148,7 +148,6 @@
                </padding>
             </VBox>
             <CheckBox fx:id="checkbox_ciGroupMember" layoutX="356.0" layoutY="430.0" mnemonicParsing="false" text="Group Members" />
-            <Button fx:id="button" layoutX="700.0" layoutY="81.0" mnemonicParsing="false" text="Search" />
             <Label layoutX="356.0" layoutY="46.0" prefHeight="25.0" text="Check In">
                <font>
                   <Font name="System Bold" size="17.0" />

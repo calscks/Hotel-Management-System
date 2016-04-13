@@ -3,6 +3,7 @@ package application.assets.checkin;
 import application.DBConnection;
 import application.Validation;
 import application.assets.ModelFacility;
+import application.assets.ModelGroupMember;
 import application.assets.ModelRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,7 +64,17 @@ public class CIController implements Initializable{
     @FXML
     private TableColumn<ModelFacility, String> facdate;
     @FXML
-    private TableColumn<ModelFacility, Integer> factime;
+    private TableColumn<ModelFacility, String> factime;
+    @FXML
+    private TableView<ModelGroupMember> grouptable;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupFirstName;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupLastName;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciIcno;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupRoomNo;
 
 
 
@@ -78,20 +89,20 @@ public class CIController implements Initializable{
                         "Inner join Customer cust on rsv.custid = cust.custid " +
                         "Inner join CustAddress address on cust.custid = address.custid " +
                         "Inner join CheckInOut cio on address.custid = cio.custid " +
-                        "Inner join roombooking rbk on rsv.resvno = rbk.resvno " +
-                        "Inner join facbookeddate fbd on rsv.resvno = fbd.resvno  " +
-                        "INNER JOIN factype ftype on fbd.FacNo = ftype.FacNo " +
-                        "where fbd.ResvNo =" +tf_ciResvNum.getText();
+                        "Inner join roombooking rbk on rsv.resvno = rbk.resvno  " +
+                        "where rsv.ResvNo = " +tf_ciResvNum.getText();
                 String sql2 = "select * from FacBookedDate fbd " +
                         "INNER JOIN FacType ftype on fbd.FacNo = ftype.FacNo " +
                         "where ResvNo =" +tf_ciResvNum.getText();
-                ResultSet data = c.executeQuery(sql);
+                String sql3 =" select * from CustomerGroup custgroup " +
+                        "inner join customer cust on custgroup.G_CustID = cust.CustID " +
+                        "INNER JOIN Reservation rsv on cust.CustID = rsv.CustID " +
+                        "where rsv.ResvNo ="+tf_ciResvNum.getText() ;
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
                 ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
+                ObservableList<ModelGroupMember> gtable = FXCollections.observableArrayList();
+                ResultSet data = c.executeQuery(sql);
 
-                //data.next();
-                //ObservableList<CIController> roomtable = FXCollections.observableArrayList();
-                //table.setItems(roomtable);
                 String firstname = data.getString("CustFName");
                 String lastname = data.getString("CustLName");
                 String address = data.getString("Address");
@@ -100,11 +111,6 @@ public class CIController implements Initializable{
                 String country = data.getString("Country");
                 String idtype = data.getString("CustID_Type");
                 String idno = data.getString("CustID");
-                /*String rooo mno = data.getString("roomno");
-                String rtype = data.getString("typename");
-                String cidate = data.getString("checkindate");
-                String codate = data.getString("checkoutdate");*/
-
 
                 tf_ciFirstName.setText(firstname);
                 tf_ciLastName.setText(lastname);
@@ -115,23 +121,40 @@ public class CIController implements Initializable{
                 tf_ciPostCode.setText(postcode);
                 while (data.next()){
                     ModelRoom rm = new ModelRoom();
-                rm.setRoomno(data.getString("roomno"));
-                rm.setRtype(data.getString("roomtypename"));
-                rm.setCidate(data.getString("date_ci"));
-                rm.setCodate(data.getString("date_co"));
-                rtable.add(rm);
-                    //ResultSet data2 = c.executeQuery(sql2);
-                    ModelFacility fc = new ModelFacility();
-                    fc.setbookedfac(data.getString("facno"));
-                    fc.setfacprice(data.getString("facmornprice"));
-                    fc.setbookedfacdate(data.getString("date"));
-                    fc.setbookedfactime(data.getString("time"));
-                    ftable.add(fc);
-                System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
-                System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the usernameSystem.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
+                    rm.setRoomno(data.getString("roomno"));
+                    rm.setRtype(data.getString("roomtypename"));
+                    rm.setCidate(data.getString("date_ci"));
+                    rm.setCodate(data.getString("date_co"));
+                    rtable.add(rm);
+
+                    System.out.println(data.toString()); //for debugging, it prints the memory location of Employee class
+                    System.out.println(rm.getRoomno()); //for debugging, confirm works, can get the usernameSystem.out.println(rm.getRoomno()); //for debugging, confirm works, can get the username
                     //System.out.println(fc.getfacname()); //for debugging, confirm works, can get the username
 
                 }
+                ResultSet data2 = c.executeQuery(sql2);
+                while (data2.next()){
+                    ModelFacility fc = new ModelFacility();
+                    fc.setbookedfac(data2.getString("facno"));
+                    fc.setfacprice(data2.getString("facmornprice"));
+                    fc.setbookedfacdate(data2.getString("date"));
+                    fc.setbookedfactime(data2.getString("time"));
+                    ftable.add(fc);
+                }
+                ResultSet data3 = c.executeQuery(sql3);
+                while (data3.next()) {
+                    ModelGroupMember gm = new ModelGroupMember();
+                    gm.setMemFName(data3.getString("custfname"));
+                    gm.setMemLName(data3.getString("custlname"));
+                    gm.seticNum(data3.getString("passportno"));
+                    gm.setRoomNo(data3.getString("blacklisted"));
+                    gtable.add(gm);
+                }
+                tableC_ciGroupFirstName.setCellValueFactory(new PropertyValueFactory<>("memFName"));
+                tableC_ciGroupLastName.setCellValueFactory(new PropertyValueFactory<>("memLName"));
+                tableC_ciIcno.setCellValueFactory(new PropertyValueFactory<>("icNum"));
+                tableC_ciGroupRoomNo.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
+                grouptable.setItems(gtable);
                 ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
                 cicid.setCellValueFactory(new PropertyValueFactory<>("cidate"));
@@ -150,10 +173,35 @@ public class CIController implements Initializable{
                 cicod.setCellValueFactory(new PropertyValueFactory("codate"));
 */
             }
-            catch (SQLException e1) {
-                e1.printStackTrace();
+            catch (SQLException e) {
+                e.printStackTrace();
             }
         });
+        /*tf_ciIDNo.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                String sql3 =" select * from Reservation rsv " +
+                        "INNER JOIN Customer cust on rsv.CustID = cust.CustID " +
+                        "INNER JOIN CustomerGroup custgroup on cust.CustID = custgroup.G_CustID " +
+                        "where cust.CustID = "+tf_ciIDNo.getText();
+                ResultSet data3 = c.executeQuery(sql3);
+                ObservableList<ModelGroupMember> gtable = FXCollections.observableArrayList();
+                while (data3.next()) {
+                    ModelGroupMember gm = new ModelGroupMember();
+                    gm.setMemFName(data3.getString("CustFname"));
+                    gm.setMemLName(data3.getString("custlname"));
+                    gm.setIdNo(data3.getString("G_custid"));
+                    gm.setRoomNo(data3.getString("passportno"));
+                    gtable.add(gm);
+                }
+                tableC_ciGroupFirstName.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupFirstName"));
+                tableC_ciGroupLastName.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupLastName"));
+                tableC_ciGroupIDno.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupIDno"));
+                tableC_ciGroupRoomNo.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupRoomNo"));
+                grouptable.setItems(gtable);
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });*/
     }
 
     private void validation() {
