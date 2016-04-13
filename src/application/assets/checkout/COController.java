@@ -21,9 +21,13 @@ public class COController implements Initializable {
     @FXML private TextField tf_coFirstName;
     @FXML private TextField tf_coLastName;
     @FXML private TextField tf_coIDNo;
+    @FXML private TextField tf_coAddress;
+    @FXML private TextField tf_coPostCode;
+    @FXML private TextField tf_coCity;
+
 
     @FXML private ComboBox<String> cbox_coCountry;
-
+    @FXML private ComboBox<String> cbox_coIDType;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,11 +51,24 @@ public class COController implements Initializable {
             ResultSet codata = c.executeQuery(sql);
 
             String customerfname = codata.getString("CustFName");
+            String customerlname = codata.getString("CustLName");
+            String IDtype =codata.getString("CustID_Type");
             String customerid = codata.getString("CustID");
+            String address = codata.getString("Address");
+            String postcode = codata.getString("PostCode");
+            String city = codata.getString("City");
+            String Country = codata.getString("Country");
 
             tf_coIDNo.setText(customerid);
             tf_coFirstName.setText(customerfname);
-
+            tf_coLastName.setText(customerlname);
+            cbox_coIDType.getItems().add(IDtype);
+            cbox_coIDType.getSelectionModel().select(IDtype);
+            tf_coPostCode.setText(postcode);
+            tf_coCity.setText(city);
+            tf_coAddress.setText(address);
+            cbox_coCountry.getItems().add(Country);
+            cbox_coCountry.getSelectionModel().select(Country);
 
         }
         catch(SQLException t1){

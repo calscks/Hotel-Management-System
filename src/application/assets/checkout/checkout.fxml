@@ -75,13 +75,13 @@
                   <VBox spacing="10.0" GridPane.columnIndex="1">
                      <children>
                         <TextField fx:id="tf_coRoomNo" />
-                        <TextField fx:id="tf_coFirstName" />
-                        <TextField fx:id="tf_coLastName" />
+                        <TextField fx:id="tf_coFirstName" editable="false" />
+                        <TextField fx:id="tf_coLastName" editable="false" />
                         <ComboBox fx:id="cbox_coIDType" prefHeight="25.0" prefWidth="200.0" />
-                        <TextField fx:id="tf_coIDNo" />
-                        <TextField fx:id="tf_coAddress" />
-                        <TextField fx:id="tf_coPostCode" />
-                        <TextField />
+                        <TextField fx:id="tf_coIDNo" editable="false" />
+                        <TextField fx:id="tf_coAddress" editable="false" />
+                        <TextField fx:id="tf_coPostCode" editable="false" />
+                        <TextField fx:id="tf_coCity" editable="false" />
                         <ComboBox fx:id="cbox_coCountry" prefWidth="150.0" />
                      </children>
                   </VBox>
