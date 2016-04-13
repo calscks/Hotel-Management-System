@@ -27,6 +27,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ResvController implements Initializable {
@@ -112,6 +113,8 @@ public class ResvController implements Initializable {
 
         addRoom();
 
+        delRoom();
+
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
         //loop the array
@@ -157,6 +160,7 @@ public class ResvController implements Initializable {
         });
     }
 
+    //pressing add guest button
     public void addGuest() {
         FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
                 "/reservation/resvaddgroup.fxml"));
@@ -179,8 +183,9 @@ public class ResvController implements Initializable {
             guestStage.setResizable(false); //disable resize
             guestStage.setAlwaysOnTop(true); //set topmost
         });
-    }
+    }//add guest ends
 
+    //pressing add button for room as well as in room popup
     public void addRoom() {
         //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
         FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
@@ -233,7 +238,36 @@ public class ResvController implements Initializable {
             stage.close();
         });
 
-    }
+    }//add room resv ends
+
+    //delete room resv
+    public void delRoom(){
+        btn_delroom.setOnMouseClicked(me->{
+            int selectedRow = table_resvRoom.getSelectionModel().getSelectedIndex();
+            if (selectedRow >= 0){
+                ModelRoom roomNo = new ModelRoom();
+                roomNo = table_resvRoom.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Delete Room");
+                alert.setContentText("Are you sure you want to delete room " + roomNo.getRoomno() + "?");
+                //detect user presses ok or cancel (must do like this)
+                Optional<ButtonType> select = alert.showAndWait();
+                if (select.get() == ButtonType.OK){
+                    table_resvRoom.getItems().remove(selectedRow);
+                } else {
+                    alert.close();
+                }
+            } else {
+                Alert alert2 = new Alert(Alert.AlertType.WARNING);
+                alert2.setTitle("No Selection");
+                alert2.setHeaderText("No Room is Selected");
+                alert2.setContentText("Please select a room in the table to be deleted.");
+                alert2.showAndWait();
+            }
+        });
+    } //delete room resv ends
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
