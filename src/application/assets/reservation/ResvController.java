@@ -14,17 +14,15 @@ import javafx.fxml.FXML;
 import application.Validation;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -117,6 +115,7 @@ public class ResvController implements Initializable {
 
         delRoom();
 
+
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
         //loop the array
@@ -164,6 +163,7 @@ public class ResvController implements Initializable {
 
     //pressing add guest button
     public void addGuest() {
+
         FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
                 "/reservation/resvaddgroup.fxml"));
         AnchorPane guestPane = new AnchorPane();
@@ -173,9 +173,40 @@ public class ResvController implements Initializable {
             e.printStackTrace();
         }
 
-        AnchorPane finalGuestPane = guestPane;
-        new ForAddButton(finalGuestPane, btn_addguest);
+        ResvAddGroupController rag = loadGuest.getController();
 
+        AnchorPane finalGuestPane = guestPane;
+
+        /*i cannot use the ForAddButton here because add guest need to retrieve value from room tableView
+        * ,means got extra functions inside the listener
+        * when the room tableview is empty, roomno combobox of resvAddGroup will be empty, but if room tableView
+        * has row(s), retrieve the room no, time to add into the room no combobox!
+        */
+        btn_addguest.setOnMouseClicked(me -> {
+            Stage stage = new Stage();
+            int rowCount = table_resvRoom.getItems().size();
+
+            if (finalGuestPane.getScene() != null) {
+                stage.setScene(finalGuestPane.getScene());
+            } else {
+                Scene guestScene = new Scene(finalGuestPane);
+                stage.setScene(guestScene);
+            }
+            if (rowCount != 0) {
+                rag.getCbox_roomno().getItems().clear();
+
+                for (int i = 0; i < rowCount; i++) {
+                    ModelRoom room = new ModelRoom();
+                    room = table_resvRoom.getItems().get(i);
+                    System.out.print(room.getRoomno());
+                    rag.getCbox_roomno().getItems().add(room.getRoomno());
+                }
+            }
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
+        });
     }//add guest ends
 
     //pressing add button for room as well as in room popup
@@ -211,6 +242,14 @@ public class ResvController implements Initializable {
             rd.add(room);
             table_resvRoom.getItems().add(room);
 
+            //manually clearing data from the add room stage after adding
+            rc.getTable_rooms().getItems().clear();
+            rc.getCbox_xtrabed().getItems().clear();
+            rc.getLbl_extBedPrice().setText(null);
+            rc.getLbl_roomPrice().setText(null);
+            rc.getLbl_totalRoomPrice().setText(null);
+            rc.getTf_roomno().setText(null);
+
             Stage stage = (Stage) rc.getBtn_roomAdd().getScene().getWindow();
             stage.close();
         });
@@ -218,10 +257,10 @@ public class ResvController implements Initializable {
     }//add room resv ends
 
     //delete room resv
-    public void delRoom(){
-        btn_delroom.setOnMouseClicked(me->{
+    public void delRoom() {
+        btn_delroom.setOnMouseClicked(me -> {
             int selectedRow = table_resvRoom.getSelectionModel().getSelectedIndex();
-            if (selectedRow >= 0){
+            if (selectedRow >= 0) {
                 ModelRoom roomNo = new ModelRoom();
                 roomNo = table_resvRoom.getSelectionModel().getSelectedItem();
 
@@ -232,7 +271,7 @@ public class ResvController implements Initializable {
                 //detect user presses ok or cancel (must do like this)
                 Optional<ButtonType> select = alert.showAndWait();
                 if (select.isPresent()) {
-                    if (select.get() == ButtonType.OK){
+                    if (select.get() == ButtonType.OK) {
                         table_resvRoom.getItems().remove(selectedRow);
                     } else {
                         alert.close();
@@ -247,6 +286,7 @@ public class ResvController implements Initializable {
             }
         });
     } //delete room resv ends
+
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
@@ -273,5 +313,6 @@ public class ResvController implements Initializable {
         tbcol_memidno.setCellValueFactory(new PropertyValueFactory<>("idNo"));
         tbcol_memroomno.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
     }
+
 
 }
