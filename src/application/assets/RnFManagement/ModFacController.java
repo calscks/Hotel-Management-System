@@ -61,8 +61,9 @@ public class ModFacController implements Initializable{
         tf_searchby.textProperty().addListener((observable, oldValue,newValue)-> {
             if (lbl_cboxselection.getText().equals("FacilityID :")){
                 try {
-                    String sql = "select * from FacType ft " +
-                            "where ft.FacNo=" +tf_searchby.getText();
+                    String sql = "SELECT * FROM FacType ft "+
+                            "WHERE ft.FacNo = '" + tf_searchby.getText() + "'";
+
                     ResultSet data = c.executeQuery(sql);
                     ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
 
@@ -79,7 +80,7 @@ public class ModFacController implements Initializable{
                     tf_morning.setText(modfacmornprice);
                     tf_night.setText(modfacnightprice);
                     tf_wholeday.setText(modfacwholeprice);
-                    while (data.next()){
+                   // while (data.next()){
                         ModelFacility fac = new ModelFacility();
                         fac.setfacno(data.getString("FacNo"));
                         fac.setfacname(data.getString("FacName"));
@@ -87,7 +88,7 @@ public class ModFacController implements Initializable{
                         ftable.add(fac);
                        // System.out.println(fac.getfacno());
 
-                    }
+                   // }
                     tb_facid.setCellValueFactory(new PropertyValueFactory<>("modfacno"));
                     tb_facname.setCellValueFactory(new PropertyValueFactory<>("modfacname"));
                     tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("modfacdesc"));
@@ -101,7 +102,7 @@ public class ModFacController implements Initializable{
             else if (lbl_cboxselection.getText().equals("FacilityName :")){
                 try {
                     String sql = "select * from FacType ft " +
-                            "where ft.FacName=" +tf_searchby.getText();
+                            "where ft.FacName='" +tf_searchby.getText()+ "'";
                     ResultSet data2 = c.executeQuery(sql);
                     ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
 
@@ -143,7 +144,7 @@ public class ModFacController implements Initializable{
     }
 
     private void validation() {
-        tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
+        tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoSpace(20));
         tf_facno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_facname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_morning.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
