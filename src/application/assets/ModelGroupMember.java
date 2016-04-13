@@ -1,5 +1,6 @@
 package application.assets;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ModelGroupMember {
@@ -7,6 +8,9 @@ public class ModelGroupMember {
     private SimpleStringProperty memLName = new SimpleStringProperty();
     private SimpleStringProperty idNo = new SimpleStringProperty();
     private SimpleStringProperty roomNo = new SimpleStringProperty();
+    private SimpleIntegerProperty gCustId = new SimpleIntegerProperty();
+    private SimpleStringProperty icNum = new SimpleStringProperty();
+
 
     public SimpleStringProperty memFNameProperty() {
         return memFName;
@@ -24,6 +28,13 @@ public class ModelGroupMember {
         return roomNo;
     }
 
+    public SimpleStringProperty icNumProperty() {
+        return icNum;
+    }
+
+
+    public SimpleIntegerProperty gCustIdProperty() {return gCustId;}
+
     public String getMemFName() {
         return memFName.get();
     }
@@ -36,8 +47,19 @@ public class ModelGroupMember {
         return idNo.get();
     }
 
+    public String geticNum() {
+        return icNum.get();
+    }
+
+
+
+
     public String getRoomNo() {
         return roomNo.get();
+    }
+
+    public Integer getgCustId() {
+        return gCustId.get();
     }
 
     public void setMemFName(String memFName) {
@@ -55,4 +77,13 @@ public class ModelGroupMember {
     public void setRoomNo(String roomNo) {
         this.roomNo.set(roomNo);
     }
+
+    public void setgCustId(Integer gCustId) {
+        this.gCustId.set(gCustId);
+    }
+    public void seticNum(String icNum) {
+        this.icNum.set(icNum);
+    }
+
+
 }
