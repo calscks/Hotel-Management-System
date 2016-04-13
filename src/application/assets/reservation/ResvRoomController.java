@@ -102,9 +102,7 @@ public class ResvRoomController implements Initializable {
         }); //room category selection done
 
         //I created CIODateDisabler.java for check in and out! You can apply it like this.
-        CIODateDisabler date = new CIODateDisabler(date_ci, date_co);
-        //date will be used (line 255) for counting total days (using the function getDuration() inside
-        // CIODateDisabler
+        new CIODateDisabler(date_ci, date_co);
 
         //for search button
         btn_roomsearch.setOnMouseClicked(me -> {
@@ -324,5 +322,46 @@ public class ResvRoomController implements Initializable {
 
     public String getTotal(){
         return lbl_totalRoomPrice.getText();
+    }
+
+    //i guess i need these to clear the values after adding
+    public ComboBox<String> getCbox_roomcat() {
+        return cbox_roomcat;
+    }
+
+    public ComboBox<String> getCbox_roomtype() {
+        return cbox_roomtype;
+    }
+
+    public ComboBox<String> getCbox_xtrabed() {
+        return cbox_xtrabed;
+    }
+
+    public DatePicker getDate_ci() {
+        return date_ci;
+    }
+
+    public DatePicker getDate_co() {
+        return date_co;
+    }
+
+    public Label getLbl_extBedPrice() {
+        return lbl_extBedPrice;
+    }
+
+    public Label getLbl_roomPrice() {
+        return lbl_roomPrice;
+    }
+
+    public Label getLbl_totalRoomPrice() {
+        return lbl_totalRoomPrice;
+    }
+
+    public TextField getTf_roomno() {
+        return tf_roomno;
+    }
+
+    public TableView<ModelRoom> getTable_rooms() {
+        return table_rooms;
     }
 }

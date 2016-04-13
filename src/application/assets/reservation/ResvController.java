@@ -14,17 +14,12 @@ import javafx.fxml.FXML;
 import application.Validation;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -210,6 +205,16 @@ public class ResvController implements Initializable {
 
             rd.add(room);
             table_resvRoom.getItems().add(room);
+
+            //manually clearing data from the add room stage after adding
+            rc.getCbox_roomcat().getItems().clear();
+            rc.getCbox_roomtype().getItems().clear();
+            rc.getTable_rooms().getItems().clear();
+            rc.getCbox_xtrabed().getItems().clear();
+            rc.getLbl_extBedPrice().setText(null);
+            rc.getLbl_roomPrice().setText(null);
+            rc.getLbl_totalRoomPrice().setText(null);
+            rc.getTf_roomno().setText(null);
 
             Stage stage = (Stage) rc.getBtn_roomAdd().getScene().getWindow();
             stage.close();
