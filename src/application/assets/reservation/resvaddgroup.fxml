@@ -32,7 +32,7 @@
             <ComboBox fx:id="cbox_roomno" prefHeight="25.0" prefWidth="200.0" />
             </children>
         </VBox>
-        <Button layoutX="161.0" layoutY="237.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
+        <Button fx:id="btn_addmem" layoutX="161.0" layoutY="237.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
       <Label layoutX="40.0" layoutY="22.0" prefHeight="26.0" text="Add group members">
          <font>
             <Font name="System Bold" size="17.0" />

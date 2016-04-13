@@ -14,17 +14,16 @@ import javafx.fxml.FXML;
 import application.Validation;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,14 +72,13 @@ public class ResvController implements Initializable {
     private Button btn_delfac;
 
     @FXML
-    private CheckBox chkbox_gmembers;
-
-    @FXML
     private TableView<ModelGroupMember> table_gmembers;
     @FXML
     private TableColumn<ModelGroupMember, String> tbcol_memfname;
     @FXML
     private TableColumn<ModelGroupMember, String> tbcol_memlname;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tbcol_memidtype;
     @FXML
     private TableColumn<ModelGroupMember, String> tbcol_memidno;
     @FXML
@@ -117,12 +115,12 @@ public class ResvController implements Initializable {
 
         delRoom();
 
+
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
         //loop the array
         for (String countryCode : locale) {
             Locale country = new Locale("", countryCode);
-            //System.out.println(country.getDisplayCountry());
             //add countries into cbox!
             cbox_country.getItems().add(country.getDisplayCountry());
         }
@@ -164,6 +162,7 @@ public class ResvController implements Initializable {
 
     //pressing add guest button
     public void addGuest() {
+
         FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
                 "/reservation/resvaddgroup.fxml"));
         AnchorPane guestPane = new AnchorPane();
@@ -173,8 +172,66 @@ public class ResvController implements Initializable {
             e.printStackTrace();
         }
 
+        ResvAddGroupController rag = loadGuest.getController();
+
         AnchorPane finalGuestPane = guestPane;
-        new ForAddButton(finalGuestPane, btn_addguest);
+
+        /*i cannot use the ForAddButton here because add guest need to retrieve value from room tableView
+        * ,means got extra functions inside the listener
+        * when the room tableview is empty, roomno combobox of resvAddGroup will be empty, but if room tableView
+        * has row(s), retrieve the room no, time to add into the room no combobox!
+        */
+        btn_addguest.setOnMouseClicked(me -> {
+            Stage stage = new Stage();
+            int rowCount = table_resvRoom.getItems().size();
+
+            if (finalGuestPane.getScene() != null) {
+                stage.setScene(finalGuestPane.getScene());
+            } else {
+                Scene guestScene = new Scene(finalGuestPane);
+                stage.setScene(guestScene);
+            }
+            if (rowCount != 0) {
+                rag.getCbox_roomno().getItems().clear();
+
+                for (int i = 0; i < rowCount; i++) {
+                    ModelRoom room = new ModelRoom();
+                    room = table_resvRoom.getItems().get(i);
+                    System.out.print(room.getRoomno());
+                    rag.getCbox_roomno().getItems().add(room.getRoomno());
+                }
+            }
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            stage.setResizable(false);
+        });
+
+        rag.getBtn_addmem().setOnMouseClicked(me->{
+            if (rag.getCbox_roomno().getSelectionModel().getSelectedItem() != null) {
+                ModelGroupMember mg = new ModelGroupMember();
+
+                mg.setMemFName(rag.getTf_fname().getText());
+                mg.setMemLName(rag.getTf_lname().getText());
+                mg.setIdType(rag.getCbox_idtype().getSelectionModel().getSelectedItem());
+                mg.setIdNo(rag.getTf_idno().getText());
+                mg.setRoomNo(rag.getCbox_roomno().getSelectionModel().getSelectedItem());
+
+                table_gmembers.getItems().add(mg);
+
+                rag.getTf_fname().setText(null);
+                rag.getTf_lname().setText(null);
+                rag.getTf_idno().setText(null);
+
+                Stage stage = (Stage) rag.getBtn_addmem().getScene().getWindow();
+                stage.close();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No Selection in Room");
+                alert.setHeaderText("No Room is Selected");
+                alert.setContentText("Please select a room, if it is empty, please add a room.");
+                alert.showAndWait();
+            }
+        });
 
     }//add guest ends
 
@@ -199,7 +256,7 @@ public class ResvController implements Initializable {
 
         rc.getBtn_roomAdd().setOnMouseClicked(me -> {
             ModelRoom room = new ModelRoom();
-            ObservableList<ModelRoom> rd = FXCollections.observableArrayList();
+
             room.setRoomcat(rc.getRoomCat());
             room.setRtype(rc.getRoomType());
             room.setRoomno(rc.getRoomNo());
@@ -208,8 +265,15 @@ public class ResvController implements Initializable {
             room.setExtbedtype(rc.getExtBed());
             room.setRoomprice(rc.getTotal());
 
-            rd.add(room);
             table_resvRoom.getItems().add(room);
+
+            //manually clearing data from the add room stage after adding
+            rc.getTable_rooms().getItems().clear();
+            rc.getCbox_xtrabed().getItems().clear();
+            rc.getLbl_extBedPrice().setText(null);
+            rc.getLbl_roomPrice().setText(null);
+            rc.getLbl_totalRoomPrice().setText(null);
+            rc.getTf_roomno().setText(null);
 
             Stage stage = (Stage) rc.getBtn_roomAdd().getScene().getWindow();
             stage.close();
@@ -218,10 +282,10 @@ public class ResvController implements Initializable {
     }//add room resv ends
 
     //delete room resv
-    public void delRoom(){
-        btn_delroom.setOnMouseClicked(me->{
+    public void delRoom() {
+        btn_delroom.setOnMouseClicked(me -> {
             int selectedRow = table_resvRoom.getSelectionModel().getSelectedIndex();
-            if (selectedRow >= 0){
+            if (selectedRow >= 0) {
                 ModelRoom roomNo = new ModelRoom();
                 roomNo = table_resvRoom.getSelectionModel().getSelectedItem();
 
@@ -232,7 +296,7 @@ public class ResvController implements Initializable {
                 //detect user presses ok or cancel (must do like this)
                 Optional<ButtonType> select = alert.showAndWait();
                 if (select.isPresent()) {
-                    if (select.get() == ButtonType.OK){
+                    if (select.get() == ButtonType.OK) {
                         table_resvRoom.getItems().remove(selectedRow);
                     } else {
                         alert.close();
@@ -247,6 +311,7 @@ public class ResvController implements Initializable {
             }
         });
     } //delete room resv ends
+
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
@@ -270,8 +335,15 @@ public class ResvController implements Initializable {
 
         tbcol_memfname.setCellValueFactory(new PropertyValueFactory<>("memFName"));
         tbcol_memlname.setCellValueFactory(new PropertyValueFactory<>("memLName"));
+        tbcol_memidtype.setCellValueFactory(new PropertyValueFactory<>("idType"));
         tbcol_memidno.setCellValueFactory(new PropertyValueFactory<>("idNo"));
         tbcol_memroomno.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
+
+        //trick: make cells editable
+        tbcol_memfname.setCellFactory(TextFieldTableCell.forTableColumn());
+        tbcol_memlname.setCellFactory(TextFieldTableCell.forTableColumn());
+        tbcol_memidno.setCellFactory(TextFieldTableCell.forTableColumn());
     }
+
 
 }
