@@ -1,6 +1,7 @@
 package application.assets.reservation;
 
 import application.assets.AutoCompleteCBoxListener;
+import application.assets.ForAddButton;
 import application.assets.ModelGroupMember;
 import application.assets.ModelRoom;
 import javafx.animation.FadeTransition;
@@ -23,6 +24,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -164,25 +166,16 @@ public class ResvController implements Initializable {
     public void addGuest() {
         FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
                 "/reservation/resvaddgroup.fxml"));
+        AnchorPane guestPane = new AnchorPane();
+        try {
+            guestPane = loadGuest.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        btn_addguest.setOnMouseClicked(me -> {
-            Stage guestStage = new Stage();
-            StackPane guestPane = new StackPane();
-            ScrollPane rootPane = new ScrollPane(guestPane);
-            try {
-                Parent root = loadGuest.load();
-                guestPane.getChildren().addAll(root);
-                Scene guestScene = new Scene(rootPane);
-                guestStage.setScene(guestScene);
-                //line below blocks all inputs to the stage behind
-                guestStage.initModality(Modality.APPLICATION_MODAL);
-                guestStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            guestStage.setResizable(false); //disable resize
-            guestStage.setAlwaysOnTop(true); //set topmost
-        });
+        AnchorPane finalGuestPane = guestPane;
+        new ForAddButton(finalGuestPane, btn_addguest);
+
     }//add guest ends
 
     //pressing add button for room as well as in room popup
@@ -196,27 +189,11 @@ public class ResvController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //create 2 anchorPanes, this one for the resv room stage
+
         AnchorPane finalRoomPane = roomPane;
-        btn_addroom.setOnMouseClicked(me -> {
-            Stage roomStage = new Stage();
 
-            /*when you close the room stage, the scene is still there!
-            below code is that if you re-open, re-get the scene and apply to new opened stage
-            advantage: if staff accidentally close the add room stage after inserting some data, when he
-            reopens the add room stage, the data is still there*/
-            if (finalRoomPane.getScene() != null) {
-                roomStage.setScene(finalRoomPane.getScene());
-            } else {
-                Scene guestScene = new Scene(finalRoomPane);
-                roomStage.setScene(guestScene);
-                //roomStage.initModality(Modality.APPLICATION_MODAL);
-            }
-            roomStage.show();
-            roomStage.setResizable(false);
-            roomStage.setAlwaysOnTop(true);
+        new ForAddButton(finalRoomPane, btn_addroom);
 
-        });
 
         ResvRoomController rc = loadRoom.getController();
 
@@ -254,10 +231,12 @@ public class ResvController implements Initializable {
                 alert.setContentText("Are you sure you want to delete room " + roomNo.getRoomno() + "?");
                 //detect user presses ok or cancel (must do like this)
                 Optional<ButtonType> select = alert.showAndWait();
-                if (select.get() == ButtonType.OK){
-                    table_resvRoom.getItems().remove(selectedRow);
-                } else {
-                    alert.close();
+                if (select.isPresent()) {
+                    if (select.get() == ButtonType.OK){
+                        table_resvRoom.getItems().remove(selectedRow);
+                    } else {
+                        alert.close();
+                    }
                 }
             } else {
                 Alert alert2 = new Alert(Alert.AlertType.WARNING);
