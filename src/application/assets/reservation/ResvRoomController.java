@@ -325,24 +325,8 @@ public class ResvRoomController implements Initializable {
     }
 
     //i guess i need these to clear the values after adding
-    public ComboBox<String> getCbox_roomcat() {
-        return cbox_roomcat;
-    }
-
-    public ComboBox<String> getCbox_roomtype() {
-        return cbox_roomtype;
-    }
-
     public ComboBox<String> getCbox_xtrabed() {
         return cbox_xtrabed;
-    }
-
-    public DatePicker getDate_ci() {
-        return date_ci;
-    }
-
-    public DatePicker getDate_co() {
-        return date_co;
     }
 
     public Label getLbl_extBedPrice() {

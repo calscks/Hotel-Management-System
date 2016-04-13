@@ -8,7 +8,10 @@ import javafx.stage.Stage;
 
 
 /*
-This class is to show new stages such as for group member, room when pressed add button to show the stage.
+This class is to show new stages such as for room and facility when pressed add button to show the stage.
+
+I personally think this one is not applicable to add group, because add group member will need extra function
+
 How to use this:
 
 1. FXMLLoader loadfxml = new FXMLLoader(getClass().getResource("path"));
@@ -25,6 +28,7 @@ new ForAddButton(finalPane, theAddButton)
 the add button is to show a new stage to add sth.
 See line 179 to line 190 on resvController
  */
+
 public class ForAddButton {
     private AnchorPane finalPane;
     private Button addButton;
