@@ -37,7 +37,7 @@ public class Validation {
             if (txt_TextField.getText().length() >= maxLength) {
                 e.consume();
             }
-            if (!e.getCharacter().matches("[A-Za-z]")) {
+            if (!e.getCharacter().matches("[A-Za-z ]")) {
                 e.consume();
             }
         };

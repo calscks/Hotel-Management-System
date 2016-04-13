@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -56,10 +55,11 @@
                   <TextField fx:id="tf_idno" />
                   </children>
               </VBox>
-              <TableView fx:id="table_gmembers" editable="true" layoutX="201.0" layoutY="452.0" prefHeight="171.0" prefWidth="358.0">
+              <TableView fx:id="table_gmembers" editable="true" layoutX="201.0" layoutY="432.0" prefHeight="191.0" prefWidth="358.0">
                   <columns>
                       <TableColumn fx:id="tbcol_memfname" prefWidth="92.0" text="First Name" />
                       <TableColumn fx:id="tbcol_memlname" prefWidth="97.0" text="Last Name" />
+                  <TableColumn fx:id="tbcol_memidtype" prefWidth="75.0" text="ID Type" />
                       <TableColumn fx:id="tbcol_memidno" prefWidth="96.0" text="Passport/IC No" />
                   <TableColumn fx:id="tbcol_memroomno" prefWidth="72.0" text="Room No" />
                   </columns>
@@ -72,13 +72,13 @@
                   <Label text="Rooms" />
                   <TableView fx:id="table_resvRoom" prefHeight="159.0" prefWidth="318.0">
                      <columns>
-                        <TableColumn fx:id="tbcol_roomcat" prefWidth="90.0" text="Room Category" />
-                        <TableColumn fx:id="tbcol_roomtype" prefWidth="108.0" text="Room Type" />
-                        <TableColumn fx:id="tbcol_roomno" prefWidth="71.0" text="Room No" />
-                        <TableColumn fx:id="tbcol_roomci" prefWidth="89.0" text="Check In" />
-                        <TableColumn fx:id="tbcol_roomco" prefWidth="89.0" text="Check Out" />
-                        <TableColumn fx:id="tbcol_xtrabed" prefWidth="91.0" text="Extra Bed Type" />
-                        <TableColumn fx:id="tbcol_rprice" prefWidth="75.0" text="Total Price" />
+                        <TableColumn fx:id="tbcol_roomcat" editable="false" prefWidth="90.0" text="Room Category" />
+                        <TableColumn fx:id="tbcol_roomtype" editable="false" prefWidth="108.0" text="Room Type" />
+                        <TableColumn fx:id="tbcol_roomno" editable="false" prefWidth="71.0" text="Room No" />
+                        <TableColumn fx:id="tbcol_roomci" editable="false" prefWidth="89.0" text="Check In" />
+                        <TableColumn fx:id="tbcol_roomco" editable="false" prefWidth="89.0" text="Check Out" />
+                        <TableColumn fx:id="tbcol_xtrabed" editable="false" prefWidth="91.0" text="Extra Bed Type" />
+                        <TableColumn fx:id="tbcol_rprice" editable="false" prefWidth="75.0" text="Total Price" />
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
@@ -150,7 +150,6 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
             </VBox>
-            <CheckBox fx:id="chkbox_gmembers" layoutX="201.0" layoutY="430.0" mnemonicParsing="false" text="Group Members" />
             <Label layoutX="205.0" layoutY="38.0" prefHeight="26.0" prefWidth="111.0" text="Reservations">
                <font>
                   <Font name="System Bold" size="17.0" />
