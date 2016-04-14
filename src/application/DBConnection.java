@@ -191,7 +191,7 @@ public class DBConnection {
             DatabaseMetaData meta = c.getMetaData();
             ResultSet chkTable = meta.getTables(null, null, "Employee", new String[]{"TABLE"});
             if (chkTable.next()) {
-                System.out.print("Db exists");
+                System.out.print("Db exists\n");
             } else {
                 System.out.print("Does not exists, creating a new db");
                 for (String aCreate : create) { //loop the string[] create array

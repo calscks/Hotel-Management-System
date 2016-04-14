@@ -27,7 +27,6 @@ public class ResvAddGroupController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb){
-        DBConnection db = new DBConnection("Data.sqlite");
         ObservableList<String> room = FXCollections.observableArrayList();
         ObservableList<String> idtype =
                 FXCollections.observableArrayList("Identity Card", "Passport No");
