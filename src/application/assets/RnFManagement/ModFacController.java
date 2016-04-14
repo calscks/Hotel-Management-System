@@ -14,7 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import static application.slidemenu.SlideMenuController.db;
 import javax.activation.CommandObject;
 import java.io.IOException;
 import java.net.URL;
@@ -34,9 +34,7 @@ public class ModFacController implements Initializable{
     @FXML private TextField tf_facno;
     @FXML private TextField tf_facname;
     @FXML private TextArea ta_facdesc;
-    @FXML private TextField tf_morning;
-    @FXML private TextField tf_night;
-    @FXML private TextField tf_wholeday;
+    @FXML private TextField tf_facresvprice;
     @FXML private Label lbl_cboxselection;
     @FXML private ComboBox cbox_searchby;
     @FXML private Button btn_modaddfac;
@@ -64,31 +62,27 @@ public class ModFacController implements Initializable{
 
         cbox_searchby.setItems(selectbyitems);
 
-        DBConnection c = new DBConnection("Data.sqlite");
-
         tf_searchby.textProperty().addListener((observable, oldValue,newValue)-> {
             if (lbl_cboxselection.getText().equals("FacilityID :")){
                 try {
                     String sql = "SELECT * FROM FacType ft "+
                             "WHERE ft.FacNo = '" + tf_searchby.getText() + "'";
 
-                    ResultSet data = c.executeQuery(sql);
+                    ResultSet data = db.executeQuery(sql);
                     ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
-
+                    while (data.next()){
                     String modfacno = data.getString("FacNo");
                     String modfacname = data.getString("FacName");
                     String modfacdesc = data.getString("FacDesc");
-                    String modfacmornprice = data.getString("FacMornPrice");
-                    String modfacnightprice = data.getString("FacNightPrice");
-                    String modfacwholeprice = data.getString("FacWholePrice");
+                    String modfacresvprice = data.getString("FacPrice");
+
 
                     tf_facno.setText(modfacno);
                     tf_facname.setText(modfacname);
                     ta_facdesc.setText(modfacdesc);
-                    tf_morning.setText(modfacmornprice);
-                    tf_night.setText(modfacnightprice);
-                    tf_wholeday.setText(modfacwholeprice);
-                    while (data.next()){
+                    tf_facresvprice.setText(modfacresvprice);
+
+
                         ModelFacility fac = new ModelFacility();
                         fac.setFacno(data.getString("FacNo"));
                         fac.setFacname(data.getString("FacName"));
@@ -97,9 +91,9 @@ public class ModFacController implements Initializable{
                        // System.out.println(fac.getfacno());
 
                     }
-                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("modfacno"));
-                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("modfacname"));
-                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("modfacdesc"));
+                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("facno"));
+                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("facname"));
+                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("facdesc"));
                     modfactable.setItems(ftable);
                 }
                 catch (SQLException e1) {
@@ -111,23 +105,20 @@ public class ModFacController implements Initializable{
                 try {
                     String sql = "select * from FacType ft " +
                             "where ft.FacName='" +tf_searchby.getText()+ "'";
-                    ResultSet data2 = c.executeQuery(sql);
+                    ResultSet data2 = db.executeQuery(sql);
                     ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
-
+                    while (data2.next()){
                     String modfacno = data2.getString("FacNo");
                     String modfacname = data2.getString("FacName");
                     String modfacdesc = data2.getString("FacDesc");
-                    String modfacmornprice = data2.getString("FacMornPrice");
-                    String modfacnightprice = data2.getString("FacNightPrice");
-                    String modfacwholeprice = data2.getString("FacWholePrice");
+                    String modfacresvprice = data2.getString("FacPrice");
+
 
                     tf_facno.setText(modfacno);
                     tf_facname.setText(modfacname);
                     ta_facdesc.setText(modfacdesc);
-                    tf_morning.setText(modfacmornprice);
-                    tf_night.setText(modfacnightprice);
-                    tf_wholeday.setText(modfacwholeprice);
-                    while (data2.next()){
+                    tf_facresvprice.setText(modfacresvprice);
+
                         ModelFacility fac = new ModelFacility();
                         fac.setFacno(data2.getString("facno"));
                         fac.setFacname(data2.getString("facname"));
@@ -173,12 +164,10 @@ public class ModFacController implements Initializable{
 
 
             //clear items
-            afc.getTf_facno().setText(null);
-            afc.getTf_facname().setText(null);
-            afc.getTa_addfacdesc().setText(null);
-            afc.getTf_morning().setText(null);
-            afc.getTf_night().setText(null);
-            afc.getTf_wholeday().setText(null);
+            afc.getTf_facno().clear();
+            afc.getTf_facname().clear();
+            afc.getTa_addfacdesc().clear();
+            afc.getTf_addfacprice().clear();
 
             Stage stage = (Stage) afc.getBtn_addfac().getScene().getWindow();
             stage.close();
@@ -189,8 +178,6 @@ public class ModFacController implements Initializable{
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoSpace(20));
         tf_facno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_facname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
-        tf_morning.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
-        tf_night.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
-        tf_wholeday.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_facresvprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
     }
 }

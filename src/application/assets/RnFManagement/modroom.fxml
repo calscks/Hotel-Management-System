@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -16,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.RnFManagement.ModRoomController">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.RnFManagement.ModRoomController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="675.0" prefWidth="1200.0">
          <children>
@@ -34,7 +39,7 @@
                     </rowConstraints>
                      <children>
                         <Label text="Room Category :" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cbox_searchby" onAction="#lblchange" prefHeight="25.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="cbox_searchby" prefHeight="25.0" prefWidth="322.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Search">
                            <font>
                               <Font name="System Bold" size="14.0" />

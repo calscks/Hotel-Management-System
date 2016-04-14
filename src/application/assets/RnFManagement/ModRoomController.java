@@ -31,7 +31,6 @@ public class ModRoomController implements Initializable{
     ObservableList<String> selectbyitems = FXCollections.observableArrayList("RoomCategory","RoomNo");
 
     @FXML private TextField tf_searchby;
-    @FXML private Label lbl_cboxselection;
     @FXML private ComboBox cbox_searchby;
     @FXML private TextField tf_roomcategory;
     @FXML private TextField tf_roomno2;
@@ -42,20 +41,11 @@ public class ModRoomController implements Initializable{
     @FXML private TextField tf_fullbedprice;
     @FXML private TextField tf_queenbedprice;
     @FXML private TextField tf_kingbedprice;
+    @FXML private Button btn_search;
     @FXML private Button btn_modaddroom;
     @FXML private TableView<ModelRoom> tv_modroom;
     @FXML private TableColumn<ModelRoom, String> tc_modroomno;
     @FXML private TableColumn<ModelRoom, String> tc_modroomtype;
-
-    @FXML private void lblchange(){
-        if (cbox_searchby.getValue().equals("RoomCategory")){
-            lbl_cboxselection.setText("Room Category :");
-        }
-        else{
-            lbl_cboxselection.setText("Room No :");
-        }
-    }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -67,8 +57,8 @@ public class ModRoomController implements Initializable{
         addroom();
 
 
-        tf_searchby.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (lbl_cboxselection.getText().equals("Room Category :")){
+        btn_search.setOnMouseClicked(me -> {
+            if (cbox_searchby.getValue().equals("RoomCategory")){
                 try {
 
                     //language=SQLite
@@ -115,7 +105,7 @@ public class ModRoomController implements Initializable{
                 }
 
             }
-            else if (lbl_cboxselection.getText().equals("Room No :")){
+            else if (cbox_searchby.getValue().equals("RoomNo")){
                 try {
                     String sql = "SELECT * FROM Room rm " +
                             "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
