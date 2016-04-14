@@ -1,10 +1,7 @@
 package application.assets.reservation;
 
 import application.DBConnection;
-import application.assets.AutoCompleteCBoxListener;
-import application.assets.ForAddButton;
-import application.assets.ModelGroupMember;
-import application.assets.ModelRoom;
+import application.assets.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -34,75 +31,48 @@ import java.util.ResourceBundle;
 
 public class ResvController implements Initializable {
 
-    @FXML
-    private AnchorPane resvPane;
-    @FXML
-    private TextField tf_resvno;
-    @FXML
-    private TextField tf_fname;
-    @FXML
-    private TextField tf_lname;
-    @FXML
-    private TextField tf_phoneno;
-    @FXML
-    private TextField tf_address;
-    @FXML
-    private TextField tf_postcode;
-    @FXML
-    private TextField tf_city;
-    @FXML
-    private TextField tf_idno;
-    @FXML
-    private ComboBox<String> cbox_country;
-    @FXML
-    private ComboBox<String> cbox_idtype;
+    @FXML private AnchorPane resvPane;
+    @FXML private TextField tf_resvno;
+    @FXML private TextField tf_fname;
+    @FXML private TextField tf_lname;
+    @FXML private TextField tf_phoneno;
+    @FXML private TextField tf_address;
+    @FXML private TextField tf_postcode;
+    @FXML private TextField tf_city;
+    @FXML private TextField tf_idno;
+    @FXML private ComboBox<String> cbox_country;
+    @FXML private ComboBox<String> cbox_idtype;
 
-    @FXML
-    private Button btn_resvNext;
-    @FXML
-    private Button btn_addguest;
-    @FXML
-    private Button btn_delguest;
-    @FXML
-    private Button btn_addroom;
-    @FXML
-    private Button btn_delroom;
-    @FXML
-    private Button btn_addfac;
-    @FXML
-    private Button btn_delfac;
+    @FXML private Button btn_resvNext;
+    @FXML private Button btn_addguest;
+    @FXML private Button btn_delguest;
+    @FXML private Button btn_addroom;
+    @FXML private Button btn_delroom;
+    @FXML private Button btn_addfac;
+    @FXML private Button btn_delfac;
 
-    @FXML
-    private TableView<ModelGroupMember> table_gmembers;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tbcol_memfname;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tbcol_memlname;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tbcol_memidtype;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tbcol_memidno;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tbcol_memroomno;
+    @FXML private TableView<ModelGroupMember> table_gmembers;
+    @FXML private TableColumn<ModelGroupMember, String> tbcol_memfname;
+    @FXML private TableColumn<ModelGroupMember, String> tbcol_memlname;
+    @FXML private TableColumn<ModelGroupMember, String> tbcol_memidtype;
+    @FXML private TableColumn<ModelGroupMember, String> tbcol_memidno;
+    @FXML private TableColumn<ModelGroupMember, String> tbcol_memroomno;
 
-    @FXML
-    private TableView<ModelRoom> table_resvRoom;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomcat;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomtype;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomno;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomci;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_roomco;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_xtrabed;
-    @FXML
-    private TableColumn<ModelRoom, String> tbcol_rprice;
+    @FXML private TableView<ModelRoom> table_resvRoom;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomcat;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomtype;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomno;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomci;
+    @FXML private TableColumn<ModelRoom, String> tbcol_roomco;
+    @FXML private TableColumn<ModelRoom, String> tbcol_xtrabed;
+    @FXML private TableColumn<ModelRoom, String> tbcol_rprice;
 
-
+    @FXML private TableView<ModelFacility> table_resvFac;
+    @FXML private TableColumn<ModelFacility, String> tbcol_fac;
+    @FXML private TableColumn<ModelFacility, String> tbcol_facno;
+    @FXML private TableColumn<ModelFacility, String> tbcol_facbookdate;
+    @FXML private TableColumn<ModelFacility, String> tbcol_facprice;
+    @FXML private TableColumn<ModelFacility, String> tbcol_faccomment;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -315,6 +285,7 @@ public class ResvController implements Initializable {
         });
     } //delete room resv ends
 
+    //add facility
     public void addFac(){
         FXMLLoader loadfac = new FXMLLoader(getClass().getResource("/application/assets/" +
                 "reservation/resvfacility.fxml"));
@@ -330,7 +301,30 @@ public class ResvController implements Initializable {
         new ForAddButton(finalFacPane, btn_addfac);
 
         ResvFacilityController rsf = loadfac.getController();
-    }
+
+        rsf.getBtn_addfac().setOnMouseClicked(me->{
+            ModelFacility fac = new ModelFacility();
+            fac.setFacno(rsf.getTf_facno().getText());
+            fac.setFacname(rsf.getLbl_facname().getText());
+            fac.setBookedfacdate(rsf.getLbl_date().getText());
+            fac.setFacdesc(rsf.getTf_comment().getText());
+            fac.setFacprice(rsf.getLbl_facprice().getText());
+
+            table_resvFac.getItems().add(fac);
+
+            rsf.getTable_fac().getItems().clear();
+            rsf.getLbl_date().setText(null);
+            rsf.getLbl_facname().setText(null);
+            rsf.getLbl_facprice().setText(null);
+            rsf.getTf_comment().setText(null);
+            rsf.getTf_facno().setText(null);
+
+            Stage stage = (Stage) rsf.getBtn_addfac().getScene().getWindow();
+            stage.close();
+        });
+    }//add facility done
+
+    //delete facility
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
@@ -344,6 +338,7 @@ public class ResvController implements Initializable {
     }
 
     public void cellValueFactory() {
+        //room booking
         tbcol_roomcat.setCellValueFactory(new PropertyValueFactory<>("roomcat"));
         tbcol_roomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
         tbcol_roomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
@@ -352,16 +347,26 @@ public class ResvController implements Initializable {
         tbcol_xtrabed.setCellValueFactory(new PropertyValueFactory<>("extbedtype"));
         tbcol_rprice.setCellValueFactory(new PropertyValueFactory<>("roomprice"));
 
+        //group member
         tbcol_memfname.setCellValueFactory(new PropertyValueFactory<>("memFName"));
         tbcol_memlname.setCellValueFactory(new PropertyValueFactory<>("memLName"));
         tbcol_memidtype.setCellValueFactory(new PropertyValueFactory<>("idType"));
         tbcol_memidno.setCellValueFactory(new PropertyValueFactory<>("idNo"));
         tbcol_memroomno.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
 
+        //fac booking
+        tbcol_fac.setCellValueFactory(new PropertyValueFactory<>("facname"));
+        tbcol_facno.setCellValueFactory(new PropertyValueFactory<>("facno"));
+        tbcol_facbookdate.setCellValueFactory(new PropertyValueFactory<>("bookedfacdate"));
+        tbcol_facprice.setCellValueFactory(new PropertyValueFactory<>("facprice"));
+        tbcol_faccomment.setCellValueFactory(new PropertyValueFactory<>("facdesc"));
+
         //trick: make cells editable
         tbcol_memfname.setCellFactory(TextFieldTableCell.forTableColumn());
         tbcol_memlname.setCellFactory(TextFieldTableCell.forTableColumn());
         tbcol_memidno.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        tbcol_faccomment.setCellFactory(TextFieldTableCell.forTableColumn());
     }
 
 

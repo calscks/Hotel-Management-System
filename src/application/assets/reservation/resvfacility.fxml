@@ -64,12 +64,16 @@
          </children>
       </VBox>
       <Button fx:id="btn_addfac" layoutX="530.0" layoutY="356.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Add" />
-      <GridPane hgap="10.0" layoutX="401.0" layoutY="61.0" prefHeight="163.0" prefWidth="302.0" vgap="10.0">
+      <GridPane hgap="10.0" layoutX="401.0" layoutY="61.0" prefHeight="204.0" prefWidth="302.0" vgap="10.0">
          <children>
             <Label text="Facility No :" GridPane.rowIndex="1" />
-            <Label text="Comments :" GridPane.rowIndex="2" />
-            <TextArea fx:id="tf_comment" prefHeight="117.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Comments :" GridPane.rowIndex="4" />
+            <TextArea fx:id="tf_comment" prefHeight="104.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="tf_facno" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Booking Date : " GridPane.rowIndex="3" />
+            <Label text="Facility : " GridPane.rowIndex="2" />
+            <Label fx:id="lbl_facname" text="FacName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lbl_date" text="LblDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="92.0" />
@@ -78,7 +82,9 @@
          <rowConstraints>
             <RowConstraints />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="97.0" valignment="TOP" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="60.0" valignment="TOP" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
       <Label layoutX="431.0" layoutY="40.0" text="Facility Details">
@@ -91,7 +97,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="429.0" layoutY="241.0" prefHeight="84.0" prefWidth="274.0" spacing="10.0" style="-fx-border-color: #cccccc;">
+      <HBox alignment="CENTER" layoutX="429.0" layoutY="278.0" prefHeight="65.0" prefWidth="274.0" spacing="10.0" style="-fx-border-color: #cccccc;">
          <children>
             <Label text="Price :">
                <font>

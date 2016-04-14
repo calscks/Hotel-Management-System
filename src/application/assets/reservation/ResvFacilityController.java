@@ -27,6 +27,8 @@ public class ResvFacilityController implements Initializable{
     @FXML private TextArea tf_comment;
     @FXML private DatePicker date_bookdate;
     @FXML private Label lbl_facprice;
+    @FXML private Label lbl_facname;
+    @FXML private Label lbl_date;
     @FXML private ComboBox<String> cbox_fac1;
     @FXML private Button btn_addfac;
     @FXML private Button btn_search;
@@ -45,6 +47,7 @@ public class ResvFacilityController implements Initializable{
         validation();
 
         cellValueFactory();
+
 
         //for facility name cbox
         ObservableList<String> facName = FXCollections.observableArrayList();
@@ -73,7 +76,8 @@ public class ResvFacilityController implements Initializable{
             tf_comment.setText(null);
 
             String query = "SELECT FacNo, FacName, FacDesc, FacPrice FROM FacType WHERE FacNo NOT IN " +
-                    "(SELECT FacNo FROM FacBookedDate WHERE BookDate = '" + date + "')";
+                    "(SELECT FacNo FROM FacBookedDate WHERE BookDate = '" + date + "') AND FacName = '" +
+                    facname + "'";
 
             try {
                 ResultSet rs = db.executeQuery(query);
@@ -103,6 +107,8 @@ public class ResvFacilityController implements Initializable{
                     tf_facno.clear();
                     tf_comment.clear();
                     lbl_facprice.setText(null);
+                    lbl_date.setText(null);
+                    lbl_facname.setText(null);
 
                     String query = "SELECT FacNo, FacPrice FROM FacType WHERE FacNo = '" + mf.getFacno() + "'";
                     try {
@@ -110,6 +116,8 @@ public class ResvFacilityController implements Initializable{
                         if (rs.next()){
                             tf_facno.setText(mf.getFacno());
                             lbl_facprice.setText(mf.getFacprice());
+                            lbl_facname.setText(cbox_fac1.getSelectionModel().getSelectedItem());
+                            lbl_date.setText(date_bookdate.getValue().toString());
                         }
                     } catch (SQLException e1) {
                         e1.printStackTrace();
@@ -117,7 +125,9 @@ public class ResvFacilityController implements Initializable{
                 }
             });
             return selRow;
-        });
+        }); //end double-click row
+
+        //let resvController controls the add button
 
     }
 
@@ -130,5 +140,33 @@ public class ResvFacilityController implements Initializable{
         tbcol_fac.setCellValueFactory(new PropertyValueFactory<>("facname"));
         tbcol_desc.setCellValueFactory(new PropertyValueFactory<>("facdesc"));
         tbcol_price.setCellValueFactory(new PropertyValueFactory<>("facprice"));
+    }
+
+    public Button getBtn_addfac() {
+        return btn_addfac;
+    }
+
+    public Label getLbl_facname() {
+        return lbl_facname;
+    }
+
+    public Label getLbl_date() {
+        return lbl_date;
+    }
+
+    public Label getLbl_facprice() {
+        return lbl_facprice;
+    }
+
+    public TextField getTf_facno() {
+        return tf_facno;
+    }
+
+    public TextArea getTf_comment() {
+        return tf_comment;
+    }
+
+    public TableView<ModelFacility> getTable_fac() {
+        return table_fac;
     }
 }
