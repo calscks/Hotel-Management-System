@@ -60,7 +60,7 @@ public class AddRoomController implements Initializable{
 
     public TextField getTf_roomprice() { return tf_roomprice; }
 
-    public ComboBox<String> getCbox_extrabed() { return cbox_extrabed; }
+//    public ComboBox<String> getCbox_extrabed() { return cbox_extrabed; }
 
     public TextField getTf_twinbedprice() { return tf_twinbedprice; }
 
@@ -71,20 +71,20 @@ public class AddRoomController implements Initializable{
     public TextField getTf_kingbedprice() { return tf_kingbedprice; }
 
 
-    @FXML private void extrabed(){
-        if (cbox_extrabed.getValue().equals("Yes")){
-            tf_twinbedprice.setDisable(false);
-            tf_fullbedprice.setDisable(false);
-            tf_queenbedprice.setDisable(false);
-            tf_kingbedprice.setDisable(false);
-        }
-        else if (cbox_extrabed.getValue().equals("No")){
-            tf_twinbedprice.setDisable(true);
-            tf_fullbedprice.setDisable(true);
-            tf_queenbedprice.setDisable(true);
-            tf_kingbedprice.setDisable(true);
-        }
-    }
+//    @FXML private void extrabed(){
+//        if (cbox_extrabed.getValue().equals("Yes")){
+//            tf_twinbedprice.setDisable(false);
+//            tf_fullbedprice.setDisable(false);
+//            tf_queenbedprice.setDisable(false);
+//            tf_kingbedprice.setDisable(false);
+//        }
+//        else if (cbox_extrabed.getValue().equals("No")){
+//            tf_twinbedprice.setDisable(true);
+//            tf_fullbedprice.setDisable(true);
+//            tf_queenbedprice.setDisable(true);
+//            tf_kingbedprice.setDisable(true);
+//        }
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -93,10 +93,10 @@ public class AddRoomController implements Initializable{
 
         cbox_extrabed.setItems(extrabeditems);
 
-        tf_twinbedprice.setDisable(true);
-        tf_fullbedprice.setDisable(true);
-        tf_queenbedprice.setDisable(true);
-        tf_kingbedprice.setDisable(true);
+//        tf_twinbedprice.setDisable(true);
+//        tf_fullbedprice.setDisable(true);
+//        tf_queenbedprice.setDisable(true);
+//        tf_kingbedprice.setDisable(true);
     }
 
     private void validation() {

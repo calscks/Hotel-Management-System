@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -173,16 +174,58 @@ public class ModRoomController implements Initializable{
         AddRoomController arc = loadroom.getController();
 
         arc.getbtn_addroom().setOnMouseClicked(me ->{
-            ModelRoom room = new ModelRoom();
-            ObservableList<ModelRoom> rd = FXCollections.observableArrayList();
-            room.setRoomcat(arc.getRoomCat());
-            room.setRoomno(arc.getRoomNo());
-
-            rd.add(room);
-            tv_modroom.getItems().add(room);
+//            ModelRoom room = new ModelRoom();
+//            ObservableList<ModelRoom> rd = FXCollections.observableArrayList();
+//            room.setRoomcat(arc.getRoomCat());
+//            room.setRoomno(arc.getRoomNo());
+//
+//            rd.add(room);
+//            tv_modroom.getItems().add(room);
 
             //add items to database
 
+            DBConnection c1 = new DBConnection("Data.sqlite");
+
+            //String xxx = arc.getRoomCat().getText();
+            String roomcat = arc.getTf_roomcategory().getText();
+            String roomno = arc.getTf_roomno().getText();
+            String roomtype = arc.getTf_roomtype().getText();
+            Integer maxpax = Integer.parseInt(arc.getTf_paxperroom().getText());
+            Integer roomprice = Integer.parseInt(arc.getTf_roomprice().getText());
+            Float twinprice = Float.parseFloat(arc.getTf_twinbedprice().getText());
+            Float fullprice = Float.parseFloat(arc.getTf_fullbedprice().getText());
+            Float queenprice = Float.parseFloat(arc.getTf_queenbedprice().getText());
+            Float kingprice = Float.parseFloat(arc.getTf_kingbedprice().getText());
+            //ComboBox cboxextrabed = arc.getCbox_extrabed();
+
+           // if (cboxextrabed.getValue().equals("Yes")){
+                try {
+                    DBConnection c2 = new DBConnection("Data.sqlite");
+                    String sql1 = "INSERT INTO RoomType (TypeGroup,TypeName,MaxPax,RoomPrice,Rate_extTwin,Rate_extFull,Rate_extQueen,Rate_extKing) " +
+                            "VALUES ('" + roomcat + "','" +roomtype+ "'," +maxpax+ ","+roomprice+","+twinprice+","+fullprice+","+queenprice+","+ kingprice + ")";
+
+                    c2.executeUpdate(sql1);
+                    c2.closeCon();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+                try {
+                    DBConnection c2 = new DBConnection("Data.sqlite");
+                    String sql1 = "INSERT INTO Room (RoomNo)" +
+                            "VALUES ('"+roomno+"')";
+
+                    c2.executeUpdate(sql1);
+                    c2.closeCon();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+
+           // }
+            //else if (cboxextrabed.getValue().equals("No")){
+
+            //}
 
             //clear items in modaddroom
             arc.getTf_roomcategory().setText(null);
@@ -190,7 +233,7 @@ public class ModRoomController implements Initializable{
             arc.getTf_roomtype().setText(null);
             arc.getTf_paxperroom().setText(null);
             arc.getTf_roomprice().setText(null);
-            arc.getCbox_extrabed().getItems().clear();
+            //arc.getCbox_extrabed().getItems().clear();
             arc.getTf_twinbedprice().setText(null);
             arc.getTf_fullbedprice().setText(null);
             arc.getTf_queenbedprice().setText(null);

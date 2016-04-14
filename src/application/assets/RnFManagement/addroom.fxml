@@ -54,7 +54,7 @@
                   </Label>
                   <TextField fx:id="tf_roomcategory" GridPane.columnIndex="1" />
                   <TextField fx:id="tf_roomtype" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="cbox_extrabed" onAction="#extrabed" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ComboBox fx:id="cbox_extrabed" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="142.0" />

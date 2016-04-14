@@ -170,7 +170,7 @@
                   </TableView>
                   <HBox prefWidth="299.0" spacing="14.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Add New Facility" />
+                        <Button fx:id="btn_modaddfac" mnemonicParsing="false" text="Add New Facility" />
                         <Button mnemonicParsing="false" text="Edit Facility" />
                         <Button mnemonicParsing="false" text="Delete Facility" />
                      </children>

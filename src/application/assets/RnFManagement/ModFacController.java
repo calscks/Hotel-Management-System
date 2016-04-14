@@ -2,16 +2,21 @@ package application.assets.RnFManagement;
 
 import application.DBConnection;
 import application.Validation;
+import application.assets.ForAddButton;
 import application.assets.ModelFacility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import javax.activation.CommandObject;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,6 +39,7 @@ public class ModFacController implements Initializable{
     @FXML private TextField tf_wholeday;
     @FXML private Label lbl_cboxselection;
     @FXML private ComboBox cbox_searchby;
+    @FXML private Button btn_modaddfac;
     @FXML private TableView<ModelFacility> modfactable;
     @FXML private TableColumn<ModelFacility, String> tb_facid;
     @FXML private TableColumn<ModelFacility, String> tb_facname;
@@ -53,6 +59,8 @@ public class ModFacController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
 
         validation();
+
+        addfac();
 
         cbox_searchby.setItems(selectbyitems);
 
@@ -141,6 +149,40 @@ public class ModFacController implements Initializable{
 
         });
 
+    }
+
+    private void addfac() {
+        FXMLLoader loadfac = new FXMLLoader(getClass().getResource("/application/assets/RnFManagement/addfacility.fxml"));
+        AnchorPane facpane = new AnchorPane();
+        try {
+            facpane = loadfac.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        AnchorPane finalfacpane = facpane;
+
+        new ForAddButton(finalfacpane, btn_modaddfac);
+
+        AddFacController afc = loadfac.getController();
+
+        afc.getBtn_addfac().setOnMouseClicked(me ->{
+
+            //additem
+
+
+
+            //clear items
+            afc.getTf_facno().setText(null);
+            afc.getTf_facname().setText(null);
+            afc.getTa_addfacdesc().setText(null);
+            afc.getTf_morning().setText(null);
+            afc.getTf_night().setText(null);
+            afc.getTf_wholeday().setText(null);
+
+            Stage stage = (Stage) afc.getBtn_addfac().getScene().getWindow();
+            stage.close();
+        });
     }
 
     private void validation() {
