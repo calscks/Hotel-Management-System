@@ -184,11 +184,10 @@ public class DBConnection {
                         "(\n" +
                         "    deposit REAL,\n" +
                         "    taxrate REAL\n" +
-                        ");"}; //each comma separates between values in the
-        // array in case you didn't notice
+                        ");"};
         try {
             Class.forName("org.sqlite.JDBC").newInstance();
-            Connection c = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+            c = DriverManager.getConnection("jdbc:sqlite:" + dbName);
             DatabaseMetaData meta = c.getMetaData();
             ResultSet chkTable = meta.getTables(null, null, "Employee", new String[]{"TABLE"});
             if (chkTable.next()) {
@@ -223,12 +222,14 @@ public class DBConnection {
     public void closeCon() {
         if (statement != null) try {
             statement.close();
+            System.out.println("Statement closed.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         if (c != null) {
             try {
                 c.close();
+                System.out.println("con closed");
             } catch (Exception e) {
                 e.printStackTrace();
             }

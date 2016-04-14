@@ -23,10 +23,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Login {
-    DBConnection db = new DBConnection("Data.sqlite");
+
     Button btn = new Button("Sign in");
 
     public GridPane loginGrid() {
+        DBConnection db = new DBConnection("Data.sqlite");
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -132,10 +133,10 @@ public class Login {
                 e1.printStackTrace();
             }
 
-
+            db.closeCon();
         });
 
-        db.closeCon();
+
         return grid;
     }
 

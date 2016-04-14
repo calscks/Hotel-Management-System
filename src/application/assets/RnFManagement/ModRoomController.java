@@ -156,6 +156,7 @@ public class ModRoomController implements Initializable{
             }
 
         });
+        c.closeCon();
     }
 
     private void addroom() {
@@ -184,7 +185,6 @@ public class ModRoomController implements Initializable{
 
             //add items to database
 
-            DBConnection c1 = new DBConnection("Data.sqlite");
 
             //String xxx = arc.getRoomCat().getText();
             String roomcat = arc.getTf_roomcategory().getText();
