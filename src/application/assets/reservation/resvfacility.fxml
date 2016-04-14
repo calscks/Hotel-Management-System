@@ -55,9 +55,13 @@
             </HBox>
             <TableView fx:id="table_fac" prefHeight="248.0" prefWidth="338.0">
               <columns>
-                <TableColumn fx:id="tbcol_fac" prefWidth="113.0" text="Facility" />
-                  <TableColumn fx:id="tbcol_facno" prefWidth="114.0" text="Facility No" />
-                  <TableColumn fx:id="tbcol_factime" prefWidth="110.0" text="Available Time" />
+                  <TableColumn fx:id="tbcol_facno" prefWidth="73.0" text="Facility No" />
+                <TableColumn fx:id="tbcol_fac" prefWidth="103.0" text="Facility" />
+                  <TableColumn fx:id="tbcol_desc" prefWidth="94.0" text="Description" />
+                  <TableColumn fx:id="tbcol_factime" prefWidth="97.0" text="Available Time" />
+                  <TableColumn fx:id="tbcol_mprice" prefWidth="120.0" text="Morning Price" />
+                  <TableColumn fx:id="tbcol_nprice" prefWidth="75.0" text="Night Price" />
+                  <TableColumn fx:id="tbcol_wholeprice" prefWidth="75.0" text="Price per day" />
               </columns>
             </TableView>
          </children>
@@ -70,7 +74,7 @@
             <TextArea fx:id="tf_comment" prefHeight="67.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="Booking Time :" GridPane.rowIndex="3" />
             <TextField fx:id="tf_facno" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="cbox_booktime" editable="true" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ComboBox fx:id="cbox_booktime" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="89.0" />
@@ -100,7 +104,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label text="0.00">
+            <Label fx:id="lbl_price" text="0.00">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
