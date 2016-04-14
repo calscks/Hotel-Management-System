@@ -2,7 +2,6 @@ package application.assets.checkout;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import application.DBConnection;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
@@ -14,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import static application.slidemenu.SlideMenuController.db;
 
 
 public class COController implements Initializable {
@@ -29,10 +29,10 @@ public class COController implements Initializable {
 
     @FXML private Label label_coDeposit;
     @FXML private Label label_coOverdue;
-    @FXML private Label label_coPayAmt;
+    @FXML  private Label label_coPayAmt;
 
-    @FXML private ComboBox<String> cbox_coCountry;
-    @FXML private ComboBox<String> cbox_coIDType;
+    @FXML  private ComboBox<String> cbox_coCountry;
+    @FXML  private ComboBox<String> cbox_coIDType;
 
     @FXML private Button btn_coCheckout;
 
@@ -40,9 +40,9 @@ public class COController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-        tf_coRoomNo.textProperty().addListener((observable, oldValue, newValue)-> {
-
+        tf_coRoomNo.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
+
                 String sql = "SELECT * FROM CheckInOut\n" +
                         "  INNER JOIN Room using (RoomNo)\n" +
                         "  INNER JOIN Roomtype on Room.RoomTypeID = RoomType.TypeID\n" +
@@ -50,10 +50,8 @@ public class COController implements Initializable {
                         "  INNER JOIN CustAddress USING (CustID)\n" +
                         " INNER JOIN Payment USING (CustID)\n" +
                         "  WHERE RoomNo =" + "'" + tf_coRoomNo.getText() + "'";
-                DBConnection c = new DBConnection("Data.sqlite");
-                ResultSet codata = c.executeQuery(sql);
-                c.closeCon();
 
+                ResultSet codata = db.executeQuery(sql);
                 String customerfname = codata.getString("CustFName");
                 String customerlname = codata.getString("CustLName");
                 String IDtype = codata.getString("CustID_Type");
@@ -78,6 +76,7 @@ public class COController implements Initializable {
                 cbox_coCountry.getItems().add(Country);
                 cbox_coCountry.getSelectionModel().select(Country);
                 label_coDeposit.setText("RM" + deposit);
+                btn_coCheckout.setDisable(false);
 
                 //OVERDUE LABEL CODE
                 long overdate = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(codate));
@@ -85,16 +84,14 @@ public class COController implements Initializable {
                 if (overdate >= 1) {
                     label_coOverdue.setText("RM" + String.valueOf(overpay));
                     label_coPayAmt.setTextFill(Color.web("#ff0000"));
-                    btn_coCheckout.setDisable(true);
+
                     double Payamt = overpay - deposit;
                     label_coPayAmt.setText("RM" + String.valueOf(Payamt));
                 } else {
-                    btn_coCheckout.setDisable(false);
+
                     label_coPayAmt.setTextFill(Color.web("#000000"));
                 }
-                //AMOUNT TO BE PAID
-
-                //END OF AMOUNT TO BE PAID
+                db.closeCon();
             } catch (SQLException t1) {
                 t1.printStackTrace();
                 tf_coIDNo.setText("");
@@ -113,30 +110,28 @@ public class COController implements Initializable {
 
         });
 
-        btn_coCheckout.setOnAction((e)->{
+        btn_coCheckout.setOnAction((event) -> {
 
             try {
 
-                DBConnection c = new DBConnection("Data.sqlite");
                 String custid = tf_coIDNo.getText();
-                String sql ="SELECT * FROM CheckInOut WHERE RoomNo=" +"'"+custid+"'";
-                ResultSet rs = c.executeQuery(sql);
+                String sql = "SELECT * FROM CheckInOut WHERE RoomNo=" + "'" + custid + "'";
+                ResultSet rs = db.executeQuery(sql);
 
                 String codate = rs.getString("CheckOutDate");
-                String status= rs.getString("Status");
-                if (status.equals ("checked in")) {
-                 sql = "UPDATE CheckInOut SET Status ="+"'CHECKOUT'" +"WHERE CustID =" +'1';
-                c.executeUpdate(sql);
-                    c.closeCon();
-                }
-                else {
+                String status = rs.getString("Status");
+                if (status.equals("checked in")) {
+                    sql = "UPDATE CheckInOut SET Status =" + "'CHECKOUT'" + "WHERE CustID =" + custid;
+                    db.executeUpdate(sql);
+
+                } else {
                     Alert notcheckedin = new Alert(Alert.AlertType.INFORMATION);
                     notcheckedin.setTitle("ERROR");
                     notcheckedin.setContentText("Customer has not check in yet!");
                     notcheckedin.showAndWait();
 
                 }
-
+                db.closeCon();
 
             } catch (SQLException e1) {
                 e1.printStackTrace();
@@ -144,11 +139,11 @@ public class COController implements Initializable {
                 alert.setTitle("Error!");
                 alert.setHeaderText("Room Not Found");
                 alert.setContentText("There are no check-ins in this room");
-             }
-
+            }
         });
 
     }
-
 }
+
+
 
