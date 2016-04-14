@@ -164,12 +164,10 @@ public class ModFacController implements Initializable{
 
 
             //clear items
-            afc.getTf_facno().setText(null);
-            afc.getTf_facname().setText(null);
-            afc.getTa_addfacdesc().setText(null);
-            afc.getTf_morning().setText(null);
-            afc.getTf_night().setText(null);
-            afc.getTf_wholeday().setText(null);
+            afc.getTf_facno().clear();
+            afc.getTf_facname().clear();
+            afc.getTa_addfacdesc().clear();
+            afc.getTf_addfacprice().clear();
 
             Stage stage = (Stage) afc.getBtn_addfac().getScene().getWindow();
             stage.close();
