@@ -25,9 +25,11 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
+import static application.slidemenu.SlideMenuController.db;
 
 public class ResvController implements Initializable {
 
@@ -340,6 +342,9 @@ public class ResvController implements Initializable {
             e.printStackTrace();
         }
 
+        //get the controller of the fxmlLoader (which is the payment controller)
+        ResvPayController rpc = loadpayment.getController();
+
         AnchorPane finalPayment = payment; //set as another anchorPane called finalPayment
         btn_resvNext.setOnMouseClicked(me -> {
             FadeTransition ft = new FadeTransition(Duration.millis(320), finalPayment);
@@ -347,12 +352,45 @@ public class ResvController implements Initializable {
             ft.setToValue(1.0);
             ft.play();
             resvPane.getChildren().add(finalPayment); //add as children of resvPane
+            String query = "SELECT ResvNo FROM Reservation ORDER BY ResvNo";
+            try {
+                ResultSet rs = db.executeQuery(query);
+                if (!rs.next()){
+                    rpc.getLbl_refno().setText("1000000000");
+                } else {
+                    //get the last no. of resv no (max no)
+                    rs = db.executeQuery("SELECT ResvNo FROM Reservation ORDER BY ResvNo DESC LIMIT 1");
+                    Integer refno = rs.getInt("ResvNo");
+                    refno += 1;
+                    rpc.getLbl_refno().setText(String.valueOf(refno)); //convert refno to string
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            float sum = 0.00f;
+            if (table_resvRoom.getItems().size() > 0) {
+                for (ModelRoom mr: table_resvRoom.getItems()){
+                    float add = Float.parseFloat(tbcol_rprice.getCellObservableValue(mr).getValue());
+                    sum += add;
+                    System.out.println(sum);
+                }
+                rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
+            }
+            if (table_resvFac.getItems().size() > 0){
+                for (ModelFacility mf: table_resvFac.getItems()){
+                    float add = Float.parseFloat(tbcol_facprice.getCellObservableValue(mf).getValue());
+                    sum += add;
+                    System.out.println(sum);
+                }
+                rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
+            }
+
         });
 
-        //get the controller of the fxmlLoader (which is the payment controller)
-        ResvPayController controller = loadpayment.getController();
 
-        controller.getBtn_resvBack().setOnMouseClicked(me -> { //getter from the payment controller
+
+        rpc.getBtn_resvBack().setOnMouseClicked(me -> { //getter from the payment controller
             Timeline timeline = new Timeline(); //set fade out
             assert finalPayment != null;
             KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));

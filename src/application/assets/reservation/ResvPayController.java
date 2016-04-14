@@ -95,4 +95,12 @@ public class ResvPayController implements Initializable{
     public Button getBtn_resvBack() {
         return btn_resvBack;
     }
+
+    public Label getLbl_refno() {
+        return lbl_refno;
+    }
+
+    public Label getLbl_total() {
+        return lbl_total;
+    }
 }
