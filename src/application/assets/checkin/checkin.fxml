@@ -108,7 +108,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
             </VBox>
-            <VBox layoutX="747.0" layoutY="365.0" prefHeight="257.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
+            <VBox layoutX="793.0" layoutY="361.0" prefHeight="257.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
                   <Label text="Facility" />
                   <TableView fx:id="cifactable" prefHeight="159.0" prefWidth="318.0">
