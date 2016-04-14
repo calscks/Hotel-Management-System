@@ -1,6 +1,4 @@
 package application.assets;
-import javafx.beans.property.SimpleFloatProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class ModelFacility {
@@ -8,9 +6,9 @@ public class ModelFacility {
     private SimpleStringProperty facprice = new SimpleStringProperty();
     private SimpleStringProperty bookedfacdate = new SimpleStringProperty();
     private SimpleStringProperty bookedfactime = new SimpleStringProperty();
-    private SimpleStringProperty modfacno = new SimpleStringProperty();
-    private SimpleStringProperty modfacname = new SimpleStringProperty();
-    private SimpleStringProperty modfacdesc = new SimpleStringProperty();
+    private SimpleStringProperty facno = new SimpleStringProperty();
+    private SimpleStringProperty facname = new SimpleStringProperty();
+    private SimpleStringProperty facdesc = new SimpleStringProperty();
 
     public SimpleStringProperty bookedfacProperty() {
         return bookedfac;
@@ -28,71 +26,71 @@ public class ModelFacility {
         return bookedfactime;
     }
 
-    public SimpleStringProperty modfacnoProperty() {
-        return modfacno;
+    public SimpleStringProperty facnoProperty() {
+        return facno;
     }
 
-    public SimpleStringProperty modfacnameProperty() {
-        return modfacname;
+    public SimpleStringProperty facnameProperty() {
+        return facname;
     }
 
-    public SimpleStringProperty modfacdescProperty() {
-        return modfacdesc;
+    public SimpleStringProperty facdescProperty() {
+        return facdesc;
     }
 
-    public String getbookedfac() {
+    public String getBookedfac() {
         return bookedfac.get();
     }
 
-    public String getfacprice() {
-        return facprice.get();
-    }
-
-    public String getbookedfacdate() {
+    public String getBookedfacdate() {
         return bookedfacdate.get();
     }
 
-    public String getbookedfactime() {
+    public String getBookedfactime() {
         return bookedfactime.get();
     }
 
-    public String getfacno() {return modfacno.get();}
-
-    public String getfacname() {
-        return modfacname.get();
+    public String getFacno() {
+        return facno.get();
     }
 
-    public String getfacdesc() {
-        return modfacdesc.get();
+    public String getFacname() {
+        return facname.get();
     }
 
+    public String getFacdesc() {
+        return facdesc.get();
+    }
 
-    public void setbookedfac(String bookedfac) {
+    public String getFacprice() {
+        return facprice.get();
+    }
+
+    public void setBookedfac(String bookedfac) {
         this.bookedfac.set(bookedfac);
     }
 
-    public void setfacprice(String facprice) {
-        this.facprice.set(facprice);
-    }
-
-    public void setbookedfacdate(String bookedfacdate){
+    public void setBookedfacdate(String bookedfacdate) {
         this.bookedfacdate.set(bookedfacdate);
     }
 
-    public void setbookedfactime(String bookedfactime) {
+    public void setBookedfactime(String bookedfactime) {
         this.bookedfactime.set(bookedfactime);
     }
 
-    public void setfacno(String modfacno) {
-        this.modfacno.set(modfacno);
+    public void setFacdesc(String facdesc) {
+        this.facdesc.set(facdesc);
     }
 
-    public void setfacname(String modfacname) {
-        this.modfacname.set(modfacname);
+    public void setFacname(String facname) {
+        this.facname.set(facname);
     }
 
-    public void setfacdesc(String modfacdesc) {
-        this.modfacdesc.set(modfacdesc);
+    public void setFacno(String facno) {
+        this.facno.set(facno);
     }
 
+    public void setFacprice(String facprice) {
+        this.facprice.set(facprice);
+    }
 }

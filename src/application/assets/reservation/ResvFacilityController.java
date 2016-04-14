@@ -3,16 +3,19 @@ package application.assets.reservation;
 import application.Validation;
 import application.assets.AutoCompleteCBoxListener;
 import application.assets.CIODateDisabler;
+import application.assets.ModelFacility;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static application.slidemenu.SlideMenuController.db;
@@ -27,15 +30,20 @@ public class ResvFacilityController implements Initializable{
     @FXML private Button btn_addfac;
     @FXML private Button btn_search;
 
-    @FXML private TableView table_fac;
-    @FXML private TableColumn tbcol_fac;
+    @FXML private TableView<ModelFacility> table_fac;
+    @FXML private TableColumn<ModelFacility, String> tbcol_facno;
+    @FXML private TableColumn<ModelFacility, String> tbcol_desc;
+    @FXML private TableColumn<ModelFacility, String> tbcol_fac;
+    @FXML private TableColumn<ModelFacility, String> tbcol_price;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("resv fac controller loaded");
-        //DBConnection db = new DBConnection("Data.sqlite");
+
         validation();
+
+        cellValueFactory();
 
         //for facility name cbox
         ObservableList<String> facName = FXCollections.observableArrayList();
@@ -57,19 +65,27 @@ public class ResvFacilityController implements Initializable{
         btn_search.setOnMouseClicked(me->{
             String facname = cbox_fac1.getSelectionModel().getSelectedItem();
             String date = date_bookdate.getValue().toString();
+            ObservableList<ModelFacility> facdata = FXCollections.observableArrayList();
 
             table_fac.getItems().clear();
             tf_facno.setText(null);
             tf_comment.setText(null);
 
-            String query = "SELECT f.FacNo FROM FacType f WHERE f.FacNo NOT IN " +
+            String query = "SELECT FacNo, FacName, FacDesc, FacPrice FROM FacType WHERE FacNo NOT IN " +
                     "(SELECT FacNo FROM FacBookedDate WHERE BookDate = '" + date + "')";
 
             try {
                 ResultSet rs = db.executeQuery(query);
                 while (rs.next()){
-
+                    ModelFacility fac = new ModelFacility();
+                    String fPrice = String.format(Locale.UK, "%.2f", rs.getFloat("FacPrice"));
+                    fac.setFacno(rs.getString("FacNo"));
+                    fac.setFacname(rs.getString("FacName"));
+                    fac.setFacdesc(rs.getString("FacDesc"));
+                    fac.setFacprice(fPrice);
+                    facdata.add(fac);
                 }
+                table_fac.setItems(facdata);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -81,5 +97,9 @@ public class ResvFacilityController implements Initializable{
 
     private void validation() {
         tf_facno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
+    }
+
+    private void cellValueFactory(){
+        tbcol_facno.setCellValueFactory(new PropertyValueFactory<>(""));
     }
 }

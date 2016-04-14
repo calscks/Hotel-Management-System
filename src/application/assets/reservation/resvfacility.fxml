@@ -57,12 +57,13 @@
               <columns>
                   <TableColumn fx:id="tbcol_facno" prefWidth="75.0" text="Facility No" />
                 <TableColumn fx:id="tbcol_fac" prefWidth="125.0" text="Facility" />
-                  <TableColumn fx:id="tbcol_price" prefWidth="92.0" text="Price" />
+                  <TableColumn fx:id="tbcol_desc" prefWidth="95.0" text="Description" />
+                  <TableColumn fx:id="tbcol_price" prefWidth="72.0" text="Price" />
               </columns>
             </TableView>
          </children>
       </VBox>
-      <Button fx:id="btn_addfac" layoutX="534.0" layoutY="353.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Add" />
+      <Button fx:id="btn_addfac" layoutX="530.0" layoutY="356.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="72.0" text="Add" />
       <GridPane hgap="10.0" layoutX="401.0" layoutY="61.0" prefHeight="163.0" prefWidth="302.0" vgap="10.0">
          <children>
             <Label text="Facility No :" GridPane.rowIndex="1" />
@@ -90,7 +91,7 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="423.0" layoutY="241.0" prefHeight="84.0" prefWidth="273.0" spacing="10.0" style="-fx-border-color: #cccccc;">
+      <HBox alignment="CENTER" layoutX="429.0" layoutY="241.0" prefHeight="84.0" prefWidth="274.0" spacing="10.0" style="-fx-border-color: #cccccc;">
          <children>
             <Label text="Price :">
                <font>
