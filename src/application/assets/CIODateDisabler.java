@@ -14,11 +14,19 @@ How to use:
 new CIODateDisabler(1, 2)
 1: Your check in date picker
 2: Your check out date picker
+
+or (for facility cuz got one date picker only)
+new CIODateDisabler(your datePicker)
  */
 public class CIODateDisabler {
     private DatePicker ciDatePicker;
     private DatePicker coDatePicker;
     private Long duration;
+
+    public CIODateDisabler(DatePicker datePicker){
+        ciDatePicker = datePicker;
+        disableCiDate();
+    }
 
     public CIODateDisabler(DatePicker ciDatePicker, DatePicker coDatePicker){
         this.ciDatePicker = ciDatePicker;

@@ -115,6 +115,8 @@ public class ResvController implements Initializable {
 
         delRoom();
 
+        addFac();
+
 
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
@@ -311,6 +313,22 @@ public class ResvController implements Initializable {
         });
     } //delete room resv ends
 
+    public void addFac(){
+        FXMLLoader loadfac = new FXMLLoader(getClass().getResource("/application/assets/" +
+                "reservation/resvfacility.fxml"));
+        AnchorPane facPane = new AnchorPane();
+        try {
+            facPane = loadfac.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        AnchorPane finalFacPane = facPane;
+
+        new ForAddButton(finalFacPane, btn_addfac);
+
+        ResvFacilityController rsf = loadfac.getController();
+    }
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
