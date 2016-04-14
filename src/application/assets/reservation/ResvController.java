@@ -102,7 +102,7 @@ public class ResvController implements Initializable {
     @FXML
     private TableColumn<ModelRoom, String> tbcol_rprice;
 
-    public static DBConnection db = new DBConnection("Data.sqlite");
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

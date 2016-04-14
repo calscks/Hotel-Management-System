@@ -19,7 +19,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import static application.assets.reservation.ResvController.db;
+import static application.slidemenu.SlideMenuController.db;
+
 
 public class ResvRoomController implements Initializable {
     @FXML
