@@ -48,6 +48,12 @@ public class ResvFacilityController implements Initializable{
 
         cellValueFactory();
 
+        lbl_date.setText(null);
+        lbl_facprice.setText(null);
+        lbl_facname.setText(null);
+        tf_facno.clear();
+        tf_comment.clear();
+
 
         //for facility name cbox
         ObservableList<String> facName = FXCollections.observableArrayList();
@@ -74,6 +80,9 @@ public class ResvFacilityController implements Initializable{
             table_fac.getItems().clear();
             tf_facno.setText(null);
             tf_comment.setText(null);
+            lbl_date.setText(null);
+            lbl_facprice.setText(null);
+            lbl_facname.setText(null);
 
             String query = "SELECT FacNo, FacName, FacDesc, FacPrice FROM FacType WHERE FacNo NOT IN " +
                     "(SELECT FacNo FROM FacBookedDate WHERE BookDate = '" + date + "') AND FacName = '" +

@@ -89,6 +89,7 @@ public class ResvController implements Initializable {
 
         addFac();
 
+        delFac();
 
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
@@ -325,6 +326,35 @@ public class ResvController implements Initializable {
     }//add facility done
 
     //delete facility
+    public void delFac(){
+        btn_delfac.setOnMouseClicked(me->{
+            int selRow = table_resvFac.getSelectionModel().getSelectedIndex();
+            if(selRow >=0) {
+                ModelFacility mf = new ModelFacility();
+                mf = table_resvFac.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Delete Facility Booking");
+                alert.setContentText("Are you sure you want to delete " + mf.getFacname() + " from the table?");
+
+                Optional<ButtonType> sel = alert.showAndWait();
+                if (sel.isPresent()) {
+                    if (sel.get() == ButtonType.OK) {
+                        table_resvFac.getItems().remove(selRow);
+                    } else {
+                        alert.close();
+                    }
+                }
+            } else {
+                Alert noSel = new Alert(Alert.AlertType.WARNING);
+                noSel.setTitle("No Selection");
+                noSel.setHeaderText("No Facility is Selected");
+                noSel.setContentText("Please select a facility in the table to be deleted.");
+                noSel.showAndWait();
+            }
+        });
+    }//delete fac done
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
