@@ -62,8 +62,7 @@ public class ResvFacilityController implements Initializable{
             cbox_booktime.getItems().clear();
 
             String query = "SELECT f.FacNo FROM FacType f WHERE f.FacNo NOT IN " +
-                    "(SELECT FacNo FROM FacBookedDate WHERE Time = 'whole day' AND " +
-                    "Time = 'night' OR Time = 'morning')";
+                    "(SELECT FacNo FROM FacBookedDate WHERE BookDate = '" + date + "')";
         });
 
     }
