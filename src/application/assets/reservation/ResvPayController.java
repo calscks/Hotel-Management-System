@@ -7,12 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ResvPayController implements Initializable{
@@ -28,24 +30,58 @@ public class ResvPayController implements Initializable{
     private ObservableList<String> paymenttype = FXCollections.observableArrayList("Credit Card", "Cash", "Cheque");
 
     @FXML private Button btn_resvBack;
-    @FXML private AnchorPane resvPayPane;
+    @FXML private Button btn_reserve;
     @FXML private TextField tf_cardname;
     @FXML private TextField tf_cardno;
     @FXML private TextField tf_cvccode;
-    @FXML private TextField tf_discountid;
     @FXML private ComboBox<String> cbox_PayType;
-    @FXML private ComboBox<String> cbox_Month;
-    @FXML private ComboBox<String> cbox_Year;
+    @FXML private ComboBox<Integer> cbox_Month;
+    @FXML private ComboBox<Integer> cbox_Year;
+    @FXML private Label lbl_switchable;
+    @FXML private Label lbl_refno;
+    @FXML private Label lbl_total;
+    @FXML private Label lbl_tax;
+    @FXML private Label lbl_deposit;
+    @FXML private Label lbl_subtotal;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL url, ResourceBundle rb) {
         validation();
 
+        lbl_switchable.setText("Name on Card :");
+        lbl_total.setText(null);
+        lbl_tax.setText(null);
+        lbl_deposit.setText(null);
+        lbl_subtotal.setText(null);
+
         cbox_PayType.setItems(paymenttype);
+        cbox_Month.setItems(month);
+        cbox_Year.setItems(year);
         cbox_PayType.getSelectionModel().select(0);
 
-
-
+        cbox_PayType.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (Objects.equals(cbox_PayType.getSelectionModel().getSelectedItem(), "Credit Card")){
+                tf_cardno.setDisable(false);
+                tf_cvccode.setDisable(false);
+                tf_cardname.setDisable(false);
+                cbox_Month.setDisable(false);
+                cbox_Year.setDisable(false);
+                lbl_switchable.setText("Name on Card :");
+            } else if (Objects.equals(cbox_PayType.getSelectionModel().getSelectedItem(), "Cheque")){
+                tf_cardno.setDisable(true);
+                tf_cvccode.setDisable(true);
+                tf_cardname.setDisable(false);
+                cbox_Month.setDisable(true);
+                cbox_Year.setDisable(true);
+                lbl_switchable.setText("Cheque No :");
+            } else {
+                tf_cardno.setDisable(true);
+                tf_cvccode.setDisable(true);
+                cbox_Month.setDisable(true);
+                cbox_Year.setDisable(true);
+                tf_cardname.setDisable(true);
+            }
+        });
 
     }
 
@@ -53,7 +89,6 @@ public class ResvPayController implements Initializable{
         tf_cardname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(30));
         tf_cardno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(19));
         tf_cvccode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(4));
-        tf_discountid.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
     }
 
     //getter that mentioned in the reservation controller

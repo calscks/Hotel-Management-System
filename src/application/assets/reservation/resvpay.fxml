@@ -47,9 +47,9 @@
                   <Insets top="5.0" />
                </padding>
             </VBox>
-            <VBox fx:id="lbl_refno" layoutX="113.0" layoutY="43.0" spacing="12.0">
+            <VBox layoutX="113.0" layoutY="43.0" spacing="12.0">
                <children>
-                  <Label text="RefNo">
+                  <Label fx:id="lbl_refno" text="RefNo">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -141,7 +141,7 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <Label text="Name on Card :" />
+            <Label fx:id="lbl_switchable" text="Name on Card :" />
             <Label text="Card No. :" />
             <Label text="CVC Code :" />
             <Label text="Expiration date :" />
@@ -169,7 +169,7 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="733.0" layoutY="501.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Reserve" />
+      <Button fx:id="btn_reserve" layoutX="733.0" layoutY="501.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Reserve" />
       <Button fx:id="btn_resvBack" layoutX="206.0" layoutY="501.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="&lt;&lt; Back" />
       <Label layoutX="215.0" layoutY="85.0" prefHeight="26.0" prefWidth="108.0" text="Reservation ">
          <font>
