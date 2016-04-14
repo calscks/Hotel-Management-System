@@ -2,17 +2,25 @@ package application.assets.checkin;
 
 import application.DBConnection;
 import application.Validation;
+import application.assets.ForAddButton;
 import application.assets.ModelFacility;
 import application.assets.ModelGroupMember;
 import application.assets.ModelRoom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -45,6 +53,10 @@ public class CIController implements Initializable{
     private TextField tf_ciIDType;
     @FXML
     private TextField tf_ciIDNo;
+    @FXML
+    private Button btn_ciAddGroupMember;
+    @FXML
+    private Button btn_ciAddRoom;
     @FXML
     private TableView<ModelRoom> roomtable;
     @FXML
@@ -80,6 +92,8 @@ public class CIController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        addGuest();
+        addRoom();
         validation();
         DBConnection c = new DBConnection("Data.sqlite");
 
@@ -209,11 +223,122 @@ public class CIController implements Initializable{
         tf_ciFirstName.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_ciLastName.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_ciPhoneNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));
-        tf_ciAddress.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
-        tf_ciPostCode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
-        tf_ciCity.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
         tf_ciIDType.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         tf_ciIDNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(20));
+    }
+    public void addGuest() {
+
+        FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/checkin/ci_addgroup.fxml"));
+        AnchorPane guestPane = new AnchorPane();
+        try {
+            guestPane = loadGuest.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        CIAddGroupController rag = loadGuest.getController();
+
+        AnchorPane finalGuestPane = guestPane;
+
+        btn_ciAddGroupMember.setOnMouseClicked(me -> {
+            Stage stage = new Stage();
+            int rowCount = roomtable.getItems().size();
+
+            if (finalGuestPane.getScene() != null) {
+                stage.setScene(finalGuestPane.getScene());
+            } else {
+                Scene guestScene = new Scene(finalGuestPane);
+                stage.setScene(guestScene);
+            }
+            if (rowCount != 0) {
+                rag.getCbox_roomno().getItems().clear();
+
+                for (int i = 0; i < rowCount; i++) {
+                    ModelRoom room = new ModelRoom();
+                    room = roomtable.getItems().get(i);
+                    System.out.print(room.getRoomno());
+                    rag.getCbox_roomno().getItems().add(room.getRoomno());
+                }
+            }
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
+        });
+
+        rag.getBtn_addmem().setOnMouseClicked(me->{
+            if (rag.getCbox_roomno().getSelectionModel().getSelectedItem() != null) {
+                ModelGroupMember mg = new ModelGroupMember();
+
+                tf_ciAddress.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
+                tf_ciPostCode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
+                tf_ciCity.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
+                mg.setMemFName(rag.getTf_fname().getText());
+                mg.setMemLName(rag.getTf_lname().getText());
+                mg.setIdType(rag.getCbox_idtype().getSelectionModel().getSelectedItem());
+                mg.setIdNo(rag.getTf_idno().getText());
+                mg.setRoomNo(rag.getCbox_roomno().getSelectionModel().getSelectedItem());
+
+                grouptable.getItems().add(mg);
+
+                rag.getTf_fname().setText(null);
+                rag.getTf_lname().setText(null);
+                rag.getTf_idno().setText(null);
+
+                Stage stage = (Stage) rag.getBtn_addmem().getScene().getWindow();
+                stage.close();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No Selection in Room");
+                alert.setHeaderText("No Room is Selected");
+                alert.setContentText("Please select a room, if it is empty, please add a room.");
+                alert.showAndWait();
+            }
+        });
+    }//add guesten ds
+    public void addRoom() {
+        //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
+        FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/checkin/ci_addroom.fxml"));
+        AnchorPane roomPane = new AnchorPane();
+        try {
+            roomPane = loadRoom.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        AnchorPane finalRoomPane = roomPane;
+
+        new ForAddButton(finalRoomPane, btn_ciAddRoom);
+
+        CIAddRoomController rc = loadRoom.getController();
+
+        rc.getBtn_roomAdd().setOnMouseClicked(me -> {
+            ModelRoom room = new ModelRoom();
+
+            room.setRoomcat(rc.getRoomCat());
+            room.setRtype(rc.getRoomType());
+            room.setRoomno(rc.getRoomNo());
+            room.setCidate(rc.getCI());
+            room.setCodate(rc.getCO());
+            room.setExtbedtype(rc.getExtBed());
+            room.setRoomprice(rc.getTotal());
+
+            roomtable.getItems().add(room);
+
+            //manually clearing data from the add room stage after adding
+            rc.getTable_rooms().getItems().clear();
+            rc.getCbox_xtrabed().getItems().clear();
+            rc.getLbl_extBedPrice().setText(null);
+            rc.getLbl_roomPrice().setText(null);
+            rc.getLbl_totalRoomPrice().setText(null);
+            rc.getTf_roomno().setText(null);
+
+            Stage stage = (Stage) rc.getBtn_roomAdd().getScene().getWindow();
+            stage.close();
+        });
+
     }
 }
 

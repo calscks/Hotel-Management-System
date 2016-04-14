@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="293.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvAddGroupController">
+<AnchorPane prefHeight="293.0" prefWidth="383.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.checkin.CIAddGroupController">
    <children>
       <VBox alignment="TOP_RIGHT" layoutX="40.0" layoutY="60.0" spacing="18.0">
          <children>
@@ -36,7 +36,7 @@
             <ComboBox fx:id="cbox_roomno" prefHeight="25.0" prefWidth="200.0" />
          </children>
       </VBox>
-      <Button layoutX="161.0" layoutY="237.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
+      <Button fx:id="btn_addmem" layoutX="161.0" layoutY="237.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="Add" />
       <Label layoutX="40.0" layoutY="22.0" prefHeight="26.0" text="Add group members">
          <font>
             <Font name="System Bold" size="17.0" />
