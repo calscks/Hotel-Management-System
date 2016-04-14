@@ -56,7 +56,7 @@
                   <TableView fx:id="tv_modroom" prefHeight="223.0" prefWidth="305.0">
                     <columns>
                       <TableColumn fx:id="tc_modroomno" prefWidth="155.0" text="Room No." />
-                      <TableColumn fx:id="tc_modroomtype" prefWidth="173.0" text="Room Type" />
+                      <TableColumn fx:id="tc_modroomtype" prefWidth="173.0" text="Room Category" />
                     </columns>
                      <VBox.margin>
                         <Insets top="7.0" />
@@ -64,7 +64,7 @@
                   </TableView>
                   <HBox prefWidth="200.0" spacing="22.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Add New Room " />
+                        <Button fx:id="btn_modaddroom" mnemonicParsing="false" text="Add New Room " />
                         <Button alignment="CENTER" mnemonicParsing="false" text="Edit Room" />
                         <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Delete Room" />
                      </children>

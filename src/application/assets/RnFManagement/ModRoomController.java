@@ -61,7 +61,7 @@ public class ModRoomController implements Initializable{
 
         cbox_searchby.setItems(selectbyitems);
 
-        //addroom();
+        addroom();
 
         DBConnection c = new DBConnection("Data.sqlite");
 
@@ -157,45 +157,46 @@ public class ModRoomController implements Initializable{
         });
     }
         //sure got problem with this fking shit
-//    private void addroom() {
-//        FXMLLoader loadroom = new FXMLLoader(getClass().getResource("/application/assets/RnFManagement/addroom.fxml"));
-//        AnchorPane roomPane = new AnchorPane();
-//        try {
-//            roomPane = loadroom.load();
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
-//
-//        AnchorPane finalroompane = roomPane;
-//
-//        new ForAddButton(finalroompane, btn_modaddroom);
-//
-//        AddRoomController arc = loadroom.getController();
-//
-//        arc.getbtn_addroom().setOnMouseClicked(me ->{
-//            ModelRoom room = new ModelRoom();
-//            ObservableList<ModelRoom> rd = FXCollections.observableArrayList();
-//            room.setRoomcat(arc.getRoomCat());
-//            room.setRoomno(arc.getRoomNo());
-//
-//            rd.add(room);
-//            tv_modroom.getItems().add(room);
-//
-//            //clear items in modaddroom
-//            arc.getTf_roomcategory().setText(null);
-//            arc.getTf_roomno().setText(null);
-//            arc.getTf_roomtype().setText(null);
-//            arc.getTf_paxperroom().setText(null);
-//            arc.getTf_roomprice().setText(null);
-//            arc.getCbox_extrabed().getItems().clear();
-//            arc.getTf_twinbedprice().setText(null);
-//            arc.getTf_fullbedprice().setText(null);
-//            arc.getTf_queenbedprice().setText(null);
-//            arc.getTf_kingbedprice().setText(null);
-//
-//            Stage stage = (Stage) arc.getbtn_addroom().getScene().getWindow();
-//        });
-//    }
+    private void addroom() {
+        FXMLLoader loadroom = new FXMLLoader(getClass().getResource("/application/assets/RnFManagement/addroom.fxml"));
+        AnchorPane roomPane = new AnchorPane();
+        try {
+            roomPane = loadroom.load();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        AnchorPane finalroompane = roomPane;
+
+        new ForAddButton(finalroompane, btn_modaddroom);
+
+        AddRoomController arc = loadroom.getController();
+
+        arc.getbtn_addroom().setOnMouseClicked(me ->{
+            ModelRoom room = new ModelRoom();
+            ObservableList<ModelRoom> rd = FXCollections.observableArrayList();
+            room.setRoomcat(arc.getRoomCat());
+            room.setRoomno(arc.getRoomNo());
+
+            rd.add(room);
+            tv_modroom.getItems().add(room);
+
+            //clear items in modaddroom
+            arc.getTf_roomcategory().setText(null);
+            arc.getTf_roomno().setText(null);
+            arc.getTf_roomtype().setText(null);
+            arc.getTf_paxperroom().setText(null);
+            arc.getTf_roomprice().setText(null);
+            arc.getCbox_extrabed().getItems().clear();
+            arc.getTf_twinbedprice().setText(null);
+            arc.getTf_fullbedprice().setText(null);
+            arc.getTf_queenbedprice().setText(null);
+            arc.getTf_kingbedprice().setText(null);
+
+            Stage stage = (Stage) arc.getbtn_addroom().getScene().getWindow();
+            stage.close();
+        });
+    }
 
     private void validation() {
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));

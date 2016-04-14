@@ -1,6 +1,8 @@
 package application.assets.RnFManagement;
 
 import application.Validation;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,6 +14,8 @@ import java.util.ResourceBundle;
 
 public class AddRoomController implements Initializable{
 
+    ObservableList<String>extrabeditems = FXCollections.observableArrayList("Yes","No");
+
     @FXML private TextField tf_roomcategory;
     @FXML private TextField tf_roomno;
     @FXML private TextField tf_roomtype;
@@ -22,7 +26,7 @@ public class AddRoomController implements Initializable{
     @FXML private TextField tf_queenbedprice;
     @FXML private TextField tf_kingbedprice;
     @FXML private Button btn_addroom;
-    @FXML private ComboBox<String > cbox_extrabed;
+    @FXML private ComboBox<String> cbox_extrabed;
 
     public Button getbtn_addroom(){ return btn_addroom; }
     //not sure right or wrong!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -71,12 +75,14 @@ public class AddRoomController implements Initializable{
 
         validation();
 
+        cbox_extrabed.setItems(extrabeditems);
+
     }
 
     private void validation() {
         tf_roomcategory.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         tf_roomno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        tf_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        tf_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validForTypeName(50));
         tf_paxperroom.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_roomprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_twinbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
