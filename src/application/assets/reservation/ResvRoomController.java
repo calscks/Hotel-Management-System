@@ -19,6 +19,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import static application.assets.reservation.ResvController.db;
+
 public class ResvRoomController implements Initializable {
     @FXML
     private TableView<ModelRoom> table_rooms;
@@ -54,10 +56,10 @@ public class ResvRoomController implements Initializable {
     private Label lbl_roomPrice;
 
 
-    DBConnection db = new DBConnection("Data.sqlite");
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("resv room controller loaded");
+
         tbcol_roomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
         tbcol_roomcat.setCellValueFactory(new PropertyValueFactory<>("roomcat"));
         tbcol_roomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));

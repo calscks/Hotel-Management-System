@@ -1,5 +1,6 @@
 package application.assets.reservation;
 
+import application.DBConnection;
 import application.assets.AutoCompleteCBoxListener;
 import application.assets.ForAddButton;
 import application.assets.ModelGroupMember;
@@ -101,6 +102,7 @@ public class ResvController implements Initializable {
     @FXML
     private TableColumn<ModelRoom, String> tbcol_rprice;
 
+    public static DBConnection db = new DBConnection("Data.sqlite");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

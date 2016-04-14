@@ -1,6 +1,5 @@
 package application.assets.reservation;
 
-import application.DBConnection;
 import application.Validation;
 import application.assets.AutoCompleteCBoxListener;
 import application.assets.CIODateDisabler;
@@ -15,6 +14,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import static application.assets.reservation.ResvController.db;
 
 public class ResvFacilityController implements Initializable{
 
@@ -31,7 +32,8 @@ public class ResvFacilityController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DBConnection db = new DBConnection("Data.sqlite");
+        System.out.println("resv fac controller loaded");
+        //DBConnection db = new DBConnection("Data.sqlite");
         validation();
 
         //for facility name cbox
