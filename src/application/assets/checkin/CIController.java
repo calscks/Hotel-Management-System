@@ -238,7 +238,7 @@ public class CIController implements Initializable{
             e.printStackTrace();
         }
 
-        CIAddGroupController rag = loadGuest.getController();
+        CIAddGroupController cag = loadGuest.getController();
 
         AnchorPane finalGuestPane = guestPane;
 
@@ -253,13 +253,13 @@ public class CIController implements Initializable{
                 stage.setScene(guestScene);
             }
             if (rowCount != 0) {
-                rag.getCbox_roomno().getItems().clear();
+                cag.getCbox_roomno().getItems().clear();
 
                 for (int i = 0; i < rowCount; i++) {
                     ModelRoom room = new ModelRoom();
                     room = roomtable.getItems().get(i);
                     System.out.print(room.getRoomno());
-                    rag.getCbox_roomno().getItems().add(room.getRoomno());
+                    cag.getCbox_roomno().getItems().add(room.getRoomno());
                 }
             }
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -268,26 +268,26 @@ public class CIController implements Initializable{
             stage.setAlwaysOnTop(true);
         });
 
-        rag.getBtn_addmem().setOnMouseClicked(me->{
-            if (rag.getCbox_roomno().getSelectionModel().getSelectedItem() != null) {
+        cag.getBtn_addmem().setOnMouseClicked(me->{
+            if (cag.getCbox_roomno().getSelectionModel().getSelectedItem() != null) {
                 ModelGroupMember mg = new ModelGroupMember();
 
                 tf_ciAddress.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
                 tf_ciPostCode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
                 tf_ciCity.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
-                mg.setMemFName(rag.getTf_fname().getText());
-                mg.setMemLName(rag.getTf_lname().getText());
-                mg.setIdType(rag.getCbox_idtype().getSelectionModel().getSelectedItem());
-                mg.setIdNo(rag.getTf_idno().getText());
-                mg.setRoomNo(rag.getCbox_roomno().getSelectionModel().getSelectedItem());
+                mg.setMemFName(cag.getTf_fname().getText());
+                mg.setMemLName(cag.getTf_lname().getText());
+                mg.setIdType(cag.getCbox_idtype().getSelectionModel().getSelectedItem());
+                mg.setIdNo(cag.getTf_idno().getText());
+                mg.setRoomNo(cag.getCbox_roomno().getSelectionModel().getSelectedItem());
 
                 grouptable.getItems().add(mg);
 
-                rag.getTf_fname().setText(null);
-                rag.getTf_lname().setText(null);
-                rag.getTf_idno().setText(null);
+                cag.getTf_fname().setText(null);
+                cag.getTf_lname().setText(null);
+                cag.getTf_idno().setText(null);
 
-                Stage stage = (Stage) rag.getBtn_addmem().getScene().getWindow();
+                Stage stage = (Stage) cag.getBtn_addmem().getScene().getWindow();
                 stage.close();
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -313,30 +313,30 @@ public class CIController implements Initializable{
 
         new ForAddButton(finalRoomPane, btn_ciAddRoom);
 
-        CIAddRoomController rc = loadRoom.getController();
+        CIAddRoomController ciroom = loadRoom.getController();
 
-        rc.getBtn_roomAdd().setOnMouseClicked(me -> {
+        ciroom.getBtn_roomAdd().setOnMouseClicked(me -> {
             ModelRoom room = new ModelRoom();
 
-            room.setRoomcat(rc.getRoomCat());
-            room.setRtype(rc.getRoomType());
-            room.setRoomno(rc.getRoomNo());
-            room.setCidate(rc.getCI());
-            room.setCodate(rc.getCO());
-            room.setExtbedtype(rc.getExtBed());
-            room.setRoomprice(rc.getTotal());
+            room.setRoomcat(ciroom.getRoomCat());
+            room.setRtype(ciroom.getRoomType());
+            room.setRoomno(ciroom.getRoomNo());
+            room.setCidate(ciroom.getCI());
+            room.setCodate(ciroom.getCO());
+            room.setExtbedtype(ciroom.getExtBed());
+            room.setRoomprice(ciroom.getTotal());
 
             roomtable.getItems().add(room);
 
             //manually clearing data from the add room stage after adding
-            rc.getTable_rooms().getItems().clear();
-            rc.getCbox_xtrabed().getItems().clear();
-            rc.getLbl_extBedPrice().setText(null);
-            rc.getLbl_roomPrice().setText(null);
-            rc.getLbl_totalRoomPrice().setText(null);
-            rc.getTf_roomno().setText(null);
+            ciroom.getTable_rooms().getItems().clear();
+            ciroom.getCbox_xtrabed().getItems().clear();
+            ciroom.getLbl_extBedPrice().setText(null);
+            ciroom.getLbl_roomPrice().setText(null);
+            ciroom.getLbl_totalRoomPrice().setText(null);
+            ciroom.getTf_roomno().setText(null);
 
-            Stage stage = (Stage) rc.getBtn_roomAdd().getScene().getWindow();
+            Stage stage = (Stage) ciroom.getBtn_roomAdd().getScene().getWindow();
             stage.close();
         });
 
