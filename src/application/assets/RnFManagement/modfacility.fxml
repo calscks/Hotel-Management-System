@@ -54,29 +54,14 @@
                         </TextField>
                         <HBox prefHeight="105.0" prefWidth="281.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <children>
-                              <VBox alignment="TOP_RIGHT" prefHeight="80.0" prefWidth="151.0" spacing="14.0">
-                                 <children>
-                                    <Label text="Morning :" />
-                                    <Label text="Night :" />
-                                    <Label text="Whole Day:" />
-                                 </children>
+                              <VBox alignment="TOP_RIGHT" prefHeight="106.0" prefWidth="0.0" spacing="14.0">
                                  <padding>
                                     <Insets top="4.0" />
                                  </padding>
                               </VBox>
-                              <VBox prefHeight="80.0" prefWidth="246.0" spacing="7.0">
+                              <VBox prefHeight="106.0" prefWidth="316.0" spacing="7.0">
                                  <children>
-                                    <TextField fx:id="tf_morning">
-                                       <VBox.margin>
-                                          <Insets right="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="tf_night">
-                                       <VBox.margin>
-                                          <Insets right="20.0" />
-                                       </VBox.margin>
-                                    </TextField>
-                                    <TextField fx:id="tf_wholeday">
+                                    <TextField fx:id="tf_facresvprice">
                                        <VBox.margin>
                                           <Insets right="20.0" />
                                        </VBox.margin>

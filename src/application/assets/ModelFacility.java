@@ -26,17 +26,11 @@ public class ModelFacility {
         return bookedfactime;
     }
 
-    public SimpleStringProperty facnoProperty() {
-        return facno;
-    }
+    public SimpleStringProperty facnoProperty() {return facno;}
 
-    public SimpleStringProperty facnameProperty() {
-        return facname;
-    }
+    public SimpleStringProperty facnameProperty() {return facname;}
 
-    public SimpleStringProperty facdescProperty() {
-        return facdesc;
-    }
+    public SimpleStringProperty facdescProperty() {return facdesc;}
 
     public String getBookedfac() {
         return bookedfac.get();
@@ -50,17 +44,11 @@ public class ModelFacility {
         return bookedfactime.get();
     }
 
-    public String getFacno() {
-        return facno.get();
-    }
+    public String getFacno() {return facno.get();}
 
-    public String getFacname() {
-        return facname.get();
-    }
+    public String getFacname() {return facname.get();}
 
-    public String getFacdesc() {
-        return facdesc.get();
-    }
+    public String getFacdesc() {return facdesc.get();}
 
     public String getFacprice() {
         return facprice.get();
@@ -78,17 +66,11 @@ public class ModelFacility {
         this.bookedfactime.set(bookedfactime);
     }
 
-    public void setFacdesc(String facdesc) {
-        this.facdesc.set(facdesc);
-    }
+    public void setFacdesc(String facdesc) {this.facdesc.set(facdesc);}
 
-    public void setFacname(String facname) {
-        this.facname.set(facname);
-    }
+    public void setFacname(String facname) {this.facname.set(facname);}
 
-    public void setFacno(String facno) {
-        this.facno.set(facno);
-    }
+    public void setFacno(String facno) {this.facno.set(facno);}
 
     public void setFacprice(String facprice) {
         this.facprice.set(facprice);
