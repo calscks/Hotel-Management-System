@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
-import javax.naming.InitialContext;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -34,16 +33,17 @@ public class ResvPayController implements Initializable{
     @FXML private TextField tf_cardno;
     @FXML private TextField tf_cvccode;
     @FXML private TextField tf_discountid;
-    @FXML private ComboBox<String> resvCBox_PayType;
-    @FXML private ComboBox<String> resvCBox_Month;
-    @FXML private ComboBox<String> resvCBox_Year;
+    @FXML private ComboBox<String> cbox_PayType;
+    @FXML private ComboBox<String> cbox_Month;
+    @FXML private ComboBox<String> cbox_Year;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         validation();
 
-        resvCBox_PayType.setItems(paymenttype);
-        resvCBox_PayType.getSelectionModel().select(0);
+        cbox_PayType.setItems(paymenttype);
+        cbox_PayType.getSelectionModel().select(0);
+
 
 
 
