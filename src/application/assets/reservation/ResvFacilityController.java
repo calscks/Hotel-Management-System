@@ -126,6 +126,9 @@ public class ResvFacilityController implements Initializable{
     }
 
     private void cellValueFactory(){
-        tbcol_facno.setCellValueFactory(new PropertyValueFactory<>(""));
+        tbcol_facno.setCellValueFactory(new PropertyValueFactory<>("facno"));
+        tbcol_fac.setCellValueFactory(new PropertyValueFactory<>("facname"));
+        tbcol_desc.setCellValueFactory(new PropertyValueFactory<>("facdesc"));
+        tbcol_price.setCellValueFactory(new PropertyValueFactory<>("facprice"));
     }
 }

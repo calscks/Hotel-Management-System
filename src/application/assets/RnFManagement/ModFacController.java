@@ -135,9 +135,9 @@ public class ModFacController implements Initializable{
                         ftable.add(fac);
 
                     }
-                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("modfacno"));
-                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("modfacname"));
-                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("modfacdesc"));
+                    tb_facid.setCellValueFactory(new PropertyValueFactory<>("facno"));
+                    tb_facname.setCellValueFactory(new PropertyValueFactory<>("facname"));
+                    tb_facdesc.setCellValueFactory(new PropertyValueFactory<>("facdesc"));
                     modfactable.setItems(ftable);
                 }
                 catch (SQLException e1) {
