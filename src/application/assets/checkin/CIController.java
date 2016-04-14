@@ -96,6 +96,7 @@ public class CIController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addGuest();
         addRoom();
+        addFacility();
         validation();
 
         tf_ciResvNum.textProperty().addListener((observable, oldValue,newValue)-> {
@@ -340,6 +341,16 @@ public class CIController implements Initializable{
             stage.close();
         });
 
+    }
+    public void addFacility(){
+        FXMLLoader loadFac = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/checkin/ci_addfacility.fxml"));
+        AnchorPane facPane = new AnchorPane();
+        try {
+            facPane = loadFac.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

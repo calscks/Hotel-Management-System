@@ -22,25 +22,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-import application.DBConnection;
-import application.assets.CIODateDisabler;
-import application.assets.ModelRoom;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.ResourceBundle;
-
 public class CIAddRoomController implements Initializable {
     @FXML
     private TableView<ModelRoom> table_rooms;
