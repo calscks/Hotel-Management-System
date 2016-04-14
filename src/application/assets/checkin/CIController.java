@@ -27,6 +27,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static application.slidemenu.SlideMenuController.db;
+
 public class CIController implements Initializable{
 
     @FXML
@@ -95,7 +97,6 @@ public class CIController implements Initializable{
         addGuest();
         addRoom();
         validation();
-        DBConnection c = new DBConnection("Data.sqlite");
 
         tf_ciResvNum.textProperty().addListener((observable, oldValue,newValue)-> {
             try {
@@ -115,7 +116,7 @@ public class CIController implements Initializable{
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
                 ObservableList<ModelFacility> ftable = FXCollections.observableArrayList();
                 ObservableList<ModelGroupMember> gtable = FXCollections.observableArrayList();
-                ResultSet data = c.executeQuery(sql);
+                ResultSet data = db.executeQuery(sql);
 
                 String firstname = data.getString("CustFName");
                 String lastname = data.getString("CustLName");
@@ -146,7 +147,7 @@ public class CIController implements Initializable{
                     //System.out.println(fc.getfacname()); //for debugging, confirm works, can get the username
 
                 }
-                ResultSet data2 = c.executeQuery(sql2);
+                ResultSet data2 = db.executeQuery(sql2);
                 while (data2.next()){
                     ModelFacility fc = new ModelFacility();
                     fc.setbookedfac(data2.getString("facno"));
@@ -155,7 +156,7 @@ public class CIController implements Initializable{
                     fc.setbookedfactime(data2.getString("time"));
                     ftable.add(fc);
                 }
-                ResultSet data3 = c.executeQuery(sql3);
+                ResultSet data3 = db.executeQuery(sql3);
                 while (data3.next()) {
                     ModelGroupMember gm = new ModelGroupMember();
                     gm.setMemFName(data3.getString("custfname"));

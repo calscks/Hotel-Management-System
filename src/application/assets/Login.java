@@ -24,7 +24,7 @@ import java.sql.SQLException;
 
 public class Login {
 
-    Button btn = new Button("Sign in");
+    private Button btn = new Button("Sign in");
 
     public GridPane loginGrid() {
         DBConnection db = new DBConnection("Data.sqlite");

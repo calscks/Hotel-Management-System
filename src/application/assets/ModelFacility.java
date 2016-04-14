@@ -66,8 +66,6 @@ public class ModelFacility {
         return modfacdesc.get();
     }
 
-    //these setters are important to set database column value into each properties of this data model class
-
 
     public void setbookedfac(String bookedfac) {
         this.bookedfac.set(bookedfac);
@@ -97,5 +95,4 @@ public class ModelFacility {
         this.modfacdesc.set(modfacdesc);
     }
 
-    //if u don't understand getters and setters then ggwp
 }
