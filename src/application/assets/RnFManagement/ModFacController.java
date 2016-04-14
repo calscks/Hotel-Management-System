@@ -90,9 +90,9 @@ public class ModFacController implements Initializable{
                     tf_wholeday.setText(modfacwholeprice);
                     while (data.next()){
                         ModelFacility fac = new ModelFacility();
-                        fac.setfacno(data.getString("FacNo"));
-                        fac.setfacname(data.getString("FacName"));
-                        fac.setfacdesc(data.getString("FacDesc"));
+                        fac.setFacno(data.getString("FacNo"));
+                        fac.setFacname(data.getString("FacName"));
+                        fac.setFacdesc(data.getString("FacDesc"));
                         ftable.add(fac);
                        // System.out.println(fac.getfacno());
 
@@ -129,9 +129,9 @@ public class ModFacController implements Initializable{
                     tf_wholeday.setText(modfacwholeprice);
                     while (data2.next()){
                         ModelFacility fac = new ModelFacility();
-                        fac.setfacno(data2.getString("facno"));
-                        fac.setfacname(data2.getString("facname"));
-                        fac.setfacdesc(data2.getString("facdesc"));
+                        fac.setFacno(data2.getString("facno"));
+                        fac.setFacname(data2.getString("facname"));
+                        fac.setFacdesc(data2.getString("facdesc"));
                         ftable.add(fac);
 
                     }

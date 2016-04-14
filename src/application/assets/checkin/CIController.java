@@ -150,10 +150,10 @@ public class CIController implements Initializable{
                 ResultSet data2 = db.executeQuery(sql2);
                 while (data2.next()){
                     ModelFacility fc = new ModelFacility();
-                    fc.setbookedfac(data2.getString("facno"));
-                    fc.setfacprice(data2.getString("facmornprice"));
-                    fc.setbookedfacdate(data2.getString("date"));
-                    fc.setbookedfactime(data2.getString("time"));
+                    fc.setBookedfac(data2.getString("facno"));
+                    fc.setFacprice(data2.getString("facmornprice"));
+                    fc.setBookedfacdate(data2.getString("date"));
+                    fc.setBookedfactime(data2.getString("time"));
                     ftable.add(fc);
                 }
                 ResultSet data3 = db.executeQuery(sql3);

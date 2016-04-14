@@ -26,6 +26,7 @@ public class ResvFacilityController implements Initializable{
     @FXML private TextField tf_facno;
     @FXML private TextArea tf_comment;
     @FXML private DatePicker date_bookdate;
+    @FXML private Label lbl_facprice;
     @FXML private ComboBox<String> cbox_fac1;
     @FXML private Button btn_addfac;
     @FXML private Button btn_search;
@@ -89,8 +90,33 @@ public class ResvFacilityController implements Initializable{
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }); //facility search done
 
+        //for row double-clicking
+        table_fac.setRowFactory(fc->{
+            TableRow<ModelFacility> selRow = new TableRow<>();
+            selRow.setOnMouseClicked(e->{
+                if (e.getClickCount() == 2 && (!selRow.isEmpty())) {
+                    ModelFacility mf = new ModelFacility();
+                    mf = table_fac.getSelectionModel().getSelectedItem();
 
+                    tf_facno.clear();
+                    tf_comment.clear();
+                    lbl_facprice.setText(null);
+
+                    String query = "SELECT FacNo, FacPrice FROM FacType WHERE FacNo = '" + mf.getFacno() + "'";
+                    try {
+                        ResultSet rs = db.executeQuery(query);
+                        if (rs.next()){
+                            tf_facno.setText(mf.getFacno());
+                            lbl_facprice.setText(mf.getFacprice());
+                        }
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            });
+            return selRow;
         });
 
     }
