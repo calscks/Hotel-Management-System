@@ -22,7 +22,6 @@ public class ResvFacilityController implements Initializable{
     @FXML private TextArea tf_comment;
     @FXML private DatePicker date_bookdate;
     @FXML private ComboBox<String> cbox_fac1;
-    @FXML private ComboBox<String> cbox_booktime;
     @FXML private Button btn_addfac;
     @FXML private Button btn_search;
 
@@ -59,10 +58,20 @@ public class ResvFacilityController implements Initializable{
             table_fac.getItems().clear();
             tf_facno.setText(null);
             tf_comment.setText(null);
-            cbox_booktime.getItems().clear();
 
             String query = "SELECT f.FacNo FROM FacType f WHERE f.FacNo NOT IN " +
                     "(SELECT FacNo FROM FacBookedDate WHERE BookDate = '" + date + "')";
+
+            try {
+                ResultSet rs = db.executeQuery(query);
+                while (rs.next()){
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
         });
 
     }

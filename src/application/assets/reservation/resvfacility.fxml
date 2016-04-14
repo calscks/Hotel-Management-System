@@ -55,9 +55,9 @@
             </HBox>
             <TableView fx:id="table_fac" prefHeight="248.0" prefWidth="338.0">
               <columns>
-                <TableColumn fx:id="tbcol_fac" prefWidth="113.0" text="Facility" />
-                  <TableColumn fx:id="tbcol_facno" prefWidth="114.0" text="Facility No" />
-                  <TableColumn fx:id="tbcol_factime" prefWidth="110.0" text="Available Time" />
+                  <TableColumn fx:id="tbcol_facno" prefWidth="75.0" text="Facility No" />
+                <TableColumn fx:id="tbcol_fac" prefWidth="125.0" text="Facility" />
+                  <TableColumn fx:id="tbcol_price" prefWidth="92.0" text="Price" />
               </columns>
             </TableView>
          </children>

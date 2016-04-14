@@ -230,7 +230,7 @@ public class ResvController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("No Selection in Room");
                 alert.setHeaderText("No Room is Selected");
-                alert.setContentText("Please select a room, if it is empty, please add a room.");
+                alert.setContentText("Please select a room, and if it is empty, please add a room.");
                 alert.showAndWait();
             }
         });

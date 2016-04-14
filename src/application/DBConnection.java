@@ -221,18 +221,17 @@ public class DBConnection {
     }
 
     public void closeCon() {
-        try {
-            if (c == null || c.isClosed()) {
-                return;
-            }
+        if (statement != null) try {
+            statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        try {
-            c.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (c != null) {
+            try {
+                c.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
