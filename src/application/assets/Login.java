@@ -93,6 +93,7 @@ public class Login {
                         success.setTitle("Success");
                         success.setHeaderText("Login Successful as Admin");
                         success.showAndWait();
+                        db.closeCon();
                         adminStage();
                     }
                 } else{
@@ -121,6 +122,7 @@ public class Login {
                                 LoginData detail = new LoginData();
                                 detail.setUname(rs.getString("EmpUName"));
                                 detail.setAuth(rs.getString("Authority"));
+                                db.closeCon();
                                 staffStage();
                             }
 
@@ -133,7 +135,7 @@ public class Login {
                 e1.printStackTrace();
             }
 
-            db.closeCon();
+
         });
 
 

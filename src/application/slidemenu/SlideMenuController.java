@@ -1,5 +1,6 @@
 package application.slidemenu;
 
+import application.DBConnection;
 import application.assets.LoginData;
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -70,6 +71,8 @@ public class SlideMenuController implements Initializable {
     private Boolean modFacLoaded;
     private Boolean sRecLoaded;
     private Boolean ReportLoaded;
+
+    public static DBConnection db = new DBConnection("Data.sqlite");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
