@@ -64,11 +64,10 @@ public class ModRoomController implements Initializable{
 
         addroom();
 
-        DBConnection c = new DBConnection("Data.sqlite");
-
         tf_searchby.textProperty().addListener((observable, oldValue, newValue) -> {
             if (lbl_cboxselection.getText().equals("Room Category :")){
                 try {
+                    DBConnection c = new DBConnection("Data.sqlite");
                     //language=SQLite
                     String sql = "SELECT * FROM Room rm " +
                             "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
@@ -105,6 +104,8 @@ public class ModRoomController implements Initializable{
                     tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                     tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
                     tv_modroom.setItems(rtable);
+                    data.close();
+                    c.closeCon();
                 }
                 catch (SQLException e){
                     e.printStackTrace();
@@ -113,12 +114,12 @@ public class ModRoomController implements Initializable{
             }
             else if (lbl_cboxselection.getText().equals("Room No :")){
                 try {
-                    //language=SQLite
+                    DBConnection c1 = new DBConnection("Data.sqlite");
                     String sql = "SELECT * FROM Room rm " +
                             "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
                             "WHERE rm.RoomNo ='" + tf_searchby.getText()  + "'";
 
-                    ResultSet data2 = c.executeQuery(sql);
+                    ResultSet data2 = c1.executeQuery(sql);
                     ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
 
                     String modroomcategory = data2.getString("TypeGroup");
@@ -149,14 +150,14 @@ public class ModRoomController implements Initializable{
                     tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                     tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
                     tv_modroom.setItems(rtable);
+                    data2.close();
+                    c1.closeCon();
                 }
                 catch (SQLException e){
                     e.printStackTrace();
                 }
             }
-
         });
-        c.closeCon();
     }
 
     private void addroom() {
@@ -185,8 +186,6 @@ public class ModRoomController implements Initializable{
 
             //add items to database
 
-
-            //String xxx = arc.getRoomCat().getText();
             String roomcat = arc.getTf_roomcategory().getText();
             String roomno = arc.getTf_roomno().getText();
             String roomtype = arc.getTf_roomtype().getText();
@@ -211,12 +210,12 @@ public class ModRoomController implements Initializable{
                 }
 
                 try {
-                    DBConnection c2 = new DBConnection("Data.sqlite");
+                    DBConnection c3 = new DBConnection("Data.sqlite");
                     String sql1 = "INSERT INTO Room (RoomNo)" +
                             "VALUES ('"+roomno+"')";
 
-                    c2.executeUpdate(sql1);
-                    c2.closeCon();
+                    c3.executeUpdate(sql1);
+                    c3.closeCon();
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
