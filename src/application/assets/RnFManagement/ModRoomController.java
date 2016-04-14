@@ -156,7 +156,7 @@ public class ModRoomController implements Initializable{
 
         });
     }
-        //sure got problem with this fking shit
+
     private void addroom() {
         FXMLLoader loadroom = new FXMLLoader(getClass().getResource("/application/assets/RnFManagement/addroom.fxml"));
         AnchorPane roomPane = new AnchorPane();
@@ -180,6 +180,9 @@ public class ModRoomController implements Initializable{
 
             rd.add(room);
             tv_modroom.getItems().add(room);
+
+            //add items to database
+
 
             //clear items in modaddroom
             arc.getTf_roomcategory().setText(null);
