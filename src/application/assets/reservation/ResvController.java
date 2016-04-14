@@ -91,6 +91,8 @@ public class ResvController implements Initializable {
 
         delFac();
 
+        next();
+
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
         //loop the array
@@ -100,39 +102,9 @@ public class ResvController implements Initializable {
             cbox_country.getItems().add(country.getDisplayCountry());
         }
 
-        new AutoCompleteCBoxListener<>(cbox_country);
+        new AutoCompleteCBoxListener<>(cbox_country); //use auto complete (cbox field is set editable)
 
-        //bottom onwards are how I access back button from the payment controller (of payment fxml)
-        FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
-                "reservation/resvpay.fxml")); //create a fxmlLoader
-        AnchorPane payment = null;
-        try {
-            payment = loadpayment.load(); //load it into an anchorPane
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        AnchorPane finalPayment = payment; //set as another anchorPane called finalPayment
-        btn_resvNext.setOnMouseClicked(me -> {
-            FadeTransition ft = new FadeTransition(Duration.millis(320), finalPayment);
-            ft.setFromValue(0.0); //add a simple fade in transition
-            ft.setToValue(1.0);
-            ft.play();
-            resvPane.getChildren().add(finalPayment); //add as children of resvPane
-        });
-
-        //get the controller of the fxmlLoader (which is the payment controller)
-        ResvPayController controller = loadpayment.getController();
-
-        controller.getBtn_resvBack().setOnMouseClicked(me -> { //getter from the payment controller
-            Timeline timeline = new Timeline(); //set fade out
-            assert finalPayment != null;
-            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
-            timeline.getKeyFrames().add(kf);
-            //when the timeline is finished (finished fade out) then invoke remove the finalPayment
-            timeline.setOnFinished(se -> resvPane.getChildren().removeAll(finalPayment));
-            timeline.play();
-        });
     }
 
     //pressing add guest button
@@ -355,6 +327,41 @@ public class ResvController implements Initializable {
             }
         });
     }//delete fac done
+
+    //next button
+    public void next(){
+        //bottom onwards are how I access back button from the payment controller (of payment fxml)
+        FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
+                "reservation/resvpay.fxml")); //create a fxmlLoader
+        AnchorPane payment = null;
+        try {
+            payment = loadpayment.load(); //load it into an anchorPane
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        AnchorPane finalPayment = payment; //set as another anchorPane called finalPayment
+        btn_resvNext.setOnMouseClicked(me -> {
+            FadeTransition ft = new FadeTransition(Duration.millis(320), finalPayment);
+            ft.setFromValue(0.0); //add a simple fade in transition
+            ft.setToValue(1.0);
+            ft.play();
+            resvPane.getChildren().add(finalPayment); //add as children of resvPane
+        });
+
+        //get the controller of the fxmlLoader (which is the payment controller)
+        ResvPayController controller = loadpayment.getController();
+
+        controller.getBtn_resvBack().setOnMouseClicked(me -> { //getter from the payment controller
+            Timeline timeline = new Timeline(); //set fade out
+            assert finalPayment != null;
+            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
+            timeline.getKeyFrames().add(kf);
+            //when the timeline is finished (finished fade out) then invoke remove the finalPayment
+            timeline.setOnFinished(se -> resvPane.getChildren().removeAll(finalPayment));
+            timeline.play();
+        });
+    } //next button ends
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));

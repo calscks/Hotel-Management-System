@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +26,7 @@ public class ResvPayController implements Initializable{
     private int year7 = Calendar.getInstance().get(Calendar.YEAR) + 6;
     private ObservableList<Integer> month = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
     private ObservableList<Integer> year = FXCollections.observableArrayList(year1, year2, year3, year4, year5, year6, year7);
-    private ObservableList<String> paymenttype = FXCollections.observableArrayList("Credit Card", "Cash");
+    private ObservableList<String> paymenttype = FXCollections.observableArrayList("Credit Card", "Cash", "Cheque");
 
     @FXML private Button btn_resvBack;
     @FXML private AnchorPane resvPayPane;
@@ -33,15 +34,19 @@ public class ResvPayController implements Initializable{
     @FXML private TextField tf_cardno;
     @FXML private TextField tf_cvccode;
     @FXML private TextField tf_discountid;
-
-    //getter that mentioned in the reservation controller
-    public Button getBtn_resvBack() {
-        return btn_resvBack;
-    }
+    @FXML private ComboBox<String> resvCBox_PayType;
+    @FXML private ComboBox<String> resvCBox_Month;
+    @FXML private ComboBox<String> resvCBox_Year;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         validation();
+
+        resvCBox_PayType.setItems(paymenttype);
+        resvCBox_PayType.getSelectionModel().select(0);
+
+
+
     }
 
     private void validation() {
@@ -49,5 +54,10 @@ public class ResvPayController implements Initializable{
         tf_cardno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(19));
         tf_cvccode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(4));
         tf_discountid.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
+    }
+
+    //getter that mentioned in the reservation controller
+    public Button getBtn_resvBack() {
+        return btn_resvBack;
     }
 }
