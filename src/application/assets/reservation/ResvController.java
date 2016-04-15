@@ -37,6 +37,7 @@ public class ResvController implements Initializable {
     @FXML private TextField tf_address;
     @FXML private TextField tf_postcode;
     @FXML private TextField tf_city;
+    @FXML private TextField tf_state;
     @FXML private TextField tf_idno;
     @FXML private ComboBox<String> cbox_country;
     @FXML private ComboBox<String> cbox_idtype;
@@ -346,25 +347,42 @@ public class ResvController implements Initializable {
     public void resvPay(){
         //bottom onwards are how I access back button from the payment controller (of payment fxml)
         FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
-                "reservation/resvpay.fxml")); //create a fxmlLoader
+                "reservation/resvpay.fxml"));
         AnchorPane payment = null;
         try {
-            payment = loadpayment.load(); //load it into an anchorPane
+            payment = loadpayment.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        //get the controller of the fxmlLoader (which is the payment controller)
         ResvPayController rpc = loadpayment.getController();
 
-        AnchorPane finalPayment = payment; //set as another anchorPane called finalPayment
+        AnchorPane finalPayment = payment;
+        //next button
         btn_resvNext.setOnMouseClicked(me -> {
+
+            try {
+                ResultSet rs = db.executeQuery("SELECT CustID, CustID_Type, Blacklisted " +
+                        "FROM Customer WHERE CustID='" + tf_idno + "' AND CustID_Type='" +
+                        cbox_idtype.getSelectionModel().getSelectedItem() + "'");
+                if (rs.next() && (Objects.equals(rs.getString("Blacklisted"), "yes") ||
+                        Objects.equals(rs.getString("Blacklisted"), "Yes"))){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Blacklist Warning");
+                    alert.setHeaderText("This customer has been blacklisted");
+                    alert.setContentText("This customer has been blacklisted!");
+                    alert.showAndWait();
+                    return;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             FadeTransition ft = new FadeTransition(Duration.millis(320), finalPayment);
             ft.setFromValue(0.0); //add a simple fade in transition
             ft.setToValue(1.0);
             ft.play();
             resvPane.getChildren().add(finalPayment); //add as children of resvPane
-
 
             String query = "SELECT PaymentID FROM Payment ORDER BY PaymentID";
             try {
@@ -459,15 +477,12 @@ public class ResvController implements Initializable {
         //reserve button
         rpc.getBtn_reserve().setOnMouseClicked(me -> {
 
-
-
-
             if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")){
                 //language=SQLite
-                String query = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
+                String ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
                         "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
                         tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
-                String query2 = "INSERT INTO CustomerGroup VALUES ('')";
+                String ex2 = "INSERT INTO CustomerGroup VALUES ('')";
             }
         });
 
