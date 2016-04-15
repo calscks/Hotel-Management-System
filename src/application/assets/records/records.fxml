@@ -20,13 +20,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.records.RecordController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="675.0" prefWidth="1200.0">
          <children>
             <AnchorPane layoutX="603.0" layoutY="60.0" prefHeight="412.0" prefWidth="409.0" style="-fx-border-color: #ababab;">
                <children>
-                  <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="14.0" spacing="12.0">
+                  <VBox alignment="CENTER_RIGHT" layoutX="14.0" layoutY="12.0" spacing="12.0">
                      <children>
                         <Label text="Reference No :">
                            <font>
@@ -53,12 +53,13 @@
                               <Font name="System Italic" size="14.0" />
                            </font>
                         </Label>
+                        <Label text="Extra Payment :" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
                      </padding>
                   </VBox>
-                  <VBox layoutX="118.0" layoutY="14.0" spacing="12.0">
+                  <VBox layoutX="119.0" layoutY="12.0" prefHeight="182.0" prefWidth="53.0" spacing="12.0">
                      <children>
                         <Label text="RefNo">
                            <font>
@@ -85,6 +86,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
+                        <Label text="RM" />
                      </children>
                      <padding>
                         <Insets top="5.0" />
@@ -152,7 +154,7 @@
                   <TextArea layoutX="189.0" layoutY="39.0" prefHeight="128.0" prefWidth="204.0" />
                </children>
             </AnchorPane>
-            <VBox layoutX="313.0" layoutY="58.0" prefHeight="404.0" prefWidth="217.0" spacing="10.0">
+            <VBox layoutX="313.0" layoutY="58.0" prefHeight="428.0" prefWidth="217.0" spacing="10.0">
                <children>
                   <ComboBox prefHeight="25.0" prefWidth="216.0" />
                   <TextField>
