@@ -465,7 +465,9 @@ public class ResvController implements Initializable {
             if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")){
                 //language=SQLite
                 String query = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
-                        "')";
+                        "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
+                        tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
+                String query2 = "INSERT INTO CustomerGroup VALUES ('')";
             }
         });
 
