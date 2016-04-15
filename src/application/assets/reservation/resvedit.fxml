@@ -70,12 +70,12 @@
                         </Button>
                      </children>
                   </HBox>
-                  <TableView prefHeight="364.0" prefWidth="401.0">
+                  <TableView fx:id="searchtable" prefHeight="364.0" prefWidth="401.0">
                     <columns>
-                      <TableColumn editable="false" prefWidth="95.0" sortable="false" text="Reservation No." />
-                      <TableColumn editable="false" prefWidth="100.0" sortable="false" text="First Name" />
-                        <TableColumn editable="false" prefWidth="96.0" sortable="false" text="Last Name" />
-                        <TableColumn editable="false" prefWidth="108.0" sortable="false" text="Room/Facility No" />
+                      <TableColumn fx:id="resvcol" editable="false" prefWidth="95.0" sortable="false" text="Reservation No." />
+                      <TableColumn fx:id="firstnamecol" editable="false" prefWidth="100.0" sortable="false" text="First Name" />
+                        <TableColumn fx:id="lastnamecol" editable="false" prefWidth="96.0" sortable="false" text="Last Name" />
+                        <TableColumn fx:id="roomnocol" editable="false" prefWidth="108.0" sortable="false" text="Room/Facility No" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" top="10.0" />
