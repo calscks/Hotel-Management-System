@@ -33,49 +33,88 @@ import static application.slidemenu.SlideMenuController.db;
 
 public class ResvController implements Initializable {
 
-    @FXML private AnchorPane resvPane;
-    @FXML private TextField tf_resvno;
-    @FXML private TextField tf_fname;
-    @FXML private TextField tf_lname;
-    @FXML private TextField tf_phoneno;
-    @FXML private TextField tf_address;
-    @FXML private TextField tf_postcode;
-    @FXML private TextField tf_city;
-    @FXML private TextField tf_state;
-    @FXML private TextField tf_idno;
-    @FXML private ComboBox<String> cbox_country;
-    @FXML private ComboBox<String> cbox_idtype;
+    @FXML
+    private AnchorPane resvPane;
+    @FXML
+    private TextField tf_resvno;
+    @FXML
+    private TextField tf_fname;
+    @FXML
+    private TextField tf_lname;
+    @FXML
+    private TextField tf_phoneno;
+    @FXML
+    private TextField tf_address;
+    @FXML
+    private TextField tf_postcode;
+    @FXML
+    private TextField tf_city;
+    @FXML
+    private TextField tf_state;
+    @FXML
+    private TextField tf_idno;
+    @FXML
+    private ComboBox<String> cbox_country;
+    @FXML
+    private ComboBox<String> cbox_idtype;
 
-    @FXML private Button btn_resvNext;
-    @FXML private Button btn_addguest;
-    @FXML private Button btn_delguest;
-    @FXML private Button btn_addroom;
-    @FXML private Button btn_delroom;
-    @FXML private Button btn_addfac;
-    @FXML private Button btn_delfac;
+    @FXML
+    private Button btn_resvNext;
+    @FXML
+    private Button btn_addguest;
+    @FXML
+    private Button btn_delguest;
+    @FXML
+    private Button btn_addroom;
+    @FXML
+    private Button btn_delroom;
+    @FXML
+    private Button btn_addfac;
+    @FXML
+    private Button btn_delfac;
 
-    @FXML private TableView<ModelGroupMember> table_gmembers;
-    @FXML private TableColumn<ModelGroupMember, String> tbcol_memfname;
-    @FXML private TableColumn<ModelGroupMember, String> tbcol_memlname;
-    @FXML private TableColumn<ModelGroupMember, String> tbcol_memidtype;
-    @FXML private TableColumn<ModelGroupMember, String> tbcol_memidno;
-    @FXML private TableColumn<ModelGroupMember, String> tbcol_memroomno;
+    @FXML
+    private TableView<ModelGroupMember> table_gmembers;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tbcol_memfname;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tbcol_memlname;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tbcol_memidtype;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tbcol_memidno;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tbcol_memroomno;
 
-    @FXML private TableView<ModelRoom> table_resvRoom;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomcat;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomtype;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomno;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomci;
-    @FXML private TableColumn<ModelRoom, String> tbcol_roomco;
-    @FXML private TableColumn<ModelRoom, String> tbcol_xtrabed;
-    @FXML private TableColumn<ModelRoom, String> tbcol_rprice;
+    @FXML
+    private TableView<ModelRoom> table_resvRoom;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomcat;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomtype;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomno;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomci;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_roomco;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_xtrabed;
+    @FXML
+    private TableColumn<ModelRoom, String> tbcol_rprice;
 
-    @FXML private TableView<ModelFacility> table_resvFac;
-    @FXML private TableColumn<ModelFacility, String> tbcol_fac;
-    @FXML private TableColumn<ModelFacility, String> tbcol_facno;
-    @FXML private TableColumn<ModelFacility, String> tbcol_facbookdate;
-    @FXML private TableColumn<ModelFacility, String> tbcol_facprice;
-    @FXML private TableColumn<ModelFacility, String> tbcol_faccomment;
+    @FXML
+    private TableView<ModelFacility> table_resvFac;
+    @FXML
+    private TableColumn<ModelFacility, String> tbcol_fac;
+    @FXML
+    private TableColumn<ModelFacility, String> tbcol_facno;
+    @FXML
+    private TableColumn<ModelFacility, String> tbcol_facbookdate;
+    @FXML
+    private TableColumn<ModelFacility, String> tbcol_facprice;
+    @FXML
+    private TableColumn<ModelFacility, String> tbcol_faccomment;
 
     private String inDate;
     private String outDate;
@@ -117,7 +156,7 @@ public class ResvController implements Initializable {
         //auto generate resv number
         try {
             ResultSet rs = db.executeQuery("SELECT ResvNo FROM Reservation ORDER BY ResvNo");
-            if (!rs.next()){
+            if (!rs.next()) {
                 tf_resvno.setText("1000000000");
             } else {
                 //get the last no. of resv no (max no)
@@ -179,7 +218,7 @@ public class ResvController implements Initializable {
             stage.setResizable(false);
         });
 
-        rag.getBtn_addmem().setOnMouseClicked(me->{
+        rag.getBtn_addmem().setOnMouseClicked(me -> {
             if (rag.getCbox_roomno().getSelectionModel().getSelectedItem() != null) {
                 ModelGroupMember mg = new ModelGroupMember();
 
@@ -287,7 +326,7 @@ public class ResvController implements Initializable {
     } //delete room resv ends
 
     //add facility
-    public void addFac(){
+    public void addFac() {
         FXMLLoader loadfac = new FXMLLoader(getClass().getResource("/application/assets/" +
                 "reservation/resvfacility.fxml"));
         AnchorPane facPane = new AnchorPane();
@@ -303,7 +342,7 @@ public class ResvController implements Initializable {
 
         ResvFacilityController rsf = loadfac.getController();
 
-        rsf.getBtn_addfac().setOnMouseClicked(me->{
+        rsf.getBtn_addfac().setOnMouseClicked(me -> {
             ModelFacility fac = new ModelFacility();
             fac.setFacno(rsf.getTf_facno().getText());
             fac.setFacname(rsf.getLbl_facname().getText());
@@ -326,10 +365,10 @@ public class ResvController implements Initializable {
     }//add facility done
 
     //delete facility
-    public void delFac(){
-        btn_delfac.setOnMouseClicked(me->{
+    public void delFac() {
+        btn_delfac.setOnMouseClicked(me -> {
             int selRow = table_resvFac.getSelectionModel().getSelectedIndex();
-            if(selRow >=0) {
+            if (selRow >= 0) {
                 ModelFacility mf = new ModelFacility();
                 mf = table_resvFac.getSelectionModel().getSelectedItem();
 
@@ -357,7 +396,7 @@ public class ResvController implements Initializable {
     }//delete fac done
 
     //payment stuffs
-    public void resvPay(){
+    public void resvPay() {
         //bottom onwards are how I access back button from the payment controller (of payment fxml)
         FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
                 "reservation/resvpay.fxml"));
@@ -379,7 +418,7 @@ public class ResvController implements Initializable {
                         "FROM Customer WHERE CustID='" + tf_idno + "' AND CustID_Type='" +
                         cbox_idtype.getSelectionModel().getSelectedItem() + "'");
                 if (rs.next() && (Objects.equals(rs.getString("Blacklisted"), "yes") ||
-                        Objects.equals(rs.getString("Blacklisted"), "Yes"))){
+                        Objects.equals(rs.getString("Blacklisted"), "Yes"))) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Blacklist Warning");
                     alert.setHeaderText("This customer has been blacklisted");
@@ -400,7 +439,7 @@ public class ResvController implements Initializable {
             String query = "SELECT PaymentID FROM Payment ORDER BY PaymentID";
             try {
                 ResultSet rs = db.executeQuery(query);
-                if (!rs.next()){
+                if (!rs.next()) {
                     rpc.getLbl_refno().setText("1000000000");
                 } else {
                     //get the last no. of payment id (max id)
@@ -419,15 +458,15 @@ public class ResvController implements Initializable {
             float tax = 0.00f;
             float subtotal = 1.00f;
             if (table_resvRoom.getItems().size() > 0) {
-                for (ModelRoom mr: table_resvRoom.getItems()){
+                for (ModelRoom mr : table_resvRoom.getItems()) {
                     float add = Float.parseFloat(tbcol_rprice.getCellObservableValue(mr).getValue());
                     sum += add;
                     System.out.println(sum);
                 }
                 rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
             }
-            if (table_resvFac.getItems().size() > 0){
-                for (ModelFacility mf: table_resvFac.getItems()){
+            if (table_resvFac.getItems().size() > 0) {
+                for (ModelFacility mf : table_resvFac.getItems()) {
                     float add = Float.parseFloat(tbcol_facprice.getCellObservableValue(mf).getValue());
                     sum += add;
                     System.out.println(sum);
@@ -449,7 +488,7 @@ public class ResvController implements Initializable {
                 e.printStackTrace();
             }
 
-            if (rpc.getLbl_deposit().getText()!= null){
+            if (rpc.getLbl_deposit().getText() != null) {
                 rpc.getRb_deposit().setDisable(false);
                 if (rpc.getLbl_tax().getText() != null) {
                     subtotal = sum * tax;
@@ -466,7 +505,7 @@ public class ResvController implements Initializable {
                 rpc.getRb_deposit().setDisable(true);
             }
 
-            if (rpc.getLbl_total().getText() == null){
+            if (rpc.getLbl_total().getText() == null) {
                 rpc.getLbl_subtotal().setText("0.00");
                 rpc.getLbl_balance().setText("0.00");
                 rpc.getRb_deposit().setDisable(true);
@@ -490,130 +529,128 @@ public class ResvController implements Initializable {
         //reserve button
         rpc.getBtn_reserve().setOnMouseClicked(me -> {
 
-            if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")){
-                //language=SQLite
-                String ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
-                        "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
-                        tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
+            //language=SQLite
+            String ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
+                    "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
+                    tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
+            try {
+                db.executeUpdate(ex);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            ex = "INSERT INTO CustAddress VALUES ('" + tf_idno.getText() +
+                    "', '" + tf_address.getText() + "', '" + tf_postcode.getText() +
+                    "', '" + tf_city.getText() + "', '" + tf_state.getText() +
+                    "', '" + cbox_country.getSelectionModel().getSelectedItem() +
+                    "')";
+
+            try {
+                db.executeUpdate(ex);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+            ex = "INSERT INTO Reservation VALUES ('" + tf_idno.getText() +
+                    "', '" + inDate +
+                    "', '" + outDate +
+                    "', " + tf_resvno.getText() + ")";
+            try {
+                db.executeUpdate(ex);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            for (ModelGroupMember mg : table_gmembers.getItems()) {
+                String ex2 = "INSERT INTO CustomerGroup VALUES ('" + mg.getMemFName() +
+                        "', '" + mg.getMemLName() + "', '" + mg.getIdType() +
+                        "', '" + mg.getIdNo() + "', '" + tf_idno.getText() + "')";
                 try {
-                    db.executeUpdate(ex);
+                    db.executeUpdate(ex2);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+            }
 
-                ex = "INSERT INTO CustAddress VALUES ('" + tf_idno.getText() +
-                        "', '" + tf_address.getText() + "', '" + tf_postcode.getText() +
-                        "', '" + tf_city.getText() + "', '" + tf_state.getText() +
-                        "', '" + cbox_country.getSelectionModel().getSelectedItem() +
+            for (ModelRoom mr : table_resvRoom.getItems()) {
+                String ex3 = "INSERT INTO RoomBooking VALUES (" + Integer.parseInt(tf_resvno.getText()) + ", '" +
+                        mr.getRoomno() + "', '" + mr.getExtbedtype() +
+                        "', '" + mr.getCidate() + "', '" + mr.getCodate() +
+                        "', '" + mr.getRtype() + "')";
+                try {
+                    db.executeUpdate(ex3);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            for (ModelFacility mf : table_resvFac.getItems()) {
+                String ex4 = "INSERT INTO FacBookedDate VALUES ('" + mf.getFacno() +
+                        "', '" + mf.getBookedfacdate() +
+                        "', " + Integer.parseInt(tf_resvno.getText()) + ", '" + mf.getFacdesc() +
                         "')";
-
                 try {
-                    db.executeUpdate(ex);
+                    db.executeUpdate(ex4);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+            }
 
-
-                ex = "INSERT INTO Reservation VALUES ('" + tf_idno.getText() +
-                        "', '" + inDate +
-                        "', '" + outDate +
-                        "', "+ tf_resvno.getText() + ")";
+            if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")) {
+                String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
+                        "CCardNo, PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                        ", '" + tf_idno.getText() +
+                        "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , " + Long.parseLong(rpc.getTf_cardno().getText()) +
+                        " , '" + LocalDate.now().toString() +
+                        "', " + tf_resvno.getText() + ")";
                 try {
-                    db.executeUpdate(ex);
+                    db.executeUpdate(ex5);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-                for (ModelGroupMember mg: table_gmembers.getItems()){
-                    String ex2 = "INSERT INTO CustomerGroup VALUES ('" + mg.getMemFName() +
-                            "', '" + mg.getMemLName() + "', '" + mg.getIdType() +
-                            "', '" + mg.getIdNo() + "', '" + tf_idno.getText() + "')";
-                    try {
-                        db.executeUpdate(ex2);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                ex5 = "INSERT INTO Pay_CCard VALUES ( " + Long.parseLong(rpc.getTf_cardno().getText()) +
+                        ", '" + rpc.getTf_cardname().getText() +
+                        "', " + Integer.parseInt(rpc.getTf_cvccode().getText()) +
+                        ", " + rpc.getCbox_Month().getSelectionModel().getSelectedItem() +
+                        ", " + rpc.getCbox_Year().getSelectionModel().getSelectedItem() +
+                        ")";
+                try {
+                    db.executeUpdate(ex5);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-
-                for (ModelRoom mr: table_resvRoom.getItems()){
-                    String ex3 = "INSERT INTO RoomBooking VALUES (" + Integer.parseInt(tf_resvno.getText()) + ", '" +
-                            mr.getRoomno() + "', '" + mr.getExtbedtype() +
-                            "', '" + mr.getCidate() + "', '" + mr.getCodate() +
-                            "', '" + mr.getRtype() + "')";
-                    try {
-                        db.executeUpdate(ex3);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+            } else if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Cash")) {
+                String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
+                        "PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                        ", '" + tf_idno.getText() +
+                        "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , '" + LocalDate.now().toString() +
+                        "', " + tf_resvno.getText() + ")";
+                try {
+                    db.executeUpdate(ex5);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-
-                for (ModelFacility mf: table_resvFac.getItems()){
-                    String ex4 = "INSERT INTO FacBookedDate VALUES ('" + mf.getFacno() +
-                            "', '" + mf.getBookedfacdate() +
-                            "', " + Integer.parseInt(tf_resvno.getText()) + ", '" + mf.getFacdesc() +
-                            "')";
-                    try {
-                        db.executeUpdate(ex4);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")){
-                    String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
-                            "CCardNo, PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
-                            ", '" + tf_idno.getText() +
-                            "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
-                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            " , " + Long.parseLong(rpc.getTf_cardno().getText()) +
-                            " , '" + LocalDate.now().toString() +
-                            "', " + tf_resvno.getText() + ")";
-                    try {
-                        db.executeUpdate(ex5);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                    ex5 = "INSERT INTO Pay_CCard VALUES ( " + Long.parseLong(rpc.getTf_cardno().getText()) +
-                            ", '" + rpc.getTf_cardname().getText() +
-                            "', " + Integer.parseInt(rpc.getTf_cvccode().getText()) +
-                            ", " + rpc.getCbox_Month().getSelectionModel().getSelectedItem() +
-                            ", " + rpc.getCbox_Year().getSelectionModel().getSelectedItem() +
-                            ")";
-                    try {
-                        db.executeUpdate(ex5);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                } else if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Cash")){
-                    String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
-                            "PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
-                            ", '" + tf_idno.getText() +
-                            "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
-                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            " , '" + LocalDate.now().toString() +
-                            "', " + tf_resvno.getText() + ")";
-                    try {
-                        db.executeUpdate(ex5);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
-                            "PayDate, ResvNo, ChequeNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
-                            ", '" + tf_idno.getText() +
-                            "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
-                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            " , '" + LocalDate.now().toString() +
-                            "', " + tf_resvno.getText() + ", '" + rpc.getTf_cardname().getText() +
-                            "')";
-                    try {
-                        db.executeUpdate(ex5);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+            } else {
+                String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
+                        "PayDate, ResvNo, ChequeNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                        ", '" + tf_idno.getText() +
+                        "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , '" + LocalDate.now().toString() +
+                        "', " + tf_resvno.getText() + ", '" + rpc.getTf_cardname().getText() +
+                        "')";
+                try {
+                    db.executeUpdate(ex5);
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });//reserve button ends
