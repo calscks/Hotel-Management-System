@@ -69,13 +69,13 @@ public class AddRoomController implements Initializable{
 
 
     @FXML private void extrabed(){
-        if (cbox_extrabed.getValue().equals("Yes")){
+        if (cbox_extrabed.getSelectionModel().getSelectedItem().equals("Yes")){
             tf_twinbedprice.setDisable(false);
             tf_fullbedprice.setDisable(false);
             tf_queenbedprice.setDisable(false);
             tf_kingbedprice.setDisable(false);
         }
-        else if (cbox_extrabed.getValue().equals("No")){
+        else if (cbox_extrabed.getSelectionModel().getSelectedItem().equals("No")){
             tf_twinbedprice.setDisable(true);
             tf_fullbedprice.setDisable(true);
             tf_queenbedprice.setDisable(true);
@@ -90,7 +90,7 @@ public class AddRoomController implements Initializable{
 
         //extrabed combobox
         cbox_extrabed.setItems(extrabeditems);
-        //roomcat combobox
+        //roomcat and grouproomcat combobox
         ObservableList<String> roomcategory = FXCollections.observableArrayList();
         try {
             ResultSet rs = db.executeQuery("SELECT TypeGroup FROM RoomType GROUP BY TypeGroup ORDER BY TypeGroup;");
@@ -98,6 +98,7 @@ public class AddRoomController implements Initializable{
                 roomcategory.add(rs.getString("TypeGroup"));
             }
             cbox_roomcategory.setItems(roomcategory);
+            cbox_grouproomcategory.setItems(roomcategory);
         }catch (SQLException e){
             e.printStackTrace();
         }
