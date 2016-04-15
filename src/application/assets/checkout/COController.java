@@ -159,18 +159,16 @@ public class COController implements Initializable {
         try {
         String sql =" SELECT RoomNo, CustID,Customer.CustFName,Customer.CustLName FROM CheckInOut\n" +
                 "INNER JOIN Customer USING (CustID)\n" +
-                "WHERE CheckInOut.CheckOutDate ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status=" +"'" +
-                "";
-
+                "WHERE CheckInOut.CheckOutDate ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'checked in'";
             ResultSet todayco = db.executeQuery(sql);
 
         ObservableList<ModelCheckOut> cotable = FXCollections.observableArrayList();
         while(todayco.next()){
             ModelCheckOut co = new ModelCheckOut();
-            co.setroomno(todayco.getString("RoomNo"));
-            co.setcustid(todayco.getString("CustID"));
-            co.setfirstname(todayco.getString("CustFName"));
-            co.setlastname(todayco.getString("CustLName"));
+            co.setRoomno(todayco.getString("RoomNo"));
+            co.setCustid(todayco.getString("CustID"));
+            co.setFirstname(todayco.getString("CustFName"));
+            co.setLastname(todayco.getString("CustLName"));
             cotable.add(co);
         }
             table_coCustID.setCellValueFactory(new PropertyValueFactory<>("custid"));
