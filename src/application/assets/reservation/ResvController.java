@@ -488,6 +488,24 @@ public class ResvController implements Initializable {
                     e.printStackTrace();
                 }
 
+                ex = "INSERT INTO CustAddress VALUES ('" + tf_idno +
+                        "', '" + tf_address + "', '" + tf_postcode +
+                        "', '" + tf_city + "', '" + tf_state +
+                        "', '" + cbox_country.getSelectionModel().getSelectedItem() +
+                        "')";
+
+                try {
+                    db.executeUpdate(ex);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                ModelRoom modelRoom = new ModelRoom();
+
+                ex = "INSERT INTO Reservation VALUES ('" + tf_idno +
+                        "', '" +
+                        "', '', )";
+
                 for (ModelGroupMember mg: table_gmembers.getItems()){
                     String ex2 = "INSERT INTO CustomerGroup VALUES ('" + mg.getMemFName() +
                             "', '" + mg.getMemLName() + "', '" + mg.getIdType() +
@@ -500,7 +518,26 @@ public class ResvController implements Initializable {
                 }
 
                 for (ModelRoom mr: table_resvRoom.getItems()){
-                    //String ex3 = "INSERT INTO ";
+                    String ex3 = "INSERT INTO RoomBooking VALUES (" + Integer.parseInt(tf_resvno.getText()) + ", '" +
+                            mr.getRoomno() + "', '" + mr.getExtbedtype() +
+                            "', '" + mr.getCidate() + "', '" + mr.getCodate() +
+                            "', '" + mr.getRtype() + "')";
+                    try {
+                        db.executeUpdate(ex3);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                for (ModelFacility mf: table_resvFac.getItems()){
+                    String ex4 = "INSERT INTO FacBookedDate VALUES ('" + mf.getFacno() +
+                            "', '" + mf.getBookedfacdate() +
+                            "', " + Integer.parseInt(tf_resvno.getText()) + ")";
+                    try {
+                        db.executeUpdate(ex4);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
