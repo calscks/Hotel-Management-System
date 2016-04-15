@@ -2,6 +2,7 @@ package application;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 
 /**please use these validations on any text fields you want.
@@ -50,6 +51,18 @@ public class Validation {
                 e.consume();
             }
             if (!e.getCharacter().matches("[A-Za-z0-9]")) {
+                e.consume();
+            }
+        };
+    }
+
+    public static EventHandler<KeyEvent> validtxtareaCharNoSpace(final Integer maxLength) {
+        return e -> {
+            TextArea txt_TextArea = (TextArea) e.getSource();
+            if (txt_TextArea.getText().length() >= maxLength) {
+                e.consume();
+            }
+            if (!e.getCharacter().matches("[A-Za-z0-9 ]")) {
                 e.consume();
             }
         };
