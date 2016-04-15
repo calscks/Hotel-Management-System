@@ -1,13 +1,11 @@
 package application.assets.checkout;
 
-import application.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
@@ -21,9 +19,6 @@ import static application.slidemenu.SlideMenuController.db;
 
 
 public class COController implements Initializable {
-
-
-
 
     @FXML private TextField tf_coRoomNo;
     @FXML private TextField tf_coFirstName;
@@ -60,7 +55,7 @@ public class COController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         filltb();
-        validation();
+
         checkboxes();
 
         tf_missingprice.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -175,6 +170,7 @@ public class COController implements Initializable {
 
         }
     }
+
     public  void autofill(String Roomno){
         try {
 
@@ -252,10 +248,9 @@ public class COController implements Initializable {
             label_coPayAmt.setText("RM0.00");
         }
     }
-    public void validation(){
-       tf_coRoomNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(10));
 
-   }
+
+
     public void ExtPayment(){
         try {
         String sql="SELECT * FROM CheckInOut WHERE RoomNo="+"'"+tf_coRoomNo.getText()+"'";
@@ -277,11 +272,13 @@ public class COController implements Initializable {
             e.printStackTrace();
         }
     }
+
     public void addpay(double prices){
         double extraprice = Double.parseDouble(label_coExtra.getText());
         double v = extraprice + prices;
         label_coExtra.setText(Double.toString(v));
     }
+
 }
 
 
