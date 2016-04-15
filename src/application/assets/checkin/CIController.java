@@ -1,10 +1,12 @@
 package application.assets.checkin;
 
+import application.DBConnection;
 import application.Validation;
 import application.assets.ForAddButton;
 import application.assets.ModelFacility;
 import application.assets.ModelGroupMember;
 import application.assets.ModelRoom;
+import application.assets.reservation.ResvFacilityController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +22,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,39 +32,66 @@ import static application.slidemenu.SlideMenuController.db;
 
 public class CIController implements Initializable{
 
-    @FXML private Button btn_ciNext;
-    @FXML private Button button;
-    @FXML private Button btn_ciAddGroupMember;
-    @FXML private Button btn_ciAddRoom;
-
-    @FXML private TextField tf_ciResvNum;
-    @FXML private TextField tf_ciFirstName;
-    @FXML private TextField tf_ciLastName;
-    @FXML private TextField tf_ciPhoneNo;
-    @FXML private TextField tf_ciAddress;
-    @FXML private TextField tf_ciPostCode;
-    @FXML private TextField tf_ciCity;
-    @FXML private TextField tf_ciIDType;
-    @FXML private TextField tf_ciIDNo;
-
-    @FXML private ComboBox cbox_ciCountry;
-
-    @FXML private TableView<ModelRoom> roomtable;
-    @FXML private TableView<ModelFacility> cifactable;
-    @FXML private TableView<ModelGroupMember> grouptable;
-
-    @FXML private TableColumn<ModelRoom, String> ciroomno;
-    @FXML private TableColumn<ModelRoom, String> ciroomtype;
-    @FXML private TableColumn<ModelRoom, String> cicid;
-    @FXML private TableColumn<ModelRoom, String> cicod;
-    @FXML private TableColumn<ModelFacility, String> bookfaccol;
-    @FXML private TableColumn<ModelFacility, String> facprice;
-    @FXML private TableColumn<ModelFacility, String> facdate;
-    @FXML private TableColumn<ModelFacility, String> factime;
-    @FXML private TableColumn<ModelGroupMember, String> tableC_ciGroupFirstName;
-    @FXML private TableColumn<ModelGroupMember, String> tableC_ciGroupLastName;
-    @FXML private TableColumn<ModelGroupMember, String> tableC_ciIcno;
-    @FXML private TableColumn<ModelGroupMember, String> tableC_ciGroupRoomNo;
+    @FXML
+    private Button btn_ciNext;
+    @FXML
+    private TextField tf_ciResvNum;
+    @FXML
+    private TextField tf_ciFirstName;
+    @FXML
+    private Button button;
+    @FXML
+    private TextField tf_ciLastName;
+    @FXML
+    private TextField tf_ciPhoneNo;
+    @FXML
+    private ComboBox cbox_ciCountry;
+    @FXML
+    private TextField tf_ciAddress;
+    @FXML
+    private TextField tf_ciPostCode;
+    @FXML
+    private TextField tf_ciCity;
+    @FXML
+    private TextField tf_ciIDType;
+    @FXML
+    private TextField tf_ciIDNo;
+    @FXML
+    private Button btn_ciAddGroupMember;
+    @FXML
+    private Button btn_ciAddRoom;
+    @FXML
+    private Button btn_ciAddFacility;
+    @FXML
+    private TableView<ModelRoom> roomtable;
+    @FXML
+    private TableColumn<ModelRoom, String> ciroomno;
+    @FXML
+    private TableColumn<ModelRoom, String> ciroomtype;
+    @FXML
+    private TableColumn<ModelRoom, String> cicid;
+    @FXML
+    private TableColumn<ModelRoom, String> cicod;
+    @FXML
+    private TableView<ModelFacility> cifactable;
+    @FXML
+    private TableColumn<ModelFacility, String> bookfaccol;
+    @FXML
+    private TableColumn<ModelFacility, String> facprice;
+    @FXML
+    private TableColumn<ModelFacility, String> facdate;
+    @FXML
+    private TableColumn<ModelFacility, String> factime;
+    @FXML
+    private TableView<ModelGroupMember> grouptable;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupFirstName;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupLastName;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciIcno;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupRoomNo;
 
 
 
@@ -270,9 +301,9 @@ public class CIController implements Initializable{
                 alert.showAndWait();
             }
         });
-    }//add guesten ds
+    }//add guest ends
     public void addRoom() {
-        //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
+         //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
         FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
                 "/checkin/ci_addroom.fxml"));
         AnchorPane roomPane = new AnchorPane();
@@ -316,13 +347,38 @@ public class CIController implements Initializable{
     }
     public void addFacility(){
         FXMLLoader loadFac = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/checkin/ci_addfacility.fxml"));
+                "/reservation/resvfacility.fxml"));
         AnchorPane facPane = new AnchorPane();
         try {
             facPane = loadFac.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        AnchorPane finalFacPane = facPane;
+
+        new ForAddButton(finalFacPane, btn_ciAddFacility);
+
+        ResvFacilityController rsf = loadFac.getController();
+        rsf.getBtn_addfac().setOnMouseClicked(me->{
+            ModelFacility fac = new ModelFacility();
+            fac.setFacno(rsf.getTf_facno().getText());
+            fac.setFacname(rsf.getLbl_facname().getText());
+            fac.setBookedfacdate(rsf.getLbl_date().getText());
+            fac.setFacdesc(rsf.getTf_comment().getText());
+            fac.setFacprice(rsf.getLbl_facprice().getText());
+
+            cifactable.getItems().add(fac);
+
+            rsf.getTable_fac().getItems().clear();
+            rsf.getLbl_date().setText(null);
+            rsf.getLbl_facname().setText(null);
+            rsf.getLbl_facprice().setText(null);
+            rsf.getTf_comment().setText(null);
+            rsf.getTf_facno().setText(null);
+
+            Stage stage = (Stage) rsf.getBtn_addfac().getScene().getWindow();
+            stage.close();
+        });
     }
 }
 
