@@ -385,6 +385,16 @@ public class ResvController implements Initializable {
                 }
                 rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
             }
+            try {
+                ResultSet rs = db.executeQuery("SELECT taxrate FROM variables");
+                if (rs.next()) {
+                    rpc.getLbl_tax().setText(rs.getString("taxrate"));
+                } else {
+                    rpc.getLbl_tax().setText("-");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         });
 

@@ -103,4 +103,16 @@ public class ResvPayController implements Initializable{
     public Label getLbl_total() {
         return lbl_total;
     }
+
+    public Label getLbl_tax() {
+        return lbl_tax;
+    }
+
+    public Label getLbl_deposit() {
+        return lbl_deposit;
+    }
+
+    public Label getLbl_subtotal() {
+        return lbl_subtotal;
+    }
 }
