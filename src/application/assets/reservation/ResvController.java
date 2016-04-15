@@ -102,6 +102,22 @@ public class ResvController implements Initializable {
 
         new AutoCompleteCBoxListener<>(cbox_country); //use auto complete (cbox field is set editable)
 
+        //auto generate resv number
+        try {
+            ResultSet rs = db.executeQuery("SELECT ResvNo FROM Reservation ORDER BY ResvNo");
+            if (!rs.next()){
+                tf_resvno.setText("1000000000");
+            } else {
+                //get the last no. of resv no (max no)
+                rs = db.executeQuery("SELECT ResvNo FROM Reservation ORDER BY ResvNo DESC LIMIT 1");
+                Integer resvno = rs.getInt("ResvNo");
+                resvno += 1;
+                tf_resvno.setText(String.valueOf(resvno)); //convert resvno to string
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -326,7 +342,7 @@ public class ResvController implements Initializable {
         });
     }//delete fac done
 
-    //resvPay button
+    //payment stuffs
     public void resvPay(){
         //bottom onwards are how I access back button from the payment controller (of payment fxml)
         FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
@@ -348,21 +364,24 @@ public class ResvController implements Initializable {
             ft.setToValue(1.0);
             ft.play();
             resvPane.getChildren().add(finalPayment); //add as children of resvPane
-            String query = "SELECT ResvNo FROM Reservation ORDER BY ResvNo";
+
+
+            String query = "SELECT PaymentID FROM Payment ORDER BY PaymentID";
             try {
                 ResultSet rs = db.executeQuery(query);
                 if (!rs.next()){
                     rpc.getLbl_refno().setText("1000000000");
                 } else {
-                    //get the last no. of resv no (max no)
-                    rs = db.executeQuery("SELECT ResvNo FROM Reservation ORDER BY ResvNo DESC LIMIT 1");
-                    Integer refno = rs.getInt("ResvNo");
+                    //get the last no. of payment id (max id)
+                    rs = db.executeQuery("SELECT PaymentID FROM Payment ORDER BY PaymentID DESC LIMIT 1");
+                    Integer refno = rs.getInt("PaymentID");
                     refno += 1;
                     rpc.getLbl_refno().setText(String.valueOf(refno)); //convert refno to string
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
 
             float sum = 0.00f;
             float dep = 0.00f;
@@ -405,9 +424,11 @@ public class ResvController implements Initializable {
                     subtotal = sum * tax;
                     subtotal += dep;
                     rpc.getLbl_subtotal().setText(String.format(Locale.UK, "%.2f", subtotal));
+                    rpc.getLbl_balance().setText(String.format(Locale.UK, "%.2f", subtotal));
                 } else {
                     subtotal = sum + dep;
                     rpc.getLbl_subtotal().setText(String.format(Locale.UK, "%.2f", subtotal));
+                    rpc.getLbl_balance().setText(String.format(Locale.UK, "%.2f", subtotal));
                 }
             } else {
                 subtotal = sum;
@@ -425,8 +446,6 @@ public class ResvController implements Initializable {
             }
         });
 
-
-
         rpc.getBtn_resvBack().setOnMouseClicked(me -> { //getter from the payment controller
             Timeline timeline = new Timeline(); //set fade out
             assert finalPayment != null;
@@ -436,7 +455,21 @@ public class ResvController implements Initializable {
             timeline.setOnFinished(se -> resvPane.getChildren().removeAll(finalPayment));
             timeline.play();
         });
-    } //resvPay button ends
+
+        //reserve button
+        rpc.getBtn_reserve().setOnMouseClicked(me -> {
+
+
+
+
+            if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")){
+                //language=SQLite
+                String query = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
+                        "')";
+            }
+        });
+
+    } //end payment stuffs
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));

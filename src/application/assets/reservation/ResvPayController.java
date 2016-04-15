@@ -51,6 +51,8 @@ public class ResvPayController implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
         validation();
 
+        System.out.println("Payment ui loaded.\n");
+
         lbl_switchable.setText("Name on Card :");
         lbl_total.setText(null);
         lbl_tax.setText(null);
@@ -111,6 +113,10 @@ public class ResvPayController implements Initializable{
     //getter that mentioned in the reservation controller
     public Button getBtn_resvBack() {
         return btn_resvBack;
+    }
+
+    public Button getBtn_reserve() {
+        return btn_reserve;
     }
 
     public Label getLbl_refno() {
