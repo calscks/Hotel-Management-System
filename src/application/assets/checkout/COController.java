@@ -1,8 +1,11 @@
 package application.assets.checkout;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
@@ -36,8 +39,16 @@ public class COController implements Initializable {
 
     @FXML private Button btn_coCheckout;
 
+    @FXML private TableView<ModelCheckOut> table_co;
+    @FXML private TableColumn<ModelCheckOut,String> table_coRoomNo;
+    @FXML private TableColumn<ModelCheckOut,String> table_coCustID;
+    @FXML private TableColumn<ModelCheckOut,String> table_coFname;
+    @FXML private TableColumn<ModelCheckOut,String> table_coLname;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        filltb();
 
 
         tf_coRoomNo.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -91,7 +102,7 @@ public class COController implements Initializable {
 
                     label_coPayAmt.setTextFill(Color.web("#000000"));
                 }
-                db.closeCon();
+
             } catch (SQLException t1) {
                 t1.printStackTrace();
                 tf_coIDNo.setText("");
@@ -131,7 +142,7 @@ public class COController implements Initializable {
                     notcheckedin.showAndWait();
 
                 }
-                db.closeCon();
+
 
             } catch (SQLException e1) {
                 e1.printStackTrace();
@@ -142,6 +153,34 @@ public class COController implements Initializable {
             }
         });
 
+
+    }
+    public void filltb(){
+        try {
+        String sql =" SELECT RoomNo, CustID,Customer.CustFName,Customer.CustLName FROM CheckInOut\n" +
+                "INNER JOIN Customer USING (CustID)\n" +
+                "WHERE CheckInOut.CheckOutDate ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status=" +"'" +
+                "";
+
+            ResultSet todayco = db.executeQuery(sql);
+
+        ObservableList<ModelCheckOut> cotable = FXCollections.observableArrayList();
+        while(todayco.next()){
+            ModelCheckOut co = new ModelCheckOut();
+            co.setroomno(todayco.getString("RoomNo"));
+            co.setcustid(todayco.getString("CustID"));
+            co.setfirstname(todayco.getString("CustFName"));
+            co.setlastname(todayco.getString("CustLName"));
+            cotable.add(co);
+        }
+            table_coCustID.setCellValueFactory(new PropertyValueFactory<>("custid"));
+            table_coRoomNo.setCellValueFactory(new PropertyValueFactory<>("roomno"));
+            table_coFname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+            table_coLname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+            table_co.setItems(cotable);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 
