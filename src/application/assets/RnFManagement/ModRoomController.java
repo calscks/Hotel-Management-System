@@ -170,21 +170,21 @@ public class ModRoomController implements Initializable{
 
             try {
                 String sql = "INSERT INTO Room (RoomNo, RoomTypeID) "+
-                        "VALUES ("+ roomno +",(SELECT TypeID FROM RoomType WHERE TypeName = "+ roomtype+" LIMIT 1))";
+                        "VALUES ('"+ roomno +"',(SELECT TypeID FROM RoomType WHERE TypeName = '"+ roomtype+"' LIMIT 1))";
 
                 db.executeQuery(sql);
             }catch (SQLException e){
                 e.printStackTrace();
             }
             //clear items
-            arc.getCbox_roomcategory().getItems().clear();
-            arc.getCbox_roomtype().getItems().clear();
+            arc.getCbox_roomcategory().getSelectionModel().clearSelection();
+            arc.getCbox_roomtype().getSelectionModel().clearSelection();
             arc.getTf_roomno().clear();
-            arc.getCbox_grouproomcategory().getItems().clear();
+            arc.getCbox_grouproomcategory().getSelectionModel().clearSelection();
             arc.getTf_roomtype().clear();
             arc.getTf_paxperroom().clear();
             arc.getTf_roomprice().clear();
-            arc.getCbox_extrabed().getItems().clear();
+            arc.getCbox_extrabed().getSelectionModel().clearSelection();
             arc.getTf_twinbedprice().clear();
             arc.getTf_fullbedprice().clear();
             arc.getTf_queenbedprice().clear();
