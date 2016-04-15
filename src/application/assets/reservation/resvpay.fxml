@@ -110,7 +110,7 @@
                         <ToggleGroup fx:id="paygroup" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="rb_full" mnemonicParsing="false" text="Full Amount" toggleGroup="$paygroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="RMX.xx" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                  <Label fx:id="lbl_balance" text="RMX.xx" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

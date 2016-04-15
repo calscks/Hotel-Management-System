@@ -365,6 +365,9 @@ public class ResvController implements Initializable {
             }
 
             float sum = 0.00f;
+            float dep = 0.00f;
+            float tax = 0.00f;
+            float subtotal = 1.00f;
             if (table_resvRoom.getItems().size() > 0) {
                 for (ModelRoom mr: table_resvRoom.getItems()){
                     float add = Float.parseFloat(tbcol_rprice.getCellObservableValue(mr).getValue());
@@ -385,19 +388,41 @@ public class ResvController implements Initializable {
                 ResultSet rs = db.executeQuery("SELECT deposit, taxrate FROM variables");
                 if (rs.next()) {
                     rpc.getLbl_deposit().setText(String.format(Locale.UK, "%.2f", rs.getFloat("deposit")));
-                    rpc.getLbl_tax().setText(String.valueOf(rs.getInt("taxrate")));
+                    dep = rs.getFloat("deposit");
+                    rpc.getLbl_tax().setText(String.valueOf(rs.getInt("taxrate")) + "%");
+                    tax = (rs.getInt("taxrate") / 100f) + 1f;
                 } else {
-                    rpc.getLbl_tax().setText("-");
+                    rpc.getLbl_tax().setText(null);
                     rpc.getLbl_deposit().setText(null);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            float subtotal = 0.00f;
+            if (rpc.getLbl_deposit().getText()!= null){
+                rpc.getRb_deposit().setDisable(false);
+                if (rpc.getLbl_tax().getText() != null) {
+                    subtotal = sum * tax;
+                    subtotal += dep;
+                    rpc.getLbl_subtotal().setText(String.format(Locale.UK, "%.2f", subtotal));
+                } else {
+                    subtotal = sum + dep;
+                    rpc.getLbl_subtotal().setText(String.format(Locale.UK, "%.2f", subtotal));
+                }
+            } else {
+                subtotal = sum;
+                rpc.getRb_deposit().setDisable(true);
+            }
 
-
-
+            if (rpc.getLbl_total().getText() == null){
+                rpc.getLbl_subtotal().setText("0.00");
+                rpc.getLbl_balance().setText("0.00");
+                rpc.getRb_deposit().setDisable(true);
+                rpc.getRb_full().setDisable(true);
+            } else {
+                rpc.getRb_deposit().setDisable(false);
+                rpc.getRb_full().setDisable(false);
+            }
         });
 
 

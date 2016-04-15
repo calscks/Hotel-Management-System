@@ -1,19 +1,19 @@
 package application.assets.reservation;
 
 import application.Validation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -43,7 +43,10 @@ public class ResvPayController implements Initializable{
     @FXML private Label lbl_tax;
     @FXML private Label lbl_deposit;
     @FXML private Label lbl_subtotal;
-
+    @FXML private Label lbl_balance;
+    @FXML private RadioButton rb_deposit;
+    @FXML private RadioButton rb_full;
+    @FXML private ToggleGroup paygroup;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         validation();
@@ -53,6 +56,9 @@ public class ResvPayController implements Initializable{
         lbl_tax.setText(null);
         lbl_deposit.setText(null);
         lbl_subtotal.setText(null);
+        lbl_balance.setText(null);
+        rb_deposit.setDisable(false);
+        rb_full.setDisable(false);
 
         cbox_PayType.setItems(paymenttype);
         cbox_Month.setItems(month);
@@ -80,6 +86,17 @@ public class ResvPayController implements Initializable{
                 cbox_Month.setDisable(true);
                 cbox_Year.setDisable(true);
                 tf_cardname.setDisable(true);
+            }
+        });
+
+        paygroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            float subtotal = Float.parseFloat(lbl_subtotal.getText());
+            float dep = Float.parseFloat(lbl_deposit.getText());
+            if (rb_deposit.isSelected()){
+                float bal = subtotal - dep;
+                lbl_balance.setText(String.format(Locale.UK, "%.2f", bal));
+            } else if (rb_full.isSelected()){
+                lbl_balance.setText(lbl_subtotal.getText());
             }
         });
 
@@ -114,5 +131,41 @@ public class ResvPayController implements Initializable{
 
     public Label getLbl_subtotal() {
         return lbl_subtotal;
+    }
+
+    public RadioButton getRb_deposit() {
+        return rb_deposit;
+    }
+
+    public RadioButton getRb_full() {
+        return rb_full;
+    }
+
+    public Label getLbl_balance() {
+        return lbl_balance;
+    }
+
+    public ComboBox<Integer> getCbox_Month() {
+        return cbox_Month;
+    }
+
+    public ComboBox<Integer> getCbox_Year() {
+        return cbox_Year;
+    }
+
+    public ComboBox<String> getCbox_PayType() {
+        return cbox_PayType;
+    }
+
+    public TextField getTf_cardname() {
+        return tf_cardname;
+    }
+
+    public TextField getTf_cardno() {
+        return tf_cardno;
+    }
+
+    public TextField getTf_cvccode() {
+        return tf_cvccode;
     }
 }
