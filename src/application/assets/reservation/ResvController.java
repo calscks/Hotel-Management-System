@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 
 import static application.slidemenu.SlideMenuController.db;
@@ -72,6 +73,9 @@ public class ResvController implements Initializable {
     @FXML private TableColumn<ModelFacility, String> tbcol_facbookdate;
     @FXML private TableColumn<ModelFacility, String> tbcol_facprice;
     @FXML private TableColumn<ModelFacility, String> tbcol_faccomment;
+
+    private String inDate;
+    private String outDate;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -222,7 +226,9 @@ public class ResvController implements Initializable {
             room.setRtype(rc.getRoomType());
             room.setRoomno(rc.getRoomNo());
             room.setCidate(rc.getCI());
+            inDate = rc.getCI();
             room.setCodate(rc.getCO());
+            outDate = rc.getCO();
             room.setExtbedtype(rc.getExtBed());
             room.setRoomprice(rc.getTotal());
 
@@ -500,11 +506,16 @@ public class ResvController implements Initializable {
                     e.printStackTrace();
                 }
 
-                ModelRoom modelRoom = new ModelRoom();
 
                 ex = "INSERT INTO Reservation VALUES ('" + tf_idno +
-                        "', '" +
-                        "', '', )";
+                        "', '" + inDate +
+                        "', '" + outDate +
+                        "', "+ tf_resvno.getText() + ")";
+                try {
+                    db.executeUpdate(ex);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
                 for (ModelGroupMember mg: table_gmembers.getItems()){
                     String ex2 = "INSERT INTO CustomerGroup VALUES ('" + mg.getMemFName() +
@@ -538,6 +549,58 @@ public class ResvController implements Initializable {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
+                }
+
+                if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")){
+                    String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
+                            "CCardNo, PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                            ", '" + tf_idno.getText() +
+                            "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
+                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                            " , " + Integer.parseInt(rpc.getTf_cardno().getText()) +
+                            " , '" + LocalDate.now().toString() +
+                            "', " + tf_resvno.getText() + ")";
+                    try {
+                        db.executeQuery(ex5);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    ex5 = "INSERT INTO Pay_CCard VALUES ( " + Integer.parseInt(rpc.getTf_cardno().getText()) +
+                            ", '" + rpc.getTf_cardname().getText() +
+                            "', " + Integer.parseInt(rpc.getTf_cvccode().getText()) +
+                            ", " + rpc.getCbox_Month().getSelectionModel().getSelectedItem() +
+                            ", " + rpc.getCbox_Year().getSelectionModel().getSelectedItem() +
+                            ")";
+                    try {
+                        db.executeQuery(ex5);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Cash")){
+                    String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
+                            "PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                            ", '" + tf_idno.getText() +
+                            "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
+                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                            " , '" + LocalDate.now().toString() +
+                            "', " + tf_resvno.getText() + ")";
+                    try {
+                        db.executeQuery(ex5);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
+                            "PayDate, ResvNo, ChequeNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                            ", '" + tf_idno.getText() +
+                            "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
+                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                            " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                            " , '" + LocalDate.now().toString() +
+                            "', " + tf_resvno.getText() + ", '" + rpc.getTf_cardname().getText() +
+                            "')";
                 }
 
             }
