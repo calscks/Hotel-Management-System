@@ -153,7 +153,7 @@ public class ResvEditController implements Initializable{
                 tf_idno.setText(idno);
                 tf_idtype.setText(idtype);
                 tf_postcode.setText(postcode);
-                while (data.next()){
+                while (data.resvPay()){
                     ModelRoom rm = new ModelRoom();
                     rm.setRoomno(data.getString("roomno"));
                     rm.setRtype(data.getString("roomtypename"));
@@ -167,7 +167,7 @@ public class ResvEditController implements Initializable{
 
                 }
                 ResultSet data2 = c.executeQuery(sql2);
-                while (data2.next()){
+                while (data2.resvPay()){
                     ModelFacility fc = new ModelFacility();
                     fc.setBookedfac(data2.getString("facno"));
                     fc.setFacprice(data2.getString("facprice"));
@@ -176,7 +176,7 @@ public class ResvEditController implements Initializable{
                     ftable.add(fc);
             }
                 ResultSet data3 = c.executeQuery(sql3);
-                while (data3.next()) {
+                while (data3.resvPay()) {
                     ModelGroupMember gm = new ModelGroupMember();
                     gm.setMemFName(data3.getString("custfname"));
                     gm.setMemLName(data3.getString("custlname"));

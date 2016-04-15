@@ -1,13 +1,10 @@
 package application.assets.reservation;
 
-import application.DBConnection;
 import application.assets.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import application.Validation;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -93,7 +89,7 @@ public class ResvController implements Initializable {
 
         delFac();
 
-        next();
+        resvPay();
 
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
@@ -330,8 +326,8 @@ public class ResvController implements Initializable {
         });
     }//delete fac done
 
-    //next button
-    public void next(){
+    //resvPay button
+    public void resvPay(){
         //bottom onwards are how I access back button from the payment controller (of payment fxml)
         FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
                 "reservation/resvpay.fxml")); //create a fxmlLoader
@@ -386,15 +382,21 @@ public class ResvController implements Initializable {
                 rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
             }
             try {
-                ResultSet rs = db.executeQuery("SELECT taxrate FROM variables");
+                ResultSet rs = db.executeQuery("SELECT deposit, taxrate FROM variables");
                 if (rs.next()) {
-                    rpc.getLbl_tax().setText(rs.getString("taxrate"));
+                    rpc.getLbl_deposit().setText(String.format(Locale.UK, "%.2f", rs.getFloat("deposit")));
+                    rpc.getLbl_tax().setText(String.valueOf(rs.getInt("taxrate")));
                 } else {
                     rpc.getLbl_tax().setText("-");
+                    rpc.getLbl_deposit().setText(null);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            float subtotal = 0.00f;
+
+
 
         });
 
@@ -409,7 +411,7 @@ public class ResvController implements Initializable {
             timeline.setOnFinished(se -> resvPane.getChildren().removeAll(finalPayment));
             timeline.play();
         });
-    } //next button ends
+    } //resvPay button ends
 
     private void validations() {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
