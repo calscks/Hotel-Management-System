@@ -61,7 +61,7 @@ public class ModFacController implements Initializable{
         addfac();
 
         cbox_searchby.setItems(selectbyitems);
-
+        //search function
         tf_searchby.textProperty().addListener((observable, oldValue,newValue)-> {
             if (lbl_cboxselection.getText().equals("FacilityID :")){
                 try {
@@ -87,6 +87,7 @@ public class ModFacController implements Initializable{
                         fac.setFacno(data.getString("FacNo"));
                         fac.setFacname(data.getString("FacName"));
                         fac.setFacdesc(data.getString("FacDesc"));
+                        fac.setFacprice(data.getString("FacPrice"));
                         ftable.add(fac);
                        // System.out.println(fac.getfacno());
 
@@ -123,6 +124,7 @@ public class ModFacController implements Initializable{
                         fac.setFacno(data2.getString("facno"));
                         fac.setFacname(data2.getString("facname"));
                         fac.setFacdesc(data2.getString("facdesc"));
+                        fac.setFacprice(data2.getString("facprice"));
                         ftable.add(fac);
 
                     }
@@ -134,12 +136,38 @@ public class ModFacController implements Initializable{
                 catch (SQLException e1) {
                     e1.printStackTrace();
                 }
-
             }
-
-
         });
+        //double click tableview
+        modfactable.setRowFactory(tv->{
+            TableRow<ModelFacility> selRow = new TableRow<>();
+            selRow.setOnMouseClicked(me ->{
+                if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+                    ModelFacility mf = new ModelFacility();
+                    mf = modfactable.getSelectionModel().getSelectedItem();
 
+                    tf_facno.clear();
+                    tf_facname.clear();
+                    ta_facdesc.clear();
+                    tf_facresvprice.clear();
+
+                    String sql = "SELECT * FROM FacType ft "+
+                            "WHERE ft.FacName = '" + tf_searchby.getText() + "'";
+                    try {
+                        ResultSet data = db.executeQuery(sql);
+                        if (data.next()){
+                            tf_facno.setText(mf.getFacno());
+                            tf_facname.setText(mf.getFacname());
+                            ta_facdesc.setText(mf.getFacdesc());
+                            tf_facresvprice.setText(mf.getFacprice());
+                        }
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return selRow;
+        });
     }
 
     private void addfac() {
@@ -180,12 +208,14 @@ public class ModFacController implements Initializable{
             Stage stage = (Stage) afc.getBtn_addfac().getScene().getWindow();
             stage.close();
         });
+
+
     }
 
     private void validation() {
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoSpace(20));
         tf_facno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        tf_facname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
+        tf_facname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoSpace(20));
         ta_facdesc.addEventFilter(KeyEvent.KEY_TYPED, Validation.validtxtareaCharNoSpace(50));
         tf_facresvprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
     }

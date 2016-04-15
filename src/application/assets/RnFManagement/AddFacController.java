@@ -39,7 +39,7 @@ public class AddFacController implements Initializable{
 
     private void validation() {
         tf_facno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        tf_facname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(20));
+        tf_facname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoSpace(20));
         ta_addfacdesc.addEventFilter(KeyEvent.KEY_TYPED, Validation.validtxtareaCharNoSpace(50));
         tf_addfacprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
     }

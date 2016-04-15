@@ -76,7 +76,7 @@ public class ModRoomController implements Initializable{
 
                 ResultSet data = db.executeQuery(sqll);
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
-
+                while(data.next()){
                 String grouproomcategory = data.getString("TypeGroup");
                 String grouproomtype = data.getString("TypeName");
                 String grouproompax = data.getString("MaxPax");
@@ -94,10 +94,17 @@ public class ModRoomController implements Initializable{
                 tf_groupfullbedprice.setText(grouproomfullprice);
                 tf_groupqueenbedprice.setText(grouproomqueenprice);
                 tf_groupkingbedprice.setText(grouproomkingprice);
-                while(data.next()){
+
                     ModelRoom mr = new ModelRoom();
                     mr.setRtype(data.getString("TypeGroup"));
                     mr.setRoomprice(data.getString("RoomPrice"));
+                    mr.setRoomtype(data.getString("TypeName"));
+                    mr.setPaxperroom(data.getString("MaxPax"));
+                    mr.setRoomprice(data.getString("RoomPrice"));
+                    mr.setTwinbedprice(data.getString("Rate_extTwin"));
+                    mr.setFullbedprice(data.getString("Rate_extFull"));
+                    mr.setQueenbedprice(data.getString("Rate_extQueen"));
+                    mr.setKingbedprice(data.getString("Rate_extKing"));
                     rtable.add(mr);
                 }
                 tc_groupmodroomcategory.setCellValueFactory(new PropertyValueFactory<>("rtype"));
@@ -120,7 +127,7 @@ public class ModRoomController implements Initializable{
 
                     ResultSet data = db.executeQuery(sql);
                     ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
-
+                    while(data.next()){
                     String modroomcategory = data.getString("TypeGroup");
                     String modroomno = data.getString("RoomNo");
                     String modroomtype = data.getString("TypeName");
@@ -140,10 +147,17 @@ public class ModRoomController implements Initializable{
                     tf_fullbedprice.setText(modroomfullprice);
                     tf_queenbedprice.setText(modroomqueenprice);
                     tf_kingbedprice.setText(modroomkingprice);
-                    while(data.next()){
+
                         ModelRoom rm = new ModelRoom();
                         rm.setRoomno(data.getString("RoomNo"));
                         rm.setRtype(data.getString("TypeGroup"));
+                        rm.setRoomtype(data.getString("TypeName"));
+                        rm.setPaxperroom(data.getString("MaxPax"));
+                        rm.setRoomprice(data.getString("RoomPrice"));
+                        rm.setTwinbedprice(data.getString("Rate_extTwin"));
+                        rm.setFullbedprice(data.getString("Rate_extFull"));
+                        rm.setQueenbedprice(data.getString("Rate_extQueen"));
+                        rm.setKingbedprice(data.getString("Rate_extKing"));
                         rtable.add(rm);
                     }
                     tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
@@ -165,7 +179,7 @@ public class ModRoomController implements Initializable{
 
                     ResultSet data2 = db.executeQuery(sql);
                     ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
-
+                    while(data2.next()){
                     String modroomcategory = data2.getString("TypeGroup");
                     String modroomno = data2.getString("RoomNo");
                     String modroomtype = data2.getString("TypeName");
@@ -185,10 +199,17 @@ public class ModRoomController implements Initializable{
                     tf_fullbedprice.setText(modroomfullprice);
                     tf_queenbedprice.setText(modroomqueenprice);
                     tf_kingbedprice.setText(modroomkingprice);
-                    while(data2.next()){
+
                         ModelRoom rm = new ModelRoom();
                         rm.setRoomno(data2.getString("roomno"));
                         rm.setRtype(data2.getString("typegroup"));
+                        rm.setRoomtype(data2.getString("TypeName"));
+                        rm.setPaxperroom(data2.getString("MaxPax"));
+                        rm.setRoomprice(data2.getString("RoomPrice"));
+                        rm.setTwinbedprice(data2.getString("Rate_extTwin"));
+                        rm.setFullbedprice(data2.getString("Rate_extFull"));
+                        rm.setQueenbedprice(data2.getString("Rate_extQueen"));
+                        rm.setKingbedprice(data2.getString("Rate_extKing"));
                         rtable.add(rm);
                     }
                     tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
@@ -199,6 +220,85 @@ public class ModRoomController implements Initializable{
                     e.printStackTrace();
                 }
             }
+        });
+        //double click add room type tableview
+        tv_groupmodroom.setRowFactory(tv ->{
+            TableRow<ModelRoom> selRow = new TableRow<>();
+            selRow.setOnMouseClicked(me ->{
+                if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+                    ModelRoom mr = new ModelRoom();
+                    mr = tv_groupmodroom.getSelectionModel().getSelectedItem();
+
+                    tf_grouproomcategory.clear();
+                    tf_grouproomtype.clear();
+                    tf_grouppaxperroom.clear();
+                    tf_grouproomprice.clear();
+                    tf_grouptwinbedprice.clear();
+                    tf_groupfullbedprice.clear();
+                    tf_groupqueenbedprice.clear();
+                    tf_groupkingbedprice.clear();
+
+                    String sql = "SELECT * FROM RoomType rt " +
+                            "WHERE rt.TypeGroup ='" + tf_groupsearchby.getText() + "'";
+                    try {
+                        ResultSet data = db.executeQuery(sql);
+                        if (data.next()){
+                            tf_grouproomcategory.setText(mr.getRtype());
+                            tf_grouproomtype.setText(mr.getRoomtype());
+                            tf_grouppaxperroom.setText(mr.getPaxperroom());
+                            tf_grouproomprice.setText(mr.getRoomprice());
+                            tf_grouptwinbedprice.setText(mr.getTwinbedprice());
+                            tf_groupfullbedprice.setText(mr.getFullbedprice());
+                            tf_groupqueenbedprice.setText(mr.getQueenbedprice());
+                            tf_groupkingbedprice.setText(mr.getKingbedprice());
+                        }
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return selRow;
+        });
+        //double click add room tableview
+        tv_modroom.setRowFactory(tv ->{
+            TableRow<ModelRoom> selRow = new TableRow<>();
+            selRow.setOnMouseClicked(me ->{
+                    if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+                        ModelRoom mr = new ModelRoom();
+                        mr = tv_modroom.getSelectionModel().getSelectedItem();
+
+                        tf_roomcategory.clear();
+                        tf_roomno2.clear();
+                        tf_roomtype.clear();
+                        tf_paxperroom.clear();
+                        tf_roomprice.clear();
+                        tf_twinbedprice.clear();
+                        tf_fullbedprice.clear();
+                        tf_queenbedprice.clear();
+                        tf_kingbedprice.clear();
+
+                        String sql = "SELECT * FROM Room rm " +
+                                "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
+                                "WHERE rt.TypeGroup ='" + tf_searchby.getText()  + "'";
+                        try {
+                            ResultSet data = db.executeQuery(sql);
+                            if (data.next()){
+                                tf_roomcategory.setText(mr.getRtype());
+                                tf_roomno2.setText(mr.getRoomno());
+                                tf_roomtype.setText(mr.getRoomtype());
+                                tf_paxperroom.setText(mr.getPaxperroom());
+                                tf_roomprice.setText(mr.getRoomprice());
+                                tf_twinbedprice.setText(mr.getTwinbedprice());
+                                tf_fullbedprice.setText(mr.getFullbedprice());
+                                tf_queenbedprice.setText(mr.getQueenbedprice());
+                                tf_kingbedprice.setText(mr.getKingbedprice());
+                            }
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    }
+            });
+            return selRow;
         });
     }
 
