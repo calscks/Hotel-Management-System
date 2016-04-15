@@ -195,62 +195,54 @@ public class ModRoomController implements Initializable{
         });
 
         arc.getBtn_addroomtype().setOnMouseClicked(me ->{
-            
+            String grouproomcategory = arc.getCbox_grouproomcategory().getSelectionModel().getSelectedItem();
+            String roomtype = arc.getTf_roomtype().getText();
+            Integer maxpax = Integer.parseInt(arc.getTf_paxperroom().getText());
+            Integer roomprice = Integer.parseInt(arc.getTf_roomprice().getText());
+            Float twinprice = Float.parseFloat(arc.getTf_twinbedprice().getText());
+            Float fullprice = Float.parseFloat(arc.getTf_fullbedprice().getText());
+            Float queenprice = Float.parseFloat(arc.getTf_queenbedprice().getText());
+            Float kingprice = Float.parseFloat(arc.getTf_kingbedprice().getText());
+            ComboBox cboxextrabed = arc.getCbox_extrabed();
+
+            if (cboxextrabed.getValue().equals("Yes")) {
+                try {
+                    String sql1 = "INSERT INTO RoomType (TypeGroup,TypeName,MaxPax,RoomPrice,Rate_extTwin,Rate_extFull,Rate_extQueen,Rate_extKing) " +
+                            "VALUES ('" + grouproomcategory + "','" + roomtype + "'," + maxpax + "," + roomprice + "," + twinprice + "," + fullprice + "," + queenprice + "," + kingprice + ")";
+
+                    db.executeUpdate(sql1);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (cboxextrabed.getValue().equals("No")){
+                try {
+                    String sql2 = "INSERT INTO RoomType (TypeGroup,TypeName,MaxPax,RoomPrice)" +
+                            "VALUES ('" + grouproomcategory + "','" + roomtype + "'," + maxpax + "," + roomprice + ")";
+
+                    db.executeQuery(sql2);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+            }
+
+            //clear items in modaddroom
+            arc.getCbox_roomcategory().getSelectionModel().clearSelection();
+            arc.getTf_roomtype().clear();
+            arc.getTf_paxperroom().clear();
+            arc.getTf_roomprice().clear();
+            arc.getCbox_extrabed().getSelectionModel().clearSelection();
+            arc.getTf_twinbedprice().clear();
+            arc.getTf_fullbedprice().clear();
+            arc.getTf_queenbedprice().clear();
+            arc.getTf_kingbedprice().clear();
+
+            Stage stage = (Stage) arc.getbtn_addroom().getScene().getWindow();
+            stage.close();
         });
 
-        //arc.getbtn_addroom().setOnMouseClicked(me ->{
-//            //add items to database
-//            String roomno = arc.getTf_roomno().getText();
-//            String roomtype = arc.getTf_roomtype().getText();
-//            Integer maxpax = Integer.parseInt(arc.getTf_paxperroom().getText());
-//            Integer roomprice = Integer.parseInt(arc.getTf_roomprice().getText());
-//            Float twinprice = Float.parseFloat(arc.getTf_twinbedprice().getText());
-//            Float fullprice = Float.parseFloat(arc.getTf_fullbedprice().getText());
-//            Float queenprice = Float.parseFloat(arc.getTf_queenbedprice().getText());
-//            Float kingprice = Float.parseFloat(arc.getTf_kingbedprice().getText());
-//            ComboBox cboxextrabed = arc.getCbox_extrabed();
-//
-//            if (cboxextrabed.getValue().equals("Yes")){
-//                try {
-//                    String sql1 = "INSERT INTO RoomType (TypeName,MaxPax,RoomPrice,Rate_extTwin,Rate_extFull,Rate_extQueen,Rate_extKing) " +
-//                            "VALUES ('" +roomtype+ "'," +maxpax+ ","+roomprice+","+twinprice+","+fullprice+","+queenprice+","+ kingprice + ")";
-//
-//                    db.executeUpdate(sql1);
-//                   // db.closeCon();
-//                }catch (SQLException e){
-//                    e.printStackTrace();
-//                }
-//
-//                try {
-//                    String sql1 = "INSERT INTO Room (RoomNo)" +
-//                            "VALUES ('"+roomno+"')";
-//
-//                    db.executeUpdate(sql1);
-//                    //db.closeCon();
-//                }catch (SQLException e){
-//                    e.printStackTrace();
-//                }
-//
-//
-//            }
-//            else if (cboxextrabed.getValue().equals("No")){
-//
-//            }
-//
-//            //clear items in modaddroom
-//            arc.getTf_roomno().setText(null);
-//            arc.getTf_roomtype().setText(null);
-//            arc.getTf_paxperroom().setText(null);
-//            arc.getTf_roomprice().setText(null);
-//            //arc.getCbox_extrabed().getItems().clear();
-//            arc.getTf_twinbedprice().setText(null);
-//            arc.getTf_fullbedprice().setText(null);
-//            arc.getTf_queenbedprice().setText(null);
-//            arc.getTf_kingbedprice().setText(null);
 
-            //Stage stage = (Stage) arc.getbtn_addroom().getScene().getWindow();
-            //stage.close();
-        //});
     }
 
     private void validation() {
