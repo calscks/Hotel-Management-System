@@ -529,6 +529,14 @@ public class ResvController implements Initializable {
         //reserve button
         rpc.getBtn_reserve().setOnMouseClicked(me -> {
 
+            if (!rpc.getRb_deposit().isSelected() && !rpc.getRb_full().isSelected()){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Payment");
+                alert.setHeaderText("Nothing is being paid");
+                alert.setContentText("Deposit or full payment must be made.");
+                alert.showAndWait();
+                return;
+            }
             //language=SQLite
             String ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
                     "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +

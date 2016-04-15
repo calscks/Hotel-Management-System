@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -23,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvEditController">
+<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.reservation.ResvEditController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="578.0" minWidth="776.0" prefHeight="675.0" prefWidth="1223.0">
          <children>
@@ -44,13 +39,13 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Reservation No.">
+                        <RadioButton fx:id="rb_resvno" mnemonicParsing="false" text="Reservation No.">
                            <toggleGroup>
                               <ToggleGroup fx:id="ResvSearchGroup" />
                            </toggleGroup></RadioButton>
-                        <RadioButton mnemonicParsing="false" text="RoomNumber" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <RadioButton mnemonicParsing="false" text="Customer Last Name" toggleGroup="$ResvSearchGroup" GridPane.rowIndex="1" />
-                        <RadioButton mnemonicParsing="false" text="Customer First Name" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" />
+                        <RadioButton fx:id="rb_roomno" mnemonicParsing="false" text="Room Number" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="rb_lname" mnemonicParsing="false" text="Customer Last Name" toggleGroup="$ResvSearchGroup" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="rb_fname" mnemonicParsing="false" text="Customer First Name" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
@@ -70,12 +65,12 @@
                         </Button>
                      </children>
                   </HBox>
-                  <TableView fx:id="searchtable" prefHeight="364.0" prefWidth="401.0">
+                  <TableView fx:id="table_sresult" prefHeight="364.0" prefWidth="401.0">
                     <columns>
-                      <TableColumn fx:id="resvcol" editable="false" prefWidth="95.0" sortable="false" text="Reservation No." />
-                      <TableColumn fx:id="firstnamecol" editable="false" prefWidth="100.0" sortable="false" text="First Name" />
-                        <TableColumn fx:id="lastnamecol" editable="false" prefWidth="96.0" sortable="false" text="Last Name" />
-                        <TableColumn fx:id="roomnocol" editable="false" prefWidth="108.0" sortable="false" text="Room/Facility No" />
+                      <TableColumn fx:id="tbcol_sresv" editable="false" prefWidth="95.0" sortable="false" text="Reservation No." />
+                      <TableColumn fx:id="tbcol_sfname" editable="false" prefWidth="100.0" sortable="false" text="First Name" />
+                        <TableColumn fx:id="tbcol_slname" editable="false" prefWidth="96.0" sortable="false" text="Last Name" />
+                        <TableColumn fx:id="tbcol_sroomno" editable="false" prefWidth="108.0" sortable="false" text="Room/Facility No" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" top="10.0" />
@@ -105,24 +100,24 @@
                   </GridPane>
                </children>
             </VBox>
-            <VBox layoutX="443.0" layoutY="42.0" prefHeight="451.0" prefWidth="342.0">
+            <VBox layoutX="443.0" layoutY="42.0" prefHeight="360.0" prefWidth="342.0">
                <children>
                   <Label text="Reservation Details">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <HBox prefHeight="410.0" prefWidth="305.0">
+                  <HBox prefHeight="410.0" prefWidth="305.0" spacing="5.0">
                      <children>
-                        <VBox alignment="TOP_RIGHT" prefHeight="410.0" prefWidth="178.0" spacing="18.0">
+                        <VBox alignment="TOP_RIGHT" spacing="18.0">
                            <children>
                               <Label text="Reservation Number :" />
                               <Label text="First Name :" />
                               <Label text="Last Name :" />
-                              <Label text="Phone Number :" />
                               <Label text="Address :" />
                               <Label text="Post Code :" />
                               <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
+                              <Label prefHeight="17.0" text="State :" />
                               <Label text="Country :" />
                               <Label text="ID Type :" />
                               <Label text="ID No. :" />
@@ -136,11 +131,11 @@
                               <TextField fx:id="tf_resvno" editable="false" />
                               <TextField fx:id="tf_fname" editable="false" />
                               <TextField fx:id="tf_lname" editable="false" />
-                              <TextField fx:id="tf_phoneno" editable="false" />
                               <TextField fx:id="tf_address" editable="false" />
                               <TextField fx:id="tf_postcode" editable="false" />
                               <TextField fx:id="tf_city" editable="false" />
-                              <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="200.0" />
+                              <TextField fx:id="tf_state" />
+                              <ComboBox fx:id="resvIdType_CBox" prefHeight="25.0" prefWidth="215.0" />
                               <TextField fx:id="tf_idtype" editable="false" />
                               <TextField fx:id="tf_idno" editable="false" />
                            </children>
@@ -235,7 +230,7 @@
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </padding>
             </VBox>
-            <TableView fx:id="guestTable" editable="true" layoutX="435.0" layoutY="415.0" prefHeight="139.0" prefWidth="358.0">
+            <TableView fx:id="guestTable" editable="true" layoutX="419.0" layoutY="412.0" prefHeight="139.0" prefWidth="358.0">
                <columns>
                   <TableColumn fx:id="fname" prefWidth="92.0" text="First Name" />
                   <TableColumn fx:id="lname" prefWidth="97.0" text="Last Name" />
@@ -243,9 +238,9 @@
                   <TableColumn fx:id="roomno" prefWidth="72.0" text="Room No" />
                </columns>
             </TableView>
-            <GridPane alignment="TOP_CENTER" hgap="10.0" layoutX="609.0" layoutY="559.0" prefHeight="28.0" prefWidth="184.0" vgap="10.0">
+            <GridPane alignment="TOP_CENTER" hgap="10.0" layoutX="593.0" layoutY="563.0" prefHeight="28.0" prefWidth="184.0" vgap="10.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Edit">
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
