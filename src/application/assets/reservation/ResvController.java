@@ -482,7 +482,27 @@ public class ResvController implements Initializable {
                 String ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
                         "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
                         tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
-                String ex2 = "INSERT INTO CustomerGroup VALUES ('')";
+                try {
+                    db.executeUpdate(ex);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                for (ModelGroupMember mg: table_gmembers.getItems()){
+                    String ex2 = "INSERT INTO CustomerGroup VALUES ('" + mg.getMemFName() +
+                            "', '" + mg.getMemLName() + "', '" + mg.getIdType() +
+                            "', '" + mg.getIdNo() + "', '" + tf_idno.getText() + "')";
+                    try {
+                        db.executeUpdate(ex2);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                for (ModelRoom mr: table_resvRoom.getItems()){
+                    //String ex3 = "INSERT INTO ";
+                }
+
             }
         });
 

@@ -9,7 +9,7 @@ public class ModelGroupMember {
     private SimpleStringProperty idType = new SimpleStringProperty();
     private SimpleStringProperty idNo = new SimpleStringProperty();
     private SimpleStringProperty roomNo = new SimpleStringProperty();
-    private SimpleIntegerProperty gCustId = new SimpleIntegerProperty();
+    private SimpleStringProperty gCustId = new SimpleStringProperty();
     private SimpleStringProperty icNum = new SimpleStringProperty();
 
 
@@ -38,7 +38,7 @@ public class ModelGroupMember {
     }
 
 
-    public SimpleIntegerProperty gCustIdProperty() {return gCustId;}
+    public SimpleStringProperty gCustIdProperty() {return gCustId;}
 
     public String getMemFName() {
         return memFName.get();
@@ -67,7 +67,7 @@ public class ModelGroupMember {
         return roomNo.get();
     }
 
-    public Integer getgCustId() {
+    public String getgCustId() {
         return gCustId.get();
     }
 
@@ -91,9 +91,10 @@ public class ModelGroupMember {
         this.roomNo.set(roomNo);
     }
 
-    public void setgCustId(Integer gCustId) {
+    public void setgCustId(String gCustId) {
         this.gCustId.set(gCustId);
     }
+
     public void seticNum(String icNum) {
         this.icNum.set(icNum);
     }
