@@ -5,6 +5,8 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import application.Validation;
 import javafx.fxml.FXMLLoader;
@@ -77,6 +79,8 @@ public class ResvController implements Initializable {
     private String inDate;
     private String outDate;
 
+    private ObservableList<String> idtype = FXCollections.observableArrayList("Identification Card", "Passport No");
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -95,6 +99,8 @@ public class ResvController implements Initializable {
         delFac();
 
         resvPay();
+
+        cbox_idtype.setItems(idtype);
 
         //store short form of countries in array
         String[] locale = Locale.getISOCountries();
@@ -543,7 +549,8 @@ public class ResvController implements Initializable {
                 for (ModelFacility mf: table_resvFac.getItems()){
                     String ex4 = "INSERT INTO FacBookedDate VALUES ('" + mf.getFacno() +
                             "', '" + mf.getBookedfacdate() +
-                            "', " + Integer.parseInt(tf_resvno.getText()) + ")";
+                            "', " + Integer.parseInt(tf_resvno.getText()) + ", '" + mf.getFacdesc() +
+                            "')";
                     try {
                         db.executeUpdate(ex4);
                     } catch (SQLException e) {
@@ -562,7 +569,7 @@ public class ResvController implements Initializable {
                             " , '" + LocalDate.now().toString() +
                             "', " + tf_resvno.getText() + ")";
                     try {
-                        db.executeQuery(ex5);
+                        db.executeUpdate(ex5);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -573,7 +580,7 @@ public class ResvController implements Initializable {
                             ", " + rpc.getCbox_Year().getSelectionModel().getSelectedItem() +
                             ")";
                     try {
-                        db.executeQuery(ex5);
+                        db.executeUpdate(ex5);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -587,7 +594,7 @@ public class ResvController implements Initializable {
                             " , '" + LocalDate.now().toString() +
                             "', " + tf_resvno.getText() + ")";
                     try {
-                        db.executeQuery(ex5);
+                        db.executeUpdate(ex5);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -601,10 +608,15 @@ public class ResvController implements Initializable {
                             " , '" + LocalDate.now().toString() +
                             "', " + tf_resvno.getText() + ", '" + rpc.getTf_cardname().getText() +
                             "')";
+                    try {
+                        db.executeUpdate(ex5);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
-        });
+        });//reserve button ends
 
     } //end payment stuffs
 
