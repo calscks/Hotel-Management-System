@@ -13,7 +13,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import static application.slidemenu.SlideMenuController.db;
@@ -21,7 +20,8 @@ import static application.slidemenu.SlideMenuController.db;
 
 public class COController implements Initializable {
 
-    Date currentdate = new Date();
+
+
     @FXML private TextField tf_coRoomNo;
     @FXML private TextField tf_coFirstName;
     @FXML private TextField tf_coLastName;
@@ -32,7 +32,7 @@ public class COController implements Initializable {
 
     @FXML private Label label_coDeposit;
     @FXML private Label label_coOverdue;
-    @FXML  private Label label_coPayAmt;
+    @FXML private Label label_coPayAmt;
 
     @FXML  private ComboBox<String> cbox_coCountry;
     @FXML  private ComboBox<String> cbox_coIDType;
@@ -49,6 +49,7 @@ public class COController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         filltb();
+
         table_co.setRowFactory(action->{
             TableRow<ModelCheckOut> row = new TableRow();
             row.setOnMouseClicked(event -> {
@@ -85,7 +86,6 @@ public class COController implements Initializable {
                     notcheckedin.setTitle("ERROR");
                     notcheckedin.setContentText("Customer has not check in yet!");
                     notcheckedin.showAndWait();
-
                 }
 
 
