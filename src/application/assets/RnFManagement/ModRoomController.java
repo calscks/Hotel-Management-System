@@ -41,11 +41,24 @@ public class ModRoomController implements Initializable{
     @FXML private TextField tf_fullbedprice;
     @FXML private TextField tf_queenbedprice;
     @FXML private TextField tf_kingbedprice;
+    @FXML private TextField tf_groupsearchby;
+    @FXML private TextField tf_grouproomcategory;
+    @FXML private TextField tf_grouproomtype;
+    @FXML private TextField tf_grouppaxperroom;
+    @FXML private TextField tf_grouproomprice;
+    @FXML private TextField tf_grouptwinbedprice;
+    @FXML private TextField tf_groupfullbedprice;
+    @FXML private TextField tf_groupqueenbedprice;
+    @FXML private TextField tf_groupkingbedprice;
     @FXML private Button btn_search;
+    @FXML private Button btn_groupsearch;
     @FXML private Button btn_modaddroom;
     @FXML private TableView<ModelRoom> tv_modroom;
+    @FXML private TableView<ModelRoom> tv_groupmodroom;
     @FXML private TableColumn<ModelRoom, String> tc_modroomno;
     @FXML private TableColumn<ModelRoom, String> tc_modroomtype;
+    @FXML private TableColumn<ModelRoom, String> tc_groupmodroomcategory;
+    @FXML private TableColumn<ModelRoom, String> tc_groupmodroomprice;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,6 +68,46 @@ public class ModRoomController implements Initializable{
         cbox_searchby.setItems(selectbyitems);
 
         addroom();
+
+        btn_groupsearch.setOnMouseClicked(me ->{
+            try {
+                String sqll = "SELECT * FROM RoomType rt " +
+                        "WHERE rt.TypeGroup ='" + tf_groupsearchby.getText() + "'";
+
+                ResultSet data = db.executeQuery(sqll);
+                ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
+
+                String grouproomcategory = data.getString("TypeGroup");
+                String grouproomtype = data.getString("TypeName");
+                String grouproompax = data.getString("MaxPax");
+                String grouproomprice = data.getString("RoomPrice");
+                String grouproomtwinprice = data.getString("Rate_extTwin");
+                String grouproomfullprice = data.getString("Rate_extFull");
+                String grouproomqueenprice = data.getString("Rate_extQueen");
+                String grouproomkingprice = data.getString("Rate_extKing");
+
+                tf_grouproomcategory.setText(grouproomcategory);
+                tf_grouproomtype.setText(grouproomtype);
+                tf_grouppaxperroom.setText(grouproompax);
+                tf_grouproomprice.setText(grouproomprice);
+                tf_grouptwinbedprice.setText(grouproomtwinprice);
+                tf_groupfullbedprice.setText(grouproomfullprice);
+                tf_groupqueenbedprice.setText(grouproomqueenprice);
+                tf_groupkingbedprice.setText(grouproomkingprice);
+                while(data.next()){
+                    ModelRoom mr = new ModelRoom();
+                    mr.setRtype(data.getString("TypeGroup"));
+                    mr.setRoomprice(data.getString("RoomPrice"));
+                    rtable.add(mr);
+                }
+                tc_groupmodroomcategory.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+                tc_groupmodroomprice.setCellValueFactory(new PropertyValueFactory<>("roomprice"));
+                tv_groupmodroom.setItems(rtable);
+
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        });
 
         btn_search.setOnMouseClicked(me -> {
             if (cbox_searchby.getValue().equals("RoomCategory")){
@@ -195,17 +248,19 @@ public class ModRoomController implements Initializable{
         });
 
         arc.getBtn_addroomtype().setOnMouseClicked(me ->{
-            String grouproomcategory = arc.getCbox_grouproomcategory().getSelectionModel().getSelectedItem();
-            String roomtype = arc.getTf_roomtype().getText();
-            Integer maxpax = Integer.parseInt(arc.getTf_paxperroom().getText());
-            Integer roomprice = Integer.parseInt(arc.getTf_roomprice().getText());
-            Float twinprice = Float.parseFloat(arc.getTf_twinbedprice().getText());
-            Float fullprice = Float.parseFloat(arc.getTf_fullbedprice().getText());
-            Float queenprice = Float.parseFloat(arc.getTf_queenbedprice().getText());
-            Float kingprice = Float.parseFloat(arc.getTf_kingbedprice().getText());
+
             ComboBox cboxextrabed = arc.getCbox_extrabed();
 
-            if (cboxextrabed.getValue().equals("Yes")) {
+            if (cboxextrabed.getSelectionModel().getSelectedItem().equals("Yes")) {
+                String grouproomcategory = arc.getCbox_grouproomcategory().getSelectionModel().getSelectedItem();
+                String roomtype = arc.getTf_roomtype().getText();
+                Integer maxpax = Integer.parseInt(arc.getTf_paxperroom().getText());
+                Integer roomprice = Integer.parseInt(arc.getTf_roomprice().getText());
+                Float twinprice = Float.parseFloat(arc.getTf_twinbedprice().getText());
+                Float fullprice = Float.parseFloat(arc.getTf_fullbedprice().getText());
+                Float queenprice = Float.parseFloat(arc.getTf_queenbedprice().getText());
+                Float kingprice = Float.parseFloat(arc.getTf_kingbedprice().getText());
+
                 try {
                     String sql1 = "INSERT INTO RoomType (TypeGroup,TypeName,MaxPax,RoomPrice,Rate_extTwin,Rate_extFull,Rate_extQueen,Rate_extKing) " +
                             "VALUES ('" + grouproomcategory + "','" + roomtype + "'," + maxpax + "," + roomprice + "," + twinprice + "," + fullprice + "," + queenprice + "," + kingprice + ")";
@@ -215,7 +270,12 @@ public class ModRoomController implements Initializable{
                     e.printStackTrace();
                 }
             }
-            else if (cboxextrabed.getValue().equals("No")){
+            else if (cboxextrabed.getSelectionModel().getSelectedItem().equals("No")){
+                String grouproomcategory = arc.getCbox_grouproomcategory().getSelectionModel().getSelectedItem();
+                String roomtype = arc.getTf_roomtype().getText();
+                Integer maxpax = Integer.parseInt(arc.getTf_paxperroom().getText());
+                Integer roomprice = Integer.parseInt(arc.getTf_roomprice().getText());
+
                 try {
                     String sql2 = "INSERT INTO RoomType (TypeGroup,TypeName,MaxPax,RoomPrice)" +
                             "VALUES ('" + grouproomcategory + "','" + roomtype + "'," + maxpax + "," + roomprice + ")";
@@ -256,5 +316,14 @@ public class ModRoomController implements Initializable{
         tf_fullbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_queenbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_kingbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_groupsearchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
+        tf_grouproomcategory.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        tf_grouproomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        tf_grouppaxperroom.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_grouproomprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_grouptwinbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_groupfullbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_groupqueenbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
+        tf_groupkingbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
     }
 }

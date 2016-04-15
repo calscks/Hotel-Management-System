@@ -158,11 +158,19 @@ public class ModFacController implements Initializable{
         AddFacController afc = loadfac.getController();
 
         afc.getBtn_addfac().setOnMouseClicked(me ->{
-
             //additem
+            String facno = afc.getTf_facno().getText();
+            String facname = afc.getTf_facname().getText();
+            String facdesc = afc.getTa_addfacdesc().getText();
+            Integer facprice = Integer.parseInt(afc.getTf_addfacprice().getText());
 
-
-
+            try {
+                String sql = "INSERT INTO FacType (FacNo,FacName,FacDesc,FacPrice)"+
+                        "VALUES ('"+ facno +"','"+ facname +"','"+ facdesc +"',"+ facprice +")";
+                db.executeUpdate(sql);
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
             //clear items
             afc.getTf_facno().clear();
             afc.getTf_facname().clear();
@@ -178,6 +186,7 @@ public class ModFacController implements Initializable{
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoSpace(20));
         tf_facno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_facname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
+        ta_facdesc.addEventFilter(KeyEvent.KEY_TYPED, Validation.validtxtareaCharNoSpace(50));
         tf_facresvprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
     }
 }
