@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -190,9 +191,9 @@ public class ResvController implements Initializable {
 
                 table_gmembers.getItems().add(mg);
 
-                rag.getTf_fname().setText(null);
-                rag.getTf_lname().setText(null);
-                rag.getTf_idno().setText(null);
+                rag.getTf_fname().setText("");
+                rag.getTf_lname().setText("");
+                rag.getTf_idno().setText("");
 
                 Stage stage = (Stage) rag.getBtn_addmem().getScene().getWindow();
                 stage.close();
@@ -246,7 +247,7 @@ public class ResvController implements Initializable {
             rc.getLbl_extBedPrice().setText(null);
             rc.getLbl_roomPrice().setText(null);
             rc.getLbl_totalRoomPrice().setText(null);
-            rc.getTf_roomno().setText(null);
+            rc.getTf_roomno().setText("");
 
             Stage stage = (Stage) rc.getBtn_roomAdd().getScene().getWindow();
             stage.close();
@@ -500,9 +501,9 @@ public class ResvController implements Initializable {
                     e.printStackTrace();
                 }
 
-                ex = "INSERT INTO CustAddress VALUES ('" + tf_idno +
-                        "', '" + tf_address + "', '" + tf_postcode +
-                        "', '" + tf_city + "', '" + tf_state +
+                ex = "INSERT INTO CustAddress VALUES ('" + tf_idno.getText() +
+                        "', '" + tf_address.getText() + "', '" + tf_postcode.getText() +
+                        "', '" + tf_city.getText() + "', '" + tf_state.getText() +
                         "', '" + cbox_country.getSelectionModel().getSelectedItem() +
                         "')";
 
@@ -513,7 +514,7 @@ public class ResvController implements Initializable {
                 }
 
 
-                ex = "INSERT INTO Reservation VALUES ('" + tf_idno +
+                ex = "INSERT INTO Reservation VALUES ('" + tf_idno.getText() +
                         "', '" + inDate +
                         "', '" + outDate +
                         "', "+ tf_resvno.getText() + ")";
@@ -565,7 +566,7 @@ public class ResvController implements Initializable {
                             "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
                             " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
                             " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            " , " + Integer.parseInt(rpc.getTf_cardno().getText()) +
+                            " , " + Long.parseLong(rpc.getTf_cardno().getText()) +
                             " , '" + LocalDate.now().toString() +
                             "', " + tf_resvno.getText() + ")";
                     try {
@@ -573,7 +574,7 @@ public class ResvController implements Initializable {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-                    ex5 = "INSERT INTO Pay_CCard VALUES ( " + Integer.parseInt(rpc.getTf_cardno().getText()) +
+                    ex5 = "INSERT INTO Pay_CCard VALUES ( " + Long.parseLong(rpc.getTf_cardno().getText()) +
                             ", '" + rpc.getTf_cardname().getText() +
                             "', " + Integer.parseInt(rpc.getTf_cvccode().getText()) +
                             ", " + rpc.getCbox_Month().getSelectionModel().getSelectedItem() +
@@ -614,7 +615,6 @@ public class ResvController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-
             }
         });//reserve button ends
 
