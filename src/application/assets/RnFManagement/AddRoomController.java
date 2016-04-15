@@ -158,10 +158,10 @@ public class AddRoomController implements Initializable{
                     tf_paxperroom.setDisable(false);
                     tf_roomprice.setDisable(false);
                     cbox_extrabed.setDisable(false);
-                    tf_twinbedprice.setDisable(false);
-                    tf_fullbedprice.setDisable(false);
-                    tf_queenbedprice.setDisable(false);
-                    tf_kingbedprice.setDisable(false);
+                    tf_twinbedprice.setDisable(true);
+                    tf_fullbedprice.setDisable(true);
+                    tf_queenbedprice.setDisable(true);
+                    tf_kingbedprice.setDisable(true);
                     btn_addroomtype.setDisable(false);
                     cbox_roomcategory.setDisable(true);
                     cbox_roomtype.setDisable(true);
