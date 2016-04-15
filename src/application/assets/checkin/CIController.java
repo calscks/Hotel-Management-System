@@ -1,6 +1,5 @@
 package application.assets.checkin;
 
-import application.DBConnection;
 import application.Validation;
 import application.assets.ForAddButton;
 import application.assets.ModelFacility;
@@ -13,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,7 +19,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,64 +28,39 @@ import static application.slidemenu.SlideMenuController.db;
 
 public class CIController implements Initializable{
 
-    @FXML
-    private Button btn_ciNext;
-    @FXML
-    private TextField tf_ciResvNum;
-    @FXML
-    private TextField tf_ciFirstName;
-    @FXML
-    private Button button;
-    @FXML
-    private TextField tf_ciLastName;
-    @FXML
-    private TextField tf_ciPhoneNo;
-    @FXML
-    private ComboBox cbox_ciCountry;
-    @FXML
-    private TextField tf_ciAddress;
-    @FXML
-    private TextField tf_ciPostCode;
-    @FXML
-    private TextField tf_ciCity;
-    @FXML
-    private TextField tf_ciIDType;
-    @FXML
-    private TextField tf_ciIDNo;
-    @FXML
-    private Button btn_ciAddGroupMember;
-    @FXML
-    private Button btn_ciAddRoom;
-    @FXML
-    private TableView<ModelRoom> roomtable;
-    @FXML
-    private TableColumn<ModelRoom, String> ciroomno;
-    @FXML
-    private TableColumn<ModelRoom, String> ciroomtype;
-    @FXML
-    private TableColumn<ModelRoom, String> cicid;
-    @FXML
-    private TableColumn<ModelRoom, String> cicod;
-    @FXML
-    private TableView<ModelFacility> cifactable;
-    @FXML
-    private TableColumn<ModelFacility, String> bookfaccol;
-    @FXML
-    private TableColumn<ModelFacility, String> facprice;
-    @FXML
-    private TableColumn<ModelFacility, String> facdate;
-    @FXML
-    private TableColumn<ModelFacility, String> factime;
-    @FXML
-    private TableView<ModelGroupMember> grouptable;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tableC_ciGroupFirstName;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tableC_ciGroupLastName;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tableC_ciIcno;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tableC_ciGroupRoomNo;
+    @FXML private Button btn_ciNext;
+    @FXML private Button button;
+    @FXML private Button btn_ciAddGroupMember;
+    @FXML private Button btn_ciAddRoom;
+
+    @FXML private TextField tf_ciResvNum;
+    @FXML private TextField tf_ciFirstName;
+    @FXML private TextField tf_ciLastName;
+    @FXML private TextField tf_ciPhoneNo;
+    @FXML private TextField tf_ciAddress;
+    @FXML private TextField tf_ciPostCode;
+    @FXML private TextField tf_ciCity;
+    @FXML private TextField tf_ciIDType;
+    @FXML private TextField tf_ciIDNo;
+
+    @FXML private ComboBox cbox_ciCountry;
+
+    @FXML private TableView<ModelRoom> roomtable;
+    @FXML private TableView<ModelFacility> cifactable;
+    @FXML private TableView<ModelGroupMember> grouptable;
+
+    @FXML private TableColumn<ModelRoom, String> ciroomno;
+    @FXML private TableColumn<ModelRoom, String> ciroomtype;
+    @FXML private TableColumn<ModelRoom, String> cicid;
+    @FXML private TableColumn<ModelRoom, String> cicod;
+    @FXML private TableColumn<ModelFacility, String> bookfaccol;
+    @FXML private TableColumn<ModelFacility, String> facprice;
+    @FXML private TableColumn<ModelFacility, String> facdate;
+    @FXML private TableColumn<ModelFacility, String> factime;
+    @FXML private TableColumn<ModelGroupMember, String> tableC_ciGroupFirstName;
+    @FXML private TableColumn<ModelGroupMember, String> tableC_ciGroupLastName;
+    @FXML private TableColumn<ModelGroupMember, String> tableC_ciIcno;
+    @FXML private TableColumn<ModelGroupMember, String> tableC_ciGroupRoomNo;
 
 
 
