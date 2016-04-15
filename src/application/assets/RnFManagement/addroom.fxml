@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -15,120 +20,112 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<ScrollPane prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.RnFManagement.AddRoomController">
-   <content>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="369.0" minWidth="361.0" prefHeight="675.0" prefWidth="1200.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="369.0" minWidth="361.0" prefHeight="675.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.assets.RnFManagement.AddRoomController">
+   <children>
+      <VBox layoutX="248.0" layoutY="134.0" prefHeight="460.0" prefWidth="351.0">
          <children>
-            <VBox layoutX="248.0" layoutY="134.0" prefHeight="460.0" prefWidth="351.0">
+            <GridPane hgap="10.0" prefHeight="415.0" prefWidth="403.0" style="-fx-border-color: #cccccc;" vgap="10.0">
                <children>
-                  <GridPane hgap="10.0" prefHeight="415.0" prefWidth="403.0" style="-fx-border-color: #cccccc;" vgap="10.0">
-                     <children>
-                        <Label text="Room Category :" />
-                        <Label text="Room Type :" GridPane.rowIndex="1" />
-                        <Label text="Pax per Room :" GridPane.rowIndex="2" />
-                        <Label text="Extra Bed :" GridPane.rowIndex="4" />
-                        <TextField fx:id="tf_paxperroom" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Room Price :" GridPane.rowIndex="3" />
-                        <TextField fx:id="tf_roomprice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField fx:id="tf_kingbedprice" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <TextField fx:id="tf_queenbedprice" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <TextField fx:id="tf_fullbedprice" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField fx:id="tf_twinbedprice" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label text="Extra Bed Prices*" underline="true" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="System Bold Italic" size="13.0" />
-                           </font>
-                        </Label>
-                        <Label text="Twin Bed Price :" GridPane.rowIndex="6" />
-                        <Label text="Full Bed Price :" GridPane.rowIndex="7" />
-                        <Label text="Queen Bed Price :" GridPane.rowIndex="8" />
-                        <Label text="King Bed Price :" GridPane.rowIndex="9" />
-                        <Label text="*Leave blank to exclude certain type(s) of extra bed" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <font>
-                              <Font name="System Italic" size="10.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="tf_roomcategory" GridPane.columnIndex="1" />
-                        <TextField fx:id="tf_roomtype" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cbox_extrabed" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                     </children>
-                     <columnConstraints>
-                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="108.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="220.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <VBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets bottom="3.0" right="5.0" top="3.0" />
-                     </padding>
-                  </GridPane>
-                  <HBox alignment="CENTER" prefHeight="44.0" prefWidth="423.0">
-                     <children>
-                        <Button fx:id="btn_addroomtype" mnemonicParsing="false" prefHeight="35.0" prefWidth="107.0" text="Add Room Type" />
-                     </children>
-                  </HBox>
+                  <Label text="Room Category :" />
+                  <Label text="Room Type :" GridPane.rowIndex="1" />
+                  <Label text="Pax per Room :" GridPane.rowIndex="2" />
+                  <Label text="Extra Bed :" GridPane.rowIndex="4" />
+                  <TextField fx:id="tf_paxperroom" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Room Price :" GridPane.rowIndex="3" />
+                  <TextField fx:id="tf_roomprice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="tf_kingbedprice" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <TextField fx:id="tf_queenbedprice" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                  <TextField fx:id="tf_fullbedprice" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <TextField fx:id="tf_twinbedprice" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label text="Extra Bed Prices*" underline="true" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Bold Italic" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label text="Twin Bed Price :" GridPane.rowIndex="6" />
+                  <Label text="Full Bed Price :" GridPane.rowIndex="7" />
+                  <Label text="Queen Bed Price :" GridPane.rowIndex="8" />
+                  <Label text="King Bed Price :" GridPane.rowIndex="9" />
+                  <Label text="*Leave blank to exclude certain type(s) of extra bed" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Italic" size="10.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tf_roomtype" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbox_extrabed" onAction="#extrabed" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="cbox_grouproomcategory" prefHeight="25.0" prefWidth="246.0" GridPane.columnIndex="1" />
                </children>
-            </VBox>
-            <Label layoutX="186.0" layoutY="82.0" prefHeight="26.0" prefWidth="264.0" text="Room Management">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <RadioButton fx:id="rb_addnewroomtype" layoutX="253.0" layoutY="107.0" mnemonicParsing="false" text="Add New Room Type">
-               <font>
-                  <Font name="System Italic" size="13.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="rb_addnewroom" layoutX="663.0" layoutY="107.0" mnemonicParsing="false" text="Add New Room">
-               <font>
-                  <Font name="System Italic" size="13.0" />
-               </font>
-            </RadioButton>
-            <VBox layoutX="663.0" layoutY="137.0" prefHeight="158.0" prefWidth="351.0">
+               <columnConstraints>
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="108.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="220.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <VBox.margin>
+                  <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="3.0" right="5.0" top="3.0" />
+               </padding>
+            </GridPane>
+            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="423.0">
                <children>
-                  <GridPane hgap="10.0" prefHeight="165.0" prefWidth="351.0" style="-fx-border-color: #cccccc;" vgap="10.0">
-                    <columnConstraints>
-                      <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="98.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="243.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <TextField fx:id="tf_roomtypeid" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="tf_roomno" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label prefHeight="17.0" text="Room Type :" GridPane.rowIndex="1" />
-                        <Label text="Room Type ID :" GridPane.rowIndex="2" />
-                        <Label prefHeight="17.0" text="Room No :" GridPane.rowIndex="3" />
-                        <Label text="Room Category :" textAlignment="RIGHT" />
-                        <ComboBox fx:id="cbox_roomtype" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cbox_roomcategory" prefHeight="25.0" prefWidth="252.0" GridPane.columnIndex="1" />
-                     </children>
-                     <padding>
-                        <Insets right="5.0" />
-                     </padding>
-                  </GridPane>
+                  <Button fx:id="btn_addroomtype" mnemonicParsing="false" prefHeight="35.0" prefWidth="107.0" text="Add Room Type" />
                </children>
-            </VBox>
-            <Button fx:id="btn_addroom" layoutX="795.0" layoutY="328.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Add Room" />
+            </HBox>
          </children>
-      </AnchorPane>
-   </content>
-</ScrollPane>
+      </VBox>
+      <Label layoutX="186.0" layoutY="82.0" prefHeight="26.0" prefWidth="264.0" text="Room Management">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="rb_addnewroomtype" layoutX="253.0" layoutY="107.0" mnemonicParsing="false" text="Add New Room Type">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="rb_addnewroom" layoutX="663.0" layoutY="107.0" mnemonicParsing="false" text="Add New Room">
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </RadioButton>
+      <VBox layoutX="663.0" layoutY="137.0" prefHeight="119.0" prefWidth="351.0">
+         <children>
+            <GridPane hgap="10.0" prefHeight="157.0" prefWidth="351.0" style="-fx-border-color: #cccccc;" vgap="10.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="192.0" minWidth="10.0" prefWidth="98.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="291.0" minWidth="10.0" prefWidth="243.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextField fx:id="tf_roomno" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label prefHeight="17.0" text="Room Type :" GridPane.rowIndex="1" />
+                  <Label prefHeight="17.0" text="Room No :" GridPane.rowIndex="2" />
+                  <Label text="Room Category :" textAlignment="RIGHT" />
+                  <ComboBox fx:id="cbox_roomtype" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cbox_roomcategory" prefHeight="25.0" prefWidth="252.0" GridPane.columnIndex="1" />
+               </children>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </GridPane>
+         </children>
+      </VBox>
+      <Button fx:id="btn_addroom" layoutX="783.0" layoutY="274.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="112.0" text="Add Room" />
+   </children>
+</AnchorPane>
