@@ -23,7 +23,7 @@ public class ModelResv {
         return roomNo;
     }
 
-    public String getresvNo() {
+    public String getResvNo() {
         return resvNo.get();
     }
 
@@ -31,13 +31,15 @@ public class ModelResv {
         return fName.get();
     }
 
+    public String getRoomNo() {
+        return roomNo.get();
+    }
+
     public String getlName() {
         return lName.get();
     }
 
-    public String getroomNo() {return roomNo.get();}
-
-    public void setresvNo(String resvNo) {
+    public void setResvNo(String resvNo) {
         this.resvNo.set(resvNo);
     }
 
@@ -49,6 +51,7 @@ public class ModelResv {
         this.lName.set(lName);
     }
 
-    public void setroomNo(String roomNo) {this.roomNo.set(roomNo);}
+    public void setRoomNo(String roomNo) {this.roomNo.set(roomNo);}
+
 
 }

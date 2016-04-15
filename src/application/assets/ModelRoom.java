@@ -10,11 +10,6 @@ public class ModelRoom {
     private SimpleStringProperty codate = new SimpleStringProperty();
     private SimpleStringProperty extbedtype = new SimpleStringProperty();
     private SimpleStringProperty roomprice = new SimpleStringProperty();
-//    private SimpleStringProperty paxperroom = new SimpleStringProperty();
-//    private SimpleStringProperty twinbedprice = new SimpleStringProperty();
-//    private SimpleStringProperty fullbedprice = new SimpleStringProperty();
-//    private SimpleStringProperty queenbedprice  = new SimpleStringProperty();
-//    private SimpleStringProperty kingbedprice  = new SimpleStringProperty();
 
     public SimpleStringProperty roomcatProperty() {
         return roomcat;
@@ -41,16 +36,6 @@ public class ModelRoom {
     public SimpleStringProperty roompriceProperty() {
         return roomprice;
     }
-
-//    public SimpleStringProperty paxperroomProperty() { return  paxperroom; }
-//
-//    public SimpleStringProperty twinbedpriceProperty() { return  twinbedprice; }
-//
-//    public SimpleStringProperty fullbedpriceProperty() { return  fullbedprice; }
-//
-//    public SimpleStringProperty queenbedpriceProperty() { return  queenbedprice; }
-//
-//    public SimpleStringProperty kingbedpriceProperty() { return  kingbedprice; }
 
     public String getRoomcat() {
         return roomcat.get();
@@ -79,16 +64,6 @@ public class ModelRoom {
     public String getRoomprice() {
         return roomprice.get();
     }
-
-//    public String getPaxPerRoom() { return paxperroom.get(); }
-//
-//    public String getTwinBedPrice() { return twinbedprice.get(); }
-//
-//    public String getFullBedPrice() { return fullbedprice.get(); }
-//
-//    public String getQueenBedPrice() { return queenbedprice.get(); }
-//
-//    public String getKingBedPrice() { return kingbedprice.get(); }
 
     //these setters are important to set database column value into each properties of this data model class
 
@@ -120,16 +95,6 @@ public class ModelRoom {
     public void setRoomprice(String roomprice) {
         this.roomprice.set(roomprice);
     }
-
-//    public void setPaxperroom(String paxperroom) { this.paxperroom.set(paxperroom); }
-//
-//    public void setTwinbedprice(String twinbedprice) { this.twinbedprice.set(twinbedprice); }
-//
-//    public void setFullbedprice(String fullbedprice) { this.fullbedprice.set(fullbedprice); }
-//
-//    public void setQueenbedprice(String queenbedprice) { this.queenbedprice.set(queenbedprice); }
-//
-//    public void setKingbedprice(String kingbedprice) { this.kingbedprice.set(kingbedprice); }
 
     //if u don't understand getters and setters then ggwp
 }

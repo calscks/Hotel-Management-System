@@ -131,10 +131,10 @@ public class ResvEditController implements Initializable{
                 ResultSet data = c.executeQuery(sql);
                     while (data.next()){
                     ModelResv rv = new ModelResv();
-                    rv.setresvNo(data.getString("resvno"));
+                    rv.setResvNo(data.getString("resvno"));
                     rv.setfName(data.getString("custfname"));
                     rv.setlName(data.getString("custlname"));
-                    rv.setroomNo(data.getString("roomno"));
+                    rv.setRoomNo(data.getString("roomno"));
                     resvtable.add(rv);
                 }
                 /*String firstname = data.getString("CustFName");
