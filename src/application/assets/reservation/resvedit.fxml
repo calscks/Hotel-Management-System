@@ -113,7 +113,7 @@
                               <TextField fx:id="tf_postcode" editable="false" />
                               <TextField fx:id="tf_city" editable="false" />
                               <TextField fx:id="tf_state" />
-                              <ComboBox fx:id="cbox_country" prefHeight="25.0" prefWidth="215.0" />
+                              <ComboBox fx:id="cbox_country" editable="true" prefHeight="25.0" prefWidth="215.0" />
                               <ComboBox fx:id="cbox_idtype" prefHeight="25.0" prefWidth="213.0" />
                               <TextField fx:id="tf_idno" editable="false" />
                            </children>
@@ -212,7 +212,6 @@
                   <TableColumn fx:id="tbcol_memlname" prefWidth="97.0" text="Last Name" />
                   <TableColumn fx:id="tbcol_memidtype" prefWidth="92.0" text="ID Type" />
                   <TableColumn fx:id="tbcol_memidno" prefWidth="79.0" text="Passport/IC No" />
-                  <TableColumn fx:id="tbcol_memroomno" prefWidth="72.0" text="Room No" />
                </columns>
             </TableView>
             <GridPane alignment="TOP_CENTER" hgap="10.0" layoutX="593.0" layoutY="593.0" prefHeight="28.0" prefWidth="184.0" vgap="10.0">

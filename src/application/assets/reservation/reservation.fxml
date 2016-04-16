@@ -61,7 +61,6 @@
                       <TableColumn fx:id="tbcol_memlname" prefWidth="97.0" text="Last Name" />
                   <TableColumn fx:id="tbcol_memidtype" prefWidth="75.0" text="ID Type" />
                       <TableColumn fx:id="tbcol_memidno" prefWidth="96.0" text="Passport/IC No" />
-                  <TableColumn fx:id="tbcol_memroomno" prefWidth="72.0" text="Room No" />
                   </columns>
               </TableView>
               <Button fx:id="btn_delguest" layoutX="508.0" layoutY="632.0" mnemonicParsing="false" text="Delete" />
