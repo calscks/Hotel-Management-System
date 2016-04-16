@@ -26,7 +26,6 @@
                       <Label text="Reservation Number :" />
                       <Label text="First Name :" />
                       <Label text="Last Name :" />
-                  <Label text="Phone Number :" />
                       <Label text="Address :" />
                       <Label text="Post Code :" />
                       <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
@@ -47,7 +46,6 @@
                      </effect></TextField>
                       <TextField fx:id="tf_fname" />
                       <TextField fx:id="tf_lname" />
-                      <TextField fx:id="tf_phoneno" />
                       <TextField fx:id="tf_address" />
                       <TextField fx:id="tf_postcode" />
                   <TextField fx:id="tf_city" />

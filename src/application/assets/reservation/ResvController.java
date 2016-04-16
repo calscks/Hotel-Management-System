@@ -611,7 +611,7 @@ public class ResvController implements Initializable {
                         ", '" + tf_idno.getText() +
                         "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_balance().getText()) +
                         " , " + Long.parseLong(rpc.getTf_cardno().getText()) +
                         " , '" + LocalDate.now().toString() +
                         "', " + tf_resvno.getText() + ")";
@@ -632,12 +632,13 @@ public class ResvController implements Initializable {
                     e.printStackTrace();
                 }
             } else if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Cash")) {
+                //language=SQLite
                 String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
                         "PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
                         ", '" + tf_idno.getText() +
                         "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_balance().getText()) +
                         " , '" + LocalDate.now().toString() +
                         "', " + tf_resvno.getText() + ")";
                 try {
@@ -651,7 +652,7 @@ public class ResvController implements Initializable {
                         ", '" + tf_idno.getText() +
                         "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                        " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                        " , " + Float.parseFloat(rpc.getLbl_balance().getText()) +
                         " , '" + LocalDate.now().toString() +
                         "', " + tf_resvno.getText() + ", '" + rpc.getTf_cardname().getText() +
                         "')";
