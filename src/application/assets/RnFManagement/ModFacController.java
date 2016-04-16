@@ -16,10 +16,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import static application.slidemenu.SlideMenuController.db;
 import javax.activation.CommandObject;
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -38,6 +40,7 @@ public class ModFacController implements Initializable{
     @FXML private Label lbl_cboxselection;
     @FXML private ComboBox cbox_searchby;
     @FXML private Button btn_modaddfac;
+    @FXML private Button btn_moddelfac;
     @FXML private TableView<ModelFacility> modfactable;
     @FXML private TableColumn<ModelFacility, String> tb_facid;
     @FXML private TableColumn<ModelFacility, String> tb_facname;
@@ -59,6 +62,8 @@ public class ModFacController implements Initializable{
         validation();
 
         addfac();
+        
+        delfac();
 
         cbox_searchby.setItems(selectbyitems);
         //search function
@@ -167,6 +172,48 @@ public class ModFacController implements Initializable{
                 }
             });
             return selRow;
+        });
+    }
+
+    private void delfac() {
+        btn_moddelfac.setOnMouseClicked(me ->{
+            int selRow = modfactable.getSelectionModel().getSelectedIndex();
+            if (selRow >= 0) {
+                ModelFacility mf = new ModelFacility();
+                mf = modfactable.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Delete Facility");
+                alert.setContentText("Are you sure you want to delete " + mf.getFacname() + " from the table?");
+
+                Optional<ButtonType> sel = alert.showAndWait();
+                if (sel.isPresent()) {
+                    if (sel.get() == ButtonType.OK) {
+                        modfactable.getItems().remove(selRow);
+                        try {
+                            String sql = "DELETE from FacType WHERE FacNo = '" + mf.getFacno() + "'";
+                            db.executeUpdate(sql);
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        tf_facno.clear();
+                        tf_facname.clear();
+                        ta_facdesc.clear();
+                        tf_facresvprice.clear();
+                    }
+                    else {
+                        alert.close();
+                    }
+                }
+            }
+            else {
+                Alert noSel = new Alert(Alert.AlertType.WARNING);
+                noSel.setTitle("No Selection");
+                noSel.setHeaderText("No Facility is selected");
+                noSel.setContentText("Please select a facility in the table to be deleted");
+                noSel.showAndWait();
+            }
         });
     }
 
