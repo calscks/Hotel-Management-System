@@ -567,7 +567,8 @@ public class ResvController implements Initializable {
                 String ex3 = "INSERT INTO RoomBooking VALUES (" + Integer.parseInt(tf_resvno.getText()) + ", '" +
                         mr.getRoomno() + "', '" + mr.getExtbedtype() +
                         "', '" + mr.getCidate() + "', '" + mr.getCodate() +
-                        "', '" + mr.getRtype() + "')";
+                        "', '" + mr.getRtype() + "', '" + mr.getRoomprice() +
+                        "')";
                 try {
                     db.executeUpdate(ex3);
                 } catch (SQLException e) {
