@@ -571,7 +571,6 @@ public class ResvController implements Initializable {
                         "')";
                 try {
                     db.executeUpdate(ex3);
-                    db.executeUpdate(ex3);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

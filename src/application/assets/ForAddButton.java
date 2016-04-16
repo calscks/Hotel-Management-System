@@ -4,9 +4,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 
 /*
@@ -33,7 +36,7 @@ the add button is to show a new stage to add sth.
 public class ForAddButton {
     private AnchorPane finalPane;
     private Button addButton;
-    private TableView table;
+    private TextField unique;
 
     public ForAddButton(AnchorPane finalPane, Button addButton) {
         this.finalPane = finalPane;
@@ -43,10 +46,10 @@ public class ForAddButton {
     }
 
     //method overloading
-    public ForAddButton(AnchorPane finalPane, Button addButton, TableView table) {
+    public ForAddButton(AnchorPane finalPane, Button addButton, TextField unique) {
         this.finalPane = finalPane;
         this.addButton = addButton;
-        this.table = table;
+        this.unique = unique;
 
         showStage2();
     }
@@ -70,7 +73,7 @@ public class ForAddButton {
 
     private void showStage2() {
         addButton.setOnMouseClicked(me -> {
-            if (table.getItems().size() > 0) {
+            if (Objects.equals(unique.getText(), "")) {
                 Stage stage = new Stage();
 
                 if (finalPane.getScene() != null) {
