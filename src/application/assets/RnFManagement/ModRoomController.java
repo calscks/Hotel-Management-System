@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static application.slidemenu.SlideMenuController.db;
@@ -53,12 +54,16 @@ public class ModRoomController implements Initializable{
     @FXML private Button btn_search;
     @FXML private Button btn_groupsearch;
     @FXML private Button btn_modaddroom;
+    @FXML private Button btn_delroom;
+    @FXML private Button btn_delroomtype;
+    @FXML private Button btn_editroom;
+    @FXML private Button btn_editroomtype;
     @FXML private TableView<ModelRoom> tv_modroom;
     @FXML private TableView<ModelRoom> tv_groupmodroom;
     @FXML private TableColumn<ModelRoom, String> tc_modroomno;
     @FXML private TableColumn<ModelRoom, String> tc_modroomtype;
     @FXML private TableColumn<ModelRoom, String> tc_groupmodroomcategory;
-    @FXML private TableColumn<ModelRoom, String> tc_groupmodroomprice;
+    @FXML private TableColumn<ModelRoom, String> tc_groupmodroomtype;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -69,9 +74,14 @@ public class ModRoomController implements Initializable{
 
         addroom();
 
+        delroom();
+
+        delroomgroup();
+
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
                 String sqll = "SELECT * FROM RoomType rt " +
+                        "INNER JOIN Room rm ON rm.RoomTypeID = rt.TypeID " +
                         "WHERE rt.TypeGroup ='" + tf_groupsearchby.getText() + "'";
 
                 ResultSet data = db.executeQuery(sqll);
@@ -96,6 +106,7 @@ public class ModRoomController implements Initializable{
                 tf_groupkingbedprice.setText(grouproomkingprice);
 
                     ModelRoom mr = new ModelRoom();
+                    mr.setRoomno(data.getString("RoomNo"));
                     mr.setRtype(data.getString("TypeGroup"));
                     mr.setRoomprice(data.getString("RoomPrice"));
                     mr.setRoomtype(data.getString("TypeName"));
@@ -108,7 +119,7 @@ public class ModRoomController implements Initializable{
                     rtable.add(mr);
                 }
                 tc_groupmodroomcategory.setCellValueFactory(new PropertyValueFactory<>("rtype"));
-                tc_groupmodroomprice.setCellValueFactory(new PropertyValueFactory<>("roomprice"));
+                tc_groupmodroomtype.setCellValueFactory(new PropertyValueFactory<>("roomtype"));
                 tv_groupmodroom.setItems(rtable);
 
             }catch (SQLException e){
@@ -302,6 +313,59 @@ public class ModRoomController implements Initializable{
         });
     }
 
+    private void delroomgroup() {
+        btn_delroomtype.setOnMouseClicked(me->{
+            int selRow = tv_groupmodroom.getSelectionModel().getSelectedIndex();
+            if (selRow >= 0){
+                ModelRoom mr = new ModelRoom();
+                mr = tv_groupmodroom.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Delete room type");
+                alert.setContentText("All the room that you assigned to the selected room type will also be delete. Are you sure you want to delete " + mr.getRoomtype() + " from the table?");
+
+                Optional<ButtonType> sel = alert.showAndWait();
+                if (sel.isPresent()){
+                    tv_groupmodroom.getItems().remove(selRow);
+                    try {
+                        String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
+                        db.executeUpdate(sql);
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                    try {
+                        String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                        db.executeUpdate(sql1);
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                    tf_grouproomcategory.clear();
+                    tf_grouproomtype.clear();
+                    tf_grouppaxperroom.clear();
+                    tf_grouproomprice.clear();
+                    tf_grouptwinbedprice.clear();
+                    tf_groupfullbedprice.clear();
+                    tf_groupqueenbedprice.clear();
+                    tf_groupkingbedprice.clear();
+                }
+                else {
+                    alert.close();
+                }
+            }
+            else {
+                Alert noSel = new Alert(Alert.AlertType.WARNING);
+                noSel.setTitle("No Selection");
+                noSel.setHeaderText("No Room is selected");
+                noSel.setContentText("Please select a room in the table to be deleted");
+                noSel.showAndWait();
+            }
+        });
+    }
+
+    private void delroom() {
+    }
+
     private void addroom() {
         FXMLLoader loadroom = new FXMLLoader(getClass().getResource("/application/assets/RnFManagement/addroom.fxml"));
         AnchorPane roomPane = new AnchorPane();
@@ -404,6 +468,8 @@ public class ModRoomController implements Initializable{
 
 
     }
+
+
 
     private void validation() {
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
