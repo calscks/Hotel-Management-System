@@ -126,20 +126,20 @@
                </VBox.margin>
             </GridPane>
             <GridPane hgap="10.0" prefHeight="55.0" prefWidth="304.0">
-              <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <columnConstraints>
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button mnemonicParsing="false" text="Confirm" GridPane.columnIndex="1" />
-               </children>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
                <padding>
                   <Insets top="10.0" />
                </padding>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Button fx:id="btn_editroom" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Edit Room " />
+                  <Button fx:id="btn_delroom" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Delete Room " GridPane.columnIndex="1" />
+               </children>
             </GridPane>
          </children>
       </VBox>
@@ -152,22 +152,22 @@
          <children>
             <GridPane alignment="CENTER" hgap="10.0" prefHeight="61.0" prefWidth="329.0" vgap="10.0">
                <children>
-                  <Label text="Search Room Type">
+                  <Label text="Search Room Category">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lbl_cboxselection1" text="Search Room Type :" GridPane.rowIndex="1" />
+                  <Label fx:id="lbl_cboxselection1" text="Search Room Category :" GridPane.rowIndex="1" />
                   <HBox prefHeight="0.0" prefWidth="223.0" spacing="5.0" style="-fx-min-height: 0px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="tf_groupsearchby" prefHeight="25.0" prefWidth="170.0" />
+                        <TextField fx:id="tf_groupsearchby" prefHeight="25.0" prefWidth="148.0" />
                         <Button fx:id="btn_groupsearch" mnemonicParsing="false" text="Search" />
                      </children>
                   </HBox>
                </children>
                <columnConstraints>
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="89.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="226.0" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="155.0" minWidth="10.0" prefWidth="155.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="204.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -180,24 +180,18 @@
             <TableView fx:id="tv_groupmodroom" prefHeight="186.0" prefWidth="335.0">
                <columns>
                   <TableColumn fx:id="tc_groupmodroomcategory" prefWidth="188.0" text="Category" />
-                  <TableColumn fx:id="tc_groupmodroomprice" prefWidth="192.0" text="RoomPrice" />
+                  <TableColumn fx:id="tc_groupmodroomtype" prefWidth="192.0" text="RoomType" />
                </columns>
                <VBox.margin>
                   <Insets top="7.0" />
                </VBox.margin>
             </TableView>
-            <HBox prefWidth="200.0" spacing="22.0">
-               <children>
-                  <Button fx:id="btn_modaddroom" mnemonicParsing="false" text="Add New Room " />
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="97.0" text="Edit Room" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Delete Room" />
-               </children>
-            </HBox>
+            <HBox prefWidth="200.0" spacing="22.0" />
          </children>
       </VBox>
       <VBox layoutX="749.0" layoutY="40.0" prefHeight="485.0" prefWidth="315.0" spacing="6.0">
          <children>
-            <Label text="Room Type Details">
+            <Label text="Room Category Details">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -252,22 +246,23 @@
                </VBox.margin>
             </GridPane>
             <GridPane hgap="10.0" prefHeight="55.0" prefWidth="304.0">
-               <children>
-                  <Button mnemonicParsing="false" text="Confirm" GridPane.columnIndex="1" />
-               </children>
-               <columnConstraints>
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <padding>
                   <Insets top="10.0" />
                </padding>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+               <children>
+                  <Button fx:id="btn_delroomtype" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Delete Room Category" GridPane.columnIndex="1" />
+                  <Button fx:id="btn_editroomtype" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Edit Room Type" />
+               </children>
             </GridPane>
          </children>
       </VBox>
+      <Button fx:id="btn_modaddroom" layoutX="667.0" layoutY="540.0" mnemonicParsing="false" text="Add New Room/Room Type" />
    </children>
 </AnchorPane>
