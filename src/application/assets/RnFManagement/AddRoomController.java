@@ -105,6 +105,7 @@ public class AddRoomController implements Initializable{
         //room type combobox
         ObservableList<String> roomtype = FXCollections.observableArrayList();
         cbox_roomcategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            cbox_roomtype.getItems().clear();
             if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("President")){
                 try{
                     ResultSet rs1 = db.executeQuery("SELECT TypeName from RoomType WHERE TypeName LIKE 'President%'");
@@ -119,6 +120,17 @@ public class AddRoomController implements Initializable{
             else if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Commercial")){
                 try {
                     ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Commercial%'");
+                    while (rs1.next()){
+                        roomtype.add(rs1.getString("TypeName"));
+                    }
+                    cbox_roomtype.setItems(roomtype);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Deluxe%'");
                     while (rs1.next()){
                         roomtype.add(rs1.getString("TypeName"));
                     }
