@@ -6,6 +6,8 @@ import application.assets.*;
 import application.assets.reservation.ResvAddGroupController;
 import application.assets.reservation.ResvFacilityController;
 import application.assets.reservation.ResvRoomController;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Date;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -39,6 +42,8 @@ public class CIController implements Initializable{
     private TextField tf_ciFirstName;
     @FXML
     private Button button;
+    @FXML
+    private Label date;
     @FXML
     private TextField tf_ciLastName;
     @FXML
@@ -117,6 +122,7 @@ public class CIController implements Initializable{
         addRoom();
         addFacility();
         validation();
+        initial();
 
         tf_ciResvNum.textProperty().addListener((observable, oldValue,newValue)-> {
             try {
@@ -220,6 +226,32 @@ public class CIController implements Initializable{
         tf_ciPhoneNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));
         tf_ciIDType.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         tf_ciIDNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(20));
+    }
+    public void initial(){
+        try {
+            String sql4 = "select * from CheckInOut cio " +
+                    "inner join Reservation rsv on cio.CustID = rsv.CustID " +
+                    "INNER JOIN Customer cust on rsv.CustID = cust.CustID " +
+                    "where cio.CheckInDate = CURRENT_DATE";
+            ResultSet data4 = db.executeQuery(sql4);
+            ObservableList<ModelCIToday> citable = FXCollections.observableArrayList();
+            while (data4.next()){
+                ModelCIToday ci = new ModelCIToday();
+                ci.setresv(data4.getString("resvno"));
+                ci.setfname(data4.getString("custfname"));
+                ci.setlname(data4.getString("custlname"));
+                ci.setco(data4.getString("checkoutdate"));
+                citable.add(ci);
+            }
+            tbcol_resvno.setCellValueFactory(new PropertyValueFactory<>("resv"));
+            tbcol_fname.setCellValueFactory(new PropertyValueFactory<>("fname"));
+            tbcol_lname.setCellValueFactory(new PropertyValueFactory<>("lname"));
+            tbcol_co.setCellValueFactory(new PropertyValueFactory<>("co"));
+            table_ciToday.setItems(citable);
+        }
+        catch (SQLException e1){
+            e1.printStackTrace();
+        }
     }
     public void addGuest() {
 

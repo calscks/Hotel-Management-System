@@ -1,34 +1,35 @@
 package application.assets;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
  * Created by Junming Tan on 16/04/2016.
  */
 public class ModelCIToday {
-    private SimpleStringProperty resvno = new SimpleStringProperty();
+    private SimpleStringProperty resv = new SimpleStringProperty();
     private SimpleStringProperty fname = new SimpleStringProperty();
     private SimpleStringProperty lname = new SimpleStringProperty();
-    private SimpleStringProperty checkout = new SimpleStringProperty();
+    private SimpleStringProperty co = new SimpleStringProperty();
 
-    public SimpleStringProperty resvnoProperty() {
-        return resvno;
-    }
-
-    public SimpleStringProperty fnameProperty() {
-        return fname;
+    public SimpleStringProperty resvProperty() {
+        return resv;
     }
 
     public SimpleStringProperty lnameProperty() {
         return lname;
     }
-
-    public SimpleStringProperty checkoutProperty() {
-        return checkout;
+    public SimpleStringProperty fnameProperty() {
+        return fname;
     }
 
-    public String getresvno() {
-        return resvno.get();
+
+    public SimpleStringProperty coProperty() {
+        return co;
+    }
+
+    public String getresv() {
+        return resv.get();
     }
 
     public String getfname() {
@@ -39,10 +40,10 @@ public class ModelCIToday {
         return lname.get();
     }
 
-    public String getcheckout() {return checkout.get();}
+    public String getco() {return co.get();}
 
-    public void setresvno(String resvno) {
-        this.resvno.set(resvno);
+    public void setresv(String resv) {
+        this.resv.set(resv);
     }
 
     public void setfname(String fname) {
@@ -53,6 +54,6 @@ public class ModelCIToday {
         this.lname.set(lname);
     }
 
-    public void setcheckout(String checkout) {this.checkout.set(checkout);}
+    public void setco(String co) {this.co.set(co);}
 
 }
