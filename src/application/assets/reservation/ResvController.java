@@ -149,6 +149,7 @@ public class ResvController implements Initializable {
             Locale country = new Locale("", countryCode);
             //add countries into cbox!
             cbox_country.getItems().add(country.getDisplayCountry());
+            cbox_country.getSelectionModel().select("Malaysia");
         }
 
         new AutoCompleteCBoxListener<>(cbox_country); //use auto complete (cbox field is set editable)
@@ -195,7 +196,6 @@ public class ResvController implements Initializable {
         */
         btn_addguest.setOnMouseClicked(me -> {
             Stage stage = new Stage();
-            int rowCount = table_resvRoom.getItems().size();
 
             if (finalGuestPane.getScene() != null) {
                 stage.setScene(finalGuestPane.getScene());
@@ -203,46 +203,28 @@ public class ResvController implements Initializable {
                 Scene guestScene = new Scene(finalGuestPane);
                 stage.setScene(guestScene);
             }
-            if (rowCount != 0) {
-                rag.getCbox_roomno().getItems().clear();
 
-                for (int i = 0; i < rowCount; i++) {
-                    ModelRoom room = new ModelRoom();
-                    room = table_resvRoom.getItems().get(i);
-                    System.out.print(room.getRoomno());
-                    rag.getCbox_roomno().getItems().add(room.getRoomno());
-                }
-            }
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
             stage.setResizable(false);
         });
 
         rag.getBtn_addmem().setOnMouseClicked(me -> {
-            if (rag.getCbox_roomno().getSelectionModel().getSelectedItem() != null) {
-                ModelGroupMember mg = new ModelGroupMember();
+            ModelGroupMember mg = new ModelGroupMember();
 
-                mg.setMemFName(rag.getTf_fname().getText());
-                mg.setMemLName(rag.getTf_lname().getText());
-                mg.setIdType(rag.getCbox_idtype().getSelectionModel().getSelectedItem());
-                mg.setIdNo(rag.getTf_idno().getText());
-                mg.setRoomNo(rag.getCbox_roomno().getSelectionModel().getSelectedItem());
+            mg.setMemFName(rag.getTf_fname().getText());
+            mg.setMemLName(rag.getTf_lname().getText());
+            mg.setIdType(rag.getCbox_idtype().getSelectionModel().getSelectedItem());
+            mg.setIdNo(rag.getTf_idno().getText());
 
-                table_gmembers.getItems().add(mg);
+            table_gmembers.getItems().add(mg);
 
-                rag.getTf_fname().setText("");
-                rag.getTf_lname().setText("");
-                rag.getTf_idno().setText("");
+            rag.getTf_fname().setText("");
+            rag.getTf_lname().setText("");
+            rag.getTf_idno().setText("");
 
-                Stage stage = (Stage) rag.getBtn_addmem().getScene().getWindow();
-                stage.close();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("No Selection in Room");
-                alert.setHeaderText("No Room is Selected");
-                alert.setContentText("Please select a room, and if it is empty, please add a room.");
-                alert.showAndWait();
-            }
+            Stage stage = (Stage) rag.getBtn_addmem().getScene().getWindow();
+            stage.close();
         });
 
     }//add guest ends
@@ -529,7 +511,7 @@ public class ResvController implements Initializable {
         //reserve button
         rpc.getBtn_reserve().setOnMouseClicked(me -> {
 
-            if (!rpc.getRb_deposit().isSelected() && !rpc.getRb_full().isSelected()){
+            if (!rpc.getRb_deposit().isSelected() && !rpc.getRb_full().isSelected()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Payment");
                 alert.setHeaderText("Nothing is being paid");
@@ -670,7 +652,6 @@ public class ResvController implements Initializable {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_fname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_lname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
-        tf_phoneno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));
         tf_address.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
         tf_postcode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
         tf_city.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
