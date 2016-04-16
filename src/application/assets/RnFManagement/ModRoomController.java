@@ -78,6 +78,10 @@ public class ModRoomController implements Initializable{
 
         delroomgroup();
 
+        editroom();
+
+        editroomcategory();
+
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
                 String sqll = "SELECT * FROM RoomType rt" +
@@ -351,6 +355,71 @@ public class ModRoomController implements Initializable{
         });
     }
 
+    private void editroomcategory() {
+        btn_editroomtype.setOnMouseClicked(me->{
+            int selRow = tv_groupmodroom.getSelectionModel().getSelectedIndex();
+            if (selRow >= 0){
+                ModelRoom mr = new ModelRoom();
+                mr = tv_groupmodroom.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Edit Room Category");
+                alert.setContentText("Are you sure you want to edit "+mr.getRtype()+" from the table?");
+
+                Optional<ButtonType> sel = alert.showAndWait();
+                if (sel.isPresent()){
+                    if (sel.get() == ButtonType.OK){
+                        String grouproomcat = tf_grouproomcategory.getText();
+                        String grouproomtype = tf_grouproomtype.getText();
+                        String grouppaxperroom = tf_grouppaxperroom.getText();
+                        String grouproomprice = tf_grouproomprice.getText();
+                        String grouptwinbedprice = tf_grouptwinbedprice.getText();
+                        String groupfullbedprice = tf_groupfullbedprice.getText();
+                        String groupqueenbedprice = tf_groupqueenbedprice.getText();
+                        String groupkingbedprice = tf_groupkingbedprice.getText();
+                        try {
+                            String sql="UPDATE RoomType " +
+                                    "SET TypeGroup = '"+grouproomcat+"', "+
+                                    "TypeName = '"+grouproomtype+"', "+
+                                    "MaxPax = '"+grouppaxperroom+"', "+
+                                    "Rate_extTwin = '"+grouptwinbedprice+"', "+
+                                    "Rate_extFull = '"+groupfullbedprice+"', "+
+                                    "Rate_extQueen = '"+groupqueenbedprice+"', "+
+                                    "Rate_extKing = '"+groupkingbedprice+"', "+
+                                    "RoomPrice = '"+grouproomprice+"' "+
+                                    "WHERE TypeGroup = '"+mr.getRtype()+"'";
+                            db.executeUpdate(sql);
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        tf_grouproomcategory.clear();
+                        tf_grouproomtype.clear();
+                        tf_grouppaxperroom.clear();
+                        tf_grouproomprice.clear();
+                        tf_grouptwinbedprice.clear();
+                        tf_groupfullbedprice.clear();
+                        tf_groupqueenbedprice.clear();
+                        tf_groupkingbedprice.clear();
+                    }
+                    else {
+                        alert.close();
+                    }
+                }
+            }
+            else {
+                Alert noSel = new Alert(Alert.AlertType.WARNING);
+                noSel.setTitle("No Selection");
+                noSel.setHeaderText("No Room is selected");
+                noSel.setContentText("Please select a room in the table to be edited");
+                noSel.showAndWait();
+            }
+        });
+    }
+
+    private void editroom() {
+    }
+
     private void delroomgroup() {
         btn_delroomtype.setOnMouseClicked(me->{
             int selRow = tv_groupmodroom.getSelectionModel().getSelectedIndex();
@@ -565,7 +634,7 @@ public class ModRoomController implements Initializable{
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_roomcategory.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         tf_roomno2.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        tf_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        tf_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validForTypeName(50));
         tf_paxperroom.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_roomprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_twinbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
@@ -574,7 +643,7 @@ public class ModRoomController implements Initializable{
         tf_kingbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_groupsearchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_grouproomcategory.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
-        tf_grouproomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        tf_grouproomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validForTypeName(50));
         tf_grouppaxperroom.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_grouproomprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_grouptwinbedprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
