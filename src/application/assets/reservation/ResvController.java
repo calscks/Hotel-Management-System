@@ -673,7 +673,6 @@ public class ResvController implements Initializable {
         tbcol_memlname.setCellValueFactory(new PropertyValueFactory<>("memLName"));
         tbcol_memidtype.setCellValueFactory(new PropertyValueFactory<>("idType"));
         tbcol_memidno.setCellValueFactory(new PropertyValueFactory<>("idNo"));
-        tbcol_memroomno.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
 
         //fac booking
         tbcol_fac.setCellValueFactory(new PropertyValueFactory<>("facname"));
