@@ -8,7 +8,6 @@ public class ModelGroupMember {
     private SimpleStringProperty memLName = new SimpleStringProperty();
     private SimpleStringProperty idType = new SimpleStringProperty();
     private SimpleStringProperty idNo = new SimpleStringProperty();
-    private SimpleStringProperty roomNo = new SimpleStringProperty();
     private SimpleStringProperty gCustId = new SimpleStringProperty();
     private SimpleStringProperty icNum = new SimpleStringProperty();
 
@@ -29,16 +28,12 @@ public class ModelGroupMember {
         return idNo;
     }
 
-    public SimpleStringProperty roomNoProperty() {
-        return roomNo;
-    }
-
     public SimpleStringProperty icNumProperty() {
         return icNum;
     }
 
-
     public SimpleStringProperty gCustIdProperty() {return gCustId;}
+
 
     public String getMemFName() {
         return memFName.get();
@@ -60,16 +55,10 @@ public class ModelGroupMember {
         return icNum.get();
     }
 
-
-
-
-    public String getRoomNo() {
-        return roomNo.get();
-    }
-
     public String getgCustId() {
         return gCustId.get();
     }
+
 
     public void setMemFName(String memFName) {
         this.memFName.set(memFName);
@@ -85,10 +74,6 @@ public class ModelGroupMember {
 
     public void setIdNo(String idNo) {
         this.idNo.set(idNo);
-    }
-
-    public void setRoomNo(String roomNo) {
-        this.roomNo.set(roomNo);
     }
 
     public void setgCustId(String gCustId) {

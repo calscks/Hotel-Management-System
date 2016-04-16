@@ -22,7 +22,6 @@ public class ResvAddGroupController implements Initializable {
     @FXML private TextField tf_lname;
     @FXML private TextField tf_idno;
     @FXML private ComboBox<String> cbox_idtype;
-    @FXML private ComboBox<String> cbox_roomno;
     @FXML private Button btn_addmem;
 
     @Override
@@ -61,10 +60,6 @@ public class ResvAddGroupController implements Initializable {
 
     public TextField getTf_idno() {
         return tf_idno;
-    }
-
-    public ComboBox<String> getCbox_roomno() {
-        return cbox_roomno;
     }
 
     public Button getBtn_addmem() {
