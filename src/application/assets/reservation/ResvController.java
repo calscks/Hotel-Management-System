@@ -571,6 +571,7 @@ public class ResvController implements Initializable {
                         "')";
                 try {
                     db.executeUpdate(ex3);
+                    db.executeUpdate(ex3);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -590,14 +591,15 @@ public class ResvController implements Initializable {
 
             if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")) {
                 String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
-                        "CCardNo, PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                        "CCardNo, PayDate, ResvNo, Paid) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
                         ", '" + tf_idno.getText() +
                         "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_balance().getText()) +
                         " , " + Long.parseLong(rpc.getTf_cardno().getText()) +
                         " , '" + LocalDate.now().toString() +
-                        "', " + tf_resvno.getText() + ")";
+                        "', " + tf_resvno.getText() + ", " + Float.parseFloat(rpc.getLbl_paid().getText()) +
+                        ")";
                 try {
                     db.executeUpdate(ex5);
                 } catch (SQLException e) {
@@ -617,13 +619,14 @@ public class ResvController implements Initializable {
             } else if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Cash")) {
                 //language=SQLite
                 String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
-                        "PayDate, ResvNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                        "PayDate, ResvNo, Paid) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
                         ", '" + tf_idno.getText() +
                         "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_balance().getText()) +
                         " , '" + LocalDate.now().toString() +
-                        "', " + tf_resvno.getText() + ")";
+                        "', " + tf_resvno.getText() + ", " + Float.parseFloat(rpc.getLbl_paid().getText()) +
+                        ")";
                 try {
                     db.executeUpdate(ex5);
                 } catch (SQLException e) {
@@ -631,14 +634,15 @@ public class ResvController implements Initializable {
                 }
             } else {
                 String ex5 = "INSERT INTO Payment (PaymentID, CustID, Deposit, Subtotal, Bal, " +
-                        "PayDate, ResvNo, ChequeNo) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
+                        "PayDate, ResvNo, ChequeNo, Paid) VALUES (" + Integer.parseInt(rpc.getLbl_refno().getText()) +
                         ", '" + tf_idno.getText() +
                         "', " + Float.parseFloat(rpc.getLbl_deposit().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
                         " , " + Float.parseFloat(rpc.getLbl_balance().getText()) +
                         " , '" + LocalDate.now().toString() +
                         "', " + tf_resvno.getText() + ", '" + rpc.getTf_cardname().getText() +
-                        "')";
+                        "', " + Float.parseFloat(rpc.getLbl_paid().getText()) +
+                        ")";
                 try {
                     db.executeUpdate(ex5);
                 } catch (SQLException e) {
