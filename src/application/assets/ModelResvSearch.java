@@ -1,11 +1,10 @@
 package application.assets;
 import javafx.beans.property.SimpleStringProperty;
 
-public class ModelResv {
+public class ModelResvSearch {
     private SimpleStringProperty resvNo = new SimpleStringProperty();
     private SimpleStringProperty fName = new SimpleStringProperty();
     private SimpleStringProperty lName = new SimpleStringProperty();
-    private SimpleStringProperty roomNo = new SimpleStringProperty();
 
     public SimpleStringProperty resvNoProperty() {
         return resvNo;
@@ -19,20 +18,12 @@ public class ModelResv {
         return lName;
     }
 
-    public SimpleStringProperty roomNoProperty() {
-        return roomNo;
-    }
-
     public String getResvNo() {
         return resvNo.get();
     }
 
     public String getfName() {
         return fName.get();
-    }
-
-    public String getRoomNo() {
-        return roomNo.get();
     }
 
     public String getlName() {
@@ -50,8 +41,6 @@ public class ModelResv {
     public void setlName(String lName) {
         this.lName.set(lName);
     }
-
-    public void setRoomNo(String roomNo) {this.roomNo.set(roomNo);}
 
 
 }

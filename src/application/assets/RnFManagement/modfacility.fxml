@@ -157,7 +157,7 @@
                      <children>
                         <Button fx:id="btn_modaddfac" mnemonicParsing="false" text="Add New Facility" />
                         <Button mnemonicParsing="false" text="Edit Facility" />
-                        <Button mnemonicParsing="false" text="Delete Facility" />
+                        <Button fx:id="btn_moddelfac" mnemonicParsing="false" text="Delete Facility" />
                      </children>
                   </HBox>
                </children>
