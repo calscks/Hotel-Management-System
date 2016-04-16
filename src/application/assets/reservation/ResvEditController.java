@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -147,6 +148,7 @@ public class ResvEditController implements Initializable {
         delRoom();
         addFac();
         delFac();
+        resvEditPay();
     }
 
     public void searchResv() {
@@ -291,6 +293,9 @@ public class ResvEditController implements Initializable {
             selRow.setOnMouseClicked(me->{
 
                 if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+                    table_room.getItems().clear();
+                    table_memgroup.getItems().clear();
+                    table_fac.getItems().clear();
                     ModelResvSearch result = table_sresult.getSelectionModel().getSelectedItem();
                     try {
                         //language=SQLite
@@ -304,7 +309,8 @@ public class ResvEditController implements Initializable {
                         tf_lname.setText(rs.getString("CustLName"));
                         tf_address.setText(rs.getString("Address"));
                         tf_postcode.setText(rs.getString("PostCode"));
-                        tf_city.setText(rs.getString("State"));
+                        tf_city.setText(rs.getString("City"));
+                        tf_state.setText(rs.getString("State"));
                         cbox_country.getSelectionModel().select(rs.getString("Country"));
                         cbox_idtype.getSelectionModel().select(rs.getString("CustID_Type"));
                         tf_idno.setText(rs.getString("CustID"));
@@ -382,7 +388,7 @@ public class ResvEditController implements Initializable {
 
         AnchorPane finalRoomPane = roomPane;
 
-        new ForAddButton(finalRoomPane, btn_addroom, table_room);
+        new ForAddButton(finalRoomPane, btn_addroom, tf_resvno);
 
 
         ResvRoomController rc = loadRoom.getController();
@@ -458,7 +464,7 @@ public class ResvEditController implements Initializable {
 
         AnchorPane finalFacPane = facPane;
 
-        new ForAddButton(finalFacPane, btn_addfac, table_fac);
+        new ForAddButton(finalFacPane, btn_addfac, tf_resvno);
 
         ResvFacilityController rsf = loadfac.getController();
 
@@ -531,15 +537,26 @@ public class ResvEditController implements Initializable {
         AnchorPane finalPayment = payment;
 
         btn_next.setOnMouseClicked(me->{
+            if (Objects.equals(tf_resvno.getText(), "")){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Reservation Not Loaded");
+                alert.setHeaderText("No Reservation is loaded");
+                alert.setContentText("You cannot proceed to payment without loading a reservation. " +
+                        "Please load a reservation to be edited.");
+                alert.showAndWait();
+                return;
+            }
+
             FadeTransition ft = new FadeTransition(Duration.millis(320), finalPayment);
             ft.setFromValue(0.0); //add a simple fade in transition
             ft.setToValue(1.0);
             ft.play();
             resvEditPane.getChildren().add(finalPayment); //add as children of resvEditPane
 
+            rpc.getBtn_reserve().setText("Modify"); //set from reserve to modify
+
             //language=SQLite
-            String query = "SELECT * FROM Payment p INNER JOIN Pay_CCard pc ON " +
-                    "p.CCardNo = pc.CCardNo WHERE ResvNo = " +
+            String query = "SELECT * FROM Payment WHERE ResvNo = " +
                     Integer.parseInt(tf_resvno.getText());
 
             try {
@@ -547,6 +564,10 @@ public class ResvEditController implements Initializable {
                 if (rs.next()){
                     Double ccardno = rs.getDouble("CCardNo");
                     if (!rs.wasNull()){
+                        query = "SELECT * FROM Payment p INNER JOIN Pay_CCard pc " +
+                                "ON p.CCardNo = pc.CCardNo WHERE ResvNo = " +
+                                Integer.parseInt(tf_resvno.getText());
+                        rs = db.executeQuery(query);
                         rpc.getCbox_PayType().getSelectionModel().select("Credit Card");
                         rpc.getTf_cardname().setText(rs.getString("CCardName"));
                         rpc.getTf_cardno().setText(String.valueOf(rs.getDouble("CCardNo")));
@@ -560,13 +581,163 @@ public class ResvEditController implements Initializable {
                         rpc.getCbox_PayType().getSelectionModel().select("Cash");
                     }
 
+                    rpc.getRb_deposit().setDisable(true);
+                    rpc.getRb_full().setDisable(true);
+
                     rpc.getLbl_refno().setText(String.valueOf(rs.getInt("PaymentID")));
+                    rpc.getLbl_deposit().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Deposit")));
+                    rpc.getLbl_paid().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Paid")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            float sum = 0.00f;
+            float dep = 0.00f;
+            float tax = 0.00f;
+            float subtotal = 1.00f;
+
+            if (table_room.getItems().size() > 0) {
+                for (ModelRoom mr : table_room.getItems()) {
+                    float add = Float.parseFloat(tbcol_rprice.getCellObservableValue(mr).getValue());
+                    sum += add; //sum the room price
+                    System.out.println(sum);
+                }
+                rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
+            }
+
+            if (table_fac.getItems().size() > 0) {
+                for (ModelFacility mf : table_fac.getItems()) {
+                    float add = Float.parseFloat(tbcol_facprice.getCellObservableValue(mf).getValue());
+                    sum += add; //sum the total fac price + room price
+                    System.out.println(sum);
+                }
+                rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
+            }
+
+            try {
+                ResultSet rs = db.executeQuery("SELECT deposit, taxrate FROM variables");
+                if (rs.next()) {
+                    rpc.getLbl_deposit().setText(String.format(Locale.UK, "%.2f", rs.getFloat("deposit")));
+                    dep = rs.getFloat("deposit"); //deposit price (should be the same)
+                    rpc.getLbl_tax().setText(String.valueOf(rs.getInt("taxrate")) + "%");
+                    tax = (rs.getInt("taxrate") / 100f) + 1f; //get tax rate
+                } else {
+                    rpc.getLbl_tax().setText(null);
+                    rpc.getLbl_deposit().setText(null);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            if (rpc.getLbl_tax().getText() != null) {
+                subtotal = sum * tax; // sums are multipled with tax rate
+                subtotal += dep; //added with deposit
+                rpc.getLbl_subtotal().setText(String.format(Locale.UK, "%.2f", subtotal));
+            } else {
+                subtotal = sum + dep; //no tax, add depo
+                rpc.getLbl_subtotal().setText(String.format(Locale.UK, "%.2f", subtotal));
+            }
+
+            Float bal = subtotal - Float.parseFloat(rpc.getLbl_paid().getText());
+            rpc.getLbl_balance().setText(String.format(Locale.UK, "%.2f", bal));
+
+        });
+
+        rpc.getBtn_reserve().setOnMouseClicked(me->{
+
+            try {
+                //language=SQLite
+                String query = "UPDATE Reservation SET CustID = '" + tf_idno.getText() +
+                        "', CheckInDate = '" + inDate +
+                        "', CheckOutDate = '" + outDate +
+                        "' WHERE ResvNo = " + Integer.parseInt(tf_resvno.getText());
+                db.executeUpdate(query);
+
+                query = "UPDATE Customer SET CustID_Type = '" + cbox_idtype.getSelectionModel().getSelectedItem() +
+                        "', CustFName = '" + tf_fname.getText() +
+                        "', CustLName = '" + tf_lname.getText() +
+                        "' WHERE CustID = '" + tf_idno.getText() +
+                        "'";
+                db.executeUpdate(query);
+
+                query = "UPDATE CustAddress SET Address = '" + tf_address.getText() +
+                        "', PostCode = '" + tf_postcode.getText() +
+                        "', City = '" + tf_city.getText() +
+                        "', State = '" + tf_state.getText() +
+                        "', Country = '" + cbox_country.getSelectionModel().getSelectedItem() +
+                        "' WHERE CustID = '" + tf_idno.getText() +
+                        "'";
+                db.executeUpdate(query);
+
+                query = "DELETE FROM CustomerGroup WHERE G_CustID = '" +
+                        tf_idno.getText() + "'";
+                db.executeUpdate(query);
+
+                for (ModelGroupMember mg: table_memgroup.getItems()){
+                    query = "INSERT INTO CustomerGroup VALUES ('" + mg.getMemFName() +
+                            "','" + mg.getMemLName() +
+                            "','" + mg.getIdType() +
+                            "','" + mg.getIdNo() +
+                            "','" + tf_idno.getText() +
+                            "')";
+                    db.executeUpdate(query);
+                }
+
+                //extra validation
+                query = "UPDATE RoomBooking SET ExtBedType='' WHERE ExtBedType='null'";
+                db.executeUpdate(query);
+
+                query = "DELETE FROM RoomBooking WHERE ResvNo =" + Integer.parseInt(tf_resvno.getText());
+                db.executeUpdate(query);
+
+                for (ModelRoom mr : table_room.getItems()) {
+                    query = "INSERT INTO RoomBooking VALUES (" + Integer.parseInt(tf_resvno.getText())
+                            + ", '" + mr.getRoomno() + "', '" + mr.getExtbedtype() +
+                            "', '" + mr.getCidate() + "', '" + mr.getCodate() +
+                            "', '" + mr.getRtype() + "', '" + mr.getRoomprice() +
+                            "')";
+                    db.executeUpdate(query);
+                }
+
+                query = "DELETE FROM FacBookedDate WHERE ResvNo =" + Integer.parseInt(tf_resvno.getText());
+                db.executeUpdate(query);
+
+                for (ModelFacility mf : table_fac.getItems()) {
+                    query = "INSERT INTO FacBookedDate VALUES ('" + mf.getFacno() +
+                            "', '" + mf.getBookedfacdate() +
+                            "', " + Integer.parseInt(tf_resvno.getText()) + ", '" + mf.getFacdesc() +
+                            "')";
+                    db.executeUpdate(query);
+                }
+
+                if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Credit Card")) {
+                    query = "UPDATE Payment SET Deposit = " + rpc.getLbl_deposit().getText() +
+                            ", Subtotal = " + rpc.getLbl_subtotal().getText() +
+                            ", Bal = " + rpc.getLbl_balance().getText() +
+                            " WHERE ResvNo = " + Integer.parseInt(tf_resvno.getText());
+                    db.executeUpdate(query);
+
+                } else if (Objects.equals(rpc.getCbox_PayType().getSelectionModel().getSelectedItem(), "Cheque")){
+                    query = "UPDATE Payment SET Deposit = " + rpc.getLbl_deposit().getText() +
+                            ", Subtotal = " + rpc.getLbl_subtotal().getText() +
+                            ", Bal = " + rpc.getLbl_balance().getText() +
+                            ", ChequeNo = " + rpc.getTf_cardname().getText() +
+                            " WHERE ResvNo = " + Integer.parseInt(tf_resvno.getText());
+                    db.executeUpdate(query);
+
+                } else  {
+                    query = "UPDATE Payment SET Deposit = " + rpc.getLbl_deposit().getText() +
+                            ", Subtotal = " + rpc.getLbl_subtotal().getText() +
+                            ", Bal = " + rpc.getLbl_balance().getText() +
+                            " WHERE ResvNo = " + Integer.parseInt(tf_resvno.getText());
+                    db.executeUpdate(query);
 
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        });
+        }); //whole modification ends
     }
 
     private void validation() {
