@@ -192,24 +192,31 @@ public class ModFacController implements Initializable{
 
                 Optional<ButtonType> sel = alert.showAndWait();
                 if (sel.isPresent()){
-                    try {
-                        String sql = "UPDATE FacType" +
-                                " SET FacNo = '"+mf.getFacno()+"', FacName = '"+mf.getFacname()+"'" +
-                                ",FacDesc = '"+mf.getFacdesc()+"',FacPrice = "+mf.getFacprice()+"" +
-                                " WHERE FacNo='"+mf.getFacno()+"'";
+                    if (sel.get() == ButtonType.OK){
+                        String facno = tf_facno.getText();
+                        String facname = tf_facname.getText();
+                        String facdesc = ta_facdesc.getText();
+                        String facprice = tf_facresvprice.getText();
+                        try {
+                            String sql = "UPDATE FacType" +
+                                    " SET FacNo = '"+facno+"', FacName = '"+facname+"'" +
+                                    ",FacDesc = '"+facdesc+"',FacPrice = "+facprice+"" +
+                                    " WHERE FacNo='"+mf.getFacno()+"'";
 
-                        db.executeUpdate(sql);
-                    }catch (SQLException e){
-                        e.printStackTrace();
+                            db.executeUpdate(sql);
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        tf_facno.clear();
+                        tf_facname.clear();
+                        ta_facdesc.clear();
+                        tf_facresvprice.clear();
                     }
-                    tf_facno.clear();
-                    tf_facname.clear();
-                    ta_facdesc.clear();
-                    tf_facresvprice.clear();
+                    else {
+                        alert.close();
+                    }
                 }
-                else {
-                    alert.close();
-                }
+
             }
             else {
                 Alert noSel = new Alert(Alert.AlertType.WARNING);
