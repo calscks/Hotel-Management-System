@@ -43,7 +43,6 @@
                            <toggleGroup>
                               <ToggleGroup fx:id="ResvSearchGroup" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="rb_roomno" mnemonicParsing="false" text="Room Number" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <RadioButton fx:id="rb_lname" mnemonicParsing="false" text="Customer Last Name" toggleGroup="$ResvSearchGroup" GridPane.rowIndex="1" />
                         <RadioButton fx:id="rb_fname" mnemonicParsing="false" text="Customer First Name" toggleGroup="$ResvSearchGroup" GridPane.columnIndex="1" />
                      </children>
@@ -56,12 +55,7 @@
                   </GridPane>
                   <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="406.0">
                      <children>
-                        <TextField fx:id="tf_search" prefHeight="25.0" prefWidth="282.0" />
-                        <Button fx:id="btn_search" mnemonicParsing="false" text="Search">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
+                        <TextField fx:id="tf_search" prefHeight="25.0" prefWidth="339.0" promptText="Search" />
                      </children>
                   </HBox>
                   <TableView fx:id="table_sresult" prefHeight="406.0" prefWidth="339.0">
@@ -69,7 +63,6 @@
                       <TableColumn fx:id="tbcol_sresv" editable="false" prefWidth="95.0" sortable="false" text="Reservation No." />
                       <TableColumn fx:id="tbcol_sfname" editable="false" prefWidth="100.0" sortable="false" text="First Name" />
                         <TableColumn fx:id="tbcol_slname" editable="false" prefWidth="96.0" sortable="false" text="Last Name" />
-                        <TableColumn fx:id="tbcol_sroomno" editable="false" prefWidth="108.0" sortable="false" text="Room/Facility No" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" top="10.0" />
