@@ -58,7 +58,6 @@
                   <TableColumn fx:id="tableC_ciGroupLastName" prefWidth="97.0" text="Last Name" />
                   <TableColumn fx:id="tableC_ciGroupIdType" prefWidth="100" text="ID Type" />
                   <TableColumn fx:id="tableC_ciIcno" prefWidth="96.0" text="Passport/IC No" />
-                  <TableColumn fx:id="tableC_ciGroupRoomNo" prefWidth="70.0" text="Room No" />
                </columns>
             </TableView>
             <Button fx:id="btn_ciDeleteGroupMember" layoutX="663.0" layoutY="636.0" mnemonicParsing="false" text="Delete" />

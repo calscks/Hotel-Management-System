@@ -3,6 +3,7 @@ package application.assets.checkin;
 import application.DBConnection;
 import application.Validation;
 import application.assets.*;
+import application.assets.reservation.ResvAddGroupController;
 import application.assets.reservation.ResvFacilityController;
 import application.assets.reservation.ResvRoomController;
 import javafx.collections.FXCollections;
@@ -185,14 +186,12 @@ public class CIController implements Initializable{
                     gm.setMemLName(data3.getString("custlname"));
                     gm.setIdType(data3.getString("custid_type"));
                     gm.seticNum(data3.getString("idno"));
-                    gm.setRoomNo(data3.getString("blacklisted"));
                     gtable.add(gm);
                 }
                 tableC_ciGroupFirstName.setCellValueFactory(new PropertyValueFactory<>("memFName"));
                 tableC_ciGroupLastName.setCellValueFactory(new PropertyValueFactory<>("memLName"));
                 tableC_ciGroupIdType.setCellValueFactory(new PropertyValueFactory<>("idType"));
                 tableC_ciIcno.setCellValueFactory(new PropertyValueFactory<>("icNum"));
-                tableC_ciGroupRoomNo.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
                 grouptable.setItems(gtable);
                 ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
@@ -225,7 +224,7 @@ public class CIController implements Initializable{
     public void addGuest() {
 
         FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/checkin/ci_addgroup.fxml"));
+                "/reservation/resvaddgroup.fxml"));
         AnchorPane guestPane = new AnchorPane();
         try {
             guestPane = loadGuest.load();
@@ -233,7 +232,7 @@ public class CIController implements Initializable{
             e.printStackTrace();
         }
 
-        CIAddGroupController cag = loadGuest.getController();
+        ResvAddGroupController cag = loadGuest.getController();
 
         AnchorPane finalGuestPane = guestPane;
 
@@ -247,16 +246,7 @@ public class CIController implements Initializable{
                 Scene guestScene = new Scene(finalGuestPane);
                 stage.setScene(guestScene);
             }
-            if (rowCount != 0) {
-                cag.getCbox_roomno().getItems().clear();
 
-                for (int i = 0; i < rowCount; i++) {
-                    ModelRoom room = new ModelRoom();
-                    room = roomtable.getItems().get(i);
-                    System.out.print(room.getRoomno());
-                    cag.getCbox_roomno().getItems().add(room.getRoomno());
-                }
-            }
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
             stage.setResizable(false);
@@ -264,7 +254,7 @@ public class CIController implements Initializable{
         });
 
         cag.getBtn_addmem().setOnMouseClicked(me->{
-            if (cag.getCbox_roomno().getSelectionModel().getSelectedItem() != null) {
+
                 ModelGroupMember mg = new ModelGroupMember();
 
                 tf_ciAddress.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
@@ -274,7 +264,6 @@ public class CIController implements Initializable{
                 mg.setMemLName(cag.getTf_lname().getText());
                 mg.setIdType(cag.getCbox_idtype().getSelectionModel().getSelectedItem());
                 mg.setIdNo(cag.getTf_idno().getText());
-                mg.setRoomNo(cag.getCbox_roomno().getSelectionModel().getSelectedItem());
 
                 grouptable.getItems().add(mg);
 
@@ -284,15 +273,9 @@ public class CIController implements Initializable{
 
                 Stage stage = (Stage) cag.getBtn_addmem().getScene().getWindow();
                 stage.close();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("No Selection in Room");
-                alert.setHeaderText("No Room is Selected");
-                alert.setContentText("Please select a room, if it is empty, please add a room.");
-                alert.showAndWait();
-            }
-        });
-    }//add guest ends
+            });
+        }
+    //add guest ends
     public void addRoom() {
          //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
         FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
