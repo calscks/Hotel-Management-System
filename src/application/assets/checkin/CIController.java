@@ -49,7 +49,7 @@ public class CIController implements Initializable{
     @FXML
     private TextField tf_ciPhoneNo;
     @FXML
-    private ComboBox cbox_ciCountry;
+    private TextField tf_ciCountry;
     @FXML
     private TextField tf_ciAddress;
     @FXML
@@ -60,6 +60,8 @@ public class CIController implements Initializable{
     private TextField tf_ciIDType;
     @FXML
     private TextField tf_ciIDNo;
+    @FXML
+    private TextField tf_ciState;
     @FXML
     private Button btn_ciAddGroupMember;
     @FXML
@@ -118,9 +120,6 @@ public class CIController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addGuest();
-        addRoom();
-        addFacility();
         validation();
         initial();
 
@@ -151,16 +150,20 @@ public class CIController implements Initializable{
                 String postcode = data.getString("PostCode");
                 String city = data.getString("City");
                 String country = data.getString("Country");
+                String state = data.getString("state");
                 String idtype = data.getString("CustID_Type");
                 String idno = data.getString("CustID");
 
                 tf_ciFirstName.setText(firstname);
                 tf_ciLastName.setText(lastname);
                 tf_ciAddress.setText(address);
+                tf_ciCountry.setText(country);
                 tf_ciCity.setText(city);
                 tf_ciIDNo.setText(idno);
                 tf_ciIDType.setText(idtype);
                 tf_ciPostCode.setText(postcode);
+                tf_ciState.setText(state);
+
                 while (data.next()){
                     ModelRoom rm = new ModelRoom();
                     rm.setRoomno(data.getString("roomno"));
@@ -223,7 +226,6 @@ public class CIController implements Initializable{
         tf_ciResvNum.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(10));
         tf_ciFirstName.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_ciLastName.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
-        tf_ciPhoneNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(15));
         tf_ciIDType.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         tf_ciIDNo.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(20));
     }
@@ -253,139 +255,7 @@ public class CIController implements Initializable{
             e1.printStackTrace();
         }
     }
-    public void addGuest() {
 
-        FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/reservation/resvaddgroup.fxml"));
-        AnchorPane guestPane = new AnchorPane();
-        try {
-            guestPane = loadGuest.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ResvAddGroupController cag = loadGuest.getController();
-
-        AnchorPane finalGuestPane = guestPane;
-
-        btn_ciAddGroupMember.setOnMouseClicked(me -> {
-            Stage stage = new Stage();
-            int rowCount = roomtable.getItems().size();
-
-            if (finalGuestPane.getScene() != null) {
-                stage.setScene(finalGuestPane.getScene());
-            } else {
-                Scene guestScene = new Scene(finalGuestPane);
-                stage.setScene(guestScene);
-            }
-
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.setResizable(false);
-            stage.setAlwaysOnTop(true);
-        });
-
-        cag.getBtn_addmem().setOnMouseClicked(me->{
-
-                ModelGroupMember mg = new ModelGroupMember();
-
-                tf_ciAddress.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
-                tf_ciPostCode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
-                tf_ciCity.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
-                mg.setMemFName(cag.getTf_fname().getText());
-                mg.setMemLName(cag.getTf_lname().getText());
-                mg.setIdType(cag.getCbox_idtype().getSelectionModel().getSelectedItem());
-                mg.setIdNo(cag.getTf_idno().getText());
-
-                grouptable.getItems().add(mg);
-
-                cag.getTf_fname().setText(null);
-                cag.getTf_lname().setText(null);
-                cag.getTf_idno().setText(null);
-
-                Stage stage = (Stage) cag.getBtn_addmem().getScene().getWindow();
-                stage.close();
-            });
-        }
-    //add guest ends
-    public void addRoom() {
-         //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
-        FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/reservation/resvroom.fxml"));
-        AnchorPane roomPane = new AnchorPane();
-        try {
-            roomPane = loadRoom.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        AnchorPane finalRoomPane = roomPane;
-
-        new ForAddButton(finalRoomPane, btn_ciAddRoom);
-
-        ResvRoomController ciroom = loadRoom.getController();
-
-        ciroom.getBtn_roomAdd().setOnMouseClicked(me -> {
-            ModelRoom room = new ModelRoom();
-
-            room.setRoomcat(ciroom.getRoomCat());
-            room.setRtype(ciroom.getRoomType());
-            room.setRoomno(ciroom.getRoomNo());
-            room.setCidate(ciroom.getCI());
-            room.setCodate(ciroom.getCO());
-            room.setExtbedtype(ciroom.getExtBed());
-            room.setRoomprice(ciroom.getTotal());
-
-            roomtable.getItems().add(room);
-
-            //manually clearing data from the add room stage after adding
-            ciroom.getTable_rooms().getItems().clear();
-            ciroom.getCbox_xtrabed().getItems().clear();
-            ciroom.getLbl_extBedPrice().setText(null);
-            ciroom.getLbl_roomPrice().setText(null);
-            ciroom.getLbl_totalRoomPrice().setText(null);
-            ciroom.getTf_roomno().setText(null);
-
-            Stage stage = (Stage) ciroom.getBtn_roomAdd().getScene().getWindow();
-            stage.close();
-        });
-
-    }
-    public void addFacility(){
-        FXMLLoader loadFac = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/reservation/resvfacility.fxml"));
-        AnchorPane facPane = new AnchorPane();
-        try {
-            facPane = loadFac.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        AnchorPane finalFacPane = facPane;
-
-        new ForAddButton(finalFacPane, btn_ciAddFacility);
-
-        ResvFacilityController rsf = loadFac.getController();
-        rsf.getBtn_addfac().setOnMouseClicked(me->{
-            ModelFacility fac = new ModelFacility();
-            fac.setFacno(rsf.getTf_facno().getText());
-            fac.setFacname(rsf.getLbl_facname().getText());
-            fac.setBookedfacdate(rsf.getLbl_date().getText());
-            fac.setFacdesc(rsf.getTf_comment().getText());
-            fac.setFacprice(rsf.getLbl_facprice().getText());
-
-            cifactable.getItems().add(fac);
-
-            rsf.getTable_fac().getItems().clear();
-            rsf.getLbl_date().setText(null);
-            rsf.getLbl_facname().setText(null);
-            rsf.getLbl_facprice().setText(null);
-            rsf.getTf_comment().setText(null);
-            rsf.getTf_facno().setText(null);
-
-            Stage stage = (Stage) rsf.getBtn_addfac().getScene().getWindow();
-            stage.close();
-        });
-    }
 }
 
 

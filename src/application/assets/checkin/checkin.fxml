@@ -24,7 +24,6 @@
                   <Label text="Reservation Number :" />
                   <Label text="First Name :" />
                   <Label text="Last Name :" />
-                  <Label text="Phone Number :" />
                   <Label text="Address :" />
                   <Label text="Post Code :" />
                   <Label prefHeight="17.0" prefWidth="27.0" text="City :" />
@@ -42,12 +41,11 @@
                   <TextField fx:id="tf_ciResvNum" />
                   <TextField fx:id="tf_ciFirstName" />
                   <TextField fx:id="tf_ciLastName" />
-                  <TextField fx:id="tf_ciPhoneNo" />
                   <TextField fx:id="tf_ciAddress" />
                   <TextField fx:id="tf_ciPostCode" />
                   <TextField fx:id="tf_ciCity" />
                   <TextField fx:id="tf_ciState" />
-                  <ComboBox fx:id="cbox_ciCountry" prefHeight="25.0" prefWidth="200.0" />
+                  <TextField fx:id="tf_ciCountry" />
                   <TextField fx:id="tf_ciIDType" />
                   <TextField fx:id="tf_ciIDNo" />
                </children>
