@@ -2,10 +2,7 @@ package application.assets.checkin;
 
 import application.DBConnection;
 import application.Validation;
-import application.assets.ForAddButton;
-import application.assets.ModelFacility;
-import application.assets.ModelGroupMember;
-import application.assets.ModelRoom;
+import application.assets.*;
 import application.assets.reservation.ResvFacilityController;
 import application.assets.reservation.ResvRoomController;
 import javafx.collections.FXCollections;
@@ -100,6 +97,16 @@ public class CIController implements Initializable{
     private TableColumn<ModelGroupMember, String> tableC_ciGroupRoomNo;
     @FXML
     private TableColumn<ModelGroupMember, String> tableC_ciGroupIdType;
+    @FXML
+    private TableView<ModelCIToday> table_ciToday;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_resvno;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_fname;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_lname;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_co;
 
 
 
