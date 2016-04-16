@@ -279,7 +279,7 @@ public class CIController implements Initializable{
     public void addRoom() {
          //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
         FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/reservation/resvroom.fxml"))
+                "/reservation/resvroom.fxml"));
         AnchorPane roomPane = new AnchorPane();
         try {
             roomPane = loadRoom.load();
