@@ -2,11 +2,9 @@ package application.assets.checkin;
 
 import application.DBConnection;
 import application.Validation;
-import application.assets.ForAddButton;
-import application.assets.ModelFacility;
-import application.assets.ModelGroupMember;
-import application.assets.ModelRoom;
+import application.assets.*;
 import application.assets.reservation.ResvFacilityController;
+import application.assets.reservation.ResvRoomController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -73,15 +71,20 @@ public class CIController implements Initializable{
     @FXML
     private TableColumn<ModelRoom, String> cicod;
     @FXML
+    private TableColumn<ModelRoom, String> roomprice;
+    @FXML
+    private TableColumn<ModelRoom, String> roomcategory;
+
+    @FXML
     private TableView<ModelFacility> cifactable;
     @FXML
     private TableColumn<ModelFacility, String> bookfaccol;
     @FXML
-    private TableColumn<ModelFacility, String> facprice;
+    private TableColumn<ModelFacility, String> facno;
     @FXML
     private TableColumn<ModelFacility, String> facdate;
     @FXML
-    private TableColumn<ModelFacility, String> factime;
+    private TableColumn<ModelFacility, String> facprice;
     @FXML
     private TableView<ModelGroupMember> grouptable;
     @FXML
@@ -92,6 +95,18 @@ public class CIController implements Initializable{
     private TableColumn<ModelGroupMember, String> tableC_ciIcno;
     @FXML
     private TableColumn<ModelGroupMember, String> tableC_ciGroupRoomNo;
+    @FXML
+    private TableColumn<ModelGroupMember, String> tableC_ciGroupIdType;
+    @FXML
+    private TableView<ModelCIToday> table_ciToday;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_resvno;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_fname;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_lname;
+    @FXML
+    private TableColumn<ModelCIToday, String> tbcol_co;
 
 
 
@@ -109,6 +124,7 @@ public class CIController implements Initializable{
                         "Inner join CustAddress address on cust.custid = address.custid " +
                         "Inner join CheckInOut cio on address.custid = cio.custid " +
                         "Inner join roombooking rbk on rsv.resvno = rbk.resvno  " +
+                        "Inner join roomtype rtype on rbk.RoomTypeName = rtype.TypeName " +
                         "where rsv.ResvNo = " +tf_ciResvNum.getText();
                 String sql2 = "select * from FacBookedDate fbd " +
                         "INNER JOIN FacType ftype on fbd.FacNo = ftype.FacNo " +
@@ -142,6 +158,8 @@ public class CIController implements Initializable{
                     ModelRoom rm = new ModelRoom();
                     rm.setRoomno(data.getString("roomno"));
                     rm.setRtype(data.getString("roomtypename"));
+                    rm.setRoomcat(data.getString("typegroup"));
+                    rm.setRoomprice(data.getString("roomprice"));
                     rm.setCidate(data.getString("date_ci"));
                     rm.setCodate(data.getString("date_co"));
                     rtable.add(rm);
@@ -154,10 +172,10 @@ public class CIController implements Initializable{
                 ResultSet data2 = db.executeQuery(sql2);
                 while (data2.next()){
                     ModelFacility fc = new ModelFacility();
-                    fc.setBookedfac(data2.getString("facno"));
-                    fc.setFacprice(data2.getString("facprice"));
+                    fc.setBookedfac(data2.getString("facname"));
+                    fc.setFacno(data2.getString("facno"));
                     fc.setBookedfacdate(data2.getString("bookdate"));
-                    fc.setBookedfactime(data2.getString("facdesc"));
+                    fc.setFacprice(data2.getString("facprice"));
                     ftable.add(fc);
                 }
                 ResultSet data3 = db.executeQuery(sql3);
@@ -165,62 +183,35 @@ public class CIController implements Initializable{
                     ModelGroupMember gm = new ModelGroupMember();
                     gm.setMemFName(data3.getString("custfname"));
                     gm.setMemLName(data3.getString("custlname"));
-                    gm.seticNum(data3.getString("passportno"));
+                    gm.setIdType(data3.getString("custid_type"));
+                    gm.seticNum(data3.getString("idno"));
                     gm.setRoomNo(data3.getString("blacklisted"));
                     gtable.add(gm);
                 }
                 tableC_ciGroupFirstName.setCellValueFactory(new PropertyValueFactory<>("memFName"));
                 tableC_ciGroupLastName.setCellValueFactory(new PropertyValueFactory<>("memLName"));
+                tableC_ciGroupIdType.setCellValueFactory(new PropertyValueFactory<>("idType"));
                 tableC_ciIcno.setCellValueFactory(new PropertyValueFactory<>("icNum"));
                 tableC_ciGroupRoomNo.setCellValueFactory(new PropertyValueFactory<>("roomNo"));
                 grouptable.setItems(gtable);
                 ciroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                 ciroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+                roomcategory.setCellValueFactory(new PropertyValueFactory<>("roomcat"));
+                roomprice.setCellValueFactory(new PropertyValueFactory<>("roomprice"));
                 cicid.setCellValueFactory(new PropertyValueFactory<>("cidate"));
                 cicod.setCellValueFactory(new PropertyValueFactory<>("codate"));
                 roomtable.setItems(rtable);
                 bookfaccol.setCellValueFactory(new PropertyValueFactory<>("bookedfac"));
-                facprice.setCellValueFactory(new PropertyValueFactory<>("facprice"));
+                facno.setCellValueFactory(new PropertyValueFactory<>("facno"));
                 facdate.setCellValueFactory(new PropertyValueFactory<>("bookedfacdate"));
-                factime.setCellValueFactory(new PropertyValueFactory<>("bookedfactime"));
+                facprice.setCellValueFactory(new PropertyValueFactory<>("facprice"));
                 cifactable.setItems(ftable);
-
-
-                /*ciroomno.setCellValueFactory(new PropertyValueFactory("roomno"));
-                ciroomtype.setCellValueFactory(new PropertyValueFactory("rtype"));
-                cicid.setCellValueFactoryinner join factype ftype on fbd.FacNo = ftype.FacNonew PropertyValueFactory("cidate"));
-                cicod.setCellValueFactory(new PropertyValueFactory("codate"));
-*/
             }
             catch (SQLException e) {
                 e.printStackTrace();
             }
         });
-        /*tf_ciIDNo.textProperty().addListener((observable, oldValue, newValue) -> {
-            try {
-                String sql3 =" select * from Reservation rsv " +
-                        "INNER JOIN Customer cust on rsv.CustID = cust.CustID " +
-                        "INNER JOIN CustomerGroup custgroup on cust.CustID = custgroup.G_CustID " +
-                        "where cust.CustID = "+tf_ciIDNo.getText();
-                ResultSet data3 = c.executeQuery(sql3);
-                ObservableList<ModelGroupMember> gtable = FXCollections.observableArrayList();
-                while (data3.next()) {
-                    ModelGroupMember gm = new ModelGroupMember();
-                    gm.setMemFName(data3.getString("CustFname"));
-                    gm.setMemLName(data3.getString("custlname"));
-                    gm.setIdNo(data3.getString("G_custid"));
-                    gm.setRoomNo(data3.getString("passportno"));
-                    gtable.add(gm);
-                }
-                tableC_ciGroupFirstName.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupFirstName"));
-                tableC_ciGroupLastName.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupLastName"));
-                tableC_ciGroupIDno.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupIDno"));
-                tableC_ciGroupRoomNo.setCellValueFactory(new PropertyValueFactory<>("tableC_ciGroupRoomNo"));
-                grouptable.setItems(gtable);
-            }catch (SQLException e) {
-                e.printStackTrace();
-            }
-        });*/
+
     }
 
     private void validation() {
@@ -305,7 +296,7 @@ public class CIController implements Initializable{
     public void addRoom() {
          //VERY IMPORTANT: please use like the below, because can retrieve controller from fxmlloader easily
         FXMLLoader loadRoom = new FXMLLoader(getClass().getResource("/application/assets" +
-                "/checkin/ci_addroom.fxml"));
+                "/reservation/resvroom.fxml"));
         AnchorPane roomPane = new AnchorPane();
         try {
             roomPane = loadRoom.load();
@@ -317,7 +308,7 @@ public class CIController implements Initializable{
 
         new ForAddButton(finalRoomPane, btn_ciAddRoom);
 
-        CIAddRoomController ciroom = loadRoom.getController();
+        ResvRoomController ciroom = loadRoom.getController();
 
         ciroom.getBtn_roomAdd().setOnMouseClicked(me -> {
             ModelRoom room = new ModelRoom();
