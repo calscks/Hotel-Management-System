@@ -305,7 +305,27 @@ public class ResvEditController implements Initializable {
 
                         while (rs.next()){
                             ModelGroupMember mg = new ModelGroupMember();
+                            mg.setMemFName(rs.getString("CustFName"));
+                            mg.setMemLName(rs.getString("CustLName"));
+                            mg.setIdType(rs.getString("IDType"));
+                            mg.setIdNo(rs.getString("IDNo"));
+                            table_memgroup.getItems().add(mg);
+                        }
 
+                        query = "SELECT * FROM RoomBooking rb INNER JOIN Room r ON rb.RoomNo = r.RoomNo " +
+                                "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID WHERE rb.ResvNo =" +
+                                Integer.parseInt(tf_resvno.getText()) + "";
+
+                        rs = db.executeQuery(query);
+
+                        while (rs.next()){
+                            ModelRoom mr = new ModelRoom();
+                            mr.setRoomcat(rs.getString("TypeGroup"));
+                            mr.setRtype(rs.getString("TypeName"));
+                            mr.setRoomno(rs.getString("RoomNo"));
+                            mr.setCidate(rs.getString("Date_CI"));
+                            mr.setCodate(rs.getString("Date_CO"));
+                            mr.setExtbedtype(rs.getString("ExtBedType"));
                         }
 
                     } catch (SQLException e) {
