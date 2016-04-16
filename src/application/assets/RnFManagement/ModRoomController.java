@@ -274,6 +274,7 @@ public class ModRoomController implements Initializable{
         tv_modroom.setRowFactory(tv ->{
             TableRow<ModelRoom> selRow = new TableRow<>();
             selRow.setOnMouseClicked(me ->{
+                if (cbox_searchby.getValue().equals("RoomCategory")){
                     if (me.getClickCount() == 2 && (!selRow.isEmpty())){
                         ModelRoom mr = new ModelRoom();
                         mr = tv_modroom.getSelectionModel().getSelectedItem();
@@ -308,6 +309,44 @@ public class ModRoomController implements Initializable{
                             e.printStackTrace();
                         }
                     }
+                }
+                else if (cbox_searchby.getValue().equals("RoomNo")){
+                    if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+                        ModelRoom mr = new ModelRoom();
+                        mr = tv_modroom.getSelectionModel().getSelectedItem();
+
+                        tf_roomcategory.clear();
+                        tf_roomno2.clear();
+                        tf_roomtype.clear();
+                        tf_paxperroom.clear();
+                        tf_roomprice.clear();
+                        tf_twinbedprice.clear();
+                        tf_fullbedprice.clear();
+                        tf_queenbedprice.clear();
+                        tf_kingbedprice.clear();
+
+                        String sql = "SELECT * FROM Room rm " +
+                                "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
+                                "WHERE rm.RoomNo ='" + tf_searchby.getText()  + "'";
+                        try {
+                            ResultSet data = db.executeQuery(sql);
+                            if (data.next()){
+                                tf_roomcategory.setText(mr.getRtype());
+                                tf_roomno2.setText(mr.getRoomno());
+                                tf_roomtype.setText(mr.getRoomtype());
+                                tf_paxperroom.setText(mr.getPaxperroom());
+                                tf_roomprice.setText(mr.getRoomprice());
+                                tf_twinbedprice.setText(mr.getTwinbedprice());
+                                tf_fullbedprice.setText(mr.getFullbedprice());
+                                tf_queenbedprice.setText(mr.getQueenbedprice());
+                                tf_kingbedprice.setText(mr.getKingbedprice());
+                            }
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
             });
             return selRow;
         });
@@ -357,13 +396,55 @@ public class ModRoomController implements Initializable{
                 Alert noSel = new Alert(Alert.AlertType.WARNING);
                 noSel.setTitle("No Selection");
                 noSel.setHeaderText("No Room is selected");
-                noSel.setContentText("Please select a room in the table to be deleted");
+                noSel.setContentText("Please select a room category in the table to be deleted");
                 noSel.showAndWait();
             }
         });
     }
 
     private void delroom() {
+        btn_delroom.setOnMouseClicked(me->{
+            int selRow = tv_modroom.getSelectionModel().getSelectedIndex();
+            if(selRow >= 0){
+                ModelRoom mr = new ModelRoom();
+                mr = tv_modroom.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Delete room");
+                alert.setContentText("Are you sure you want to delete '" + mr.getRoomno() + "'from the table");
+
+                Optional<ButtonType> sel = alert.showAndWait();
+                if (sel.isPresent()){
+                    tv_modroom.getItems().remove(selRow);
+                    try {
+                        String sql = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                        db.executeUpdate(sql);
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                    tf_roomcategory.clear();
+                    tf_roomno2.clear();
+                    tf_roomtype.clear();
+                    tf_paxperroom.clear();
+                    tf_roomprice.clear();
+                    tf_twinbedprice.clear();
+                    tf_fullbedprice.clear();
+                    tf_queenbedprice.clear();
+                    tf_kingbedprice.clear();
+                }
+                else {
+                    alert.close();
+                }
+            }
+            else {
+                Alert noSel = new Alert(Alert.AlertType.WARNING);
+                noSel.setTitle("No Selection");
+                noSel.setHeaderText("No Room is selected");
+                noSel.setContentText("Please select a room in the table to be deleted");
+                noSel.showAndWait();
+            }
+        });
     }
 
     private void addroom() {
