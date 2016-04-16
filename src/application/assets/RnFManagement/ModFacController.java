@@ -41,6 +41,7 @@ public class ModFacController implements Initializable{
     @FXML private ComboBox cbox_searchby;
     @FXML private Button btn_modaddfac;
     @FXML private Button btn_moddelfac;
+    @FXML private Button btn_editfac;
     @FXML private TableView<ModelFacility> modfactable;
     @FXML private TableColumn<ModelFacility, String> tb_facid;
     @FXML private TableColumn<ModelFacility, String> tb_facname;
@@ -64,6 +65,8 @@ public class ModFacController implements Initializable{
         addfac();
         
         delfac();
+
+        editfac();
 
         cbox_searchby.setItems(selectbyitems);
         //search function
@@ -157,7 +160,7 @@ public class ModFacController implements Initializable{
                     tf_facresvprice.clear();
 
                     String sql = "SELECT * FROM FacType ft "+
-                            "WHERE ft.FacName = '" + tf_searchby.getText() + "'";
+                            "WHERE ft.FacName = '" + mf.getFacname() + "'";
                     try {
                         ResultSet data = db.executeQuery(sql);
                         if (data.next()){
@@ -172,6 +175,49 @@ public class ModFacController implements Initializable{
                 }
             });
             return selRow;
+        });
+    }
+
+    private void editfac() {
+        btn_editfac.setOnMouseClicked(me ->{
+            int selRow = modfactable.getSelectionModel().getSelectedIndex();
+            if (selRow >= 0){
+                ModelFacility mf = new ModelFacility();
+                mf = modfactable.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Edit Facility");
+                alert.setContentText("Are you sure you want to edit " + mf.getFacname() + " from the table?");
+
+                Optional<ButtonType> sel = alert.showAndWait();
+                if (sel.isPresent()){
+                    try {
+                        String sql = "UPDATE FacType" +
+                                " SET FacNo = '"+mf.getFacno()+"', FacName = '"+mf.getFacname()+"'" +
+                                ",FacDesc = '"+mf.getFacdesc()+"',FacPrice = "+mf.getFacprice()+"" +
+                                " WHERE FacNo='"+mf.getFacno()+"'";
+
+                        db.executeUpdate(sql);
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                    tf_facno.clear();
+                    tf_facname.clear();
+                    ta_facdesc.clear();
+                    tf_facresvprice.clear();
+                }
+                else {
+                    alert.close();
+                }
+            }
+            else {
+                Alert noSel = new Alert(Alert.AlertType.WARNING);
+                noSel.setTitle("No Selection");
+                noSel.setHeaderText("No Facility is selected");
+                noSel.setContentText("Please select a facility in the table to be edited");
+                noSel.showAndWait();
+            }
         });
     }
 

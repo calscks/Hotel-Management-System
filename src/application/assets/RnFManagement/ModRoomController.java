@@ -80,9 +80,8 @@ public class ModRoomController implements Initializable{
 
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
-                String sqll = "SELECT * FROM RoomType rt " +
-                        "INNER JOIN Room rm ON rm.RoomTypeID = rt.TypeID " +
-                        "WHERE rt.TypeGroup ='" + tf_groupsearchby.getText() + "'";
+                String sqll = "SELECT * FROM RoomType rt" +
+                        " WHERE TypeGroup ='" + tf_groupsearchby.getText() + "'";
 
                 ResultSet data = db.executeQuery(sqll);
                 ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
@@ -106,7 +105,7 @@ public class ModRoomController implements Initializable{
                 tf_groupkingbedprice.setText(grouproomkingprice);
 
                     ModelRoom mr = new ModelRoom();
-                    mr.setRoomno(data.getString("RoomNo"));
+                    //mr.setRoomno(data.getString("RoomNo"));
                     mr.setRtype(data.getString("TypeGroup"));
                     mr.setRoomprice(data.getString("RoomPrice"));
                     mr.setRoomtype(data.getString("TypeName"));
@@ -356,40 +355,50 @@ public class ModRoomController implements Initializable{
         btn_delroomtype.setOnMouseClicked(me->{
             int selRow = tv_groupmodroom.getSelectionModel().getSelectedIndex();
             if (selRow >= 0){
-                ModelRoom mr = new ModelRoom();
-                mr = tv_groupmodroom.getSelectionModel().getSelectedItem();
+                try {
+                    String sqll = "SELECT * FROM RoomType rt" +
+                            " INNER JOIN Room rm ON rt.TypeID = rm.RoomTypeID" +
+                            " WHERE TypeGroup ='" + tf_groupsearchby.getText() + "'";
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText("Delete room type");
-                alert.setContentText("All the room that you assigned to the selected room type will also be delete. Are you sure you want to delete " + mr.getRoomtype() + " from the table?");
+                    ResultSet data = db.executeQuery(sqll);
+                    ModelRoom mr = new ModelRoom();
+                    mr = tv_groupmodroom.getSelectionModel().getSelectedItem();
+                    mr.setRoomno(data.getString("RoomNo"));
 
-                Optional<ButtonType> sel = alert.showAndWait();
-                if (sel.isPresent()){
-                    tv_groupmodroom.getItems().remove(selRow);
-                    try {
-                        String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
-                        db.executeUpdate(sql);
-                    }catch (SQLException e){
-                        e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Delete room type");
+                    alert.setContentText("All the room that you assigned to the selected room type will also be delete. Are you sure you want to delete " + mr.getRoomtype() + " from the table?");
+
+                    Optional<ButtonType> sel = alert.showAndWait();
+                    if (sel.isPresent()){
+                        tv_groupmodroom.getItems().remove(selRow);
+                        try {
+                            String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
+                            db.executeUpdate(sql);
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        try {
+                            String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                            db.executeUpdate(sql1);
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        tf_grouproomcategory.clear();
+                        tf_grouproomtype.clear();
+                        tf_grouppaxperroom.clear();
+                        tf_grouproomprice.clear();
+                        tf_grouptwinbedprice.clear();
+                        tf_groupfullbedprice.clear();
+                        tf_groupqueenbedprice.clear();
+                        tf_groupkingbedprice.clear();
                     }
-                    try {
-                        String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
-                        db.executeUpdate(sql1);
-                    }catch (SQLException e){
-                        e.printStackTrace();
+                    else {
+                        alert.close();
                     }
-                    tf_grouproomcategory.clear();
-                    tf_grouproomtype.clear();
-                    tf_grouppaxperroom.clear();
-                    tf_grouproomprice.clear();
-                    tf_grouptwinbedprice.clear();
-                    tf_groupfullbedprice.clear();
-                    tf_groupqueenbedprice.clear();
-                    tf_groupkingbedprice.clear();
-                }
-                else {
-                    alert.close();
+                }catch (SQLException e){
+                    e.printStackTrace();
                 }
             }
             else {
