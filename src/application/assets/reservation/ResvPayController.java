@@ -43,6 +43,7 @@ public class ResvPayController implements Initializable{
     @FXML private Label lbl_tax;
     @FXML private Label lbl_deposit;
     @FXML private Label lbl_subtotal;
+    @FXML private Label lbl_paid;
     @FXML private Label lbl_balance;
     @FXML private RadioButton rb_deposit;
     @FXML private RadioButton rb_full;
@@ -59,6 +60,7 @@ public class ResvPayController implements Initializable{
         lbl_deposit.setText(null);
         lbl_subtotal.setText(null);
         lbl_balance.setText(null);
+        lbl_paid.setText(null);
         rb_deposit.setDisable(false);
         rb_full.setDisable(false);
 
@@ -96,8 +98,10 @@ public class ResvPayController implements Initializable{
             float dep = Float.parseFloat(lbl_deposit.getText());
             if (rb_deposit.isSelected()){
                 float bal = subtotal - dep;
+                lbl_paid.setText(String.format(Locale.UK, "%.2f", dep));
                 lbl_balance.setText(String.format(Locale.UK, "%.2f", bal));
             } else if (rb_full.isSelected()){
+                lbl_paid.setText(lbl_subtotal.getText());
                 lbl_balance.setText(lbl_subtotal.getText());
             }
         });
@@ -145,6 +149,10 @@ public class ResvPayController implements Initializable{
 
     public RadioButton getRb_full() {
         return rb_full;
+    }
+
+    public Label getLbl_paid() {
+        return lbl_paid;
     }
 
     public Label getLbl_balance() {

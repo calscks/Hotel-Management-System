@@ -561,6 +561,7 @@ public class ResvEditController implements Initializable {
                     }
 
                     rpc.getLbl_refno().setText(String.valueOf(rs.getInt("PaymentID")));
+
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
