@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-04-17T02:02:43 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facility" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="23532a50-3759-4a3c-8a83-6e7d2a85b21e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (4)"/>
+	<queryString>
+		<![CDATA[SELECT * FROM CheckInOut
+INNER JOIN FacBookedDate USING (ResvNo)
+INNER JOIN FacType USING (FacNo)
+inner JOIN Customer USING (CustID)
+where CheckInOut.CheckInDate =date('now')]]>
+	</queryString>
+	<field name="CustID" class="java.lang.Object"/>
+	<field name="CheckInDate" class="java.lang.Object"/>
+	<field name="CheckOutDate" class="java.lang.Object"/>
+	<field name="Status" class="java.lang.Object"/>
+	<field name="CIO_ID" class="java.lang.Object"/>
+	<field name="ResvNo" class="java.lang.Object"/>
+	<field name="FacNo" class="java.lang.Object"/>
+	<field name="BookDate" class="java.lang.Object"/>
+	<field name="Comment" class="java.lang.Object"/>
+	<field name="FacName" class="java.lang.Object"/>
+	<field name="FacDesc" class="java.lang.Object"/>
+	<field name="FacPrice" class="java.lang.Double"/>
+	<field name="CustID_Type" class="java.lang.Object"/>
+	<field name="CustFName" class="java.lang.Object"/>
+	<field name="CustLName" class="java.lang.Object"/>
+	<field name="Blacklisted" class="java.lang.Object"/>
+	<variable name="revenue" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{FacPrice}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="-10" width="550" height="53" uuid="1f906e58-1a52-4baf-abd8-bb9bcea4fa5b"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[DRIZZLE HOTEL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="3" y="-2" width="548" height="30" uuid="80d6b153-81f1-4204-9c24-bb704fff5e32"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daily Collection Report: Rooms]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<rectangle>
+				<reportElement x="2" y="0" width="551" height="40" backcolor="#F0F0F0" uuid="9d58891e-0880-48ca-a190-3f5a0e38cc1c"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="10" width="80" height="30" uuid="d48aa8b7-ed14-43ca-8c3c-e52ae43c510d"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="10" width="30" height="30" uuid="8664c834-326a-4c34-b3b2-484f9c81bb82"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="10" width="70" height="30" uuid="9dc3f300-149e-49da-a3e3-118c5344c5d5"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Booked Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="10" width="53" height="30" uuid="d138de4d-aedf-436d-a194-a2af6b138fe0"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<text><![CDATA[Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="10" width="90" height="30" uuid="4a7c1840-fdeb-4c3d-8619-5173111b48ab"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Facility Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="10" width="100" height="30" uuid="21206554-f761-4ffd-9cf4-b14bb85f9970"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[First Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="10" width="100" height="30" uuid="2003e030-2be2-496d-b462-4743d1dd9db6"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Last Name]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="0" width="80" height="30" uuid="db98b37c-d427-444e-bc1d-119c8509aa0b"/>
+				<textFieldExpression><![CDATA[$F{CheckInDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="30" height="30" uuid="437795b1-0189-4d10-944c-0d653bba0742"/>
+				<textFieldExpression><![CDATA[$F{FacNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="70" height="30" uuid="b1aef3f5-881a-4d0f-b909-6c426ae33df4"/>
+				<textFieldExpression><![CDATA[$F{BookDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="53" height="30" uuid="d0446882-041a-49dd-9d5f-dc6d6ad9a398"/>
+				<textFieldExpression><![CDATA[$F{FacPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="90" height="30" uuid="78c386ca-d285-4598-90bd-b26e9d1adce6"/>
+				<textFieldExpression><![CDATA[$F{FacName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="30" uuid="ee1052b8-8187-459c-850d-730b1ef17922"/>
+				<textFieldExpression><![CDATA[$F{CustLName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="100" height="30" uuid="dc89ca89-5977-405f-a372-91ae74e3c962"/>
+				<textFieldExpression><![CDATA[$F{CustFName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="9" y="0" width="100" height="30" uuid="9f7ab55c-b125-44ca-a246-42fb70932d9c"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total Revenue :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="0" width="73" height="30" uuid="00382019-5311-45df-ae59-d6596a0fb6c8"/>
+				<textElement verticalAlignment="Middle">
+					<font isItalic="false" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{revenue}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="453" y="0" width="100" height="30" uuid="d714beec-5f93-4bf3-a107-107a7a81a2e1"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

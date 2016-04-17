@@ -66,7 +66,7 @@
             </TableView>
          </children>
       </VBox>
-      <VBox layoutX="434.0" layoutY="40.0" prefHeight="485.0" prefWidth="315.0" spacing="6.0">
+      <VBox layoutX="434.0" layoutY="40.0" prefHeight="283.0" prefWidth="315.0" spacing="6.0">
          <children>
             <Label text="Room Details">
                <font>
@@ -81,26 +81,8 @@
                   <Label text="Pax per Room :" GridPane.rowIndex="3" />
                   <TextField fx:id="tf_roomno2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="tf_paxperroom" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Label text="Twin Bed Price :" GridPane.rowIndex="7" />
-                  <Label text="Full Bed Price :" GridPane.rowIndex="8" />
-                  <Label text="Queen Bed Price :" GridPane.rowIndex="9" />
-                  <Label layoutX="25.0" layoutY="317.0" text="King Bed Price :" GridPane.rowIndex="10" />
-                  <TextField fx:id="tf_twinbedprice" layoutX="120.0" layoutY="193.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                  <TextField fx:id="tf_fullbedprice" layoutX="120.0" layoutY="231.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <TextField fx:id="tf_queenbedprice" layoutX="120.0" layoutY="272.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <TextField fx:id="tf_kingbedprice" layoutX="120.0" layoutY="313.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <Label text="Room Price :" GridPane.rowIndex="4" />
                   <TextField fx:id="tf_roomprice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label text="Extra Bed Prices*" underline="true" GridPane.halignment="LEFT" GridPane.rowIndex="6">
-                     <font>
-                        <Font name="System Bold Italic" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label text="*Leave blank to exclude certain type(s) of extra bed" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                     <font>
-                        <Font name="System Italic" size="10.0" />
-                     </font>
-                  </Label>
                   <TextField fx:id="tf_roomcategory" GridPane.columnIndex="1" />
                   <TextField fx:id="tf_roomtype" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
@@ -113,12 +95,6 @@
                   <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints vgrow="SOMETIMES" />
                   <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="37.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="25.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <VBox.margin>
@@ -137,8 +113,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="btn_editroom" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Edit Room " />
-                  <Button fx:id="btn_delroom" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Delete Room " GridPane.columnIndex="1" />
+                  <Button fx:id="btn_editroom" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Edit Room " />
+                  <Button fx:id="btn_delroom" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Delete Room " GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>
@@ -257,12 +233,12 @@
                   <Insets top="10.0" />
                </padding>
                <children>
-                  <Button fx:id="btn_delroomtype" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Delete Room Category" GridPane.columnIndex="1" />
-                  <Button fx:id="btn_editroomtype" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Edit Room Type" />
+                  <Button fx:id="btn_delroomtype" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Delete Room Category" GridPane.columnIndex="1" />
+                  <Button fx:id="btn_editroomtype" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Edit Room Type" />
                </children>
             </GridPane>
          </children>
       </VBox>
-      <Button fx:id="btn_modaddroom" layoutX="667.0" layoutY="540.0" mnemonicParsing="false" text="Add New Room/Room Type" />
+      <Button fx:id="btn_modaddroom" layoutX="509.0" layoutY="411.0" mnemonicParsing="false" text="Add New Room/Room Type" />
    </children>
 </AnchorPane>

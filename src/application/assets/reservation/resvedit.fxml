@@ -107,11 +107,11 @@
                         <VBox prefHeight="410.0" prefWidth="212.0" spacing="10.0">
                            <children>
                               <TextField fx:id="tf_resvno" editable="false" />
-                              <TextField fx:id="tf_fname" editable="false" />
-                              <TextField fx:id="tf_lname" editable="false" />
-                              <TextField fx:id="tf_address" editable="false" />
-                              <TextField fx:id="tf_postcode" editable="false" />
-                              <TextField fx:id="tf_city" editable="false" />
+                              <TextField fx:id="tf_fname" />
+                              <TextField fx:id="tf_lname" />
+                              <TextField fx:id="tf_address" />
+                              <TextField fx:id="tf_postcode" />
+                              <TextField fx:id="tf_city" />
                               <TextField fx:id="tf_state" />
                               <ComboBox fx:id="cbox_country" editable="true" prefHeight="25.0" prefWidth="215.0" />
                               <ComboBox fx:id="cbox_idtype" prefHeight="25.0" prefWidth="213.0" />
