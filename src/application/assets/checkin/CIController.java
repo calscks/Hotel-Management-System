@@ -64,6 +64,7 @@ public class CIController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cellValueFacotry();
         tdCheckIn();
+        doubleClick();
     }
 
     public void tdCheckIn() {
@@ -97,9 +98,82 @@ public class CIController implements Initializable {
 
             selRow.setOnMouseClicked(me->{
                 if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+
                     table_room.getItems().clear();
                     table_memgroup.getItems().clear();
                     table_fac.getItems().clear();
+
+                    ModelCIToday tdci = table_ciToday.getSelectionModel().getSelectedItem();
+                    try {
+                        //language=SQLite
+                        String query = "SELECT * FROM Reservation r INNER JOIN Customer c " +
+                                "ON r.CustID = c.CustID INNER JOIN CustAddress ca ON " +
+                                "ca.CustID = c.CustID WHERE r.ResvNo = " + tdci.getresv();
+                        ResultSet rs = db.executeQuery(query);
+
+                        tf_ciResvNum.setText(String.valueOf(rs.getInt("ResvNo")));
+                        tf_ciFirstName.setText(rs.getString("CustFName"));
+                        tf_ciLastName.setText(rs.getString("CustLName"));
+                        tf_ciAddress.setText(rs.getString("Address"));
+                        tf_ciPostCode.setText(rs.getString("PostCode"));
+                        tf_ciCity.setText(rs.getString("City"));
+                        tf_ciState.setText(rs.getString("State"));
+                        tf_ciCountry.setText(rs.getString("Country"));
+                        tf_ciIDType.setText(rs.getString("CustID_Type"));
+                        tf_ciIDNo.setText(rs.getString("CustID"));
+
+                        query = "SELECT * FROM CustomerGroup WHERE G_CustID = '" +
+                                tf_ciIDNo.getText() + "'";
+
+                        rs = db.executeQuery(query);
+
+                        while (rs.next()){
+                            ModelGroupMember mg = new ModelGroupMember();
+                            mg.setMemFName(rs.getString("CustFName"));
+                            mg.setMemLName(rs.getString("CustLName"));
+                            mg.setIdType(rs.getString("IDType"));
+                            mg.setIdNo(rs.getString("IDNo"));
+                            table_memgroup.getItems().add(mg);
+                        }
+
+                        query = "SELECT * FROM RoomBooking rb INNER JOIN Room r ON rb.RoomNo = r.RoomNo " +
+                                "INNER JOIN RoomType rt ON r.RoomTypeID = rt.TypeID WHERE rb.ResvNo =" +
+                                Integer.parseInt(tf_ciResvNum.getText()) + "";
+
+                        rs = db.executeQuery(query);
+
+                        while (rs.next()){
+                            ModelRoom mr = new ModelRoom();
+                            mr.setRoomcat(rs.getString("TypeGroup"));
+                            mr.setRtype(rs.getString("TypeName"));
+                            mr.setRoomno(rs.getString("RoomNo"));
+                            mr.setCidate(rs.getString("Date_CI"));
+                            mr.setCodate(rs.getString("Date_CO"));
+                            mr.setExtbedtype(rs.getString("ExtBedType"));
+                            mr.setRoomprice(rs.getString("Price"));
+
+                            table_room.getItems().add(mr);
+                        }
+
+                        query = "SELECT * FROM FacBookedDate fbd INNER JOIN FacType ft ON fbd.FacNo" +
+                                "= ft.FacNo WHERE fbd.ResvNo = " + Integer.parseInt(tf_ciResvNum.getText());
+
+                        rs = db.executeQuery(query);
+
+                        while (rs.next()){
+                            ModelFacility mf = new ModelFacility();
+                            mf.setFacname(rs.getString("FacName"));
+                            mf.setFacno(rs.getString("FacNo"));
+                            mf.setBookedfacdate(rs.getString("BookDate"));
+                            mf.setFacprice(String.valueOf(rs.getFloat("FacPrice")));
+                            mf.setFacdesc(rs.getString("Comment"));
+
+                            table_fac.getItems().add(mf);
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 
