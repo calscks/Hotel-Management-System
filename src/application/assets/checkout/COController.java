@@ -302,7 +302,6 @@ public class COController implements Initializable {
     public void addpay(double prices){
 
         double extraprice = Double.parseDouble(label_coExtra.getText());
-        double original = extraprice;
         double v = extraprice + prices;
         label_coExtra.setText(Double.toString(v));
 
