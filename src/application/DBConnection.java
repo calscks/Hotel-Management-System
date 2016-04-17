@@ -4,17 +4,16 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 
-/**Create object DBConnection in your class before any methods. E.g.
- * <p><code>DBConnection somename = new DBConnection(String dbName)</code></p>
- * 
- * It will set the connection because setCon is called in the constructor.
- * 
- * TO execute a query (get data from db) for your ResultSet, do:
- * <p><code>ResultSet yourSet = somename.ExecuteQuery(SQL string)</code></p>
- * 
- * TO execute some queries that change db contents such as CREATE, INSERT etc, do:
- * <p><code>somename.executeUpdate(SQL string)</code></p>
- * */
+/*
+UPDATE:
+A single static connection is made inside slidemenu controller. Simple use:
+
+ResultSet anyname = db.executeQuery("your sql query") in your classes
+and
+(no resultset) db.executeUpdate("your sql query for create, insert, update, delete")
+
+remember to import static connection of the slidemenu controller
+ */
 
 public class DBConnection {
     private String dbName;
