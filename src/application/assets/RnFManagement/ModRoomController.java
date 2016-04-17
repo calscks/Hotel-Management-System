@@ -33,9 +33,9 @@ public class ModRoomController implements Initializable{
 
     @FXML private TextField tf_searchby;
     @FXML private ComboBox cbox_searchby;
-    @FXML private ComboBox<String> cbox_roomcategory;
+    @FXML private TextField tf_roomtypeid;
     @FXML private TextField tf_roomno2;
-    @FXML private ComboBox<String> cbox_roomtype;
+    @FXML private TextField tf_roomtype;
     @FXML private TextField tf_paxperroom;
     @FXML private TextField tf_roomprice;
     @FXML private TextField tf_groupsearchby;
@@ -67,22 +67,188 @@ public class ModRoomController implements Initializable{
         validation();
 
         cbox_searchby.setItems(selectbyitems);
-
         addroom();
-
         delroom();
-
         delroomgroup();
-
         editroom();
-
         editroomcategory();
 
         //textfield disable validation
-        tf_paxperroom.setDisable(true);
-        tf_roomprice.setDisable(true);
-        tf_roomno2.setDisable(true);
+        tf_paxperroom.setEditable(false);
+        tf_roomprice.setEditable(false);
+        tf_roomno2.setEditable(false);
+        tf_roomtype.setEditable(false);
 
+        //searchroom
+        btn_search.setOnMouseClicked(me -> {
+            if (cbox_searchby.getSelectionModel().getSelectedItem().equals("RoomCategory")){
+                try {
+                    //language=SQLite
+                    String sql = "SELECT * FROM Room rm " +
+                            "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
+                            "WHERE rt.TypeGroup ='" + tf_searchby.getText() + "'";
+
+                    ResultSet data = db.executeQuery(sql);
+                    ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
+
+                    String modroomtypeid = data.getString("RoomTypeID");
+                    String modroomno = data.getString("RoomNo");
+                    String modroomtype = data.getString("TypeName");
+                    String modroompax = data.getString("MaxPax");
+                    String modroomprice = data.getString("RoomPrice");
+
+                    tf_roomtypeid.setText(modroomtypeid);
+                    tf_roomno2.setText(modroomno);
+                    tf_roomtype.setText(modroomtype);
+                    tf_paxperroom.setText(modroompax);
+                    tf_roomprice.setText(modroomprice);
+                    while(data.next()){
+                        ModelRoom rm = new ModelRoom();
+                        rm.setRoomtypeid(data.getString("RoomTypeID"));
+                        rm.setRoomno(data.getString("RoomNo"));
+                        rm.setRtype(data.getString("TypeGroup"));
+                        rm.setRoomtype(data.getString("TypeName"));
+                        rm.setPaxperroom(data.getString("MaxPax"));
+                        rm.setRoomprice(data.getString("RoomPrice"));
+                        rtable.add(rm);
+                    }
+                    tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
+                    tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+                    tv_modroom.setItems(rtable);
+                    //data.close();
+                    //db.closeCon();
+                }
+                catch (SQLException e){
+                    e.printStackTrace();
+                }
+
+            }
+            else if (cbox_searchby.getSelectionModel().getSelectedItem().equals("RoomNo")){
+                try {
+                    String sql = "SELECT * FROM Room rm " +
+                            "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
+                            "WHERE rm.RoomNo ='" + tf_searchby.getText() + "'";
+                    ResultSet data2 = db.executeQuery(sql);
+                    ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
+                    while(data2.next()){
+
+                        String modroomid = data2.getString("RoomTypeID");
+                        String modroomno = data2.getString("RoomNo");
+                        String modroomtype = data2.getString("TypeName");
+                        String modroompax = data2.getString("MaxPax");
+                        String modroomprice = data2.getString("RoomPrice");
+
+                        tf_roomtypeid.setText(modroomid);
+                        tf_roomno2.setText(modroomno);
+                        tf_roomtype.setText(modroomtype);
+                        tf_paxperroom.setText(modroompax);
+                        tf_roomprice.setText(modroomprice);
+
+                        ModelRoom rm = new ModelRoom();
+                        rm.setRoomtypeid(data2.getString("RoomTypeID"));
+                        rm.setRoomno(data2.getString("RoomNo"));
+                        rm.setRtype(data2.getString("TypeGroup"));
+                        rm.setRoomtype(data2.getString("TypeName"));
+                        rm.setPaxperroom(data2.getString("MaxPax"));
+                        rm.setRoomprice(data2.getString("RoomPrice"));
+                        rtable.add(rm);
+                    }
+                    tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
+                    tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+                    tv_modroom.setItems(rtable);
+                }
+                catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        //doubleclickroom
+        tv_modroom.setRowFactory(tv ->{
+            TableRow<ModelRoom> selRow = new TableRow<>();
+            selRow.setOnMouseClicked(me ->{
+                if (cbox_searchby.getValue().equals("RoomCategory")){
+                    if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+                        ModelRoom mr = new ModelRoom();
+                        mr = tv_modroom.getSelectionModel().getSelectedItem();
+
+                        tf_roomtypeid.clear();
+                        tf_roomno2.clear();
+                        tf_roomtype.clear();
+                        tf_paxperroom.clear();
+                        tf_roomprice.clear();
+
+                        String sql = "SELECT * FROM Room rm " +
+                                "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
+                                "WHERE rt.TypeGroup ='" + tf_searchby.getText() + "'";
+                        try {
+                            ResultSet data = db.executeQuery(sql);
+                            if (data.next()){
+                                tf_roomtypeid.setText(mr.getRoomtypeid());
+                                tf_roomno2.setText(mr.getRoomno());
+                                tf_roomtype.setText(mr.getRoomtype());
+                                tf_paxperroom.setText(mr.getPaxperroom());
+                                tf_roomprice.setText(mr.getRoomprice());
+                            }
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else if (cbox_searchby.getValue().equals("RoomNo")){
+                    if (me.getClickCount() == 2 && (!selRow.isEmpty())){
+                        ModelRoom mr = new ModelRoom();
+                        mr = tv_modroom.getSelectionModel().getSelectedItem();
+
+                        tf_roomtypeid.clear();
+                        tf_roomno2.clear();
+                        tf_roomtype.clear();
+                        tf_paxperroom.clear();
+                        tf_roomprice.clear();
+
+                        String sql = "SELECT * FROM Room rm " +
+                                "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
+                                "WHERE rm.RoomNo ='" + tf_searchby.getText()  + "'";
+                        try {
+                            ResultSet data = db.executeQuery(sql);
+                            if (data.next()){
+                                tf_roomtypeid.setText(mr.getRoomtypeid());
+                                tf_roomno2.setText(mr.getRoomno());
+                                tf_roomtype.setText(mr.getRoomtype());
+                                tf_paxperroom.setText(mr.getPaxperroom());
+                                tf_roomprice.setText(mr.getRoomprice());
+                            }
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            });
+            return selRow;
+        });
+
+        //change other textfield based on one textfield
+        tf_roomtypeid.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                String sql = "SELECT * FROM RoomType "+
+                        "WHERE TypeID = "+tf_roomtypeid.getText()+"";
+                ResultSet data = db.executeQuery(sql);
+                while (data.next()){
+                    String roomtype = data.getString("TypeName");
+                    String paxperroom = data.getString("MaxPax");
+                    String roomprice = data.getString("RoomPrice");
+
+                    tf_roomtype.setText(roomtype);
+                    tf_paxperroom.setText(paxperroom);
+                    tf_roomprice.setText(roomprice);
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void searchroomcat() {
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
                 String sqll = "SELECT * FROM RoomType rt" +
@@ -130,88 +296,10 @@ public class ModRoomController implements Initializable{
                 e.printStackTrace();
             }
         });
+    }
 
-        btn_search.setOnMouseClicked(me -> {
-            if (cbox_searchby.getSelectionModel().getSelectedItem().equals("RoomCategory")){
-                try {
-                    //language=SQLite
-                    String sql = "SELECT * FROM Room rm " +
-                            "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
-                            "WHERE rt.TypeGroup ='" + tf_searchby.getText()  + "'";
 
-                    ResultSet data = db.executeQuery(sql);
-                    ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
-
-                        String modroomcategory = data.getString("TypeGroup");
-                        String modroomno = data.getString("RoomNo");
-                        String modroomtype = data.getString("TypeName");
-                        String modroompax = data.getString("MaxPax");
-                        String modroomprice = data.getString("RoomPrice");
-
-                        cbox_roomcategory.setValue(modroomcategory);
-                        tf_roomno2.setText(modroomno);
-                        cbox_roomtype.setValue(modroomtype);
-                        tf_paxperroom.setText(modroompax);
-                        tf_roomprice.setText(modroomprice);
-                        while(data.next()){
-                        ModelRoom rm = new ModelRoom();
-                        rm.setRoomno(data.getString("RoomNo"));
-                        rm.setRtype(data.getString("TypeGroup"));
-                        rm.setRoomtype(data.getString("TypeName"));
-                        rm.setPaxperroom(data.getString("MaxPax"));
-                        rm.setRoomprice(data.getString("RoomPrice"));
-                        rtable.add(rm);
-                    }
-                    tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
-                    tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
-                    tv_modroom.setItems(rtable);
-                    //data.close();
-                    //db.closeCon();
-                }
-                catch (SQLException e){
-                    e.printStackTrace();
-                }
-
-            }
-            else if (cbox_searchby.getSelectionModel().getSelectedItem().equals("RoomNo")){
-                try {
-                    String sql = "SELECT * FROM Room rm " +
-                            "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
-                            "WHERE rm.RoomNo ='" + tf_searchby.getText() + "'";
-/*NOT IN (SELECT RoomNo FROM RoomBooking WHERE date('now') BETWEEN date(Date_CI) AND date(Date_CO))*/
-                    ResultSet data2 = db.executeQuery(sql);
-                    ObservableList<ModelRoom> rtable = FXCollections.observableArrayList();
-                    while(data2.next()){
-                        String modroomcategory = data2.getString("TypeGroup");
-                        String modroomno = data2.getString("RoomNo");
-                        String modroomtype = data2.getString("TypeName");
-                        String modroompax = data2.getString("MaxPax");
-                        String modroomprice = data2.getString("RoomPrice");
-
-                        cbox_roomcategory.setValue(modroomcategory);
-                        tf_roomno2.setText(modroomno);
-                        cbox_roomtype.setValue(modroomtype);
-                        tf_paxperroom.setText(modroompax);
-                        tf_roomprice.setText(modroomprice);
-
-                        ModelRoom rm = new ModelRoom();
-                        rm.setRoomno(data2.getString("RoomNo"));
-                        rm.setRtype(data2.getString("TypeGroup"));
-                        rm.setRoomtype(data2.getString("TypeName"));
-                        rm.setPaxperroom(data2.getString("MaxPax"));
-                        rm.setRoomprice(data2.getString("RoomPrice"));
-                        rtable.add(rm);
-                    }
-                    tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
-                    tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
-                    tv_modroom.setItems(rtable);
-                }
-                catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-        //double click add room type tableview
+    private void doubleclickroomcat() {
         tv_groupmodroom.setRowFactory(tv ->{
             TableRow<ModelRoom> selRow = new TableRow<>();
             selRow.setOnMouseClicked(me ->{
@@ -249,127 +337,6 @@ public class ModRoomController implements Initializable{
             });
             return selRow;
         });
-        //double click add room tableview
-        tv_modroom.setRowFactory(tv ->{
-            TableRow<ModelRoom> selRow = new TableRow<>();
-            selRow.setOnMouseClicked(me ->{
-                if (cbox_searchby.getValue().equals("RoomCategory")){
-                    if (me.getClickCount() == 2 && (!selRow.isEmpty())){
-                        ModelRoom mr = new ModelRoom();
-                        mr = tv_modroom.getSelectionModel().getSelectedItem();
-
-                        cbox_roomcategory.getSelectionModel().clearSelection();
-                        tf_roomno2.clear();
-                        cbox_roomtype.getSelectionModel().clearSelection();
-                        tf_paxperroom.clear();
-                        tf_roomprice.clear();
-
-                        String sql = "SELECT * FROM Room rm " +
-                                "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
-                                "WHERE rt.TypeGroup ='" + tf_searchby.getText()  + "'";
-                        try {
-                            ResultSet data = db.executeQuery(sql);
-                            if (data.next()){
-                                cbox_roomcategory.setValue(mr.getRtype());
-                                tf_roomno2.setText(mr.getRoomno());
-                                cbox_roomtype.setValue(mr.getRoomtype());
-                                tf_paxperroom.setText(mr.getPaxperroom());
-                                tf_roomprice.setText(mr.getRoomprice());
-                            }
-                        }catch (SQLException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                else if (cbox_searchby.getValue().equals("RoomNo")){
-                    if (me.getClickCount() == 2 && (!selRow.isEmpty())){
-                        ModelRoom mr = new ModelRoom();
-                        mr = tv_modroom.getSelectionModel().getSelectedItem();
-
-                        cbox_roomcategory.getSelectionModel().clearSelection();
-                        tf_roomno2.clear();
-                        cbox_roomtype.getSelectionModel().clearSelection();
-                        tf_paxperroom.clear();
-                        tf_roomprice.clear();
-
-                        String sql = "SELECT * FROM Room rm " +
-                                "INNER JOIN RoomType rt on rm.RoomTypeID = rt.TypeID " +
-                                "WHERE rm.RoomNo ='" + tf_searchby.getText()  + "'";
-                        try {
-                            ResultSet data = db.executeQuery(sql);
-                            if (data.next()){
-                                cbox_roomcategory.setValue(mr.getRtype());
-                                tf_roomno2.setText(mr.getRoomno());
-                                cbox_roomtype.setValue(mr.getRoomtype());
-                                tf_paxperroom.setText(mr.getPaxperroom());
-                                tf_roomprice.setText(mr.getRoomprice());
-                            }
-                        }catch (SQLException e){
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-            });
-            return selRow;
-        });
-        //cbox_roomcategory items
-        ObservableList<String> roomcategory = FXCollections.observableArrayList();
-        try {
-            ResultSet rs = db.executeQuery("SELECT * FROM RoomType GROUP BY TypeGroup ORDER BY TypeGroup;");
-            while (rs.next()){
-                roomcategory.add(rs.getString("TypeGroup"));
-            }
-            cbox_roomcategory.setItems(roomcategory);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        //cbox roomtype items
-        ObservableList<String> roomtype = FXCollections.observableArrayList();
-        cbox_roomcategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            cbox_roomtype.getItems().clear();
-            if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("President")){
-                try {
-                    ResultSet rs1 = db.executeQuery("SELECT * FROM RoomType WHERE TypeName LIKE 'President%'");
-                    while (rs1.next()){
-                        roomtype.add(rs1.getString("TypeName"));
-                    }
-                    cbox_roomtype.setItems(roomtype);
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-            else if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Commercial")){
-                try {
-                    ResultSet rs2 = db.executeQuery("SELECT * FROM RoomType WHERE TypeName LIKE 'Commercial%'");
-                    while (rs2.next()){
-                        roomtype.add(rs2.getString("TypeName"));
-                    }
-                    cbox_roomtype.setItems(roomtype);
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        //tf change based on combobox
-//        cbox_roomtype.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            //String rtype = cbox_roomtype.getSelectionModel().getSelectedItem();
-//            try {
-//                String sql = "SELECT * FROM RoomType WHERE TypeName = '"+cbox_roomtype.getSelectionModel().getSelectedItem()+"'";
-//                ResultSet rs3 = db.executeQuery(sql);
-//                if (rs3.next()){
-//                    String paxperroom = rs3.getString("MaxPax");
-//                    tf_paxperroom.setText(paxperroom);
-//                    String roomprice = rs3.getString("RoomPrice");
-//                    tf_roomprice.setText(roomprice);
-//                }
-//            }catch (SQLException e){
-//                e.printStackTrace();
-//            }
-//        });
-
-
     }
 
     private void editroomcategory() {
@@ -460,68 +427,72 @@ public class ModRoomController implements Initializable{
 
     private void editroom() {
         btn_editroom.setOnMouseClicked( me->{
-            int selRow = tv_modroom.getSelectionModel().getSelectedIndex();
-            if (selRow >= 0){
-                try {
-                    String sql = "SELECT * FROM RoomType rt "+
-                            "INNER JOIN Room rm ON rt.TypeID = rm.RoomTypeID " +
-                            "WHERE rm.RoomNo = '"+tf_roomno2.getText()+"'";
-                    ResultSet data = db.executeQuery(sql);
-                    ModelRoom mr = new ModelRoom();
-                    mr = tv_modroom.getSelectionModel().getSelectedItem();
-                    mr.setTypeid(data.getString("TypeID"));
-                    mr.setRoomtypeid(data.getString("RoomTypeID"));
-
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmation");
-                    alert.setHeaderText("Edit Room");
-                    alert.setContentText("Are you sure you want to edit "+mr.getRoomno()+" from the table?");
-
-                    Optional<ButtonType> sel = alert.showAndWait();
-                    if (sel.isPresent()){
-                        if (sel.get() == ButtonType.OK){
-                            String roomcat = cbox_roomcategory.getSelectionModel().getSelectedItem();
-                            String roomno = tf_roomno2.getText();
-                            String roomtype = cbox_roomtype.getSelectionModel().getSelectedItem();
-                            try {
-                                String sql1 = "UPDATE Room "+
-                                        "SET RoomNo = '"+roomno+"'" +
-                                        "WHERE RoomTypeID = "+mr.getRoomtypeid()+"";
-                                db.executeUpdate(sql1);
-                            }catch (SQLException e){
-                                e.printStackTrace();
-                            }
-                            try {
-                                String sql2 = "UPDATE RoomType "+
-                                        "SET TypeGroup = '"+roomcat+"', "+
-                                        "TypeName = '"+roomtype+"' "+
-                                        "WHERE TypeID = "+mr.getTypeid()+"";
-                                db.executeUpdate(sql2);
-                            }catch (SQLException e){
-                                e.printStackTrace();
-                            }
-                            cbox_roomcategory.getSelectionModel().clearSelection();
-                            tf_roomno2.clear();
-                            cbox_roomtype.getSelectionModel().clearSelection();
-                            tf_paxperroom.clear();
-                            tf_roomprice.clear();
-                        }
-                        else {
-                            alert.close();
-                        }
-                    }
-
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
+            if (tf_roomtypeid.getText().isEmpty() || tf_roomno2.getText().isEmpty() ||
+                     tf_roomtype.getText().isEmpty() || tf_paxperroom.getText().isEmpty() ||
+                     tf_roomprice.getText().isEmpty()){
+                Alert emptyfield = new Alert(Alert.AlertType.WARNING);
+                emptyfield.setTitle("Empty Field");
+                emptyfield.setHeaderText("One of the field is empty");
+                emptyfield.setContentText("Please make sure to fill in all the table");
+                emptyfield.showAndWait();
             }
             else {
-                Alert noSel = new Alert(Alert.AlertType.WARNING);
-                noSel.setTitle("No Selection");
-                noSel.setHeaderText("No Room is selected");
-                noSel.setContentText("Please select a room in the table to be edited");
-                noSel.showAndWait();
+                int selRow = tv_modroom.getSelectionModel().getSelectedIndex();
+                if (selRow >= 0){
+                    try {
+                        String sql = "SELECT * FROM RoomType rt "+
+                                "INNER JOIN Room rm ON rt.TypeID = rm.RoomTypeID " +
+                                "WHERE rm.RoomNo = '"+tf_roomno2.getText()+"'";
+                        ResultSet data = db.executeQuery(sql);
+                        if (data.next()){
+                            ModelRoom mr = new ModelRoom();
+                            mr = tv_modroom.getSelectionModel().getSelectedItem();
+                            mr.setTypeid(data.getString("TypeID"));
+                            mr.setRoomtypeid(data.getString("RoomTypeID"));
+
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Confirmation");
+                            alert.setHeaderText("Edit Room");
+                            alert.setContentText("Are you sure you want to edit "+mr.getRoomno()+" from the table?");
+
+                            Optional<ButtonType> sel = alert.showAndWait();
+                            if (sel.isPresent()){
+                                if (sel.get() == ButtonType.OK){
+                                    String roomid = tf_roomtypeid.getText();
+                                    try {
+                                        String sql1 = "UPDATE Room "+
+                                                "SET RoomTypeID = "+roomid+"" +
+                                                " WHERE RoomTypeID = "+mr.getRoomtypeid()+"";
+                                        db.executeUpdate(sql1);
+                                    }catch (SQLException e){
+                                        e.printStackTrace();
+                                    }
+                                    tf_roomtypeid.clear();
+                                    tf_roomno2.clear();
+                                    tf_roomtype.clear();
+                                    tf_paxperroom.clear();
+                                    tf_roomprice.clear();
+                                }
+                                else {
+                                    alert.close();
+                                }
+                            }
+                        }
+
+
+                    }catch (SQLException e){
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    Alert noSel = new Alert(Alert.AlertType.WARNING);
+                    noSel.setTitle("No Selection");
+                    noSel.setHeaderText("No Room is selected");
+                    noSel.setContentText("Please select a room in the table to be edited");
+                    noSel.showAndWait();
+                }
             }
+
         });
     }
 
@@ -546,30 +517,32 @@ public class ModRoomController implements Initializable{
 
                     Optional<ButtonType> sel = alert.showAndWait();
                     if (sel.isPresent()){
-                        tv_groupmodroom.getItems().remove(selRow);
-                        try {
-                            String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
-                            db.executeUpdate(sql);
-                        }catch (SQLException e){
-                            e.printStackTrace();
+                        if (sel.get() == ButtonType.OK){
+                            tv_groupmodroom.getItems().remove(selRow);
+                            try {
+                                String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
+                                db.executeUpdate(sql);
+                            }catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                            try {
+                                String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                                db.executeUpdate(sql1);
+                            }catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                            tf_grouproomcategory.clear();
+                            tf_grouproomtype.clear();
+                            tf_grouppaxperroom.clear();
+                            tf_grouproomprice.clear();
+                            tf_grouptwinbedprice.clear();
+                            tf_groupfullbedprice.clear();
+                            tf_groupqueenbedprice.clear();
+                            tf_groupkingbedprice.clear();
                         }
-                        try {
-                            String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
-                            db.executeUpdate(sql1);
-                        }catch (SQLException e){
-                            e.printStackTrace();
+                        else {
+                            alert.close();
                         }
-                        tf_grouproomcategory.clear();
-                        tf_grouproomtype.clear();
-                        tf_grouppaxperroom.clear();
-                        tf_grouproomprice.clear();
-                        tf_grouptwinbedprice.clear();
-                        tf_groupfullbedprice.clear();
-                        tf_groupqueenbedprice.clear();
-                        tf_groupkingbedprice.clear();
-                    }
-                    else {
-                        alert.close();
                     }
                 }catch (SQLException e){
                     e.printStackTrace();
@@ -599,21 +572,23 @@ public class ModRoomController implements Initializable{
 
                 Optional<ButtonType> sel = alert.showAndWait();
                 if (sel.isPresent()){
-                    tv_modroom.getItems().remove(selRow);
-                    try {
-                        String sql = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
-                        db.executeUpdate(sql);
-                    }catch (SQLException e){
-                        e.printStackTrace();
+                    if (sel.get() == ButtonType.OK){
+                        tv_modroom.getItems().remove(selRow);
+                        try {
+                            String sql = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                            db.executeUpdate(sql);
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        tf_roomtypeid.clear();
+                        tf_roomno2.clear();
+                        tf_roomtype.clear();
+                        tf_paxperroom.clear();
+                        tf_roomprice.clear();
                     }
-                    cbox_roomcategory.getSelectionModel().clearSelection();
-                    tf_roomno2.clear();
-                    cbox_roomtype.getSelectionModel().clearSelection();
-                    tf_paxperroom.clear();
-                    tf_roomprice.clear();
-                }
-                else {
-                    alert.close();
+                    else {
+                        alert.close();
+                    }
                 }
             }
             else {
@@ -774,9 +749,9 @@ public class ModRoomController implements Initializable{
 
     private void validation() {
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        cbox_roomcategory.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        tf_roomtypeid.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(1));
         tf_roomno2.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        cbox_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validForTypeName(50));
+        tf_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validForTypeName(50));
         tf_paxperroom.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_roomprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_groupsearchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
