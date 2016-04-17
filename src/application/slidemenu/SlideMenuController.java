@@ -1,16 +1,14 @@
 package application.slidemenu;
 
 import application.DBConnection;
+import application.assets.Login;
 import application.assets.LoginData;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
@@ -19,12 +17,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SlideMenuController implements Initializable {
@@ -76,8 +78,11 @@ public class SlideMenuController implements Initializable {
     //main connection, other than this connection, please do not try to create another connection!
     //If you do, please close your created connection after using it!
 
+    private static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        logout();
 
         lbl_smWelcome.setText("Welcome, " + LoginData.getUname() + "!");
         lbl_smRole.setText("Role: " + LoginData.getAuth());
@@ -94,6 +99,36 @@ public class SlideMenuController implements Initializable {
             e.printStackTrace();
         }
         SlideMenuAnimate();
+
+        Timeline forTimeLbl = new Timeline(new KeyFrame(Duration.seconds(0),
+                event -> lbl_smDAT.setText(LocalDateTime.now().format(timeFormat))),
+                new KeyFrame(Duration.seconds(1)));
+
+        forTimeLbl.setCycleCount(Animation.INDEFINITE);
+        forTimeLbl.play();
+
+    }
+
+    private void logout(){
+        btn_smLogout.setOnMouseClicked(me-> {
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Logout");
+            confirm.setHeaderText("Logout");
+            confirm.setContentText("Are you sure you want to log out?");
+
+            Optional<ButtonType> select = confirm.showAndWait();
+            if (select.isPresent()) {
+                if (select.get() == ButtonType.CANCEL) {
+                    return;
+                }
+            } else {
+                return;
+            }
+
+            Stage stage = (Stage) mainContent.getScene().getWindow();
+            stage.close();
+            new Login();
+        });
     }
 
     private void Content() throws IOException {
