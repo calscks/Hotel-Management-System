@@ -85,7 +85,8 @@ public class CIController implements Initializable {
         try {
             //language=SQLite
             String query = "SELECT * FROM Reservation r " +
-                    "INNER JOIN Customer c ON r.CustID = c.CustID WHERE date(r.CheckInDate) = date('now', 'localtime')";
+                    "INNER JOIN Customer c ON r.CustID = c.CustID WHERE date(r.CheckInDate) = date('now', 'localtime')" +
+                    " AND r.ResvNo NOT IN (SELECT ResvNo FROM CheckInOut)";
             ResultSet rs = db.executeQuery(query);
             ObservableList<ModelCIToday> citable = FXCollections.observableArrayList();
             while (rs.next()) {
@@ -242,7 +243,7 @@ public class CIController implements Initializable {
                         rs = db.executeQuery(query);
                         rpc.getCbox_PayType().getSelectionModel().select("Credit Card");
                         rpc.getTf_cardname().setText(rs.getString("CCardName"));
-                        rpc.getTf_cardno().setText(String.valueOf(rs.getDouble("CCardNo")));
+                        rpc.getTf_cardno().setText(String.valueOf(rs.getLong("CCardNo")));
                         rpc.getTf_cvccode().setText(String.valueOf(rs.getInt("CVC")));
                         rpc.getCbox_Month().getSelectionModel().select(rs.getInt("DOE_Month"));
                         rpc.getCbox_Year().getSelectionModel().select(rs.getInt("DOE_Year"));
@@ -256,11 +257,31 @@ public class CIController implements Initializable {
                     rpc.getRb_deposit().setDisable(true);
                     rpc.getRb_full().setDisable(true);
 
+                    float sum = 0.00f;
+                    if (table_room.getItems().size() > 0) {
+                        for (ModelRoom mr : table_room.getItems()) {
+                            float add = Float.parseFloat(tbcol_rprice.getCellObservableValue(mr).getValue());
+                            sum += add;
+                            System.out.println(sum);
+                        }
+                        rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
+                    }
+                    if (table_fac.getItems().size() > 0) {
+                        for (ModelFacility mf : table_fac.getItems()) {
+                            float add = Float.parseFloat(tbcol_facprice.getCellObservableValue(mf).getValue());
+                            sum += add;
+                            System.out.println(sum);
+                        }
+                        rpc.getLbl_total().setText(String.format(Locale.UK, "%.2f", sum));
+                    }
+
                     rpc.getLbl_refno().setText(String.valueOf(rs.getInt("PaymentID")));
                     rpc.getLbl_deposit().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Deposit")));
+                    rpc.getLbl_subtotal().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Subtotal")));
                     rpc.getLbl_paid().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Paid")));
                     rpc.getLbl_switchbal().setText("Amount :");
                     rpc.getLbl_balance().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Bal")));
+                    rpc.getLbl_caption().setText("Check In");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -297,7 +318,7 @@ public class CIController implements Initializable {
                 String query = "INSERT INTO CheckInOut (CustID, CheckInDate, " +
                         "CheckOutDate, Status, ResvNo) VALUES ('" + tf_ciIDNo.getText() +
                         "','" + inDate + "','" + outDate +
-                        "','Checked In', " + Integer.parseInt(tf_ciResvNum.getText()) + "";
+                        "','Checked In', " + Integer.parseInt(tf_ciResvNum.getText()) + ")";
                 db.executeUpdate(query);
 
                 query = "SELECT DISTINCT CIO_ID FROM CheckInOut WHERE ResvNo=" +
@@ -342,6 +363,14 @@ public class CIController implements Initializable {
             rpc.getLbl_subtotal().setText(null);
             rpc.getTf_cardno().clear();
             rpc.getTf_cvccode().clear();
+
+            Timeline timeline = new Timeline(); //set fade out
+            assert finalPayment != null;
+            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
+            timeline.getKeyFrames().add(kf);
+            //when the timeline is finished (finished fade out) then invoke remove the finalPayment
+            timeline.setOnFinished(se -> ciPane.getChildren().removeAll(finalPayment));
+            timeline.play();
 
             tdCheckIn();
         });

@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -106,7 +107,10 @@
                         </VBox>
                         <VBox prefHeight="410.0" prefWidth="212.0" spacing="10.0">
                            <children>
-                              <TextField fx:id="tf_resvno" editable="false" />
+                              <TextField fx:id="tf_resvno" editable="false" style="-fx-background-color: #7d8187; -fx-text-fill: floralwhite;">
+                                 <effect>
+                                    <InnerShadow blurType="GAUSSIAN" color="#363636" />
+                                 </effect></TextField>
                               <TextField fx:id="tf_fname" />
                               <TextField fx:id="tf_lname" />
                               <TextField fx:id="tf_address" />
@@ -115,7 +119,10 @@
                               <TextField fx:id="tf_state" />
                               <ComboBox fx:id="cbox_country" editable="true" prefHeight="25.0" prefWidth="215.0" />
                               <ComboBox fx:id="cbox_idtype" prefHeight="25.0" prefWidth="213.0" />
-                              <TextField fx:id="tf_idno" editable="false" />
+                              <TextField fx:id="tf_idno" editable="false" style="-fx-background-color: #7d8187; -fx-text-fill: floralwhite;">
+                                 <effect>
+                                    <InnerShadow blurType="GAUSSIAN" color="#3c3c3c" />
+                                 </effect></TextField>
                            </children>
                         </VBox>
                      </children>

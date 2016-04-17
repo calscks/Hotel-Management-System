@@ -3,6 +3,7 @@ package application.assets.reservation;
 import application.DBConnection;
 import application.assets.CIODateDisabler;
 import application.assets.ModelRoom;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -83,6 +84,8 @@ public class ResvRoomController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        btn_roomAdd.disableProperty().bind(Bindings.isEmpty(tf_roomno.textProperty()));
 
         //for room type combobox
         //adding listener to selectedItemProperty is a must, so that listener can detect the selection

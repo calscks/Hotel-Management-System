@@ -12,11 +12,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -148,6 +150,8 @@ public class ResvEditController implements Initializable {
         searchResv();
         cancelResv();
         doubleClick();
+        addGuest();
+        delGuest();
         addRoom();
         delRoom();
         addFac();
@@ -383,6 +387,81 @@ public class ResvEditController implements Initializable {
             });
 
             return selRow;
+        });
+    }
+
+    public void addGuest() {
+
+        FXMLLoader loadGuest = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/reservation/resvaddgroup.fxml"));
+        AnchorPane guestPane = new AnchorPane();
+        try {
+            guestPane = loadGuest.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ResvAddGroupController rag = loadGuest.getController();
+
+        AnchorPane finalGuestPane = guestPane;
+
+        btn_addguest.setOnMouseClicked(me -> {
+            Stage stage = new Stage();
+
+            if (finalGuestPane.getScene() != null) {
+                stage.setScene(finalGuestPane.getScene());
+            } else {
+                Scene guestScene = new Scene(finalGuestPane);
+                stage.setScene(guestScene);
+            }
+
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            stage.setResizable(false);
+        });
+
+        rag.getBtn_addmem().setOnMouseClicked(me -> {
+            ModelGroupMember mg = new ModelGroupMember();
+
+            mg.setMemFName(rag.getTf_fname().getText());
+            mg.setMemLName(rag.getTf_lname().getText());
+            mg.setIdType(rag.getCbox_idtype().getSelectionModel().getSelectedItem());
+            mg.setIdNo(rag.getTf_idno().getText());
+
+            table_memgroup.getItems().add(mg);
+
+            rag.getTf_fname().setText("");
+            rag.getTf_lname().setText("");
+            rag.getTf_idno().setText("");
+
+            Stage stage = (Stage) rag.getBtn_addmem().getScene().getWindow();
+            stage.close();
+        });
+
+    }//add guest ends
+
+    public void delGuest(){
+        btn_delguest.setOnMouseClicked(me->{
+            int selectedRow = table_memgroup.getSelectionModel().getSelectedIndex();
+            if (selectedRow >= 0) {
+                ModelGroupMember mg = new ModelGroupMember();
+                mg = table_memgroup.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Delete Guest");
+                alert.setContentText("Are you sure you want to delete this guest?");
+
+                Optional<ButtonType> select = alert.showAndWait();
+                if (select.isPresent()) {
+                    if (select.get() == ButtonType.OK) {
+                        table_memgroup.getItems().remove(selectedRow);
+                    } else {
+                        alert.close();
+                    }
+                }
+
+            }
         });
     }
 
@@ -718,10 +797,6 @@ public class ResvEditController implements Initializable {
                     db.executeUpdate(query);
                 }
 
-                //extra validation
-                query = "UPDATE RoomBooking SET ExtBedType='' WHERE ExtBedType='null'";
-                db.executeUpdate(query);
-
                 query = "DELETE FROM RoomBooking WHERE ResvNo =" + Integer.parseInt(tf_resvno.getText());
                 db.executeUpdate(query);
 
@@ -733,6 +808,10 @@ public class ResvEditController implements Initializable {
                             "')";
                     db.executeUpdate(query);
                 }
+
+                //extra validation
+                query = "UPDATE RoomBooking SET ExtBedType='' WHERE ExtBedType='null'";
+                db.executeUpdate(query);
 
                 query = "DELETE FROM FacBookedDate WHERE ResvNo =" + Integer.parseInt(tf_resvno.getText());
                 db.executeUpdate(query);

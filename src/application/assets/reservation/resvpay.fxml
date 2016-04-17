@@ -185,7 +185,7 @@
       </VBox>
       <Button fx:id="btn_reserve" layoutX="733.0" layoutY="501.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="Reserve" />
       <Button fx:id="btn_resvBack" layoutX="206.0" layoutY="501.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="96.0" text="&lt;&lt; Back" />
-      <Label layoutX="215.0" layoutY="85.0" prefHeight="26.0" prefWidth="108.0" text="Reservation ">
+      <Label fx:id="lbl_caption" layoutX="215.0" layoutY="85.0" prefHeight="26.0" prefWidth="108.0" text="Reservation ">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

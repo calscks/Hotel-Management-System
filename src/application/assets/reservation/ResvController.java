@@ -129,6 +129,8 @@ public class ResvController implements Initializable {
 
         addGuest();
 
+        delGuest();
+
         addRoom();
 
         delRoom();
@@ -234,6 +236,31 @@ public class ResvController implements Initializable {
         });
 
     }//add guest ends
+
+    public void delGuest(){
+        btn_delguest.setOnMouseClicked(me->{
+            int selectedRow = table_gmembers.getSelectionModel().getSelectedIndex();
+            if (selectedRow >= 0) {
+                ModelGroupMember mg = new ModelGroupMember();
+                mg = table_gmembers.getSelectionModel().getSelectedItem();
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Delete Guest");
+                alert.setContentText("Are you sure you want to delete this guest?");
+
+                Optional<ButtonType> select = alert.showAndWait();
+                if (select.isPresent()) {
+                    if (select.get() == ButtonType.OK) {
+                        table_gmembers.getItems().remove(selectedRow);
+                    } else {
+                        alert.close();
+                    }
+                }
+
+            }
+        });
+    }
 
     //pressing add button for room as well as in room popup
     public void addRoom() {
@@ -735,9 +762,9 @@ public class ResvController implements Initializable {
         tf_fname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_lname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_address.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
-        tf_postcode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(12));
+        tf_postcode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(12));
         tf_city.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
-        tf_idno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(20));
+        tf_idno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(20));
     }
 
     public void cellValueFactory() {
