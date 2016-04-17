@@ -121,7 +121,7 @@ public class CIController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         validation();
-        initial()
+        initial();
 
         tf_ciResvNum.textProperty().addListener((observable, oldValue,newValue)-> {
             try {
