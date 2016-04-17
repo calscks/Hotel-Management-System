@@ -1,11 +1,13 @@
 package application.assets.checkout;
 
+import application.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
@@ -56,12 +58,10 @@ public class COController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         filltb();
         checkboxes();
+        validation();
 
         tf_missingprice.textProperty().addListener(((observable, oldValue, newValue) -> {
-
                 addpay(Double.parseDouble(tf_missingprice.getText().trim()));
-
-
         }));
         tf_damageprice.textProperty().addListener(((observable, oldValue, newValue) -> {
             addpay( Double.parseDouble(tf_damageprice.getText().trim()));
@@ -134,25 +134,43 @@ public class COController implements Initializable {
 
     }
 
+    private void validation() {
+        tf_missingprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(5));
+        tf_damageprice.addEventFilter(KeyEvent.KEY_TYPED,Validation.validNo(5));
+        tf_bottleprice.addEventFilter(KeyEvent.KEY_TYPED,Validation.validNo(5));
+    }
+
     private void checkboxes() {
         tf_missingprice.setEditable(false);
         tf_bottleprice.setEditable(false);
         tf_damageprice.setEditable(false);
-       String original = label_coExtra.getText();
+
         check_coMissing.setOnAction((event -> {
-            if(check_coMissing.isSelected()){tf_missingprice.setEditable(true);}
-            else{
-tf_missingprice.setEditable(false);
+            String original = null;
+            if (check_coMissing.isSelected()) {
+                original = label_coExtra.getText();
+                tf_missingprice.setEditable(true);
+            } else {
+                tf_missingprice.setEditable(false);
+                label_coExtra.setText(original);
             }
         }));
-        check_coBottle.setOnAction((event -> {if(check_coBottle.isSelected()){tf_bottleprice.setEditable(true);}
+        check_coBottle.setOnAction((event -> {
+            String original = null;
+            if(check_coBottle.isSelected()){tf_bottleprice.setEditable(true);}
             else{
             tf_bottleprice.setEditable(false);
+            label_coExtra.setText(original);
         }
         }));
-        check_coDamaged.setOnAction((event -> {if(check_coDamaged.isSelected()){tf_damageprice.setEditable(true);}
+        check_coDamaged.setOnAction((event -> {
+            String original = null;
+            if(check_coDamaged.isSelected()){
+                original = label_coExtra.getText();
+                tf_damageprice.setEditable(true);}
         else{
         tf_damageprice.setEditable(false);
+            label_coExtra.setText(original);
         }
         }));
     }
@@ -282,6 +300,7 @@ tf_missingprice.setEditable(false);
     }
 
     public void addpay(double prices){
+
         double extraprice = Double.parseDouble(label_coExtra.getText());
         double original = extraprice;
         double v = extraprice + prices;
