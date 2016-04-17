@@ -83,8 +83,8 @@
                   <TextField fx:id="tf_paxperroom" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label text="Room Price :" GridPane.rowIndex="4" />
                   <TextField fx:id="tf_roomprice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="tf_roomcategory" GridPane.columnIndex="1" />
-                  <TextField fx:id="tf_roomtype" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="cbox_roomcategory" prefHeight="25.0" prefWidth="201.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="cbox_roomtype" prefHeight="25.0" prefWidth="226.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="139.0" minWidth="10.0" prefWidth="112.0" />

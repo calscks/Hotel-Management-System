@@ -33,9 +33,9 @@ public class ModRoomController implements Initializable{
 
     @FXML private TextField tf_searchby;
     @FXML private ComboBox cbox_searchby;
-    @FXML private TextField tf_roomcategory;
+    @FXML private ComboBox<String> cbox_roomcategory;
     @FXML private TextField tf_roomno2;
-    @FXML private TextField tf_roomtype;
+    @FXML private ComboBox<String> cbox_roomtype;
     @FXML private TextField tf_paxperroom;
     @FXML private TextField tf_roomprice;
     @FXML private TextField tf_groupsearchby;
@@ -61,6 +61,7 @@ public class ModRoomController implements Initializable{
     @FXML private TableColumn<ModelRoom, String> tc_groupmodroomcategory;
     @FXML private TableColumn<ModelRoom, String> tc_groupmodroomtype;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -82,6 +83,57 @@ public class ModRoomController implements Initializable{
         tf_paxperroom.setDisable(true);
         tf_roomprice.setDisable(true);
         tf_roomno2.setDisable(true);
+        //cbox_roomcategory items
+        ObservableList<String> roomcategory = FXCollections.observableArrayList();
+        try {
+            ResultSet rs = db.executeQuery("SELECT TypeGroup FROM RoomType GROUP BY TypeGroup ORDER BY TypeGroup;");
+            while (rs.next()){
+                roomcategory.add(rs.getString("TypeGroup"));
+            }
+            cbox_roomcategory.setItems(roomcategory);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        //cbox_roomtye items
+        ObservableList<String> roomtype = FXCollections.observableArrayList();
+        cbox_roomcategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            cbox_roomtype.getItems().clear();
+            if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("President")){
+                try{
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName from RoomType WHERE TypeName LIKE 'President%'");
+                    while (rs1.next()){
+                        roomtype.add(rs1.getString("TypeName"));
+                    }
+                    cbox_roomtype.setItems(roomtype);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            else if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Commercial")){
+                try {
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Commercial%'");
+                    while (rs1.next()){
+                        roomtype.add(rs1.getString("TypeName"));
+                    }
+                    cbox_roomtype.setItems(roomtype);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            else {
+                try {
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Deluxe%'");
+                    while (rs1.next()){
+                        roomtype.add(rs1.getString("TypeName"));
+                    }
+                    cbox_roomtype.setItems(roomtype);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        //paxperroom and roomprice based on room type
 
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
@@ -149,9 +201,9 @@ public class ModRoomController implements Initializable{
                     String modroompax = data.getString("MaxPax");
                     String modroomprice = data.getString("RoomPrice");
 
-                    tf_roomcategory.setText(modroomcategory);
+                    cbox_roomcategory.setValue(modroomcategory);
                     tf_roomno2.setText(modroomno);
-                    tf_roomtype.setText(modroomtype);
+                    cbox_roomtype.setValue(modroomtype);
                     tf_paxperroom.setText(modroompax);
                     tf_roomprice.setText(modroomprice);
 
@@ -189,9 +241,9 @@ public class ModRoomController implements Initializable{
                     String modroompax = data2.getString("MaxPax");
                     String modroomprice = data2.getString("RoomPrice");
 
-                    tf_roomcategory.setText(modroomcategory);
+                    cbox_roomcategory.setValue(modroomcategory);
                     tf_roomno2.setText(modroomno);
-                    tf_roomtype.setText(modroomtype);
+                    cbox_roomtype.setValue(modroomtype);
                     tf_paxperroom.setText(modroompax);
                     tf_roomprice.setText(modroomprice);
 
@@ -259,9 +311,9 @@ public class ModRoomController implements Initializable{
                         ModelRoom mr = new ModelRoom();
                         mr = tv_modroom.getSelectionModel().getSelectedItem();
 
-                        tf_roomcategory.clear();
+                        cbox_roomcategory.getSelectionModel().clearSelection();
                         tf_roomno2.clear();
-                        tf_roomtype.clear();
+                        cbox_roomtype.getSelectionModel().clearSelection();
                         tf_paxperroom.clear();
                         tf_roomprice.clear();
 
@@ -271,9 +323,9 @@ public class ModRoomController implements Initializable{
                         try {
                             ResultSet data = db.executeQuery(sql);
                             if (data.next()){
-                                tf_roomcategory.setText(mr.getRtype());
+                                cbox_roomcategory.setValue(mr.getRtype());
                                 tf_roomno2.setText(mr.getRoomno());
-                                tf_roomtype.setText(mr.getRoomtype());
+                                cbox_roomtype.setValue(mr.getRoomtype());
                                 tf_paxperroom.setText(mr.getPaxperroom());
                                 tf_roomprice.setText(mr.getRoomprice());
                             }
@@ -287,9 +339,9 @@ public class ModRoomController implements Initializable{
                         ModelRoom mr = new ModelRoom();
                         mr = tv_modroom.getSelectionModel().getSelectedItem();
 
-                        tf_roomcategory.clear();
+                        cbox_roomcategory.getSelectionModel().clearSelection();
                         tf_roomno2.clear();
-                        tf_roomtype.clear();
+                        cbox_roomtype.getSelectionModel().clearSelection();
                         tf_paxperroom.clear();
                         tf_roomprice.clear();
 
@@ -299,9 +351,9 @@ public class ModRoomController implements Initializable{
                         try {
                             ResultSet data = db.executeQuery(sql);
                             if (data.next()){
-                                tf_roomcategory.setText(mr.getRtype());
+                                cbox_roomcategory.setValue(mr.getRtype());
                                 tf_roomno2.setText(mr.getRoomno());
-                                tf_roomtype.setText(mr.getRoomtype());
+                                cbox_roomtype.setValue(mr.getRoomtype());
                                 tf_paxperroom.setText(mr.getPaxperroom());
                                 tf_roomprice.setText(mr.getRoomprice());
                             }
@@ -411,9 +463,9 @@ public class ModRoomController implements Initializable{
                     Optional<ButtonType> sel = alert.showAndWait();
                     if (sel.isPresent()){
                         if (sel.get() == ButtonType.OK){
-                            String roomcat = tf_roomcategory.getText();
+                            String roomcat = cbox_roomcategory.getSelectionModel().getSelectedItem();
                             String roomno = tf_roomno2.getText();
-                            String roomtype = tf_roomtype.getText();
+                            String roomtype = cbox_roomtype.getSelectionModel().getSelectedItem();
                             try {
                                 String sql1 = "UPDATE Room "+
                                         "SET RoomNo = '"+roomno+"'" +
@@ -431,9 +483,9 @@ public class ModRoomController implements Initializable{
                             }catch (SQLException e){
                                 e.printStackTrace();
                             }
-                            tf_roomcategory.clear();
+                            cbox_roomcategory.getSelectionModel().clearSelection();
                             tf_roomno2.clear();
-                            tf_roomtype.clear();
+                            cbox_roomtype.getSelectionModel().clearSelection();
                             tf_paxperroom.clear();
                             tf_roomprice.clear();
                         }
@@ -537,9 +589,9 @@ public class ModRoomController implements Initializable{
                     }catch (SQLException e){
                         e.printStackTrace();
                     }
-                    tf_roomcategory.clear();
+                    cbox_roomcategory.getSelectionModel().clearSelection();
                     tf_roomno2.clear();
-                    tf_roomtype.clear();
+                    cbox_roomtype.getSelectionModel().clearSelection();
                     tf_paxperroom.clear();
                     tf_roomprice.clear();
                 }
@@ -664,9 +716,9 @@ public class ModRoomController implements Initializable{
 
     private void validation() {
         tf_searchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        tf_roomcategory.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
+        cbox_roomcategory.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(10));
         tf_roomno2.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
-        tf_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validForTypeName(50));
+        cbox_roomtype.addEventFilter(KeyEvent.KEY_TYPED, Validation.validForTypeName(50));
         tf_paxperroom.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_roomprice.addEventFilter(KeyEvent.KEY_TYPED, Validation.validPrice(10));
         tf_groupsearchby.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
