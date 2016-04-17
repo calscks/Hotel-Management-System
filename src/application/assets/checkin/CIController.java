@@ -1,6 +1,5 @@
 package application.assets.checkin;
 
-import application.Validation;
 import application.assets.*;
 import application.assets.reservation.ResvPayController;
 import javafx.animation.FadeTransition;
@@ -15,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -77,7 +75,7 @@ public class CIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        cellValueFacotry();
+        cellValueFactory();
         tdCheckIn();
         doubleClick();
         ciPayment();
@@ -311,18 +309,46 @@ public class CIController implements Initializable {
                 while (rs.next()){
                     query = "UPDATE Payment SET CIO_ID = " + rs.getInt("CIO_ID") +
                             ", Bal = 0, Paid = " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
-                            "";
+                            " WHERE ResvNo=" + Integer.parseInt(tf_ciResvNum.getText());
                     db.executeUpdate(query);
                 }
 
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText("Check In Successful");
+                alert.setContentText("Check In successfully made for Reservation No: " +
+                tf_ciResvNum.getText());
+                alert.showAndWait();
 
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            tf_ciResvNum.clear();
+            tf_ciIDNo.clear();
+            tf_ciCity.clear();
+            tf_ciPostCode.clear();
+            tf_ciFirstName.clear();
+            tf_ciLastName.clear();
+            tf_ciAddress.clear();
+            tf_ciState.clear();
+
+            table_fac.getItems().clear();
+            table_ciToday.getItems().clear();
+            table_memgroup.getItems().clear();
+            table_room.getItems().clear();
+
+            rpc.getLbl_balance().setText(null);
+            rpc.getTf_cardname().clear();
+            rpc.getLbl_subtotal().setText(null);
+            rpc.getTf_cardno().clear();
+            rpc.getTf_cvccode().clear();
+
+            tdCheckIn();
         });
     }
 
-    public void cellValueFacotry(){
+    public void cellValueFactory(){
         tbcol_resvno.setCellValueFactory(new PropertyValueFactory<>("resv"));
         tbcol_fname.setCellValueFactory(new PropertyValueFactory<>("fname"));
         tbcol_lname.setCellValueFactory(new PropertyValueFactory<>("lname"));

@@ -42,7 +42,7 @@ public class Employee {
         return empAuth.get();
     }
 
-    public int getEmpId() {
+    public Integer getEmpId() {
         return empId.get();
     }
 
@@ -56,7 +56,7 @@ public class Employee {
 
     //these setters are important to set database column value into each properties of this data model class
 
-    public void setEmpId(int empId) {
+    public void setEmpId(Integer empId) {
         this.empId.set(empId);
     }
 

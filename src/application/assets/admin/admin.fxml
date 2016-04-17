@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -31,27 +32,42 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_RIGHT" layoutX="357.0" layoutY="55.0" spacing="18.0">
+      <VBox layoutX="360.0" layoutY="113.0" spacing="30.0">
          <children>
-            <Label text="Employee Username :" />
-            <Label text="Employee Password :" />
-            <Label text="Authority :" />
-         </children>
-         <padding>
-            <Insets top="3.0" />
-         </padding>
-      </VBox>
-      <VBox layoutX="497.0" layoutY="55.0" spacing="10.0">
-         <children>
-            <TextField fx:id="tf_uname" editable="false" />
-            <TextField fx:id="tf_empPwd" />
-            <ComboBox fx:id="cbox_authority" prefHeight="25.0" prefWidth="200.0" />
+            <HBox spacing="10.0">
+               <children>
+                  <VBox alignment="TOP_RIGHT" spacing="18.0">
+                     <children>
+                        <Label text="Employee ID :" />
+                        <Label text="Employee Username :" />
+                        <Label text="Employee Password :" />
+                        <Label text="Authority :" />
+                     </children>
+                     <padding>
+                        <Insets top="3.0" />
+                     </padding>
+                  </VBox>
+                  <VBox spacing="10.0">
+                     <children>
+                        <TextField fx:id="tf_empid" disable="true" />
+                        <TextField fx:id="tf_uname" disable="true" />
+                        <TextField fx:id="tf_emppwd" disable="true" />
+                        <ComboBox fx:id="cbox_auth" disable="true" prefHeight="25.0" prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <Button fx:id="btn_switchable" disable="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" text="Switchable" />
+                  <Button fx:id="btn_cancel" disable="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" text="Cancel" />
+               </children>
+            </HBox>
          </children>
       </VBox>
       <Button fx:id="btn_addEmp" layoutX="82.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Add" />
       <Button fx:id="btn_editEmp" layoutX="155.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Edit" />
-      <Button fx:id="btn_switchable" layoutX="478.0" layoutY="285.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="104.0" text="Switchable" />
-      <Label layoutX="670.0" layoutY="8.0" text="Logout" textFill="#0037a4" underline="true" />
+      <Label fx:id="lbl_logout" layoutX="670.0" layoutY="8.0" text="Logout" textFill="#0037a4" underline="true" />
       <Button fx:id="btn_delEmp" layoutX="230.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Delete" />
    </children>
 </AnchorPane>
