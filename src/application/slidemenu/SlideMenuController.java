@@ -73,6 +73,8 @@ public class SlideMenuController implements Initializable {
     private Boolean ReportLoaded;
 
     public static DBConnection db = new DBConnection("Data.sqlite");
+    //main connection, other than this connection, please do not try to create another connection!
+    //If you do, please close your created connection after using it!
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

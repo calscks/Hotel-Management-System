@@ -73,7 +73,7 @@ public class ForAddButton {
 
     private void showStage2() {
         addButton.setOnMouseClicked(me -> {
-            if (Objects.equals(unique.getText(), "")) {
+            if (!Objects.equals(unique.getText(), "")) {
                 Stage stage = new Stage();
 
                 if (finalPane.getScene() != null) {

@@ -3,6 +3,9 @@ package application.assets.reservation;
 import application.Validation;
 import application.assets.*;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -642,6 +645,16 @@ public class ResvEditController implements Initializable {
             Float bal = subtotal - Float.parseFloat(rpc.getLbl_paid().getText());
             rpc.getLbl_balance().setText(String.format(Locale.UK, "%.2f", bal));
 
+        });
+
+        rpc.getBtn_resvBack().setOnMouseClicked(me -> { //getter from the payment controller
+            Timeline timeline = new Timeline(); //set fade out
+            assert finalPayment != null;
+            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
+            timeline.getKeyFrames().add(kf);
+            //when the timeline is finished (finished fade out) then invoke remove the finalPayment
+            timeline.setOnFinished(se -> resvEditPane.getChildren().removeAll(finalPayment));
+            timeline.play();
         });
 
         rpc.getBtn_reserve().setOnMouseClicked(me->{

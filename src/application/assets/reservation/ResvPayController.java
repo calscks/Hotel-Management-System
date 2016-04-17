@@ -101,8 +101,9 @@ public class ResvPayController implements Initializable{
                 lbl_paid.setText(String.format(Locale.UK, "%.2f", dep));
                 lbl_balance.setText(String.format(Locale.UK, "%.2f", bal));
             } else if (rb_full.isSelected()){
+                float bal = subtotal - subtotal;
                 lbl_paid.setText(lbl_subtotal.getText());
-                lbl_balance.setText(lbl_subtotal.getText());
+                lbl_balance.setText(String.format(Locale.UK, "%.2f", bal));
             }
         });
 
