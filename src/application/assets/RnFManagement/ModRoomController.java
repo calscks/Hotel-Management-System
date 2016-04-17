@@ -517,30 +517,32 @@ public class ModRoomController implements Initializable{
 
                     Optional<ButtonType> sel = alert.showAndWait();
                     if (sel.isPresent()){
-                        tv_groupmodroom.getItems().remove(selRow);
-                        try {
-                            String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
-                            db.executeUpdate(sql);
-                        }catch (SQLException e){
-                            e.printStackTrace();
+                        if (sel.get() == ButtonType.OK){
+                            tv_groupmodroom.getItems().remove(selRow);
+                            try {
+                                String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
+                                db.executeUpdate(sql);
+                            }catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                            try {
+                                String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                                db.executeUpdate(sql1);
+                            }catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                            tf_grouproomcategory.clear();
+                            tf_grouproomtype.clear();
+                            tf_grouppaxperroom.clear();
+                            tf_grouproomprice.clear();
+                            tf_grouptwinbedprice.clear();
+                            tf_groupfullbedprice.clear();
+                            tf_groupqueenbedprice.clear();
+                            tf_groupkingbedprice.clear();
                         }
-                        try {
-                            String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
-                            db.executeUpdate(sql1);
-                        }catch (SQLException e){
-                            e.printStackTrace();
+                        else {
+                            alert.close();
                         }
-                        tf_grouproomcategory.clear();
-                        tf_grouproomtype.clear();
-                        tf_grouppaxperroom.clear();
-                        tf_grouproomprice.clear();
-                        tf_grouptwinbedprice.clear();
-                        tf_groupfullbedprice.clear();
-                        tf_groupqueenbedprice.clear();
-                        tf_groupkingbedprice.clear();
-                    }
-                    else {
-                        alert.close();
                     }
                 }catch (SQLException e){
                     e.printStackTrace();
@@ -570,21 +572,23 @@ public class ModRoomController implements Initializable{
 
                 Optional<ButtonType> sel = alert.showAndWait();
                 if (sel.isPresent()){
-                    tv_modroom.getItems().remove(selRow);
-                    try {
-                        String sql = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
-                        db.executeUpdate(sql);
-                    }catch (SQLException e){
-                        e.printStackTrace();
+                    if (sel.get() == ButtonType.OK){
+                        tv_modroom.getItems().remove(selRow);
+                        try {
+                            String sql = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                            db.executeUpdate(sql);
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                        }
+                        tf_roomtypeid.clear();
+                        tf_roomno2.clear();
+                        tf_roomtype.clear();
+                        tf_paxperroom.clear();
+                        tf_roomprice.clear();
                     }
-                    tf_roomtypeid.clear();
-                    tf_roomno2.clear();
-                    tf_roomtype.clear();
-                    tf_paxperroom.clear();
-                    tf_roomprice.clear();
-                }
-                else {
-                    alert.close();
+                    else {
+                        alert.close();
+                    }
                 }
             }
             else {
