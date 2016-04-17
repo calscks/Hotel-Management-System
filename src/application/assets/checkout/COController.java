@@ -145,6 +145,7 @@ public class COController implements Initializable {
                 "INNER JOIN RoomBooking USING (ResvNo)\n" +
                 "WHERE RoomBooking.DateCO ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'Checked In'";
             ResultSet todayco = db.executeQuery(sql);
+            //test
 
         ObservableList<ModelCheckOut> cotable = FXCollections.observableArrayList();
         while(todayco.next()){
