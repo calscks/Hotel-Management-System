@@ -58,7 +58,10 @@ public class COController implements Initializable {
         checkboxes();
 
         tf_missingprice.textProperty().addListener(((observable, oldValue, newValue) -> {
-            addpay( Double.parseDouble(tf_missingprice.getText().trim()));
+
+                addpay(Double.parseDouble(tf_missingprice.getText().trim()));
+
+
         }));
         tf_damageprice.textProperty().addListener(((observable, oldValue, newValue) -> {
             addpay( Double.parseDouble(tf_damageprice.getText().trim()));
@@ -135,6 +138,7 @@ public class COController implements Initializable {
         tf_missingprice.setEditable(false);
         tf_bottleprice.setEditable(false);
         tf_damageprice.setEditable(false);
+       String original = label_coExtra.getText();
         check_coMissing.setOnAction((event -> {
             if(check_coMissing.isSelected()){tf_missingprice.setEditable(true);}
             else{
@@ -279,8 +283,11 @@ tf_missingprice.setEditable(false);
 
     public void addpay(double prices){
         double extraprice = Double.parseDouble(label_coExtra.getText());
+        double original = extraprice;
         double v = extraprice + prices;
         label_coExtra.setText(Double.toString(v));
+
+
     }
 
 }
