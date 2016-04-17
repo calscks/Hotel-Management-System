@@ -85,8 +85,7 @@ public class CIController implements Initializable {
         try {
             //language=SQLite
             String query = "SELECT * FROM Reservation r " +
-                    "INNER JOIN Customer c ON r.CustID = c.CustID WHERE r.CheckInDate = " +
-                    "CURRENT_DATE";
+                    "INNER JOIN Customer c ON r.CustID = c.CustID WHERE date(r.CheckInDate) = date('now', 'localtime')";
             ResultSet rs = db.executeQuery(query);
             ObservableList<ModelCIToday> citable = FXCollections.observableArrayList();
             while (rs.next()) {
