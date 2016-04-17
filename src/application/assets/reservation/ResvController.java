@@ -5,6 +5,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,8 +42,6 @@ public class ResvController implements Initializable {
     private TextField tf_fname;
     @FXML
     private TextField tf_lname;
-    @FXML
-    private TextField tf_phoneno;
     @FXML
     private TextField tf_address;
     @FXML
@@ -83,8 +82,6 @@ public class ResvController implements Initializable {
     private TableColumn<ModelGroupMember, String> tbcol_memidtype;
     @FXML
     private TableColumn<ModelGroupMember, String> tbcol_memidno;
-    @FXML
-    private TableColumn<ModelGroupMember, String> tbcol_memroomno;
 
     @FXML
     private TableView<ModelRoom> table_resvRoom;
@@ -169,6 +166,13 @@ public class ResvController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        btn_resvNext.disableProperty().bind(
+                Bindings.isEmpty(tf_fname.textProperty()).or(Bindings.isEmpty(tf_lname.textProperty()))
+                .or(Bindings.isEmpty(tf_address.textProperty())).or(Bindings.isEmpty(tf_postcode.textProperty()))
+                .or(Bindings.isEmpty(tf_city.textProperty())).or(Bindings.isEmpty(tf_state.textProperty()))
+                .or(Bindings.isEmpty(tf_idno.textProperty()))
+        ); //some validation to lock the next button
 
 
     }
@@ -395,6 +399,15 @@ public class ResvController implements Initializable {
         //next button
         btn_resvNext.setOnMouseClicked(me -> {
 
+            if (table_resvRoom.getItems().size() == 0){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No room is selected");
+                alert.setHeaderText("Reservation cannot be made.");
+                alert.setContentText("Reservation cannot be made without a room.");
+                alert.showAndWait();
+                return;
+            }
+
             try {
                 ResultSet rs = db.executeQuery("SELECT CustID, CustID_Type, Blacklisted " +
                         "FROM Customer WHERE CustID='" + tf_idno + "' AND CustID_Type='" +
@@ -511,12 +524,26 @@ public class ResvController implements Initializable {
         //reserve button
         rpc.getBtn_reserve().setOnMouseClicked(me -> {
 
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Add reservation");
+            alert.setContentText("Are you sure you want to add reservation No: " + tf_resvno.getText() + "?");
+            Optional<ButtonType> select = alert.showAndWait();
+            if (select.isPresent()) {
+                if (select.get() == ButtonType.CANCEL) {
+                    return;
+                }
+            } else {
+                return;
+            }
+
+
             if (!rpc.getRb_deposit().isSelected() && !rpc.getRb_full().isSelected()) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Payment");
-                alert.setHeaderText("Nothing is being paid");
-                alert.setContentText("Deposit or full payment must be made.");
-                alert.showAndWait();
+                Alert alert3 = new Alert(Alert.AlertType.WARNING);
+                alert3.setTitle("Payment");
+                alert3.setHeaderText("Nothing is being paid");
+                alert3.setContentText("Deposit or full payment must be made.");
+                alert3.showAndWait();
                 return;
             }
             //language=SQLite
@@ -648,6 +675,47 @@ public class ResvController implements Initializable {
                     e.printStackTrace();
                 }
             }
+
+            Alert con = new Alert(Alert.AlertType.INFORMATION);
+            con.setTitle("Success");
+            con.setHeaderText("Reservation Successful");
+            con.setContentText("Reservation is successfully added.");
+            con.showAndWait();
+
+            int resvnum = Integer.parseInt(tf_resvno.getText());
+            resvnum += 1;
+
+            tf_resvno.setText(String.valueOf(resvnum));
+
+            tf_idno.clear();
+            tf_city.clear();
+            tf_postcode.clear();
+            tf_fname.clear();
+            tf_lname.clear();
+            tf_address.clear();
+            tf_state.clear();
+
+            table_resvFac.getItems().clear();
+            table_gmembers.getItems().clear();
+            table_resvRoom.getItems().clear();
+
+            rpc.getLbl_balance().setText(null);
+            rpc.getTf_cardname().clear();
+            rpc.getLbl_subtotal().setText(null);
+            rpc.getTf_cardno().clear();
+            rpc.getTf_cvccode().clear();
+
+            rpc.getRb_deposit().setSelected(false);
+            rpc.getRb_full().setSelected(false);
+
+            Timeline timeline = new Timeline(); //set fade out
+            assert finalPayment != null;
+            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
+            timeline.getKeyFrames().add(kf);
+            //when the timeline is finished (finished fade out) then invoke remove the finalPayment
+            timeline.setOnFinished(se -> resvPane.getChildren().removeAll(finalPayment));
+            timeline.play();
+
         });//reserve button ends
 
     } //end payment stuffs

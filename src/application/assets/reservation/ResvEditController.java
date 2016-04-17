@@ -6,6 +6,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -152,6 +153,13 @@ public class ResvEditController implements Initializable {
         addFac();
         delFac();
         resvEditPay();
+
+        btn_next.disableProperty().bind(
+                Bindings.isEmpty(tf_fname.textProperty()).or(Bindings.isEmpty(tf_lname.textProperty()))
+                        .or(Bindings.isEmpty(tf_address.textProperty())).or(Bindings.isEmpty(tf_postcode.textProperty()))
+                        .or(Bindings.isEmpty(tf_city.textProperty())).or(Bindings.isEmpty(tf_state.textProperty()))
+                        .or(Bindings.isEmpty(tf_idno.textProperty()))
+        );
     }
 
     public void searchResv() {
@@ -565,7 +573,7 @@ public class ResvEditController implements Initializable {
             try {
                 ResultSet rs = db.executeQuery(query);
                 if (rs.next()){
-                    Double ccardno = rs.getDouble("CCardNo");
+                    Long ccardno = rs.getLong("CCardNo");
                     if (!rs.wasNull()){
                         query = "SELECT * FROM Payment p INNER JOIN Pay_CCard pc " +
                                 "ON p.CCardNo = pc.CCardNo WHERE ResvNo = " +
@@ -573,7 +581,7 @@ public class ResvEditController implements Initializable {
                         rs = db.executeQuery(query);
                         rpc.getCbox_PayType().getSelectionModel().select("Credit Card");
                         rpc.getTf_cardname().setText(rs.getString("CCardName"));
-                        rpc.getTf_cardno().setText(String.valueOf(rs.getDouble("CCardNo")));
+                        rpc.getTf_cardno().setText(String.valueOf(rs.getLong("CCardNo")));
                         rpc.getTf_cvccode().setText(String.valueOf(rs.getInt("CVC")));
                         rpc.getCbox_Month().getSelectionModel().select(rs.getInt("DOE_Month"));
                         rpc.getCbox_Year().getSelectionModel().select(rs.getInt("DOE_Year"));

@@ -161,7 +161,7 @@ public class ResvRoomController implements Initializable {
                     tf_roomno.clear();
                     cbox_xtrabed.getItems().clear();
 
-
+                    //language=SQLite
                     String query = "SELECT r.RoomNo, rt.TypeGroup, rt.TypeName, rt.RoomPrice, " +
                             "rt.Rate_extTwin, rt.Rate_extFull, rt.Rate_extQueen, rt.Rate_extKing " +
                             "FROM Room r " +
