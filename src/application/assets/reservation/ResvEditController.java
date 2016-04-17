@@ -168,8 +168,8 @@ public class ResvEditController implements Initializable {
             table_sresult.getItems().clear();
             if (rb_resvno.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 String query = "SELECT r.ResvNo, c.CustFName, c.CustLName FROM Reservation r " +
-                        "INNER JOIN Customer c WHERE r.ResvNo LIKE '%" + tf_search.getText() +
-                        "%' and r.CustID = c.CustID";
+                        "INNER JOIN Customer c on r.CustID = c.CustID WHERE " +
+                        "r.ResvNo LIKE '%" + tf_search.getText() + "%'";
                 try {
                     ResultSet rs = db.executeQuery(query);
                     while (rs.next()) {
@@ -312,7 +312,7 @@ public class ResvEditController implements Initializable {
                         //language=SQLite
                         String query = "SELECT * FROM Reservation r INNER JOIN Customer c " +
                                 "ON r.CustID = c.CustID INNER JOIN CustAddress ca ON " +
-                                "ca.CustID = c.CustID WHERE r.ResvNo = " + result.getResvNo();
+                                "ca.CustID = c.CustID WHERE r.ResvNo = " + Integer.parseInt(result.getResvNo());
                         ResultSet rs = db.executeQuery(query);
 
                         tf_resvno.setText(String.valueOf(rs.getInt("ResvNo")));

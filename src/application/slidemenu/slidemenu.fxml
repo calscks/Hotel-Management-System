@@ -95,8 +95,8 @@
                             <content>
                                 <AnchorPane style="-fx-padding: 0px;">
                                     <children>
-                                        <Button fx:id="menu_CI" alignment="TOP_LEFT" layoutY="2.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="Check In" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                        <Button fx:id="menu_CO" alignment="TOP_LEFT" layoutX="10.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="Check Out" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                        <Button fx:id="menu_CI" alignment="TOP_LEFT" layoutY="2.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="            Check In" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <Button fx:id="menu_CO" alignment="TOP_LEFT" layoutX="10.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="            Check Out" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
@@ -105,17 +105,22 @@
                             <content>
                                 <AnchorPane style="-fx-padding: 0px;">
                                     <children>
-                                        <Button fx:id="menu_ModRoom" alignment="TOP_LEFT" layoutY="2.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="Modify Room" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                        <Button fx:id="menu_ModFac" alignment="TOP_LEFT" layoutX="10.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="Modify Facility" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                                        <Button fx:id="menu_ModRoom" alignment="TOP_LEFT" layoutY="2.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="            Modify Room" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <Button fx:id="menu_ModFac" alignment="TOP_LEFT" layoutX="10.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="            Modify Facility" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
                                     </children>
                                 </AnchorPane>
                             </content>
                         </TitledPane>
-                  <Button fx:id="menu_SRecord" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="210.0" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="Search Record">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
+                  <TitledPane expanded="false" text="Search">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="50.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="menu_scio" alignment="TOP_LEFT" layoutX="-1.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="210.0" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="            Check In / Out" />
+                              <Button fx:id="menu_spay" alignment="TOP_LEFT" layoutX="-1.0" layoutY="27.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="210.0" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="            Payment" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
                   <Button fx:id="menu_Report" alignment="TOP_LEFT" mnemonicParsing="false" prefWidth="210.0" style="-fx-background-radius: 0px; -fx-background-insets: 0px;" text="Generate Report" />
                     </children>
                 </VBox>

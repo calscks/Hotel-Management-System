@@ -50,7 +50,9 @@ public class SlideMenuController implements Initializable {
     @FXML
     private Button menu_ModFac;
     @FXML
-    private Button menu_SRecord;
+    private Button menu_scio;
+    @FXML
+    private Button menu_spay;
     @FXML
     private Button menu_Report;
     @FXML
@@ -71,7 +73,8 @@ public class SlideMenuController implements Initializable {
     private Boolean COLoaded;
     private Boolean modRoomLoaded;
     private Boolean modFacLoaded;
-    private Boolean sRecLoaded;
+    private Boolean sciLoaded;
+    private Boolean spayLoaded;
     private Boolean ReportLoaded;
 
     public static DBConnection db = new DBConnection("Data.sqlite");
@@ -141,7 +144,8 @@ public class SlideMenuController implements Initializable {
         COLoaded = false;
         modRoomLoaded = false;
         modFacLoaded = false;
-        sRecLoaded = false;
+        sciLoaded = false;
+        spayLoaded = false;
         ReportLoaded = false;
 
         menu_ResvAdd.setOnAction((ActionEvent event) -> {
@@ -161,7 +165,8 @@ public class SlideMenuController implements Initializable {
             COLoaded = false;
             modRoomLoaded = false;
             modFacLoaded = false;
-            sRecLoaded = false;
+            sciLoaded = false;
+            spayLoaded = false;
             ReportLoaded = false;
 
             slideMenuCompact();
@@ -184,7 +189,8 @@ public class SlideMenuController implements Initializable {
             COLoaded = false;
             modRoomLoaded = false;
             modFacLoaded = false;
-            sRecLoaded = false;
+            sciLoaded = false;
+            spayLoaded = false;
             ReportLoaded = false;
 
             slideMenuCompact();
@@ -207,7 +213,8 @@ public class SlideMenuController implements Initializable {
             COLoaded = false;
             modRoomLoaded = false;
             modFacLoaded = false;
-            sRecLoaded = false;
+            sciLoaded = false;
+            spayLoaded = false;
             ReportLoaded = false;
 
             slideMenuCompact();
@@ -230,7 +237,8 @@ public class SlideMenuController implements Initializable {
             COLoaded = true;
             modRoomLoaded = false;
             modFacLoaded = false;
-            sRecLoaded = false;
+            sciLoaded = false;
+            spayLoaded = false;
             ReportLoaded = false;
 
             slideMenuCompact();
@@ -253,7 +261,8 @@ public class SlideMenuController implements Initializable {
             COLoaded = false;
             modRoomLoaded = true;
             modFacLoaded = false;
-            sRecLoaded = false;
+            sciLoaded = false;
+            spayLoaded = false;
             ReportLoaded = false;
 
             slideMenuCompact();
@@ -276,19 +285,20 @@ public class SlideMenuController implements Initializable {
             COLoaded = false;
             modRoomLoaded = false;
             modFacLoaded = true;
-            sRecLoaded = false;
+            sciLoaded = false;
+            spayLoaded = false;
             ReportLoaded = false;
 
             slideMenuCompact();
             btn_Menu.setSelected(false);
         });
 
-        menu_SRecord.setOnAction((ActionEvent event) -> {
-            if (!sRecLoaded) {
+        menu_scio.setOnAction((ActionEvent event) -> {
+            if (!sciLoaded) {
                 mainContent.getChildren().clear();
                 try {
                     mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
-                            "records/records.fxml")));
+                            "records/cisearch.fxml")));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -299,7 +309,32 @@ public class SlideMenuController implements Initializable {
             COLoaded = false;
             modRoomLoaded = false;
             modFacLoaded = false;
-            sRecLoaded = true;
+            sciLoaded = true;
+            spayLoaded = false;
+            ReportLoaded = false;
+
+            slideMenuCompact();
+            btn_Menu.setSelected(false);
+        });
+
+        menu_spay.setOnAction((ActionEvent event) -> {
+            if (!sciLoaded) {
+                mainContent.getChildren().clear();
+                try {
+                    mainContent.getChildren().add(FXMLLoader.load(getClass().getResource("/application/assets/" +
+                            "records/paysearch.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            addResvLoaded = false;
+            modResvLoaded = false;
+            CILoaded = false;
+            COLoaded = false;
+            modRoomLoaded = false;
+            modFacLoaded = false;
+            sciLoaded = false;
+            spayLoaded = true;
             ReportLoaded = false;
 
             slideMenuCompact();
@@ -322,7 +357,8 @@ public class SlideMenuController implements Initializable {
             COLoaded = false;
             modRoomLoaded = false;
             modFacLoaded = false;
-            sRecLoaded = false;
+            sciLoaded = false;
+            spayLoaded = false;
             ReportLoaded = true;
 
             slideMenuCompact();

@@ -603,6 +603,14 @@ public class ResvController implements Initializable {
                 }
             }
 
+            //extra validation
+            String query = "UPDATE RoomBooking SET ExtBedType='' WHERE ExtBedType='null'";
+            try {
+                db.executeUpdate(query);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
             for (ModelFacility mf : table_resvFac.getItems()) {
                 String ex4 = "INSERT INTO FacBookedDate VALUES ('" + mf.getFacno() +
                         "', '" + mf.getBookedfacdate() +
