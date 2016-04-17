@@ -55,7 +55,6 @@ public class COController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         filltb();
-
         checkboxes();
 
         tf_missingprice.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -133,11 +132,25 @@ public class COController implements Initializable {
     }
 
     private void checkboxes() {
-        check_coMissing.setOnAction((event -> {if(check_coMissing.isSelected()){tf_missingprice.setEditable(true);}
+        tf_missingprice.setEditable(false);
+        tf_bottleprice.setEditable(false);
+        tf_damageprice.setEditable(false);
+        check_coMissing.setOnAction((event -> {
+            if(check_coMissing.isSelected()){tf_missingprice.setEditable(true);}
+            else{
+tf_missingprice.setEditable(false);
+            }
         }));
         check_coBottle.setOnAction((event -> {if(check_coBottle.isSelected()){tf_bottleprice.setEditable(true);}
+            else{
+            tf_bottleprice.setEditable(false);
+        }
         }));
-        check_coDamaged.setOnAction((event -> {if(check_coDamaged.isSelected()){tf_damageprice.setEditable(true);}}));
+        check_coDamaged.setOnAction((event -> {if(check_coDamaged.isSelected()){tf_damageprice.setEditable(true);}
+        else{
+        tf_damageprice.setEditable(false);
+        }
+        }));
     }
 
     public void filltb(){
