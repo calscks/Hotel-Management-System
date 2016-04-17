@@ -57,8 +57,9 @@
             </GridPane>
             <TableView fx:id="tv_modroom" prefHeight="186.0" prefWidth="335.0">
               <columns>
-                <TableColumn fx:id="tc_modroomno" prefWidth="182.0" text="Room No." />
-                <TableColumn fx:id="tc_modroomtype" prefWidth="192.0" text="Category" />
+                <TableColumn fx:id="tc_modroomno" prefWidth="122.0" text="Room No." />
+                <TableColumn fx:id="tc_modroomtype" prefWidth="155.0" text="Category" />
+                  <TableColumn fx:id="tc_typeid" prefWidth="97.0" text="TypeID" />
               </columns>
                <VBox.margin>
                   <Insets top="7.0" />
@@ -155,8 +156,9 @@
             </GridPane>
             <TableView fx:id="tv_groupmodroom" prefHeight="186.0" prefWidth="335.0">
                <columns>
-                  <TableColumn fx:id="tc_groupmodroomcategory" prefWidth="188.0" text="Category" />
-                  <TableColumn fx:id="tc_groupmodroomtype" prefWidth="192.0" text="RoomType" />
+                  <TableColumn fx:id="tc_groupmodroomcategory" prefWidth="111.0" text="Category" />
+                  <TableColumn fx:id="tc_groupmodroomtype" prefWidth="174.0" text="RoomType" />
+                  <TableColumn fx:id="tc_grouptypeid" prefWidth="95.0" text="TypeID" />
                </columns>
                <VBox.margin>
                   <Insets top="7.0" />

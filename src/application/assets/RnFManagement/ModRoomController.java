@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -58,8 +59,10 @@ public class ModRoomController implements Initializable{
     @FXML private TableView<ModelRoom> tv_groupmodroom;
     @FXML private TableColumn<ModelRoom, String> tc_modroomno;
     @FXML private TableColumn<ModelRoom, String> tc_modroomtype;
+    @FXML private TableColumn<ModelRoom, String> tc_typeid;
     @FXML private TableColumn<ModelRoom, String> tc_groupmodroomcategory;
     @FXML private TableColumn<ModelRoom, String> tc_groupmodroomtype;
+    @FXML private TableColumn<ModelRoom, String> tc_grouptypeid;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +75,8 @@ public class ModRoomController implements Initializable{
         delroomgroup();
         editroom();
         editroomcategory();
+        searchroomcat();
+        doubleclickroomcat();
 
         //textfield disable validation
         tf_paxperroom.setEditable(false);
@@ -114,6 +119,7 @@ public class ModRoomController implements Initializable{
                     }
                     tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                     tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+                    tc_typeid.setCellValueFactory(new PropertyValueFactory<>("roomtypeid"));
                     tv_modroom.setItems(rtable);
                     //data.close();
                     //db.closeCon();
@@ -155,6 +161,7 @@ public class ModRoomController implements Initializable{
                     }
                     tc_modroomno.setCellValueFactory(new PropertyValueFactory<>("roomno"));
                     tc_modroomtype.setCellValueFactory(new PropertyValueFactory<>("rtype"));
+                    tc_typeid.setCellValueFactory(new PropertyValueFactory<>("roomtypeid"));
                     tv_modroom.setItems(rtable);
                 }
                 catch (SQLException e){
@@ -286,10 +293,12 @@ public class ModRoomController implements Initializable{
                     mr.setFullbedprice(data.getString("Rate_extFull"));
                     mr.setQueenbedprice(data.getString("Rate_extQueen"));
                     mr.setKingbedprice(data.getString("Rate_extKing"));
+                    mr.setTypeid(data.getString("TypeID"));
                     rtable.add(mr);
                 }
                 tc_groupmodroomcategory.setCellValueFactory(new PropertyValueFactory<>("rtype"));
                 tc_groupmodroomtype.setCellValueFactory(new PropertyValueFactory<>("roomtype"));
+                tc_grouptypeid.setCellValueFactory(new PropertyValueFactory<>("typeid"));
                 tv_groupmodroom.setItems(rtable);
 
             }catch (SQLException e){
@@ -519,18 +528,29 @@ public class ModRoomController implements Initializable{
                     if (sel.isPresent()){
                         if (sel.get() == ButtonType.OK){
                             tv_groupmodroom.getItems().remove(selRow);
-                            try {
-                                String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
-                                db.executeUpdate(sql);
-                            }catch (SQLException e){
-                                e.printStackTrace();
+                            if (tc_grouptypeid.getText().equals(mr.getRoomtypeid())){
+                                try {
+                                    String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
+                                    db.executeUpdate(sql);
+                                }catch (SQLException e){
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
+                                    db.executeUpdate(sql1);
+                                }catch (SQLException e){
+                                    e.printStackTrace();
+                                }
                             }
-                            try {
-                                String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
-                                db.executeUpdate(sql1);
-                            }catch (SQLException e){
-                                e.printStackTrace();
+                            else if (!Objects.equals(tc_grouptypeid.getText(), mr.getRoomtypeid())){
+                                try {
+                                    String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
+                                    db.executeUpdate(sql);
+                                }catch (SQLException e){
+                                    e.printStackTrace();
+                                }
                             }
+
                             tf_grouproomcategory.clear();
                             tf_grouproomtype.clear();
                             tf_grouppaxperroom.clear();
