@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-04-17T18:26:41 -->
+<!-- 2016-04-18T03:39:17 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="room_coDailyReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="76c1e3dd-b3f7-4503-a650-f3c7e570c5a6">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="datasqlitexml.xml"/>
@@ -10,7 +10,7 @@ INNER JOIN Customer USING (CustID)
 inner join RoomBooking using (ResvNo)
   inner join Room ON RoomBooking.RoomNo = Room.RoomNo
   INNER JOIN RoomType ON RoomType.TypeID = Room.RoomTypeID
-where RoomBooking.Date_CO = DATE('NOW')]]>
+where RoomBooking.Date_CO = date('now', 'localtime')]]>
 	</queryString>
 	<field name="CustID" class="java.lang.Object"/>
 	<field name="CheckInDate" class="java.lang.Object"/>
