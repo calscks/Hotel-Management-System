@@ -39,19 +39,20 @@ public class DBConnection {
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS CheckInOut\n" +
                         "(\n" +
-                        "    CustID INTEGER,\n" +
+                        "    CustID TEXT,\n" +
                         "    CheckInDate TEXT,\n" +
                         "    CheckOutDate TEXT,\n" +
                         "    Status TEXT,\n" +
                         "    CIO_ID INTEGER PRIMARY KEY,\n" +
-                        "    RoomNo TEXT\n" +
+                        "    ResvNo INTEGER\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS CustAddress\n" +
                         "(\n" +
-                        "    CustID INTEGER PRIMARY KEY,\n" +
+                        "    CustID TEXT,\n" +
                         "    Address TEXT,\n" +
                         "    PostCode TEXT,\n" +
                         "    City TEXT,\n" +
+                        "    State TEXT,\n" +
                         "    Country TEXT\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Customer\n" +
@@ -66,9 +67,9 @@ public class DBConnection {
                         "(\n" +
                         "    CustFName TEXT,\n" +
                         "    CustLName TEXT,\n" +
-                        "    PassportNo TEXT PRIMARY KEY,\n" +
-                        "    G_CustID INTEGER,\n" +
-                        "    ICNo TEXT\n" +
+                        "    IDType TEXT,\n" +
+                        "    IDNo TEXT,\n" +
+                        "    G_CustID TEXT\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Employee\n" +
                         "(\n" +
@@ -77,29 +78,19 @@ public class DBConnection {
                         "    EmpPwd TEXT,\n" +
                         "    Authority TEXT\n" +
                         ");\n",
-                "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpID_uindex ON Employee (EmpID);\n",
-                "CREATE UNIQUE INDEX IF NOT EXISTS Employee_EmpUname_uindex ON Employee (EmpUName);\n",
-                "CREATE TABLE IF NOT EXISTS ExtPayList\n" +
-                        "(\n" +
-                        "    ID INTEGER,\n" +
-                        "    ExtPaymentDetails TEXT,\n" +
-                        "    Price REAL\n" +
-                        ");\n",
                 "CREATE TABLE IF NOT EXISTS ExtPayment\n" +
                         "(\n" +
                         "    ExtPaymentID INTEGER PRIMARY KEY,\n" +
                         "    CIO_ID INTEGER,\n" +
-                        "    ExtPayListID INTEGER,\n" +
+                        "    ExtPaymentDetails TEXT,\n" +
                         "    Total REAL\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS FacBookedDate\n" +
                         "(\n" +
                         "    FacNo TEXT,\n" +
-                        "    Date TEXT,\n" +
-                        "    Morning INTEGER,\n" +
-                        "    Night INTEGER,\n" +
-                        "    WholeDay INTEGER,\n" +
-                        "    ResvNo INTEGER\n" +
+                        "    BookDate TEXT,\n" +
+                        "    ResvNo INTEGER,\n" +
+                        "    Comment TEXT\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS FacType\n" +
                         "(\n" +
@@ -107,16 +98,6 @@ public class DBConnection {
                         "    FacName TEXT,\n" +
                         "    FacDesc TEXT,\n" +
                         "    FacPrice REAL\n" +
-                        ");\n",
-                "CREATE TABLE IF NOT EXISTS Invoice\n" +
-                        "(\n" +
-                        "    InvoiceID INTEGER PRIMARY KEY,\n" +
-                        "    CustID INTEGER,\n" +
-                        "    Deposit REAL,\n" +
-                        "    DiscountID TEXT,\n" +
-                        "    Total REAL,\n" +
-                        "    InvoiceDate TEXT,\n" +
-                        "    IsPaid TEXT\n" +
                         ");\n",
                 "CREATE TABLE IF NOT EXISTS Pay_CCard\n" +
                         "(\n" +
@@ -126,48 +107,42 @@ public class DBConnection {
                         "    DOE_Month INTEGER,\n" +
                         "    DOE_Year INTEGER\n" +
                         ");\n",
-                "CREATE TABLE IF NOT EXISTS Pay_Discount\n" +
-                        "(\n" +
-                        "    DiscountID TEXT PRIMARY KEY,\n" +
-                        "    DisDesc TEXT,\n" +
-                        "    DisAmount REAL,\n" +
-                        "    DisPercentage REAL\n" +
-                        ");\n",
                 "CREATE TABLE IF NOT EXISTS Payment\n" +
                         "(\n" +
                         "    PaymentID INTEGER PRIMARY KEY,\n" +
-                        "    CustID INTEGER,\n" +
+                        "    CustID TEXT,\n" +
                         "    Deposit REAL,\n" +
-                        "    Total REAL,\n" +
-                        "    Bal_Deposit REAL,\n" +
-                        "    Bal_Total REAL,\n" +
+                        "    Subtotal REAL,\n" +
+                        "    Bal REAL,\n" +
                         "    CCardNo INTEGER,\n" +
-                        "    DiscountID TEXT,\n" +
                         "    PayDate TEXT,\n" +
                         "    ResvNo INTEGER,\n" +
-                        "    CIO_ID INTEGER);\n",
+                        "    CIO_ID INTEGER,\n" +
+                        "    ChequeNo TEXT,\n" +
+                        "    Paid REAL\n" +
+                        ");\n",
                 "CREATE TABLE IF NOT EXISTS Reservation\n" +
                         "(\n" +
-                        "    CustID INTEGER PRIMARY KEY,\n" +
+                        "    CustID TEXT,\n" +
                         "    CheckInDate TEXT,\n" +
                         "    CheckOutDate TEXT,\n" +
-                        "    ResvNo INTEGER\n" +
+                        "    ResvNo INTEGER,\n" +
+                        "    ResvDate TEXT\n" +
                         ");\n",
-                "CREATE TABLE IF NOT EXISTS ModelRoom\n" +
+                "CREATE TABLE IF NOT EXISTS Room\n" +
                         "(\n" +
                         "    RoomNo TEXT PRIMARY KEY,\n" +
                         "    RoomTypeID INTEGER\n" +
                         ");\n",
-                "CREATE TABLE IF NOT EXISTS RoomAvailability\n" +
-                        "(\n" +
-                        "    RoomNo TEXT,\n" +
-                        "    Date_CI TEXT,\n" +
-                        "    Date_CO TEXT\n" +
-                        ");",
                 "CREATE TABLE IF NOT EXISTS RoomBooking\n" +
                         "(\n" +
                         "    ResvNo INTEGER,\n" +
-                        "    RoomNo TEXT\n" +
+                        "    RoomNo TEXT,\n" +
+                        "    ExtBedType TEXT,\n" +
+                        "    Date_CI TEXT,\n" +
+                        "    Date_CO TEXT,\n" +
+                        "    RoomTypeName TEXT,\n" +
+                        "    Price REAL\n" +
                         ");",
                 "CREATE TABLE IF NOT EXISTS RoomType\n" +
                         "(\n" +
@@ -178,13 +153,14 @@ public class DBConnection {
                         "    Rate_extTwin REAL,\n" +
                         "    Rate_extFull REAL,\n" +
                         "    Rate_extQueen REAL,\n" +
-                        "    Rate_extKing REAL\n" +
+                        "    Rate_extKing REAL,\n" +
+                        "    RoomPrice REAL\n" +
                         ");",
                 "CREATE TABLE IF NOT EXISTS variables\n" +
                         "(\n" +
                         "    deposit REAL,\n" +
-                        "    taxrate REAL\n" +
-                        ");"};
+                        "    taxrate INTEGER\n" +
+                        ");", "INSERT INTO Admin VALUES (UName = 'admin', Pwd = 'admin');"};
         try {
             Class.forName("org.sqlite.JDBC").newInstance();
             c = DriverManager.getConnection("jdbc:sqlite:" + dbName);
