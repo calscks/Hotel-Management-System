@@ -81,6 +81,7 @@ public class ModRoomController implements Initializable{
         //textfield disable validation
         tf_paxperroom.setDisable(true);
         tf_roomprice.setDisable(true);
+        tf_roomno2.setDisable(true);
 
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
@@ -389,6 +390,70 @@ public class ModRoomController implements Initializable{
     }
 
     private void editroom() {
+        btn_editroom.setOnMouseClicked( me->{
+            int selRow = tv_modroom.getSelectionModel().getSelectedIndex();
+            if (selRow >= 0){
+                try {
+                    String sql = "SELECT * FROM RoomType rt "+
+                            "INNER JOIN Room rm ON rt.TypeID = rm.RoomTypeID " +
+                            "WHERE rm.RoomNo = '"+tf_roomno2.getText()+"'";
+                    ResultSet data = db.executeQuery(sql);
+                    ModelRoom mr = new ModelRoom();
+                    mr = tv_modroom.getSelectionModel().getSelectedItem();
+                    mr.setTypeid(data.getString("TypeID"));
+                    mr.setRoomtypeid(data.getString("RoomTypeID"));
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Edit Room");
+                    alert.setContentText("Are you sure you want to edit "+mr.getRoomno()+" from the table?");
+
+                    Optional<ButtonType> sel = alert.showAndWait();
+                    if (sel.isPresent()){
+                        if (sel.get() == ButtonType.OK){
+                            String roomcat = tf_roomcategory.getText();
+                            String roomno = tf_roomno2.getText();
+                            String roomtype = tf_roomtype.getText();
+                            try {
+                                String sql1 = "UPDATE Room "+
+                                        "SET RoomNo = '"+roomno+"'" +
+                                        "WHERE RoomTypeID = "+mr.getRoomtypeid()+"";
+                                db.executeUpdate(sql1);
+                            }catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                            try {
+                                String sql2 = "UPDATE RoomType "+
+                                        "SET TypeGroup = '"+roomcat+"', "+
+                                        "TypeName = '"+roomtype+"' "+
+                                        "WHERE TypeID = "+mr.getTypeid()+"";
+                                db.executeUpdate(sql2);
+                            }catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                            tf_roomcategory.clear();
+                            tf_roomno2.clear();
+                            tf_roomtype.clear();
+                            tf_paxperroom.clear();
+                            tf_roomprice.clear();
+                        }
+                        else {
+                            alert.close();
+                        }
+                    }
+
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            else {
+                Alert noSel = new Alert(Alert.AlertType.WARNING);
+                noSel.setTitle("No Selection");
+                noSel.setHeaderText("No Room is selected");
+                noSel.setContentText("Please select a room in the table to be edited");
+                noSel.showAndWait();
+            }
+        });
     }
 
     private void delroomgroup() {
