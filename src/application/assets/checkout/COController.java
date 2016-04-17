@@ -71,14 +71,16 @@ public class COController implements Initializable {
         label_coExtra.textProperty().addListener((observable, oldValue, newValue) -> {
            double amount = Double.parseDouble( label_coDeposit.getText().trim());
             double extraamt = Double.parseDouble(label_coExtra.getText().trim());
-            double v = amount -extraamt;
+            double v = extraamt - amount;
             label_coPayAmt.setText(Double.toString(v));
         });
         label_coPayAmt.textProperty().addListener((observable, oldValue, newValue) -> {
-            double depo = Double.parseDouble(label_coPayAmt.getText().trim());
-            double paidamt = Double.parseDouble(label_coPayAmt.getText().trim());
-            double returnto = depo - paidamt;
-            label_coReturn.setText(Double.toString(returnto));
+            double depo = Double.parseDouble(label_coDeposit.getText().trim());
+            double paidamt = Double.parseDouble(label_coExtra.getText().trim());
+
+    double returnto = depo- paidamt;
+    label_coReturn.setText(Double.toString(returnto));
+
         });
 
 
