@@ -58,8 +58,6 @@
                   <TableColumn fx:id="tableC_ciIcno" prefWidth="96.0" text="Passport/IC No" />
                </columns>
             </TableView>
-            <Button fx:id="btn_ciDeleteGroupMember" layoutX="663.0" layoutY="636.0" mnemonicParsing="false" text="Delete" />
-            <Button fx:id="btn_ciAddGroupMember" layoutX="600.0" layoutY="636.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Add" />
             <Button fx:id="btn_ciNext" layoutX="1060.0" layoutY="636.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="94.0" text="Next &gt;&gt;" textAlignment="CENTER" />
             <VBox layoutX="747.0" layoutY="55.0" prefHeight="267.0" prefWidth="407.0" spacing="8.0" style="-fx-border-color: #808080;">
                <children>
@@ -75,14 +73,6 @@
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
-                     <children>
-                        <Button fx:id="btn_ciAddRoom" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add" GridPane.columnIndex="1">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </Button>
-                        <Button fx:id="btn_ciDeleteRoom" mnemonicParsing="false" text="Delete" GridPane.columnIndex="2" />
-                     </children>
                      <columnConstraints>
                         <ColumnConstraints maxWidth="51.0" minWidth="5.0" prefWidth="49.0" />
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="114.0" />
@@ -115,14 +105,6 @@
                      </columns>
                   </TableView>
                   <GridPane alignment="TOP_CENTER" hgap="10.0" prefHeight="28.0" prefWidth="227.0" vgap="10.0">
-                     <children>
-                        <Button fx:id="btn_ciAddFacility" mnemonicParsing="false" prefHeight="25.0" prefWidth="49.0" text="Add">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </Button>
-                        <Button fx:id="btn_ciDeleteFacility" mnemonicParsing="false" text="Delete" GridPane.columnIndex="1" />
-                     </children>
                      <columnConstraints>
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
                         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="114.0" minWidth="10.0" prefWidth="65.0" />
