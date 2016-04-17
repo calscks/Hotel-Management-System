@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-04-17T18:00:54 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reservationreport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e3587cee-56ce-4a65-aa27-07ed736f7ca5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="datasqlitexml.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[SELECT * FROM CheckInOut
+ INNER JOIN Reservation using (CustID)
+ inner join RoomBooking using (ResvNo)
+ inner join room on RoomBooking.RoomNo = Room.RoomNo
+ inner join RoomType on Room.RoomTypeID = RoomType.TypeID
+ 
+WHERE ResvDate = date('now')
+]]>
+	</queryString>
+	<field name="CustID" class="java.lang.Object"/>
+	<field name="CheckInDate" class="java.lang.Object"/>
+	<field name="CheckOutDate" class="java.lang.Object"/>
+	<field name="Status" class="java.lang.Object"/>
+	<field name="CIO_ID" class="java.lang.Object"/>
+	<field name="ResvNo" class="java.lang.Object"/>
+	<field name="COLUMN_7" class="java.lang.Object"/>
+	<field name="COLUMN_8" class="java.lang.Object"/>
+	<field name="COLUMN_9" class="java.lang.Object"/>
+	<field name="ResvDate" class="java.lang.Object"/>
+	<field name="RoomNo" class="java.lang.Object"/>
+	<field name="ExtBedType" class="java.lang.Object"/>
+	<field name="Date_CI" class="java.lang.Object"/>
+	<field name="Date_CO" class="java.lang.Object"/>
+	<field name="RoomTypeName" class="java.lang.Object"/>
+	<field name="Price" class="java.lang.Object"/>
+	<field name="COLUMN_17" class="java.lang.Object"/>
+	<field name="RoomTypeID" class="java.lang.Object"/>
+	<field name="TypeID" class="java.lang.Object"/>
+	<field name="TypeGroup" class="java.lang.Object"/>
+	<field name="TypeName" class="java.lang.Object"/>
+	<field name="MaxPax" class="java.lang.Object"/>
+	<field name="Rate_extTwin" class="java.lang.Object"/>
+	<field name="Rate_extFull" class="java.lang.Object"/>
+	<field name="Rate_extQueen" class="java.lang.Object"/>
+	<field name="Rate_extKing" class="java.lang.Object"/>
+	<field name="RoomPrice" class="java.lang.Double"/>
+	<variable name="revenue" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{RoomPrice}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="2" width="550" height="53" uuid="acd6a975-0d38-4ecf-9c03-ae39de28aba1"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Shangri-La HOTEL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="6" y="2" width="548" height="30" uuid="40ab3d8a-7529-4824-9003-1ee42b4a98a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reservation Report: Room]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="-1" width="551" height="40" backcolor="#F0F0F0" uuid="a9895547-9798-407e-8e46-4823fc1b24bb"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="10" width="80" height="30" uuid="903759ac-b372-471b-9a4f-27c3df31786a"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[ResvNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="10" width="70" height="30" uuid="d2e3ae3e-dbe5-44d7-855b-7b314f344e3b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[RoomNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="10" width="130" height="30" uuid="1367199d-e276-456d-9500-a32928bf8b89"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[RoomTypeName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="10" width="60" height="30" uuid="08cf765c-8718-4d37-ad40-54c2dd3d3c2c"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[RoomPrice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="10" width="80" height="30" uuid="b2513aa7-913c-4837-b943-c48567ac06ef"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Check in Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="9" width="100" height="30" uuid="b294174a-d26f-42f6-b848-0aaed9d2d038"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="-1" width="80" height="30" uuid="ad68d656-14d1-4d54-afb5-6e4eaa4a148e"/>
+				<textFieldExpression><![CDATA[$F{ResvNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="-1" width="70" height="30" uuid="2e1556d0-7d92-4410-8819-6d1345cab1db"/>
+				<textFieldExpression><![CDATA[$F{RoomNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="-1" width="130" height="30" uuid="2a114880-b276-4cba-b3af-3e5b0ce36d50"/>
+				<textFieldExpression><![CDATA[$F{RoomTypeName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="-1" width="60" height="30" uuid="1b747f50-ee60-46e4-b10b-566947bd4a3f"/>
+				<textFieldExpression><![CDATA[$F{RoomPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="-1" width="80" height="30" uuid="74670433-e1aa-4e25-880a-1b02d8a84cad"/>
+				<textFieldExpression><![CDATA[$F{Date_CI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="-1" width="100" height="30" uuid="0f4af125-8fe2-4082-ae81-d443e13f25d2"/>
+				<textFieldExpression><![CDATA[$F{ResvDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="100" height="20" uuid="a8d6fb75-4ca2-47ca-80de-843cb8994608"/>
+				<text><![CDATA[Revenue :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="0" width="100" height="18" uuid="ddc31def-f0dc-4edb-a8b9-7361acef6f63"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{revenue}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="454" y="0" width="100" height="30" uuid="051904f0-dea6-4e4d-8f3c-88af1dcc2c6a"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

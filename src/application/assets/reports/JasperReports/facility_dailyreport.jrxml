@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-04-17T18:35:50 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="facility_dailyreport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="03593793-70ac-4a7c-b354-46f96bcbdfa3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="datasqlitexml.xml"/>
+	<queryString>
+		<![CDATA[SELECT * FROM CheckInOut
+INNER JOIN CUSTOMER USING (CustID)
+inner join Reservation USING (CustID)
+inner join FacBookedDate USING (ResvNo)
+inner join FacType on FacBookedDate.FacNo= FacType.FacNo
+where Reservation.ResvDate = date('now')]]>
+	</queryString>
+	<field name="CustID" class="java.lang.Object"/>
+	<field name="CheckInDate" class="java.lang.Object"/>
+	<field name="CheckOutDate" class="java.lang.Object"/>
+	<field name="Status" class="java.lang.Object"/>
+	<field name="CIO_ID" class="java.lang.Object"/>
+	<field name="ResvNo" class="java.lang.Object"/>
+	<field name="CustID_Type" class="java.lang.Object"/>
+	<field name="CustFName" class="java.lang.Object"/>
+	<field name="CustLName" class="java.lang.Object"/>
+	<field name="Blacklisted" class="java.lang.Object"/>
+	<field name="COLUMN_11" class="java.lang.Object"/>
+	<field name="COLUMN_12" class="java.lang.Object"/>
+	<field name="COLUMN_13" class="java.lang.Object"/>
+	<field name="ResvDate" class="java.lang.Object"/>
+	<field name="FacNo" class="java.lang.Object"/>
+	<field name="BookDate" class="java.lang.Object"/>
+	<field name="Comment" class="java.lang.Object"/>
+	<field name="COLUMN_18" class="java.lang.Object"/>
+	<field name="FacName" class="java.lang.Object"/>
+	<field name="FacDesc" class="java.lang.Object"/>
+	<field name="FacPrice" class="java.lang.Double"/>
+	<variable name="totalrevenue" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{FacPrice}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="0" width="550" height="53" uuid="5946ac05-51e8-4a4c-835f-4fc0937e5a93"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Shangri-La Hotel]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="6" y="-1" width="548" height="30" uuid="4a102b23-bca3-48e3-b799-abca72ed03d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daily Collection Report: Facility]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="0" width="551" height="40" backcolor="#F0F0F0" uuid="7ccce2a6-b2fb-4b1e-9b75-d8cd87510bc3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="106" y="10" width="70" height="30" uuid="a685e6b1-9baf-484f-b379-fa019930857f"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[FacNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="10" width="100" height="30" uuid="dec46e0d-b4a9-454a-9818-b1793c3e0602"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CustFName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="10" width="130" height="30" uuid="22a2a74d-24d6-4afe-be7c-6a96bf098834"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CustLName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="506" y="10" width="50" height="30" uuid="127afc05-dd06-489f-81af-c5f6071375a2"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[FacPrice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="176" y="10" width="100" height="30" uuid="9b420f0e-aba3-4a1b-afef-830c1b383964"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[FacName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="18" y="10" width="88" height="30" uuid="1ca4df19-f302-4eeb-8204-f3b8a4176f54"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[ResvDate]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="106" y="0" width="70" height="30" uuid="b6c83787-53b7-461d-99ee-b91d125fdf5e"/>
+				<textFieldExpression><![CDATA[$F{FacNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="0" width="100" height="30" uuid="5fb1013f-57b6-4d4e-89db-b40e2cdfa7de"/>
+				<textFieldExpression><![CDATA[$F{CustFName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="376" y="0" width="130" height="30" uuid="9bb80dde-bbbb-495a-8d45-920d5b5d80d5"/>
+				<textFieldExpression><![CDATA[$F{CustLName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="506" y="0" width="50" height="30" uuid="a382f243-3a4a-4ead-b32d-c5cb2a393549"/>
+				<textFieldExpression><![CDATA[$F{FacPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="0" width="100" height="30" uuid="8fdd2421-6571-4508-8c97-5fbd80599ec4"/>
+				<textFieldExpression><![CDATA[$F{FacName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="18" y="0" width="88" height="30" uuid="7d8e7228-128f-43c7-b4c4-6330b61c1dad"/>
+				<textFieldExpression><![CDATA[$F{ResvDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21" splitType="Stretch">
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement x="451" y="0" width="100" height="20" uuid="928fa9c9-f9cc-48a2-ad9d-22e629cda1fd"/>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalrevenue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="1" width="100" height="19" uuid="358b18d1-2f0a-46e7-b74d-f0cf1f114092"/>
+				<text><![CDATA[Total Revenue :]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="450" y="-1" width="100" height="30" uuid="0e20bbb2-0ecf-4002-87e5-7d8f64a64784"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
