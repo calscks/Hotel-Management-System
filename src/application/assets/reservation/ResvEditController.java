@@ -667,6 +667,19 @@ public class ResvEditController implements Initializable {
 
         rpc.getBtn_reserve().setOnMouseClicked(me->{
 
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText("Modify reservation");
+            alert.setContentText("Are you sure you want to modify reservation No: " + tf_resvno.getText() + "?");
+            Optional<ButtonType> select = alert.showAndWait();
+            if (select.isPresent()) {
+                if (select.get() == ButtonType.CANCEL) {
+                    return;
+                }
+            } else {
+                return;
+            }
+
             try {
                 //language=SQLite
                 String query = "UPDATE Reservation SET CustID = '" + tf_idno.getText() +
@@ -758,6 +771,42 @@ public class ResvEditController implements Initializable {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
+            Alert con = new Alert(Alert.AlertType.INFORMATION);
+            con.setTitle("Success");
+            con.setHeaderText("Modification Successful");
+            con.setContentText("Reservation No: " + tf_resvno.getText() +
+                    " is successfully modified.");
+            con.showAndWait();
+
+            tf_resvno.clear();
+            tf_idno.clear();
+            tf_city.clear();
+            tf_postcode.clear();
+            tf_fname.clear();
+            tf_lname.clear();
+            tf_address.clear();
+            tf_state.clear();
+
+            table_fac.getItems().clear();
+            table_sresult.getItems().clear();
+            table_memgroup.getItems().clear();
+            table_room.getItems().clear();
+
+            rpc.getLbl_balance().setText(null);
+            rpc.getTf_cardname().clear();
+            rpc.getLbl_subtotal().setText(null);
+            rpc.getTf_cardno().clear();
+            rpc.getTf_cvccode().clear();
+
+            Timeline timeline = new Timeline(); //set fade out
+            assert finalPayment != null;
+            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
+            timeline.getKeyFrames().add(kf);
+            //when the timeline is finished (finished fade out) then invoke remove the finalPayment
+            timeline.setOnFinished(se -> resvEditPane.getChildren().removeAll(finalPayment));
+            timeline.play();
+
         }); //whole modification ends
     }
 
