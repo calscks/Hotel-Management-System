@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-04-17T18:00:54 -->
+<!-- 2016-04-18T03:37:20 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reservationreport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e3587cee-56ce-4a65-aa27-07ed736f7ca5">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="datasqlitexml.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -11,8 +11,7 @@
  inner join room on RoomBooking.RoomNo = Room.RoomNo
  inner join RoomType on Room.RoomTypeID = RoomType.TypeID
  
-WHERE ResvDate = date('now')
-]]>
+WHERE ResvDate = date('now', 'localtime')]]>
 	</queryString>
 	<field name="CustID" class="java.lang.Object"/>
 	<field name="CheckInDate" class="java.lang.Object"/>

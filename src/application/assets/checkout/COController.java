@@ -140,9 +140,10 @@ public class COController implements Initializable {
 
     public void filltb(){
         try {
-        String sql =" SELECT RoomNo, CustID,Customer.CustFName,Customer.CustLName FROM CheckInOut\n" +
-                "INNER JOIN Customer USING (CustID)\n" +
-                "WHERE CheckInOut.CheckOutDate ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'Checked In'";
+        String sql =" SELECT * FROM CheckInOut\n" +
+                "  INNER JOIN Customer USING (CustID)\n" +
+                "INNER JOIN RoomBooking USING (ResvNo)\n" +
+                "WHERE RoomBooking.DateCO ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'Checked In'";
             ResultSet todayco = db.executeQuery(sql);
 
         ObservableList<ModelCheckOut> cotable = FXCollections.observableArrayList();
