@@ -143,7 +143,7 @@ public class COController implements Initializable {
         String sql =" SELECT * FROM CheckInOut\n" +
                 "  INNER JOIN Customer USING (CustID)\n" +
                 "INNER JOIN RoomBooking USING (ResvNo)\n" +
-                "WHERE RoomBooking.DateCO ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'Checked In'";
+                "WHERE RoomBooking.Date_CO ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'Checked In'";
             ResultSet todayco = db.executeQuery(sql);
             //test
 
@@ -171,11 +171,11 @@ public class COController implements Initializable {
         try {
             //AUTOFILLS THE SCENE
             String sql = "SELECT * FROM RoomBooking\n" +
-                    "INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
-                    "INNER JOIN Customer using (CustID)\n" +
-                    "inner join CustAddress using (CustID)\n" +
-                    "inner join Payment ON RoomBooking.ResvNo = Payment.ResvNo" +
-                    "WHERE CheckInOut.Status ='Checked In' AND RoomBooking.RoomNo='"+Roomno+"'";
+                    "  INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
+                    "  INNER JOIN Customer using (CustID)\n" +
+                    "  inner join CustAddress using (CustID)\n" +
+                    "  inner join Payment ON RoomBooking.ResvNo = Payment.ResvNo\n" +
+                    "WHERE CheckInOut.Status ='Checked In' and RoomBooking.RoomNo ='"+Roomno+"'";
 
             ResultSet codata = db.executeQuery(sql);
             String customerfname = codata.getString("CustFName");
@@ -189,7 +189,7 @@ public class COController implements Initializable {
             String State = codata.getString("State");
             double deposit = Double.parseDouble(codata.getString("Deposit").trim());
             String codate = codata.getString("Date_CO");
-            double roomprice = Integer.parseInt(codata.getString("Price").trim());
+            double roomprice = Double.parseDouble(codata.getString("Price").trim());
 
             tf_coIDNo.setText(customerid);
             tf_coFirstName.setText(customerfname);
@@ -200,7 +200,7 @@ public class COController implements Initializable {
             tf_coCity.setText(city);
             tf_coAddress.setText(address);
             tf_coState.setText(State);
-            label_coDeposit.setText("RM" + deposit);
+            label_coDeposit.setText(String.valueOf(deposit));
             btn_coCheckout.setDisable(false);
 
 
@@ -208,7 +208,7 @@ public class COController implements Initializable {
             long overdate = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(codate));
             double overpay = (double) (overdate * roomprice);
             if (overdate >= 1) {
-                label_coExtra.setText("RM" + Double.toString(overpay));
+                label_coExtra.setText(Double.toString(overpay));
                check_coBlacklist.setTextFill(Color.web("#0076a3"));
             }
 
@@ -224,10 +224,10 @@ public class COController implements Initializable {
             tf_coCity.setText("");
             tf_coAddress.setText("");
             tf_coState.setText("");
-            label_coDeposit.setText("RM0.00");
-            label_coExtra.setText("RM0.00");
-            label_coPayAmt.setText("RM0.00");
-            label_coReturn.setText("RM0.00");
+            label_coDeposit.setText("0.00");
+            label_coExtra.setText("0.00");
+            label_coPayAmt.setText("0.00");
+            label_coReturn.setText("0.00");
             btn_coCheckout.setDisable(true);
             check_coBlacklist.setSelected(false);
             check_coBlacklist.setTextFill(Color.web("#000000"));
@@ -235,7 +235,6 @@ public class COController implements Initializable {
 
         }
     }
-
 
 
     public void ExtPayment(){
