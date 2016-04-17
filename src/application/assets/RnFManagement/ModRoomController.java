@@ -61,7 +61,6 @@ public class ModRoomController implements Initializable{
     @FXML private TableColumn<ModelRoom, String> tc_groupmodroomcategory;
     @FXML private TableColumn<ModelRoom, String> tc_groupmodroomtype;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -83,6 +82,7 @@ public class ModRoomController implements Initializable{
         tf_paxperroom.setDisable(true);
         tf_roomprice.setDisable(true);
         tf_roomno2.setDisable(true);
+
         //cbox_roomcategory items
         ObservableList<String> roomcategory = FXCollections.observableArrayList();
         try {
@@ -94,13 +94,13 @@ public class ModRoomController implements Initializable{
         }catch (SQLException e){
             e.printStackTrace();
         }
-        //cbox_roomtye items
+        //cbox roomtype items
         ObservableList<String> roomtype = FXCollections.observableArrayList();
         cbox_roomcategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             cbox_roomtype.getItems().clear();
             if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("President")){
-                try{
-                    ResultSet rs1 = db.executeQuery("SELECT TypeName from RoomType WHERE TypeName LIKE 'President%'");
+                try {
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'President%'");
                     while (rs1.next()){
                         roomtype.add(rs1.getString("TypeName"));
                     }
@@ -111,20 +111,9 @@ public class ModRoomController implements Initializable{
             }
             else if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Commercial")){
                 try {
-                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Commercial%'");
-                    while (rs1.next()){
-                        roomtype.add(rs1.getString("TypeName"));
-                    }
-                    cbox_roomtype.setItems(roomtype);
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-            else {
-                try {
-                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Deluxe%'");
-                    while (rs1.next()){
-                        roomtype.add(rs1.getString("TypeName"));
+                    ResultSet rs2 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Commercial%'");
+                    while (rs2.next()){
+                        roomtype.add(rs2.getString("TypeName"));
                     }
                     cbox_roomtype.setItems(roomtype);
                 }catch (SQLException e){
@@ -133,23 +122,21 @@ public class ModRoomController implements Initializable{
             }
         });
 
-        //paxperroom and roomprice based on room type
+        //tf change based on combobox
         cbox_roomtype.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            String rtype = cbox_roomtype.getSelectionModel().getSelectedItem();
+            //String rtype = cbox_roomtype.getSelectionModel().getSelectedItem();
             try {
-                String sql = "SELECT MaxPax, RoomPrice FROM RoomType WHERE TypeName = '"+cbox_roomtype.getSelectionModel().getSelectedItem()+"'";
-                ResultSet data = db.executeQuery(sql);
-                if (data.next()){
-                    String paxperrroom = data.getString("MaxPax");
-                    tf_paxperroom.setText(paxperrroom);
-                    String roomprice = data.getString("RoomPrice");
+                ResultSet rs3 = db.executeQuery("SELECT MaxPax,RoomPrice FROM RoomType WHERE TypeGroup = '"+cbox_roomcategory.getSelectionModel().getSelectedItem()+"'");
+                if (rs3.next()){
+                    String paxperroom = rs3.getString("MaxPax");
+                    tf_paxperroom.setText(paxperroom);
+                    String roomprice = rs3.getString("RoomPrice");
                     tf_roomprice.setText(roomprice);
                 }
             }catch (SQLException e){
                 e.printStackTrace();
             }
         });
-
 
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
@@ -264,8 +251,8 @@ public class ModRoomController implements Initializable{
                     tf_roomprice.setText(modroomprice);
 
                         ModelRoom rm = new ModelRoom();
-                        rm.setRoomno(data2.getString("roomno"));
-                        rm.setRtype(data2.getString("typegroup"));
+                        rm.setRoomno(data2.getString("RoomNo"));
+                        rm.setRtype(data2.getString("TypeGroup"));
                         rm.setRoomtype(data2.getString("TypeName"));
                         rm.setPaxperroom(data2.getString("MaxPax"));
                         rm.setRoomprice(data2.getString("RoomPrice"));
