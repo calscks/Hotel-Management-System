@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>datasqlite</name><driver>org.sqlite.JDBC</driver><username></username><password></password><savePassword>true</savePassword><url>jdbc:sqlite:C:/Users/User/IdeaProjects/Hotel-Management-System/Data.sqlite</url><database></database><serverAddress></serverAddress></jdbcDataAdapter>

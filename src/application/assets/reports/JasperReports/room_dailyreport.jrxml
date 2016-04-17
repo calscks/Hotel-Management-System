@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-04-17T18:26:21 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="room_dailyreport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d371e66-9187-4a94-9bb2-ace210353e5a">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="datasqlitexml.xml"/>
+	<queryString>
+		<![CDATA[SELECT * FROM CheckInOut
+INNER JOIN CUSTOMER USING (CustID)
+inner join Reservation USING (CustID)
+inner join RoomBooking ON Reservation.ResvNo = RoomBooking.ResvNo
+INNER JOIN ROOM USING (RoomNo)
+inner join RoomType ON Room.RoomTypeID = RoomType.TypeID
+WHERE Reservation.ResvDate = date('now')]]>
+	</queryString>
+	<field name="CustID" class="java.lang.Object"/>
+	<field name="CheckInDate" class="java.lang.Object"/>
+	<field name="CheckOutDate" class="java.lang.Object"/>
+	<field name="Status" class="java.lang.Object"/>
+	<field name="CIO_ID" class="java.lang.Object"/>
+	<field name="ResvNo" class="java.lang.Object"/>
+	<field name="CustID_Type" class="java.lang.Object"/>
+	<field name="CustFName" class="java.lang.Object"/>
+	<field name="CustLName" class="java.lang.Object"/>
+	<field name="Blacklisted" class="java.lang.Object"/>
+	<field name="COLUMN_11" class="java.lang.Object"/>
+	<field name="COLUMN_12" class="java.lang.Object"/>
+	<field name="COLUMN_13" class="java.lang.Object"/>
+	<field name="ResvDate" class="java.lang.Object"/>
+	<field name="COLUMN_15" class="java.lang.Object"/>
+	<field name="RoomNo" class="java.lang.Object"/>
+	<field name="ExtBedType" class="java.lang.Object"/>
+	<field name="Date_CI" class="java.lang.Object"/>
+	<field name="Date_CO" class="java.lang.Object"/>
+	<field name="RoomTypeName" class="java.lang.Object"/>
+	<field name="Price" class="java.lang.Object"/>
+	<field name="RoomTypeID" class="java.lang.Object"/>
+	<field name="TypeID" class="java.lang.Object"/>
+	<field name="TypeGroup" class="java.lang.Object"/>
+	<field name="TypeName" class="java.lang.Object"/>
+	<field name="MaxPax" class="java.lang.Object"/>
+	<field name="Rate_extTwin" class="java.lang.Object"/>
+	<field name="Rate_extFull" class="java.lang.Object"/>
+	<field name="Rate_extQueen" class="java.lang.Object"/>
+	<field name="Rate_extKing" class="java.lang.Object"/>
+	<field name="RoomPrice" class="java.lang.Double"/>
+	<variable name="totalrevenue" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{RoomPrice}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="5" y="2" width="550" height="53" uuid="51b871e1-798c-4117-a91a-9868f22fb9f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Shangri-La HOTEL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="6" y="0" width="548" height="30" uuid="d80da140-3a7d-4ea6-bd97-ac094b3a2033"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daily Collection Report: Rooms]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<rectangle>
+				<reportElement x="4" y="0" width="551" height="40" backcolor="#F0F0F0" uuid="526414ee-0de2-4b8c-951d-3b99cf099915"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="85" y="10" width="54" height="30" uuid="f2252499-90d2-4e62-aab4-6080a0dfbab3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[RoomNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="313" y="10" width="74" height="30" uuid="b856faff-3cbd-4c6c-bc3d-dd74bc7fcfbd"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CustFName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="387" y="10" width="98" height="30" uuid="a87543ef-6e54-498d-a3b0-2a65e7d2940b"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CustLName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="10" width="70" height="30" uuid="85f7161d-3a95-4cf6-b104-cb11848e4cd2"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[RoomPrice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="139" y="10" width="120" height="30" uuid="03f93d8e-6ffb-413d-86db-7a08cb8d9b08"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[TypeName]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="10" width="54" height="30" uuid="28ee34be-b259-4f20-b3ac-7b38fb226e5d"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CustID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="74" height="30" uuid="f1980433-4c3a-44b1-bd45-ce4265a96162"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Check In Date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="85" y="0" width="54" height="30" uuid="5e2bf5c0-3bd3-4b8a-928d-67e7d383e151"/>
+				<textFieldExpression><![CDATA[$F{RoomNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="313" y="0" width="74" height="30" uuid="6b522dd0-3a3e-4a2d-9af3-040349f3dad3"/>
+				<textFieldExpression><![CDATA[$F{CustFName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="387" y="0" width="98" height="30" uuid="afd1ca49-c477-4437-86b9-a94c42ffe414"/>
+				<textFieldExpression><![CDATA[$F{CustLName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="0" width="70" height="30" uuid="45c66a4e-d2d9-458d-92ab-afe4e6190290"/>
+				<textFieldExpression><![CDATA[$F{RoomPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="139" y="0" width="120" height="30" uuid="399db1f0-7048-4a78-84b4-c70c461cd61c"/>
+				<textFieldExpression><![CDATA[$F{TypeName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="0" width="54" height="30" uuid="635f53d8-9ab8-466a-86f0-c892ec3ab47e"/>
+				<textFieldExpression><![CDATA[$F{CustID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="0" width="74" height="30" uuid="9dbeb45a-2632-47c8-80bb-66709215600d"/>
+				<textFieldExpression><![CDATA[$F{ResvDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="22" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="451" y="1" width="100" height="20" uuid="d08023d1-bdaf-4f60-b5d8-c9940bf08b6b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalrevenue}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="0" width="100" height="20" uuid="4e293229-71aa-47b7-98d6-4492bcca53e4"/>
+				<text><![CDATA[ Revenue :]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="451" y="0" width="100" height="30" uuid="b8930951-d16f-4a5e-8cf3-d0b7120cc436"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -180,51 +180,61 @@ public class ModFacController implements Initializable{
 
     private void editfac() {
         btn_editfac.setOnMouseClicked(me ->{
-            int selRow = modfactable.getSelectionModel().getSelectedIndex();
-            if (selRow >= 0){
-                ModelFacility mf = new ModelFacility();
-                mf = modfactable.getSelectionModel().getSelectedItem();
-
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText("Edit Facility");
-                alert.setContentText("Are you sure you want to edit " + mf.getFacname() + " from the table?");
-
-                Optional<ButtonType> sel = alert.showAndWait();
-                if (sel.isPresent()){
-                    if (sel.get() == ButtonType.OK){
-                        String facno = tf_facno.getText();
-                        String facname = tf_facname.getText();
-                        String facdesc = ta_facdesc.getText();
-                        String facprice = tf_facresvprice.getText();
-                        try {
-                            String sql = "UPDATE FacType" +
-                                    " SET FacNo = '"+facno+"', FacName = '"+facname+"'" +
-                                    ",FacDesc = '"+facdesc+"',FacPrice = "+facprice+"" +
-                                    " WHERE FacNo='"+mf.getFacno()+"'";
-
-                            db.executeUpdate(sql);
-                        }catch (SQLException e){
-                            e.printStackTrace();
-                        }
-                        tf_facno.clear();
-                        tf_facname.clear();
-                        ta_facdesc.clear();
-                        tf_facresvprice.clear();
-                    }
-                    else {
-                        alert.close();
-                    }
-                }
-
+            if (tf_facno.getText().isEmpty() || tf_facname.getText().isEmpty() || ta_facdesc.getText().isEmpty() || tf_facresvprice.getText().isEmpty()){
+                Alert emptyfield = new Alert(Alert.AlertType.WARNING);
+                emptyfield.setTitle("Empty Field");
+                emptyfield.setHeaderText("One of the field is empty");
+                emptyfield.setContentText("Please make sure to fill in all the field");
+                emptyfield.showAndWait();
             }
             else {
-                Alert noSel = new Alert(Alert.AlertType.WARNING);
-                noSel.setTitle("No Selection");
-                noSel.setHeaderText("No Facility is selected");
-                noSel.setContentText("Please select a facility in the table to be edited");
-                noSel.showAndWait();
+                int selRow = modfactable.getSelectionModel().getSelectedIndex();
+                if (selRow >= 0){
+                    ModelFacility mf = new ModelFacility();
+                    mf = modfactable.getSelectionModel().getSelectedItem();
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText("Edit Facility");
+                    alert.setContentText("Are you sure you want to edit " + mf.getFacname() + " from the table?");
+
+                    Optional<ButtonType> sel = alert.showAndWait();
+                    if (sel.isPresent()){
+                        if (sel.get() == ButtonType.OK){
+                            String facno = tf_facno.getText();
+                            String facname = tf_facname.getText();
+                            String facdesc = ta_facdesc.getText();
+                            String facprice = tf_facresvprice.getText();
+                            try {
+                                String sql = "UPDATE FacType" +
+                                        " SET FacNo = '"+facno+"', FacName = '"+facname+"'" +
+                                        ",FacDesc = '"+facdesc+"',FacPrice = "+facprice+"" +
+                                        " WHERE FacNo='"+mf.getFacno()+"'";
+
+                                db.executeUpdate(sql);
+                            }catch (SQLException e){
+                                e.printStackTrace();
+                            }
+                            tf_facno.clear();
+                            tf_facname.clear();
+                            ta_facdesc.clear();
+                            tf_facresvprice.clear();
+                        }
+                        else {
+                            alert.close();
+                        }
+                    }
+
+                }
+                else {
+                    Alert noSel = new Alert(Alert.AlertType.WARNING);
+                    noSel.setTitle("No Selection");
+                    noSel.setHeaderText("No Facility is selected");
+                    noSel.setContentText("Please select a facility in the table to be edited");
+                    noSel.showAndWait();
+                }
             }
+
         });
     }
 
@@ -286,30 +296,40 @@ public class ModFacController implements Initializable{
         AddFacController afc = loadfac.getController();
 
         afc.getBtn_addfac().setOnMouseClicked(me ->{
-            //additem
-            String facno = afc.getTf_facno().getText();
-            String facname = afc.getTf_facname().getText();
-            String facdesc = afc.getTa_addfacdesc().getText();
-            Integer facprice = Integer.parseInt(afc.getTf_addfacprice().getText());
-
-            try {
-                String sql = "INSERT INTO FacType (FacNo,FacName,FacDesc,FacPrice)"+
-                        "VALUES ('"+ facno +"','"+ facname +"','"+ facdesc +"',"+ facprice +")";
-                db.executeUpdate(sql);
-            }catch (SQLException e){
-                e.printStackTrace();
+            if (afc.getTf_facno().getText().isEmpty() || afc.getTf_facname().getText().isEmpty() ||
+                     afc.getTa_addfacdesc().getText().isEmpty() || afc.getTf_addfacprice().getText().isEmpty()){
+                Stage stage = (Stage)afc.getBtn_addfac().getScene().getWindow();
+                stage.close();
+                Alert emptyfield = new Alert(Alert.AlertType.WARNING);
+                emptyfield.setTitle("Empty Field");
+                emptyfield.setHeaderText("One of the field is empty");
+                emptyfield.setContentText("Please make sure to fill in all the field");
+                emptyfield.showAndWait();
             }
-            //clear items
-            afc.getTf_facno().clear();
-            afc.getTf_facname().clear();
-            afc.getTa_addfacdesc().clear();
-            afc.getTf_addfacprice().clear();
+            else {
+                //additem
+                String facno = afc.getTf_facno().getText();
+                String facname = afc.getTf_facname().getText();
+                String facdesc = afc.getTa_addfacdesc().getText();
+                Integer facprice = Integer.parseInt(afc.getTf_addfacprice().getText());
 
-            Stage stage = (Stage) afc.getBtn_addfac().getScene().getWindow();
-            stage.close();
+                try {
+                    String sql = "INSERT INTO FacType (FacNo,FacName,FacDesc,FacPrice)"+
+                            "VALUES ('"+ facno +"','"+ facname +"','"+ facdesc +"',"+ facprice +")";
+                    db.executeUpdate(sql);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                //clear items
+                afc.getTf_facno().clear();
+                afc.getTf_facname().clear();
+                afc.getTa_addfacdesc().clear();
+                afc.getTf_addfacprice().clear();
+
+                Stage stage = (Stage) afc.getBtn_addfac().getScene().getWindow();
+                stage.close();
+            }
         });
-
-
     }
 
     private void validation() {
