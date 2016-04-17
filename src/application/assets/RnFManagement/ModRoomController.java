@@ -134,6 +134,22 @@ public class ModRoomController implements Initializable{
         });
 
         //paxperroom and roomprice based on room type
+        cbox_roomtype.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String rtype = cbox_roomtype.getSelectionModel().getSelectedItem();
+            try {
+                String sql = "SELECT MaxPax, RoomPrice FROM RoomType WHERE TypeName = '"+cbox_roomtype.getSelectionModel().getSelectedItem()+"'";
+                ResultSet data = db.executeQuery(sql);
+                if (data.next()){
+                    String paxperrroom = data.getString("MaxPax");
+                    tf_paxperroom.setText(paxperrroom);
+                    String roomprice = data.getString("RoomPrice");
+                    tf_roomprice.setText(roomprice);
+                }
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        });
+
 
         btn_groupsearch.setOnMouseClicked(me ->{
             try {
