@@ -2,24 +2,36 @@ package application.assets.checkin;
 
 import application.Validation;
 import application.assets.*;
+import application.assets.reservation.ResvPayController;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static application.slidemenu.SlideMenuController.db;
 
 public class CIController implements Initializable {
 
+    @FXML private AnchorPane ciPane;
     @FXML private Button btn_ciNext;
     @FXML private TextField tf_ciResvNum;
     @FXML private TextField tf_ciFirstName;
@@ -60,11 +72,15 @@ public class CIController implements Initializable {
     @FXML private TableColumn<ModelCIToday, String> tbcol_lname;
     @FXML private TableColumn<ModelCIToday, String> tbcol_co;
 
+    private String inDate;
+    private String outDate;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         cellValueFacotry();
         tdCheckIn();
         doubleClick();
+        ciPayment();
     }
 
     public void tdCheckIn() {
@@ -106,9 +122,7 @@ public class CIController implements Initializable {
                     ModelCIToday tdci = table_ciToday.getSelectionModel().getSelectedItem();
                     try {
                         //language=SQLite
-                        String query = "SELECT * FROM Reservation r INNER JOIN Customer c " +
-                                "ON r.CustID = c.CustID INNER JOIN CustAddress ca ON " +
-                                "ca.CustID = c.CustID WHERE r.ResvNo = " + tdci.getresv();
+                        String query = "SELECT * FROM Reservation r INNER JOIN Customer c ON r.CustID = c.CustID INNER JOIN CustAddress ca ON ca.CustID = c.CustID WHERE r.ResvNo = " + tdci.getresv();
                         ResultSet rs = db.executeQuery(query);
 
                         tf_ciResvNum.setText(String.valueOf(rs.getInt("ResvNo")));
@@ -121,6 +135,9 @@ public class CIController implements Initializable {
                         tf_ciCountry.setText(rs.getString("Country"));
                         tf_ciIDType.setText(rs.getString("CustID_Type"));
                         tf_ciIDNo.setText(rs.getString("CustID"));
+
+                        inDate = rs.getString("CheckInDate");
+                        outDate = rs.getString("CheckOutDate");
 
                         query = "SELECT * FROM CustomerGroup WHERE G_CustID = '" +
                                 tf_ciIDNo.getText() + "'";
@@ -178,6 +195,130 @@ public class CIController implements Initializable {
             });
 
             return selRow;
+        });
+    }
+
+    public void ciPayment(){
+        FXMLLoader loadpayment = new FXMLLoader(getClass().getResource("/application/assets/" +
+                "reservation/resvpay.fxml"));
+        AnchorPane payment = null;
+        try {
+            payment = loadpayment.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ResvPayController rpc = loadpayment.getController();
+
+        AnchorPane finalPayment = payment;
+
+        btn_ciNext.setOnMouseClicked(me->{
+            if (Objects.equals(tf_ciResvNum.getText(), "")){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Reservation Not Loaded");
+                alert.setHeaderText("No Reservation is loaded");
+                alert.setContentText("Reservation has to be made before checking in. For direct check in, " +
+                        "set the room check in date to today's date, proceed to reserve and then check in.");
+                alert.showAndWait();
+                return;
+            }
+
+            FadeTransition ft = new FadeTransition(Duration.millis(320), finalPayment);
+            ft.setFromValue(0.0); //add a simple fade in transition
+            ft.setToValue(1.0);
+            ft.play();
+            ciPane.getChildren().add(finalPayment); //add as children of resvEditPane
+
+            rpc.getBtn_reserve().setText("Check In");
+
+            //language=SQLite
+            String query = "SELECT * FROM Payment WHERE ResvNo = " +
+                    Integer.parseInt(tf_ciResvNum.getText());
+
+            try {
+                ResultSet rs = db.executeQuery(query);
+                if (rs.next()){
+                    Double ccardno = rs.getDouble("CCardNo");
+                    if (!rs.wasNull()){
+                        query = "SELECT * FROM Payment p INNER JOIN Pay_CCard pc " +
+                                "ON p.CCardNo = pc.CCardNo WHERE ResvNo = " +
+                                Integer.parseInt(tf_ciResvNum.getText());
+                        rs = db.executeQuery(query);
+                        rpc.getCbox_PayType().getSelectionModel().select("Credit Card");
+                        rpc.getTf_cardname().setText(rs.getString("CCardName"));
+                        rpc.getTf_cardno().setText(String.valueOf(rs.getDouble("CCardNo")));
+                        rpc.getTf_cvccode().setText(String.valueOf(rs.getInt("CVC")));
+                        rpc.getCbox_Month().getSelectionModel().select(rs.getInt("DOE_Month"));
+                        rpc.getCbox_Year().getSelectionModel().select(rs.getInt("DOE_Year"));
+                    } else if (rs.getString("ChequeNo") != null){
+                        rpc.getCbox_PayType().getSelectionModel().select("Cheque");
+                        rpc.getTf_cardname().setText(rs.getString("ChequeNo"));
+                    } else {
+                        rpc.getCbox_PayType().getSelectionModel().select("Cash");
+                    }
+
+                    rpc.getRb_deposit().setDisable(true);
+                    rpc.getRb_full().setDisable(true);
+
+                    rpc.getLbl_refno().setText(String.valueOf(rs.getInt("PaymentID")));
+                    rpc.getLbl_deposit().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Deposit")));
+                    rpc.getLbl_paid().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Paid")));
+                    rpc.getLbl_switchbal().setText("Amount :");
+                    rpc.getLbl_balance().setText(String.format(Locale.UK, "%.2f", rs.getFloat("Bal")));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                ResultSet rs = db.executeQuery("SELECT deposit, taxrate FROM variables");
+                if (rs.next()) {
+                    rpc.getLbl_deposit().setText(String.format(Locale.UK, "%.2f", rs.getFloat("deposit")));
+                    rpc.getLbl_tax().setText(String.valueOf(rs.getInt("taxrate")) + "%");
+                } else {
+                    rpc.getLbl_tax().setText(null);
+                    rpc.getLbl_deposit().setText(null);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        rpc.getBtn_resvBack().setOnMouseClicked(me -> { //getter from the payment controller
+            Timeline timeline = new Timeline(); //set fade out
+            assert finalPayment != null;
+            KeyFrame kf = new KeyFrame(Duration.millis(320), new KeyValue(finalPayment.opacityProperty(), 0));
+            timeline.getKeyFrames().add(kf);
+            //when the timeline is finished (finished fade out) then invoke remove the finalPayment
+            timeline.setOnFinished(se -> ciPane.getChildren().removeAll(finalPayment));
+            timeline.play();
+        });
+
+        rpc.getBtn_reserve().setOnMouseClicked(me -> {
+
+            try {
+                //language=SQLite
+                String query = "INSERT INTO CheckInOut (CustID, CheckInDate, " +
+                        "CheckOutDate, Status, ResvNo) VALUES ('" + tf_ciIDNo.getText() +
+                        "','" + inDate + "','" + outDate +
+                        "','Checked In', " + Integer.parseInt(tf_ciResvNum.getText()) + "";
+                db.executeUpdate(query);
+
+                query = "SELECT DISTINCT CIO_ID FROM CheckInOut WHERE ResvNo=" +
+                        Integer.parseInt(tf_ciResvNum.getText());
+
+                ResultSet rs = db.executeQuery(query);
+
+                while (rs.next()){
+                    query = "UPDATE Payment SET CIO_ID = " + rs.getInt("CIO_ID") +
+                            ", Bal = 0, Paid = " + Float.parseFloat(rpc.getLbl_subtotal().getText()) +
+                            "";
+                    db.executeUpdate(query);
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
     }
 

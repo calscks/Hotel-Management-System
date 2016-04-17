@@ -45,6 +45,7 @@ public class ResvPayController implements Initializable{
     @FXML private Label lbl_subtotal;
     @FXML private Label lbl_paid;
     @FXML private Label lbl_balance;
+    @FXML private Label lbl_switchbal;
     @FXML private RadioButton rb_deposit;
     @FXML private RadioButton rb_full;
     @FXML private ToggleGroup paygroup;
@@ -158,6 +159,10 @@ public class ResvPayController implements Initializable{
 
     public Label getLbl_balance() {
         return lbl_balance;
+    }
+
+    public Label getLbl_switchbal() {
+        return lbl_switchbal;
     }
 
     public ComboBox<Integer> getCbox_Month() {

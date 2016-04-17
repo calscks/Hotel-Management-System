@@ -101,7 +101,7 @@
                         <Font name="System Italic" size="14.0" />
                      </font>
                   </Label>
-                  <Label text="Balance :" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                  <Label fx:id="lbl_switchbal" text="Balance :" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold Italic" size="14.0" />
                      </font>

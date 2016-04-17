@@ -545,7 +545,7 @@ public class ResvController implements Initializable {
             ex = "INSERT INTO Reservation VALUES ('" + tf_idno.getText() +
                     "', '" + inDate +
                     "', '" + outDate +
-                    "', " + tf_resvno.getText() + ")";
+                    "', " + tf_resvno.getText() + ", date('now'))";
             try {
                 db.executeUpdate(ex);
             } catch (SQLException e) {
