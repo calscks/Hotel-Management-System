@@ -1,5 +1,6 @@
 package application.assets.reservation;
 
+import application.Validation;
 import application.assets.*;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -9,7 +10,6 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import application.Validation;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -23,12 +23,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 import static application.slidemenu.SlideMenuController.db;
 
@@ -195,7 +197,7 @@ public class ResvController implements Initializable {
 
         /*i cannot use the ForAddButton here because add guest need to retrieve value from room tableView
         * ,means got extra functions inside the listener
-        * when the room tableview is empty, roomno combobox of resvAddGroup will be empty, but if room tableView
+        * when the room tableview is empty, room no combobox of resvAddGroup will be empty, but if room tableView
         * has row(s), retrieve the room no, time to add into the room no combobox!
         */
         btn_addguest.setOnMouseClicked(me -> {

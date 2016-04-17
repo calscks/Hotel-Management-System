@@ -84,12 +84,10 @@ public class ModFacController implements Initializable{
                     String modfacdesc = data.getString("FacDesc");
                     String modfacresvprice = data.getString("FacPrice");
 
-
                     tf_facno.setText(modfacno);
                     tf_facname.setText(modfacname);
                     ta_facdesc.setText(modfacdesc);
                     tf_facresvprice.setText(modfacresvprice);
-
 
                         ModelFacility fac = new ModelFacility();
                         fac.setFacno(data.getString("FacNo"));
