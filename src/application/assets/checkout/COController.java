@@ -146,31 +146,31 @@ public class COController implements Initializable {
         tf_damageprice.setEditable(false);
 
         check_coMissing.setOnAction((event -> {
-            String original = null;
+
             if (check_coMissing.isSelected()) {
-                original = label_coExtra.getText();
+
                 tf_missingprice.setEditable(true);
             } else {
                 tf_missingprice.setEditable(false);
-                label_coExtra.setText(original);
+
             }
         }));
         check_coBottle.setOnAction((event -> {
-            String original = null;
+
             if(check_coBottle.isSelected()){tf_bottleprice.setEditable(true);}
             else{
             tf_bottleprice.setEditable(false);
-            label_coExtra.setText(original);
+
         }
         }));
         check_coDamaged.setOnAction((event -> {
-            String original = null;
+
             if(check_coDamaged.isSelected()){
-                original = label_coExtra.getText();
+
                 tf_damageprice.setEditable(true);}
         else{
         tf_damageprice.setEditable(false);
-            label_coExtra.setText(original);
+
         }
         }));
     }
