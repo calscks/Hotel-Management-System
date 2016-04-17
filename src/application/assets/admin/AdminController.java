@@ -1,12 +1,16 @@
 package application.assets.admin;
 
 import application.DBConnection;
+import application.Main;
+import application.assets.Login;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.ResultSet;
@@ -44,6 +48,8 @@ public class AdminController implements Initializable {
     @FXML
     private Button btn_switchable;
 
+    @FXML private Label lbl_logout;
+
     private ObservableList<String> obs = FXCollections.observableArrayList("Staff", "Manager");
 
     @Override
@@ -58,6 +64,8 @@ public class AdminController implements Initializable {
         buttons();
 
         switchable();
+
+        logout();
 
         //need to do like this to set the cell value factory.
         //For example the "empId" must be presented as a property inside my Employee data model class
@@ -263,6 +271,29 @@ public class AdminController implements Initializable {
                 }
 
             }
+        });
+    }
+
+    private void logout(){
+        lbl_logout.setOnMouseClicked(me->{
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Logout");
+            confirm.setHeaderText("Logout");
+            confirm.setContentText("Are you sure to log out?");
+
+            Optional<ButtonType> select = confirm.showAndWait();
+            if (select.isPresent()) {
+                if (select.get() == ButtonType.CANCEL) {
+                    return;
+                }
+            } else {
+                return;
+            }
+
+            Stage stage = (Stage) table_empList.getScene().getWindow();
+            stage.close();
+            new Login();
+
         });
     }
 

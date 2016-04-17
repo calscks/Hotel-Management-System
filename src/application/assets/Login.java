@@ -26,7 +26,7 @@ public class Login {
 
     private Button btn = new Button("Sign in");
 
-    public GridPane loginGrid() {
+    public Login() {
         DBConnection db = new DBConnection("Data.sqlite");
 
         GridPane grid = new GridPane();
@@ -135,11 +135,13 @@ public class Login {
                 e1.printStackTrace();
             }
 
-
         });
 
+        Stage P = new Stage();
 
-        return grid;
+        P.setTitle("Drizzle Hotel Management System");
+        P.setScene(new Scene(grid));
+        P.show();
     }
 
 
