@@ -30,13 +30,13 @@ public class COController implements Initializable {
     @FXML private TextField tf_missingprice;
     @FXML private TextField tf_bottleprice;
     @FXML private TextField tf_damageprice;
+    @FXML private TextField tf_coState;
 
     @FXML private Label label_coDeposit;
     @FXML private Label label_coExtra;
     @FXML private Label label_coPayAmt;
     @FXML private Label label_coReturn;
 
-    @FXML  private ComboBox<String> cbox_coCountry;
     @FXML  private ComboBox<String> cbox_coIDType;
 
     @FXML private Button btn_coCheckout;
@@ -67,12 +67,20 @@ public class COController implements Initializable {
         tf_bottleprice.textProperty().addListener(((observable, oldValue, newValue) -> {
             addpay(Double.parseDouble(tf_bottleprice.getText().trim()));
         }));
+
         label_coExtra.textProperty().addListener((observable, oldValue, newValue) -> {
            double amount = Double.parseDouble( label_coDeposit.getText().trim());
             double extraamt = Double.parseDouble(label_coExtra.getText().trim());
-            double v = amount +extraamt;
-            label_coReturn.setText(Double.toString(v));
+            double v = amount -extraamt;
+            label_coPayAmt.setText(Double.toString(v));
         });
+        label_coPayAmt.textProperty().addListener((observable, oldValue, newValue) -> {
+            double depo = Double.parseDouble(label_coPayAmt.getText().trim());
+            double paidamt = Double.parseDouble(label_coPayAmt.getText().trim());
+            double returnto = depo - paidamt;
+            label_coReturn.setText(Double.toString(returnto));
+        });
+
 
         table_co.setRowFactory(action->{
             TableRow<ModelCheckOut> row = new TableRow();
@@ -91,35 +99,21 @@ public class COController implements Initializable {
             autofill(tf_coRoomNo.getText());
 
         });
-
-        btn_coCheckout.setOnAction((event) -> {
+//STATUS IS ONLY "Checked In" and "Checked Out" case sensitive? just follow//
+         btn_coCheckout.setOnAction((event) -> {
 
 
             try {
-                String custid = tf_coIDNo.getText();
-                String sql = "SELECT * FROM CheckInOut WHERE RoomNo=" + "'" + custid + "'";
+                String roomno =tf_coRoomNo.getText();
+                String sql = "SELECT * FROM CheckInOut " +
+                        "INNER JOIN Reservation USING (CustID)" +
+                        "INNER JOIN RoomBooking ON Reservation.ResvNo = RoomBooking.ResvNo" +
+                        "WHERE RoomNo=" + "'" + roomno + "'" +"and CheckInOut.Status = 'Checked In'";
                 ResultSet rs = db.executeQuery(sql);
-
-                String codate = rs.getString("CheckOutDate");
-                String status = rs.getString("Status");
-                if (status.equals("CHECKEDIN")) {
-                    sql = "UPDATE CheckInOut SET Status =" + "'CHECKOUT'" + "WHERE CustID =" + custid;
-                    db.executeUpdate(sql);
-                    if (check_coBlacklist.isSelected()){
-                        sql= "UPDATE Customer SET Blacklisted= blacklisted WHERE CustID="+ custid ;
-                        db.executeUpdate(sql);
-
-                    }
-                    ExtPayment();
-
-
-                } else {
-                    Alert notcheckedin = new Alert(Alert.AlertType.INFORMATION);
-                    notcheckedin.setTitle("ERROR");
-                    notcheckedin.setContentText("Customer has not check in yet!");
-                    notcheckedin.showAndWait();
-
-                }
+                String custid = rs.getString("CustID");
+                int resno = rs.getInt("ResvNo");
+                sql = "UPDATE CheckInOut SET Status = 'Checked Out'WHERE CustID ='"+custid+"'";
+                ExtPayment();
 
 
             } catch (SQLException e1) {
@@ -148,7 +142,7 @@ public class COController implements Initializable {
         try {
         String sql =" SELECT RoomNo, CustID,Customer.CustFName,Customer.CustLName FROM CheckInOut\n" +
                 "INNER JOIN Customer USING (CustID)\n" +
-                "WHERE CheckInOut.CheckOutDate ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'CHECKEDIN'";
+                "WHERE CheckInOut.CheckOutDate ="+"'"+ LocalDate.now().toString() +"'" +"AND CheckInOut.Status= 'Checked In'";
             ResultSet todayco = db.executeQuery(sql);
 
         ObservableList<ModelCheckOut> cotable = FXCollections.observableArrayList();
@@ -173,14 +167,13 @@ public class COController implements Initializable {
 
     public  void autofill(String Roomno){
         try {
-
-            String sql = "SELECT * FROM CheckInOut\n" +
-                    "  INNER JOIN Room using (RoomNo)\n" +
-                    "  INNER JOIN Roomtype on Room.RoomTypeID = RoomType.TypeID\n" +
-                    "  INNER JOIN Customer USING (CustID)\n" +
-                    "  INNER JOIN CustAddress USING (CustID)\n" +
-                    " INNER JOIN Payment USING (CustID)\n" +
-                    "  WHERE RoomNo =" + "'" + Roomno  + "'";
+            //AUTOFILLS THE SCENE
+            String sql = "SELECT * FROM RoomBooking\n" +
+                    "INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
+                    "INNER JOIN Customer using (CustID)\n" +
+                    "inner join CustAddress using (CustID)\n" +
+                    "inner join Payment ON RoomBooking.ResvNo = Payment.ResvNo" +
+                    "WHERE CheckInOut.Status ='Checked In' AND RoomBooking.RoomNo='"+Roomno+"'";
 
             ResultSet codata = db.executeQuery(sql);
             String customerfname = codata.getString("CustFName");
@@ -191,11 +184,10 @@ public class COController implements Initializable {
             String postcode = codata.getString("PostCode");
             String city = codata.getString("City");
             String Country = codata.getString("Country");
-            String roomtype = codata.getString("RoomTypeID");
-            String blacklist = codata.getString("Blacklisted");
+            String State = codata.getString("State");
             double deposit = Double.parseDouble(codata.getString("Deposit").trim());
-            String codate = codata.getString("CheckOutDate");
-            double roomprice = Integer.parseInt(codata.getString("RoomPrice").trim());
+            String codate = codata.getString("Date_CO");
+            double roomprice = Integer.parseInt(codata.getString("Price").trim());
 
             tf_coIDNo.setText(customerid);
             tf_coFirstName.setText(customerfname);
@@ -205,17 +197,9 @@ public class COController implements Initializable {
             tf_coPostCode.setText(postcode);
             tf_coCity.setText(city);
             tf_coAddress.setText(address);
-            cbox_coCountry.getItems().add(Country);
-            cbox_coCountry.getSelectionModel().select(Country);
+            tf_coState.setText(State);
             label_coDeposit.setText("RM" + deposit);
             btn_coCheckout.setDisable(false);
-
-            //blacklistcheck
-            if (blacklist.equals("clean")){
-                check_coBlacklist.setSelected(false);
-            } else if(blacklist.equals("blacklisted")){
-                check_coBlacklist.setSelected(true);
-            }
 
 
             //OVERDUE LABEL CODE
@@ -223,16 +207,12 @@ public class COController implements Initializable {
             double overpay = (double) (overdate * roomprice);
             if (overdate >= 1) {
                 label_coExtra.setText("RM" + Double.toString(overpay));
-                label_coPayAmt.setTextFill(Color.web("#ff0000"));
-
-                double Payamt = overpay - deposit;
-                label_coPayAmt.setText("RM" + Double.toString(Payamt));
-            } else {
-
-                label_coPayAmt.setTextFill(Color.web("#000000"));
+               check_coBlacklist.setTextFill(Color.web("#0076a3"));
             }
 
+            btn_coCheckout.setDisable(false);
         } catch (SQLException t1) {
+            //if fail reset the scene
             t1.printStackTrace();
             tf_coIDNo.setText("");
             tf_coFirstName.setText("");
@@ -241,11 +221,16 @@ public class COController implements Initializable {
             tf_coPostCode.setText("");
             tf_coCity.setText("");
             tf_coAddress.setText("");
-            cbox_coCountry.getItems().add("");
-            cbox_coCountry.getSelectionModel().select("");
+            tf_coState.setText("");
             label_coDeposit.setText("RM0.00");
             label_coExtra.setText("RM0.00");
             label_coPayAmt.setText("RM0.00");
+            label_coReturn.setText("RM0.00");
+            btn_coCheckout.setDisable(true);
+            check_coBlacklist.setSelected(false);
+            check_coBlacklist.setTextFill(Color.web("#000000"));
+            btn_coCheckout.setDisable(true);
+
         }
     }
 
@@ -253,7 +238,10 @@ public class COController implements Initializable {
 
     public void ExtPayment(){
         try {
-        String sql="SELECT * FROM CheckInOut WHERE RoomNo="+"'"+tf_coRoomNo.getText()+"'";
+        String sql="SELECT * FROM RoomBooking\n" +
+                "INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
+                "INNER JOIN Reservation ON RoomBooking.ResvNo = Reservation.ResvNo\n" +
+                "WHERE RoomNo='" + tf_coRoomNo.getText() + "'" +"and CheckInOut.Status = 'Checked In'";
             ResultSet rs = db.executeQuery(sql);
             String cioid = rs.getString("CIO_ID");
             sql="SELECT * FROM ExtPayment";
