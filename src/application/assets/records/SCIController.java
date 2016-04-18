@@ -80,7 +80,7 @@ public class SCIController implements Initializable {
             table_sresult.getItems().clear();
             if (rb_resvno.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 query = "SELECT * FROM CheckInOut cio INNER JOIN Customer c ON " +
-                        "cio.CIO_ID = c.CustID WHERE cio.ResvNo LIKE '%" +
+                        "cio.CustID = c.CustID WHERE cio.ResvNo LIKE '%" +
                         tf_search.getText() + "%'";
                 try {
                     ResultSet rs = db.executeQuery(query);
@@ -98,7 +98,7 @@ public class SCIController implements Initializable {
                 }
             } else if (rb_fname.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 query = "SELECT * FROM CheckInOut cio INNER JOIN Customer c ON " +
-                        "cio.CIO_ID = c.CustID WHERE c.CustFName LIKE '%" +
+                        "cio.CustID = c.CustID WHERE c.CustFName LIKE '%" +
                         tf_search.getText() + "%'";
 
                 try {
@@ -117,7 +117,7 @@ public class SCIController implements Initializable {
                 }
             }else if (rb_lname.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 query = "SELECT * FROM CheckInOut cio INNER JOIN Customer c ON " +
-                        "cio.CIO_ID = c.CustID WHERE c.CustLName LIKE '%" +
+                        "cio.CustID = c.CustID WHERE c.CustLName LIKE '%" +
                         tf_search.getText() + "%'";
 
                 try {
@@ -136,7 +136,7 @@ public class SCIController implements Initializable {
                 }
             }else if (rb_cioid.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 query = "SELECT * FROM CheckInOut cio INNER JOIN Customer c ON " +
-                        "cio.CIO_ID = c.CustID WHERE cio.CIO_ID LIKE '%" +
+                        "cio.CustID = c.CustID WHERE cio.CIO_ID LIKE '%" +
                         tf_search.getText() + "%'";
 
                 try {
