@@ -291,7 +291,7 @@ public class COController implements Initializable {
             //OVERDUE LABEL CODE
             long overdate = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(codate));
             double overpay = (double) (overdate * roomprice);
-            if (overdate >= 1) {
+            if (overdate > 1) {
                 label_coExtra.setText(Double.toString(overpay));
                 check_coBlacklist.setTextFill(Color.web("#ff0000"));
             }
