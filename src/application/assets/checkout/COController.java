@@ -125,11 +125,11 @@ public class COController implements Initializable {
 //STATUS IS ONLY "Checked In" and "Checked Out" case sensitive? just follow//
          btn_coCheckout.setOnAction((event) -> {
             try {
-                String roomno =tf_coRoomNo.getText();
-                String sql = "SELECT * FROM CheckInOut " +
-                        "INNER JOIN Reservation USING (CustID)" +
-                        "INNER JOIN RoomBooking ON Reservation.ResvNo = RoomBooking.ResvNo" +
-                        "WHERE RoomBooking.RoomNo=" + "'" + roomno + "'" +"and CheckInOut.Status = 'Checked In'";
+                String sql = "SELECT * FROM RoomBooking\n" +
+                        "INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
+                        "INNER JOIN Reservation USING (ResvNo)\n" +
+                        "INNER JOIN Customer using (CustID)\n" +
+                        "WHERE RoomBooking.RoomNo = '"+tf_coRoomNo.getText()+"' AND CheckInOut.Status='Checked in'";
                 ResultSet rs = db.executeQuery(sql);
                 Alert checkout = new Alert(Alert.AlertType.CONFIRMATION);
                 checkout.setTitle("Check Out");
