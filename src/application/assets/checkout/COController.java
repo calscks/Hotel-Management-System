@@ -245,22 +245,35 @@ public class COController implements Initializable {
                     "  INNER JOIN Customer using (CustID)\n" +
                     "  inner join CustAddress using (CustID)\n" +
                     "  inner join Payment ON RoomBooking.ResvNo = Payment.ResvNo\n" +
-                    "WHERE CheckInOut.Status ='Checked In' and RoomBooking.RoomNo ='"+Roomno+"'";
+                    "WHERE CheckInOut.Status ='Checked In' and RoomBooking.RoomNo ='" + Roomno + "'";
 
             ResultSet codata = db.executeQuery(sql);
-            String customerfname = codata.getString("CustFName");
-            String customerlname = codata.getString("CustLName");
-            String IDtype = codata.getString("CustID_Type");
-            String customerid = codata.getString("CustID");
-            String address = codata.getString("Address");
-            String postcode = codata.getString("PostCode");
-            String city = codata.getString("City");
-            String Country = codata.getString("Country");
-            String State = codata.getString("State");
-            double deposit = Double.parseDouble(codata.getString("Deposit").trim());
-            String codate = codata.getString("Date_CO");
-            double roomprice = Double.parseDouble(codata.getString("Price").trim());
-
+            String customerid = null;
+            String customerfname = null;
+            String customerlname = null;
+            String IDtype = null;
+            String postcode = null;
+            String city = null;
+            String address = null;
+            String Country = null;
+            String State = null;
+            double deposit = 0;
+            String codate = null;
+            double roomprice = 0;
+            if (codata.next()) {
+                customerfname = codata.getString("CustFName");
+                customerlname = codata.getString("CustLName");
+                IDtype = codata.getString("CustID_Type");
+                customerid = codata.getString("CustID");
+                address = codata.getString("Address");
+                postcode = codata.getString("PostCode");
+                city = codata.getString("City");
+                Country = codata.getString("Country");
+                State = codata.getString("State");
+                deposit = Double.parseDouble(codata.getString("Deposit").trim());
+                codate = codata.getString("Date_CO");
+                roomprice = Double.parseDouble(codata.getString("Price").trim());
+            }
             tf_coIDNo.setText(customerid);
             tf_coFirstName.setText(customerfname);
             tf_coLastName.setText(customerlname);
@@ -280,7 +293,7 @@ public class COController implements Initializable {
             double overpay = (double) (overdate * roomprice);
             if (overdate >= 1) {
                 label_coExtra.setText(Double.toString(overpay));
-               check_coBlacklist.setTextFill(Color.web("#ff0000"));
+                check_coBlacklist.setTextFill(Color.web("#ff0000"));
             }
 
             btn_coCheckout.setDisable(false);
