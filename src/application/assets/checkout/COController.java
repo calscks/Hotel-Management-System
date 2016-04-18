@@ -42,6 +42,10 @@ public class COController implements Initializable {
     @FXML  private ComboBox<String> cbox_coIDType;
 
     @FXML private Button btn_coCheckout;
+    @FXML private Button btn_missing;
+    @FXML private Button btn_bottle;
+    @FXML private Button btn_damage;
+    @FXML private Button btn_reset;
 
     @FXML private TableView<ModelCheckOut> table_co;
     @FXML private TableColumn<ModelCheckOut,String> table_coRoomNo;
@@ -60,15 +64,16 @@ public class COController implements Initializable {
         checkboxes();
         validation();
 
-        tf_missingprice.textProperty().addListener(((observable, oldValue, newValue) -> {
+        btn_missing.setOnAction(event -> {
                 addpay(Double.parseDouble(tf_missingprice.getText().trim()));
-        }));
-        tf_damageprice.textProperty().addListener(((observable, oldValue, newValue) -> {
+        });
+        btn_damage.setOnAction(event -> {
             addpay( Double.parseDouble(tf_damageprice.getText().trim()));
-        }));
-        tf_bottleprice.textProperty().addListener(((observable, oldValue, newValue) -> {
+        });
+        btn_bottle.setOnAction(event -> {
             addpay(Double.parseDouble(tf_bottleprice.getText().trim()));
-        }));
+        });
+
 
         label_coExtra.textProperty().addListener((observable, oldValue, newValue) -> {
            double amount = Double.parseDouble( label_coDeposit.getText().trim());
