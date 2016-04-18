@@ -329,7 +329,7 @@ public class COController implements Initializable {
                 db.executeUpdate(sql);
                 Alert complete = new Alert(Alert.AlertType.INFORMATION);
                 complete.setTitle("Check Out Successful");
-                complete.setTitle("Room "+ tf_coRoomNo.getText()+"has Checked Out");
+                complete.setContentText("Room "+ tf_coRoomNo.getText()+"has Checked Out");
                 complete.showAndWait();
             }else{
 
@@ -338,7 +338,7 @@ public class COController implements Initializable {
                 db.executeUpdate(sql);
                 Alert complete = new Alert(Alert.AlertType.INFORMATION);
                 complete.setTitle("Check Out Successful");
-                complete.setTitle("Room "+ tf_coRoomNo.getText()+"has Checked Out");
+                complete.setContentText("Room "+ tf_coRoomNo.getText()+"has Checked Out");
                 complete.showAndWait();
             }
         } catch (SQLException e) {
