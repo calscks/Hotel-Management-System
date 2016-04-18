@@ -761,7 +761,7 @@ public class ResvController implements Initializable {
         tf_resvno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(10));
         tf_fname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
         tf_lname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(20));
-        tf_address.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(50));
+        tf_address.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNoCommaDot(70));
         tf_postcode.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(12));
         tf_city.addEventFilter(KeyEvent.KEY_TYPED, Validation.validChar(25));
         tf_idno.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(20));
