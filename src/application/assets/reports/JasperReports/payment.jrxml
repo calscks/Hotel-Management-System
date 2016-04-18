@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
+<!-- 2016-04-18T10:55:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4193ea8d-af21-442d-97a1-d68d929e087e">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="datasqlitexml.xml"/>
+	<queryString>
+		<![CDATA[SELECT * FROM PAYMENT
+WHERE PayDate = date('now', 'localtime')]]>
+	</queryString>
+	<field name="PaymentID" class="java.lang.Object"/>
+	<field name="CustID" class="java.lang.Object"/>
+	<field name="Deposit" class="java.lang.Object"/>
+	<field name="Subtotal" class="java.lang.Object"/>
+	<field name="Bal" class="java.lang.Object"/>
+	<field name="CCardNo" class="java.lang.Object"/>
+	<field name="PayDate" class="java.lang.Object"/>
+	<field name="ResvNo" class="java.lang.Object"/>
+	<field name="CIO_ID" class="java.lang.Object"/>
+	<field name="ChequeNo" class="java.lang.Object"/>
+	<field name="Paid" class="java.lang.Object"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="6" y="0" width="550" height="53" uuid="5d62cd9b-f5ae-4863-82f3-39cd1609df62"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Shangri-La Hotel]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="7" y="2" width="548" height="30" uuid="734d9ced-d72d-492d-b0fa-266134592fd4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<rectangle>
+				<reportElement x="5" y="1" width="551" height="40" backcolor="#F0F0F0" uuid="d7a9adfb-309c-45f2-93ee-64adcd11c25a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="7" y="10" width="72" height="30" uuid="2dd2a2ff-2612-44df-a720-7083384b2453"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[PaymentID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="10" width="68" height="30" uuid="37379646-3f19-46a4-bb23-16f35ffeff70"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CustID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="10" width="52" height="30" uuid="fb3b7f18-6d4d-41b7-ac4b-4ba7571c4954"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Deposit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="198" y="10" width="38" height="30" uuid="8b07447f-edfb-4730-b097-f7aa25f06d35"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="10" width="34" height="30" uuid="ad9cb723-5581-4702-b13e-a4f498cdf61f"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Bal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="10" width="70" height="30" uuid="52c7d216-cac6-4220-adb2-6ec2b8a43634"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CCardNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="10" width="50" height="30" uuid="e148fc59-c340-45e9-af7b-1a5640a7136e"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[PayDate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="10" width="44" height="30" uuid="d7dc3f0c-8894-4b95-84fc-cb7f5c2d8ea3"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[ResvNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="437" y="10" width="34" height="30" uuid="fa3afb85-49d6-43ac-940b-3a0e69d57415"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[CIO_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="473" y="10" width="50" height="30" uuid="68635daf-9e78-4f02-af1d-01b14086d2e0"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[ChequeNo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="525" y="10" width="30" height="30" uuid="8bac8e69-8c13-4284-9275-1f7a04d409cf"/>
+				<textElement verticalAlignment="Bottom"/>
+				<text><![CDATA[Paid]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="51" splitType="Stretch">
+			<textField>
+				<reportElement x="9" y="0" width="70" height="30" uuid="0d6a95f3-3605-4b76-847a-0b4d7e91b796"/>
+				<textFieldExpression><![CDATA[$F{PaymentID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="0" width="70" height="30" uuid="5b3a66e4-cf51-4c61-9385-8a531b88701a"/>
+				<textFieldExpression><![CDATA[$F{CustID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="0" width="52" height="30" uuid="ab78d052-0b7f-46f8-a111-91b7183f7153"/>
+				<textFieldExpression><![CDATA[$F{Deposit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="0" width="38" height="30" uuid="ae2e8ebc-b8eb-4fca-aa9e-b7612f3e4f50"/>
+				<textFieldExpression><![CDATA[$F{Subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="0" width="34" height="30" uuid="57aaf371-2f38-4399-af98-b88a78179af1"/>
+				<textFieldExpression><![CDATA[$F{Bal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="267" y="0" width="70" height="30" uuid="d8d7983d-3057-4fee-a582-d02625c44981"/>
+				<textFieldExpression><![CDATA[$F{CCardNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="50" height="30" uuid="7284baf0-a1a0-4768-8be9-24e91a88a034"/>
+				<textFieldExpression><![CDATA[$F{PayDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="44" height="30" uuid="81b4ee13-622d-490a-bd71-c80b8aae76a4"/>
+				<textFieldExpression><![CDATA[$F{ResvNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="0" width="34" height="30" uuid="0cc8d664-fc99-4642-a90b-4de11b72146d"/>
+				<textFieldExpression><![CDATA[$F{CIO_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="473" y="0" width="48" height="30" uuid="0befc01c-e60c-4d9c-b391-7e1969ce6a9d"/>
+				<textFieldExpression><![CDATA[$F{ChequeNo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="523" y="0" width="32" height="30" uuid="84348ed3-7baf-47cb-879b-4cc4989213f5"/>
+				<textFieldExpression><![CDATA[$F{Paid}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="456" y="0" width="100" height="30" uuid="dcc6b055-b183-4590-a7ef-646895e6f649"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

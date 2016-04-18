@@ -25,22 +25,23 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <RadioButton fx:id="radio_daily" mnemonicParsing="false" text="Daily Collection Report" GridPane.rowIndex="3">
+                  <RadioButton fx:id="radio_daily" mnemonicParsing="false" text="Daily Collection Report" GridPane.rowIndex="4">
                      <toggleGroup>
                         <ToggleGroup fx:id="t2" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="radio_resv" mnemonicParsing="false" text="Reservation Report" toggleGroup="$t2" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="radio_resv" mnemonicParsing="false" text="Reservation Report" toggleGroup="$t2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <RadioButton fx:id="radio_room" mnemonicParsing="false" text="Rooms" GridPane.rowIndex="1">
                      <toggleGroup>
                         <ToggleGroup fx:id="t1" />
                      </toggleGroup>
                   </RadioButton>
                   <RadioButton fx:id="radio_fac" mnemonicParsing="false" text="Facility" toggleGroup="$t1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Report Category :" GridPane.rowIndex="2">
+                  <Label text="Report Category :" GridPane.rowIndex="3">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -50,6 +51,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
+                  <RadioButton fx:id="radio_payment" mnemonicParsing="false" text="Payment Report" toggleGroup="$t1" GridPane.rowIndex="2" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
