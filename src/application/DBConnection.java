@@ -31,11 +31,8 @@ public class DBConnection {
 
     private void setCon(){
         String[] create = new String[]{
-                "CREATE TABLE IF NOT EXISTS Admin\n" +
-                        "(\n" +
-                        "    AUName TEXT PRIMARY KEY,\n" +
-                        "    APwd TEXT\n" +
-                        ");\n",
+                "CREATE TABLE IF NOT EXISTS Admin" +
+                        "(UName TEXT, Pwd TEXT);",
                 "CREATE TABLE IF NOT EXISTS CheckInOut\n" +
                         "(\n" +
                         "    CustID TEXT,\n" +
@@ -159,7 +156,7 @@ public class DBConnection {
                         "(\n" +
                         "    deposit REAL,\n" +
                         "    taxrate INTEGER\n" +
-                        ");", "INSERT INTO Admin VALUES (UName = 'admin', Pwd = 'admin');"};
+                        ");"};
         try {
             Class.forName("org.sqlite.JDBC").newInstance();
             c = DriverManager.getConnection("jdbc:sqlite:" + dbName);
@@ -173,6 +170,11 @@ public class DBConnection {
                     PreparedStatement tableQuery = c.prepareStatement(aCreate);
                     tableQuery.executeUpdate();
                 }
+                String query = "INSERT INTO Admin (UName, Pwd) VALUES ('admin','admin')";
+                Statement anotherQuery = c.createStatement();
+                anotherQuery.executeUpdate(query);
+                anotherQuery.close();
+
             }
             try {
                 statement = c.createStatement();
