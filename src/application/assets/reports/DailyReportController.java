@@ -33,67 +33,90 @@ public class DailyReportController implements Initializable{
     @FXML ComboBox cbox_cio;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL Location, ResourceBundle resources){
+        cbox_cio.setItems(cio);
         btn_print.setDisable(true);
-        if(radio_room.isSelected()){
-            btn_print.setDisable(true);
-            cbox_cio.setDisable(true);
-            if (radio_daily.isSelected()){
-                btn_print.setDisable(true);
-                cbox_cio.setDisable(false);
-                if (cbox_cio.getValue().toString().equals("Check in") ){
+        radio_daily.setDisable(true);
+        radio_fac.setDisable(false);
+        radio_resv.setDisable(true);
+        radio_room.setDisable(false);
+        radio_payment.setDisable(false);
+        cbox_cio.setDisable(true);
+
+        radio_room.setOnAction(event -> {
+            if(radio_room.isSelected()) {
+               superclass();
+            }
+        });
+        radio_fac.setOnAction(e ->{
+            if (radio_fac.isSelected()) {
+                superclass();
+            }
+        });
+        radio_payment.setOnAction(event -> {
+            if(radio_payment.isSelected()){
+                radio_daily.setDisable(true);
+                radio_resv.setDisable(true);
+                cbox_cio.setDisable(true);
+                btn_print.setDisable(false);
+                btn_print.setOnAction(e -> {
+                    getreport("/application/assets/reports/JasperReports/payment.jrxml");
+                });
+            }
+        });
+        radio_daily.setOnAction(event -> {
+            if(radio_daily.isSelected()){
+                if(radio_room.isSelected()){
+                    cbox_cio.setDisable(false);
+                    btn_print.setDisable(true);
+                    if(cbox_cio.getSelectionModel().getSelectedItem() =="Check in"){
+                        btn_print.setDisable(false);
+                        btn_print.setOnAction(event1 -> {
+                            getreport("/application/assets/reports/JasperReports/room_dailyreport.jrxml");
+                        });
+                    }else if (cbox_cio.getSelectionModel().getSelectedItem() =="Check Out"){
+                        btn_print.setDisable(false);
+                        btn_print.setOnAction(event2 -> {
+                            getreport("/application/assets/reports/JasperReports/room_coDailyReport.jrxml");
+                        });
+                    }
+                }else if (radio_fac.isSelected()){
+                    cbox_cio.setDisable(true);
                     btn_print.setDisable(false);
-                    btn_print.setOnAction(event -> {
-                        getreport("application/assets/reports/JasperReports/room_dailyreport.jrxml");
+                    btn_print.setOnAction(event2 -> {
+
+                        getreport("/application/assets/reports/JasperReports/facility_dailyreport.jrxml");
                     });
-                }else if (cbox_cio.getValue().toString().equals("Check Out")){
+
+
+                }
+            }
+        });
+        radio_resv.setOnAction(event -> {
+            if(radio_resv.isSelected()){
+              if(radio_room.isSelected()){
+                cbox_cio.setDisable(true);
                     btn_print.setDisable(false);
-                    btn_print.setOnAction(event -> {
-                        getreport("application/assets/reports/JasperReports/room_coDailyReport.jrxml");
+                    btn_print.setOnAction(event2 -> {
+                      getreport("/application/assets/reports/JasperReports/room_reservationreport.jrxml");
+                  });
+                }if(radio_fac.isSelected()){
+                    cbox_cio.setDisable(true);
+                    btn_print.setDisable(false);
+                    btn_print.setOnAction(event2 -> {//for facility reservation
+                        getreport("/application/assets/reports/JasperReports/fac_reservationreport.jrxml");
                     });
                 }
             }
-            else if (radio_resv.isSelected()){
-                btn_print.setDisable(false);
-                cbox_cio.setDisable(true);
-                btn_print.setOnAction(event -> {
-                    getreport("application/assets/reports/JasperReports/room_reservationreport.jrxml");
-                });
+        });
 
-            }
-        } else if (radio_fac.isSelected()){
-            btn_print.setDisable(true);
-            cbox_cio.setDisable(true);
-            if(radio_daily.isSelected()){
-                cbox_cio.setDisable(true);
-                btn_print.setDisable(false);
-                btn_print.setOnAction(event -> {
-                    ;
-                    getreport("application/assets/reports/JasperReports/facility_dailyreport.jrxml");
-                });
-            }
-            else if (radio_resv.isSelected()){
-                cbox_cio.setDisable(true);
-                btn_print.setDisable(false);
-                btn_print.setOnAction(event -> {
-                    ;
-                    getreport("application/assets/reports/JasperReports/fac_reservationreport.jrxml");
-                });
-            }
-        }else if (radio_payment.isSelected()){
-            btn_print.setDisable(false);
-            radio_daily.setDisable(true);
-            radio_fac.setDisable(true);
-            radio_resv.setDisable(true);
-            radio_room.setDisable(true);
-            cbox_cio.setDisable(true);
-            btn_print.setOnAction(event -> {
-                ;
-                getreport("application/assets/reports/JasperReports/payment.jrxml");
-            });
-        }
+    }
 
-
+    protected void superclass(){
+        radio_daily.setDisable(false);
+        radio_resv.setDisable(false);
+        cbox_cio.setDisable(true);
+        btn_print.setDisable(true);
     }
     protected void getreport(String reportpath){
         try {
