@@ -2,14 +2,17 @@ package application.assets.admin;
 
 import application.DBConnection;
 import application.Main;
+import application.Validation;
 import application.assets.Login;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -45,8 +48,8 @@ public class AdminController implements Initializable {
     private Button btn_editEmp;
     @FXML
     private Button btn_delEmp;
-    @FXML
-    private Button btn_switchable;
+    @FXML private Button btn_switchable;
+    @FXML private Button btn_cancel;
 
     @FXML private Label lbl_logout;
 
@@ -61,9 +64,19 @@ public class AdminController implements Initializable {
             e.printStackTrace();
         }
 
+        tf_empid.addEventFilter(KeyEvent.KEY_TYPED, Validation.validNo(10));
+        tf_uname.addEventFilter(KeyEvent.KEY_TYPED, Validation.validCharNo(15));
+
+        btn_switchable.disableProperty().bind(Bindings.isEmpty(tf_empid.textProperty()).or(
+                Bindings.isEmpty(tf_uname.textProperty()).or(Bindings.isEmpty(tf_emppwd.textProperty()))));
+
+        btn_cancel.disableProperty().bind(Bindings.isEmpty(tf_empid.textProperty()));
+
         buttons();
 
         switchable();
+
+        cancel();
 
         logout();
 
@@ -106,7 +119,10 @@ public class AdminController implements Initializable {
             tf_uname.setDisable(false);
             cbox_auth.setDisable(false);
 
-            btn_switchable.setDisable(false);
+            tf_empid.clear();
+            tf_emppwd.clear();
+            tf_uname.clear();
+
             btn_switchable.setText("Add");
         });
 
@@ -118,7 +134,10 @@ public class AdminController implements Initializable {
                 tf_uname.setDisable(false);
                 cbox_auth.setDisable(false);
 
-                btn_switchable.setDisable(false);
+                tf_empid.clear();
+                tf_emppwd.clear();
+                tf_uname.clear();
+
                 btn_switchable.setText("Edit");
 
                 Employee emp = table_empList.getSelectionModel().getSelectedItem();
@@ -239,11 +258,15 @@ public class AdminController implements Initializable {
                     e.printStackTrace();
                 }
 
+                tf_empid.clear();
+                tf_emppwd.clear();
+                tf_uname.clear();
+
             } else if (Objects.equals(btn_switchable.getText(), "Edit")) {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation");
-                alert.setHeaderText("Delete Employee");
+                alert.setHeaderText("Edit Employee");
                 alert.setContentText("Are you sure you want to edit employee with ID: "
                         + tf_empid.getText() + "?");
 
@@ -259,7 +282,7 @@ public class AdminController implements Initializable {
                 String query = "UPDATE Employee SET EmpUName = '" + tf_uname.getText() +
                         "', EmpPwd = '" + tf_emppwd.getText() +
                         "', Authority = '" + cbox_auth.getSelectionModel().getSelectedItem() +
-                        "'";
+                        "' WHERE EmpID = " + Integer.parseInt(tf_empid.getText());
                 DBConnection conn = new DBConnection("Data.sqlite");
                 try {
                     conn.executeUpdate(query);
@@ -270,7 +293,34 @@ public class AdminController implements Initializable {
                     e.printStackTrace();
                 }
 
+                tf_empid.clear();
+                tf_emppwd.clear();
+                tf_uname.clear();
+
             }
+        });
+    }
+
+    private void cancel(){
+        btn_cancel.setOnMouseClicked(me->{
+
+            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+            confirm.setTitle("Cancel");
+            confirm.setHeaderText("Cancel Add/Edit");
+            confirm.setContentText("Are you sure to cancel?");
+
+            Optional<ButtonType> select = confirm.showAndWait();
+            if (select.isPresent()) {
+                if (select.get() == ButtonType.CANCEL) {
+                    return;
+                }
+            } else {
+                return;
+            }
+
+            tf_uname.clear();
+            tf_empid.clear();
+            tf_emppwd.clear();
         });
     }
 
