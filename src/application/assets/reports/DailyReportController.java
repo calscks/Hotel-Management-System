@@ -69,12 +69,12 @@ public class DailyReportController implements Initializable{
                 if(radio_room.isSelected()){
                     cbox_cio.setDisable(false);
                     btn_print.setDisable(true);
-                    if(cbox_cio.getSelectionModel().getSelectedItem().equals("Check in")){
+                     if (cbox_cio.getSelectionModel().getSelectedItem().equals("Check in")) {
                         btn_print.setDisable(false);
                         btn_print.setOnAction(event1 -> {
                             getreport("/application/assets/reports/JasperReports/room_dailyreport.jrxml");
                         });
-                    }else if (cbox_cio.getSelectionModel().getSelectedItem().equals("Check out")){
+                    } else if (cbox_cio.getSelectionModel().getSelectedItem().equals("Check out")) {
                         btn_print.setDisable(false);
                         btn_print.setOnAction(event2 -> {
                             getreport("/application/assets/reports/JasperReports/room_coDailyReport.jrxml");
