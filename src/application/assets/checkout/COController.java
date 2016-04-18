@@ -111,8 +111,8 @@ public class COController implements Initializable {
                 if (event.getClickCount() == 2 && (!row.isEmpty())){
                     ModelCheckOut rowData = row.getItem();
                      String RoomNo = rowData.getRoomno();
-                        autofill(RoomNo);
 
+                        tf_coRoomNo.setText(RoomNo);
                 }
             });
             return row;
@@ -226,6 +226,7 @@ public class COController implements Initializable {
             co.setLastname(todayco.getString("CustLName"));
             cotable.add(co);
         }
+
             table_coCustID.setCellValueFactory(new PropertyValueFactory<>("custid"));
             table_coRoomNo.setCellValueFactory(new PropertyValueFactory<>("roomno"));
             table_coFname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
