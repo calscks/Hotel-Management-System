@@ -351,9 +351,7 @@ public class ModRoomController implements Initializable{
     private void editroomcategory() {
         btn_editroomtype.setOnMouseClicked(me->{
             if (tf_grouproomcategory.getText().isEmpty() || tf_grouproomtype.getText().isEmpty()
-                     || tf_grouppaxperroom.getText().isEmpty() || tf_grouproomprice.getText().isEmpty()
-                     || tf_grouptwinbedprice.getText().isEmpty() || tf_groupfullbedprice.getText().isEmpty()
-                     || tf_groupqueenbedprice.getText().isEmpty() || tf_groupkingbedprice.getText().isEmpty()){
+                     || tf_grouppaxperroom.getText().isEmpty() || tf_grouproomprice.getText().isEmpty()){
                 Alert emptyfield = new Alert(Alert.AlertType.WARNING);
                 emptyfield.setTitle("Empty Field");
                 emptyfield.setHeaderText("One of the field is empty");
