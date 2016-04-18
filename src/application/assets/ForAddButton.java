@@ -115,7 +115,6 @@ public class ForAddButton {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
             stage.setResizable(false);
-            stage.setAlwaysOnTop(true);
         });
     }
 }
