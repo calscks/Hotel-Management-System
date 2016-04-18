@@ -34,6 +34,7 @@ public class COController implements Initializable {
     @FXML private TextField tf_bottleprice;
     @FXML private TextField tf_damageprice;
     @FXML private TextField tf_coState;
+    @FXML private TextField tf_coCountry;
 
     @FXML private Label label_coDeposit;
     @FXML private Label label_coExtra;
@@ -268,6 +269,7 @@ public class COController implements Initializable {
             tf_coPostCode.setText(postcode);
             tf_coCity.setText(city);
             tf_coAddress.setText(address);
+            tf_coCountry.setText(Country);
             tf_coState.setText(State);
             label_coDeposit.setText(String.valueOf(deposit));
             btn_coCheckout.setDisable(false);
@@ -293,6 +295,7 @@ public class COController implements Initializable {
             tf_coCity.setText("");
             tf_coAddress.setText("");
             tf_coState.setText("");
+            tf_coCountry.setText("");
             label_coDeposit.setText("0.00");
             label_coExtra.setText("0.00");
             label_coPayAmt.setText("0.00");
