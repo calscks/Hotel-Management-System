@@ -130,7 +130,7 @@ public class COController implements Initializable {
                         "INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
                         "INNER JOIN Reservation USING (ResvNo)\n" +
                         "INNER JOIN Customer using (CustID)\n" +
-                        "WHERE RoomBooking.RoomNo = '"+tf_coRoomNo.getText()+"' AND CheckInOut.Status='Checked in'";
+                        "WHERE RoomBooking.RoomNo = '"+tf_coRoomNo.getText()+"' AND CheckInOut.Status= 'Checked In'";
                 ResultSet rs = db.executeQuery(sql);
                 Alert checkout = new Alert(Alert.AlertType.CONFIRMATION);
                 checkout.setTitle("Check Out");
@@ -322,11 +322,17 @@ public class COController implements Initializable {
                 sql = "INSERT INTO ExtPayment (ExtPaymentID, CIO_ID, ExtPaymentDetails, Total)\n" +
                         "    VALUES(2000000000,"+ cioid + "NULL"+ "'"+label_coPayAmt.getText()+"'";
                 db.executeUpdate(sql);
+                Alert complete = new Alert(Alert.AlertType.INFORMATION);
+                complete.setTitle("Check Out Successful");
+                complete.setTitle("Room "+ tf_coRoomNo.getText()+"has Checked Out");
             }else{
 
                 sql = "INSERT INTO ExtPayment (ExtPaymentID, CIO_ID, ExtPaymentDetails, Total)\n" +
                         "    VALUES(NULL," + cioid + "NULL" + "'" + label_coPayAmt.getText() + "'";
                 db.executeUpdate(sql);
+                Alert complete = new Alert(Alert.AlertType.INFORMATION);
+                complete.setTitle("Check Out Successful");
+                complete.setTitle("Room "+ tf_coRoomNo.getText()+"has Checked Out");
             }
         } catch (SQLException e) {
             e.printStackTrace();
