@@ -528,7 +528,6 @@ public class ModRoomController implements Initializable{
                     if (sel.isPresent()){
                         if (sel.get() == ButtonType.OK){
                             tv_groupmodroom.getItems().remove(selRow);
-                            if (tc_grouptypeid.getText().equals(mr.getRoomtypeid())){
                                 try {
                                     String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
                                     db.executeUpdate(sql);
@@ -536,20 +535,11 @@ public class ModRoomController implements Initializable{
                                     e.printStackTrace();
                                 }
                                 try {
-                                    String sql1 = "DELETE FROM Room WHERE RoomNo = '" + mr.getRoomno() + "'";
-                                    db.executeUpdate(sql1);
-                                }catch (SQLException e){
-                                    e.printStackTrace();
-                                }
-                            }
-                            else if (!Objects.equals(tc_grouptypeid.getText(), mr.getRoomtypeid())){
-                                try {
-                                    String sql = "DELETE FROM RoomType WHERE TypeName = '" + mr.getRoomtype() + "'";
+                                    String sql = "DELETE FROM Room WHERE RoomTypeID NOT IN (SELECT TypeID FROM RoomType)";
                                     db.executeUpdate(sql);
                                 }catch (SQLException e){
                                     e.printStackTrace();
                                 }
-                            }
 
                             tf_grouproomcategory.clear();
                             tf_grouproomtype.clear();
@@ -743,10 +733,7 @@ public class ModRoomController implements Initializable{
                         e.printStackTrace();
                     }
                 }
-
-
             }
-
             //clear items in modaddroom
             arc.getCbox_roomcategory().getSelectionModel().clearSelection();
             arc.getTf_roomtype().clear();
