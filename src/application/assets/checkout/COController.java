@@ -64,7 +64,19 @@ public class COController implements Initializable {
         filltb();
         checkboxes();
         validation();
-
+        check_coBlacklist.setOnAction(event -> {
+            if(check_coBlacklist.isSelected()){
+                Alert prompt = new Alert(Alert.AlertType.CONFIRMATION);
+                prompt.setContentText("Confirm to Black List?");
+                Optional<ButtonType> result = prompt.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    prompt.close();
+                } else {
+                    check_coBlacklist.setSelected(false);
+                    prompt.close();
+                }
+            }
+        });
         btn_missing.setOnAction(event -> {
                 addpay(Double.parseDouble(tf_missingprice.getText().trim()));
         });
@@ -109,12 +121,10 @@ public class COController implements Initializable {
             autofill(tf_coRoomNo.getText());
 
         });
+
 //STATUS IS ONLY "Checked In" and "Checked Out" case sensitive? just follow//
          btn_coCheckout.setOnAction((event) -> {
-
             try {
-
-
                 String roomno =tf_coRoomNo.getText();
                 String sql = "SELECT * FROM CheckInOut " +
                         "INNER JOIN Reservation USING (CustID)" +
@@ -129,6 +139,12 @@ public class COController implements Initializable {
                     String custid = rs.getString("CustID");
                     int resno = rs.getInt("ResvNo");
                     sql = "UPDATE CheckInOut SET Status = 'Checked Out'WHERE CheckInOut.ResvNo ='"+resno+"'";
+                    db.executeUpdate(sql);
+                    if(check_coBlacklist.isSelected()){
+                        sql= "UPDATE Customer SET Blacklisted='yes' WHERE Customer.CustID='"+custid+"'";
+                        db.executeUpdate(sql);
+                        ExtPayment();
+                    }else
                     ExtPayment();
                 } else {
                    checkout.close();
@@ -262,7 +278,7 @@ public class COController implements Initializable {
             double overpay = (double) (overdate * roomprice);
             if (overdate >= 1) {
                 label_coExtra.setText(Double.toString(overpay));
-               check_coBlacklist.setTextFill(Color.web("#0076a3"));
+               check_coBlacklist.setTextFill(Color.web("#ff0000"));
             }
 
             btn_coCheckout.setDisable(false);
@@ -282,7 +298,6 @@ public class COController implements Initializable {
             label_coPayAmt.setText("0.00");
             label_coReturn.setText("0.00");
             btn_coCheckout.setDisable(true);
-            check_coBlacklist.setSelected(false);
             check_coBlacklist.setTextFill(Color.web("#000000"));
             btn_coCheckout.setDisable(true);
 
