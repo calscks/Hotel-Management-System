@@ -146,9 +146,9 @@ public class COController implements Initializable {
                         db.executeUpdate(sql);
                         ExtPayment();
                     }else
-                    ExtPayment();
+                         ExtPayment();
                 } else {
-                   checkout.close();
+                      checkout.close();
                 }
 
 
@@ -310,29 +310,33 @@ public class COController implements Initializable {
 
     public void ExtPayment(){
         try {
+
         String sql="SELECT * FROM RoomBooking\n" +
                 "INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
                 "INNER JOIN Reservation ON RoomBooking.ResvNo = Reservation.ResvNo\n" +
                 "WHERE RoomNo='" + tf_coRoomNo.getText() + "'" +"and CheckInOut.Status = 'Checked In'";
             ResultSet rs = db.executeQuery(sql);
-            String cioid = rs.getString("CIO_ID");
+            int cioid = rs.getInt("CIO_ID");
             sql="SELECT * FROM ExtPayment";
             ResultSet extpayment = db.executeQuery(sql);
-            if (extpayment.wasNull()){
+
+            if (!extpayment.next()){
                 sql = "INSERT INTO ExtPayment (ExtPaymentID, CIO_ID, ExtPaymentDetails, Total)\n" +
-                        "    VALUES(2000000000,"+ cioid + "NULL"+ "'"+label_coPayAmt.getText()+"'";
+                        "    VALUES(2000000000,"+ cioid + ",'No Details',"+ "'"+label_coPayAmt.getText()+"'";
                 db.executeUpdate(sql);
                 Alert complete = new Alert(Alert.AlertType.INFORMATION);
                 complete.setTitle("Check Out Successful");
                 complete.setTitle("Room "+ tf_coRoomNo.getText()+"has Checked Out");
+                complete.showAndWait();
             }else{
 
                 sql = "INSERT INTO ExtPayment (ExtPaymentID, CIO_ID, ExtPaymentDetails, Total)\n" +
-                        "    VALUES(NULL," + cioid + "NULL" + "'" + label_coPayAmt.getText() + "'";
+                        "    VALUES(NULL," + cioid + ",'No Details','" + label_coPayAmt.getText() + "'";
                 db.executeUpdate(sql);
                 Alert complete = new Alert(Alert.AlertType.INFORMATION);
                 complete.setTitle("Check Out Successful");
                 complete.setTitle("Room "+ tf_coRoomNo.getText()+"has Checked Out");
+                complete.showAndWait();
             }
         } catch (SQLException e) {
             e.printStackTrace();
