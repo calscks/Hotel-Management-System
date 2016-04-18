@@ -173,7 +173,8 @@ public class ResvEditController implements Initializable {
             if (rb_resvno.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 String query = "SELECT r.ResvNo, c.CustFName, c.CustLName FROM Reservation r " +
                         "INNER JOIN Customer c on r.CustID = c.CustID WHERE " +
-                        "r.ResvNo LIKE '%" + tf_search.getText() + "%'";
+                        "r.ResvNo LIKE '%" + tf_search.getText() + "%' AND r.ResvNo NOT IN " +
+                        "(SELECT ResvNo FROM CheckInOut)";
                 try {
                     ResultSet rs = db.executeQuery(query);
                     while (rs.next()) {
@@ -188,8 +189,9 @@ public class ResvEditController implements Initializable {
                 }
             } else if (rb_fname.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 String query = "SELECT r.ResvNo, c.CustFName, c.CustLName FROM Reservation r " +
-                        "INNER JOIN Customer c WHERE c.CustFName LIKE '%" + tf_search.getText() +
-                        "%' and r.CustID = c.CustID";
+                        "INNER JOIN Customer c ON r.CustID = c.CustID WHERE c.CustFName LIKE '%" + tf_search.getText() +
+                        "%' AND r.ResvNo NOT IN (SELECT ResvNo FROM " +
+                        "CheckInOut)";
                 try {
                     ResultSet rs = db.executeQuery(query);
                     while (rs.next()) {
@@ -204,8 +206,8 @@ public class ResvEditController implements Initializable {
                 }
             } else if (rb_lname.isSelected() && !Objects.equals(tf_search.getText(), "")) {
                 String query = "SELECT r.ResvNo, c.CustFName, c.CustLName FROM Reservation r " +
-                        "INNER JOIN Customer c WHERE c.CustLName LIKE '%" + tf_search.getText() +
-                        "%' and r.CustID = c.CustID";
+                        "INNER JOIN Customer c ON r.CustID = c.CustID WHERE c.CustLName LIKE '%" + tf_search.getText() +
+                        "%' AND r.ResvNo NOT IN (SELECT ResvNo FROM CheckInOut)";
                 try {
                     ResultSet rs = db.executeQuery(query);
                     while (rs.next()) {

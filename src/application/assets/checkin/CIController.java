@@ -352,6 +352,8 @@ public class CIController implements Initializable {
             tf_ciLastName.clear();
             tf_ciAddress.clear();
             tf_ciState.clear();
+            tf_ciIDType.clear();
+            tf_ciCountry.clear();
 
             table_fac.getItems().clear();
             table_ciToday.getItems().clear();

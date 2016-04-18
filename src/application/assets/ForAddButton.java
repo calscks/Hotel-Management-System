@@ -1,10 +1,7 @@
 package application.assets;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -37,6 +34,7 @@ public class ForAddButton {
     private AnchorPane finalPane;
     private Button addButton;
     private TextField unique;
+    private Label label;
 
     public ForAddButton(AnchorPane finalPane, Button addButton) {
         this.finalPane = finalPane;
@@ -52,6 +50,13 @@ public class ForAddButton {
         this.unique = unique;
 
         showStage2();
+    }
+
+    public ForAddButton(AnchorPane finalPane, Label label){
+        this.finalPane = finalPane;
+        this.label = label;
+
+        showStage3();
     }
 
     private void showStage() {
@@ -94,6 +99,23 @@ public class ForAddButton {
                         "modify the table.");
                 alert.showAndWait();
             }
+        });
+    }
+
+    private void showStage3() {
+        label.setOnMouseClicked(me -> {
+            Stage stage = new Stage();
+
+            if (finalPane.getScene() != null) {
+                stage.setScene(finalPane.getScene());
+            } else {
+                Scene scene = new Scene(finalPane);
+                stage.setScene(scene);
+            }
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
         });
     }
 }

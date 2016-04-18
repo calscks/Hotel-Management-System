@@ -37,16 +37,16 @@
             </VBox>
             <VBox layoutX="506.0" layoutY="55.0" prefHeight="340.0" prefWidth="207.0" spacing="10.0">
                <children>
-                  <TextField fx:id="tf_ciResvNum" />
-                  <TextField fx:id="tf_ciFirstName" />
-                  <TextField fx:id="tf_ciLastName" />
-                  <TextField fx:id="tf_ciAddress" />
-                  <TextField fx:id="tf_ciPostCode" />
-                  <TextField fx:id="tf_ciCity" />
-                  <TextField fx:id="tf_ciState" />
-                  <TextField fx:id="tf_ciCountry" />
-                  <TextField fx:id="tf_ciIDType" />
-                  <TextField fx:id="tf_ciIDNo" />
+                  <TextField fx:id="tf_ciResvNum" editable="false" />
+                  <TextField fx:id="tf_ciFirstName" editable="false" />
+                  <TextField fx:id="tf_ciLastName" editable="false" />
+                  <TextField fx:id="tf_ciAddress" editable="false" />
+                  <TextField fx:id="tf_ciPostCode" editable="false" />
+                  <TextField fx:id="tf_ciCity" editable="false" />
+                  <TextField fx:id="tf_ciState" editable="false" />
+                  <TextField fx:id="tf_ciCountry" editable="false" />
+                  <TextField fx:id="tf_ciIDType" editable="false" />
+                  <TextField fx:id="tf_ciIDNo" editable="false" />
                </children>
             </VBox>
             <TableView fx:id="table_memgroup" layoutX="356.0" layoutY="456.0" prefHeight="176.0" prefWidth="358.0">

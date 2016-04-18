@@ -69,5 +69,6 @@
       <Button fx:id="btn_editEmp" layoutX="155.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Edit" />
       <Label fx:id="lbl_logout" layoutX="670.0" layoutY="8.0" text="Logout" textFill="#0037a4" underline="true" />
       <Button fx:id="btn_delEmp" layoutX="230.0" layoutY="420.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Delete" />
+      <Label fx:id="lbl_deptax" layoutX="489.0" layoutY="8.0" text="Change Deposit and Tax Rate" textFill="#0037a4" underline="true" />
    </children>
 </AnchorPane>

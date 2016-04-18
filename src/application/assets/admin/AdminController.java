@@ -3,18 +3,22 @@ package application.assets.admin;
 import application.DBConnection;
 import application.Main;
 import application.Validation;
+import application.assets.ForAddButton;
 import application.assets.Login;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,6 +56,7 @@ public class AdminController implements Initializable {
     @FXML private Button btn_cancel;
 
     @FXML private Label lbl_logout;
+    @FXML private Label lbl_deptax;
 
     private ObservableList<String> obs = FXCollections.observableArrayList("Staff", "Manager");
 
@@ -77,6 +82,8 @@ public class AdminController implements Initializable {
         switchable();
 
         cancel();
+
+        deptax();
 
         logout();
 
@@ -345,6 +352,23 @@ public class AdminController implements Initializable {
             new Login();
 
         });
+    }
+
+    private void deptax(){
+        FXMLLoader loadDT = new FXMLLoader(getClass().getResource("/application/assets" +
+                "/admin/deptax.fxml"));
+        AnchorPane dtPane = new AnchorPane();
+        try {
+            dtPane = loadDT.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        DepTaxControl dtc = loadDT.getController();
+
+        AnchorPane finalDtPane = dtPane;
+
+        new ForAddButton(finalDtPane, lbl_deptax);
     }
 
 }
