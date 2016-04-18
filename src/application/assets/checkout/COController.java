@@ -316,13 +316,16 @@ public class COController implements Initializable {
                 "INNER JOIN Reservation ON RoomBooking.ResvNo = Reservation.ResvNo\n" +
                 "WHERE RoomNo='" + tf_coRoomNo.getText() + "'" +"and CheckInOut.Status = 'Checked In'";
             ResultSet rs = db.executeQuery(sql);
-            int cioid = rs.getInt("CIO_ID");
+            int cioid = 0;
+            if (rs.next()) {
+                cioid = rs.getInt("CIO_ID");
+            }
             sql="SELECT * FROM ExtPayment";
             ResultSet extpayment = db.executeQuery(sql);
 
             if (!extpayment.next()){
-                sql = "INSERT INTO ExtPayment (ExtPaymentID, CIO_ID, ExtPaymentDetails, Total)\n" +
-                        "    VALUES(2000000000,"+ cioid + ",'No Details',"+ "'"+label_coPayAmt.getText()+"'";
+                sql = "INSERT INTO ExtPayment (ExtPaymentID,CIO_ID,ExtPaymentDetails, Total)\n" +
+                        "    VALUES(2000000000,"+ cioid + ",'No Details',"+Double.parseDouble(label_coPayAmt.getText())+")";
                 db.executeUpdate(sql);
                 Alert complete = new Alert(Alert.AlertType.INFORMATION);
                 complete.setTitle("Check Out Successful");
@@ -330,8 +333,8 @@ public class COController implements Initializable {
                 complete.showAndWait();
             }else{
 
-                sql = "INSERT INTO ExtPayment (ExtPaymentID, CIO_ID, ExtPaymentDetails, Total)\n" +
-                        "    VALUES(NULL," + cioid + ",'No Details','" + label_coPayAmt.getText() + "'";
+                sql = "INSERT INTO ExtPayment (ExtPaymentID,CIO_ID,ExtPaymentDetails, Total)\n" +
+                        "    VALUES(NULL," + cioid + ",'No Details'," + Double.parseDouble(label_coPayAmt.getText()) + ")";
                 db.executeUpdate(sql);
                 Alert complete = new Alert(Alert.AlertType.INFORMATION);
                 complete.setTitle("Check Out Successful");
