@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 
 public class DailyReportController implements Initializable{
-    ObservableList<String> cio =  FXCollections.observableArrayList("Check in","Check Out");
+    ObservableList<String> cio =  FXCollections.observableArrayList("Check in","Check out");
 
     @FXML Button btn_print;
 
@@ -69,12 +69,12 @@ public class DailyReportController implements Initializable{
                 if(radio_room.isSelected()){
                     cbox_cio.setDisable(false);
                     btn_print.setDisable(true);
-                    if(cbox_cio.getSelectionModel().getSelectedItem() =="Check in"){
+                    if(cbox_cio.getSelectionModel().getSelectedItem().equals("Check in")){
                         btn_print.setDisable(false);
                         btn_print.setOnAction(event1 -> {
                             getreport("/application/assets/reports/JasperReports/room_dailyreport.jrxml");
                         });
-                    }else if (cbox_cio.getSelectionModel().getSelectedItem() =="Check Out"){
+                    }else if (cbox_cio.getSelectionModel().getSelectedItem().equals("Check out")){
                         btn_print.setDisable(false);
                         btn_print.setOnAction(event2 -> {
                             getreport("/application/assets/reports/JasperReports/room_coDailyReport.jrxml");
@@ -84,7 +84,6 @@ public class DailyReportController implements Initializable{
                     cbox_cio.setDisable(true);
                     btn_print.setDisable(false);
                     btn_print.setOnAction(event2 -> {
-
                         getreport("/application/assets/reports/JasperReports/facility_dailyreport.jrxml");
                     });
 
@@ -100,13 +99,28 @@ public class DailyReportController implements Initializable{
                     btn_print.setOnAction(event2 -> {
                       getreport("/application/assets/reports/JasperReports/room_reservationreport.jrxml");
                   });
-                }if(radio_fac.isSelected()){
+                }else if(radio_fac.isSelected()){
                     cbox_cio.setDisable(true);
                     btn_print.setDisable(false);
-                    btn_print.setOnAction(event2 -> {//for facility reservation
+                    btn_print.setOnAction(event2 -> {
                         getreport("/application/assets/reports/JasperReports/fac_reservationreport.jrxml");
                     });
                 }
+            }
+        });
+        cbox_cio.setOnAction(event -> {
+
+            if(cbox_cio.getSelectionModel().getSelectedItem().equals("Check in")){
+                btn_print.setOnAction(event1 -> {
+                    btn_print.setDisable(false);
+                    getreport("/application/assets/reports/JasperReports/room_dailyreport.jrxml");
+                });
+            }
+            if (cbox_cio.getSelectionModel().getSelectedItem().equals("Check out")){
+                btn_print.setDisable(false);
+                btn_print.setOnAction(event2 -> {
+                    getreport("/application/assets/reports/JasperReports/room_coDailyReport.jrxml");
+                });
             }
         });
 

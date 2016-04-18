@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static application.slidemenu.SlideMenuController.db;
@@ -111,18 +112,28 @@ public class COController implements Initializable {
 //STATUS IS ONLY "Checked In" and "Checked Out" case sensitive? just follow//
          btn_coCheckout.setOnAction((event) -> {
 
-
             try {
+
+
                 String roomno =tf_coRoomNo.getText();
                 String sql = "SELECT * FROM CheckInOut " +
                         "INNER JOIN Reservation USING (CustID)" +
                         "INNER JOIN RoomBooking ON Reservation.ResvNo = RoomBooking.ResvNo" +
-                        "WHERE RoomNo=" + "'" + roomno + "'" +"and CheckInOut.Status = 'Checked In'";
+                        "WHERE RoomBooking.RoomNo=" + "'" + roomno + "'" +"and CheckInOut.Status = 'Checked In'";
                 ResultSet rs = db.executeQuery(sql);
-                String custid = rs.getString("CustID");
-                int resno = rs.getInt("ResvNo");
-                sql = "UPDATE CheckInOut SET Status = 'Checked Out'WHERE CustID ='"+custid+"'";
-                ExtPayment();
+                Alert checkout = new Alert(Alert.AlertType.CONFIRMATION);
+                checkout.setTitle("Check Out");
+                checkout.setContentText("Confirm Room"+ tf_coRoomNo.getText()+" Check Out?");
+                Optional<ButtonType> result = checkout.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    String custid = rs.getString("CustID");
+                    int resno = rs.getInt("ResvNo");
+                    sql = "UPDATE CheckInOut SET Status = 'Checked Out'WHERE CheckInOut.ResvNo ='"+resno+"'";
+                    ExtPayment();
+                } else {
+                   checkout.close();
+                }
+
 
 
             } catch (SQLException e1) {
