@@ -91,17 +91,12 @@ public class AddRoomController implements Initializable{
         //extrabed combobox
         cbox_extrabed.setItems(extrabeditems);
         //roomcat and grouproomcat combobox
-        ObservableList<String> roomcategory = FXCollections.observableArrayList();
-        try {
-            ResultSet rs = db.executeQuery("SELECT TypeGroup FROM RoomType GROUP BY TypeGroup ORDER BY TypeGroup;");
-            while (rs.next()){
-                roomcategory.add(rs.getString("TypeGroup"));
-            }
-            cbox_roomcategory.setItems(roomcategory);
-            cbox_grouproomcategory.setItems(roomcategory);
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+        ObservableList<String> roomcategory = FXCollections.observableArrayList("Commercial","Deluxe", "Executive"
+                ,"Premier", "Presidential");
+
+        cbox_roomcategory.setItems(roomcategory);
+        cbox_grouproomcategory.setItems(roomcategory);
+
         //room type combobox
         ObservableList<String> roomtype = FXCollections.observableArrayList();
         cbox_roomcategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
