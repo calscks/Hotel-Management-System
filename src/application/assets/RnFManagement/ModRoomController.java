@@ -674,9 +674,7 @@ public class ModRoomController implements Initializable{
             if (cboxextrabed.getSelectionModel().getSelectedItem().equals("Yes")) {
                 if (arc.getCbox_grouproomcategory().getItems().isEmpty() || arc.getTf_roomtype().getText().isEmpty() ||
                          arc.getTf_paxperroom().getText().isEmpty() || arc.getTf_roomprice().getText().isEmpty() ||
-                         arc.getCbox_extrabed().getItems().isEmpty() || arc.getTf_twinbedprice().getText().isEmpty() ||
-                         arc.getTf_fullbedprice().getText().isEmpty() || arc.getTf_queenbedprice().getText().isEmpty() ||
-                         arc.getTf_kingbedprice().getText().isEmpty()){
+                         arc.getCbox_extrabed().getItems().isEmpty()){
                     Stage stage = (Stage) arc.getBtn_addroomtype().getScene().getWindow();
                     stage.close();
                     Alert emptyfield = new Alert(Alert.AlertType.WARNING);
@@ -690,10 +688,22 @@ public class ModRoomController implements Initializable{
                     String roomtype = arc.getTf_roomtype().getText();
                     Integer maxpax = Integer.parseInt(arc.getTf_paxperroom().getText());
                     Integer roomprice = Integer.parseInt(arc.getTf_roomprice().getText());
-                    Float twinprice = Float.parseFloat(arc.getTf_twinbedprice().getText());
-                    Float fullprice = Float.parseFloat(arc.getTf_fullbedprice().getText());
-                    Float queenprice = Float.parseFloat(arc.getTf_queenbedprice().getText());
-                    Float kingprice = Float.parseFloat(arc.getTf_kingbedprice().getText());
+                    Float twinprice = null;
+                    if (!Objects.equals(arc.getTf_twinbedprice().getText(), "")) {
+                        twinprice = Float.parseFloat(arc.getTf_twinbedprice().getText());
+                    }
+                    Float fullprice = null;
+                    if (!Objects.equals(arc.getTf_fullbedprice().getText(), "")) {
+                        fullprice = Float.parseFloat(arc.getTf_fullbedprice().getText());
+                    }
+                    Float queenprice = null;
+                    if (!Objects.equals(arc.getTf_queenbedprice().getText(), "")) {
+                        queenprice = Float.parseFloat(arc.getTf_queenbedprice().getText());
+                    }
+                    Float kingprice = null;
+                    if (!Objects.equals(arc.getTf_kingbedprice().getText(), "")) {
+                        kingprice = Float.parseFloat(arc.getTf_kingbedprice().getText());
+                    }
                     try {
                         String sql1 = "INSERT INTO RoomType (TypeGroup,TypeName,MaxPax,RoomPrice,Rate_extTwin,Rate_extFull,Rate_extQueen,Rate_extKing) " +
                                 "VALUES ('" + grouproomcategory + "','" + roomtype + "'," + maxpax + "," + roomprice + "," + twinprice + "," + fullprice + "," + queenprice + "," + kingprice + ")";
