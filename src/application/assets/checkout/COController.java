@@ -78,6 +78,14 @@ public class COController implements Initializable {
                 }
             }
         });
+        tf_coFirstName.textProperty().addListener(((observable, oldValue, newValue) -> {
+            if (tf_coFirstName.getText().equals("")){
+                btn_coCheckout.setDisable(true);
+            }
+            else{
+                btn_coCheckout.setDisable(false);
+            }
+        }));
         btn_missing.setOnAction(event -> {
                 addpay(Double.parseDouble(tf_missingprice.getText().trim()));
         });
@@ -297,7 +305,7 @@ public class COController implements Initializable {
                 check_coBlacklist.setTextFill(Color.web("#ff0000"));
             }
 
-            btn_coCheckout.setDisable(false);
+
         } catch (SQLException t1) {
             //if fail reset the scene
             t1.printStackTrace();
@@ -316,7 +324,7 @@ public class COController implements Initializable {
             label_coReturn.setText("0.00");
             btn_coCheckout.setDisable(true);
             check_coBlacklist.setTextFill(Color.web("#000000"));
-            btn_coCheckout.setDisable(true);
+
 
         }
     }
