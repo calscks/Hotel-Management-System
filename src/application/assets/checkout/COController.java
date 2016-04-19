@@ -279,9 +279,9 @@ public class COController implements Initializable {
                 city = codata.getString("City");
                 Country = codata.getString("Country");
                 State = codata.getString("State");
-                deposit = Double.parseDouble(codata.getString("Deposit").trim());
+                deposit = codata.getDouble("Deposit");
                 codate = codata.getString("Date_CO");
-                roomprice = Double.parseDouble(codata.getString("Price").trim());
+                roomprice = codata.getDouble("Price");
             }
             tf_coIDNo.setText(customerid);
             tf_coFirstName.setText(customerfname);
