@@ -70,11 +70,13 @@ public class COController implements Initializable {
                 Alert prompt = new Alert(Alert.AlertType.CONFIRMATION);
                 prompt.setContentText("Confirm to Black List?");
                 Optional<ButtonType> result = prompt.showAndWait();
-                if (result.get() == ButtonType.OK){
-                    prompt.close();
-                } else {
-                    check_coBlacklist.setSelected(false);
-                    prompt.close();
+                if (result.isPresent()) {
+                    if (result.get() == ButtonType.OK){
+                        prompt.close();
+                    } else {
+                        check_coBlacklist.setSelected(false);
+                        prompt.close();
+                    }
                 }
             }
         });
