@@ -136,6 +136,7 @@ public class COController implements Initializable {
 
 //STATUS IS ONLY "Checked In" and "Checked Out" case sensitive? just follow//
          btn_coCheckout.setOnAction((event) -> {
+
             try {
                 String sql = "SELECT * FROM RoomBooking\n" +
                         "INNER JOIN CheckInOut ON CheckInOut.ResvNo = RoomBooking.ResvNo\n" +
@@ -373,6 +374,7 @@ public class COController implements Initializable {
                 complete.setTitle("Check Out Successful");
                 complete.setContentText("Room "+ tf_coRoomNo.getText()+"has Checked Out");
                 complete.showAndWait();
+                filltb();
             }else{
 
                 sql = "INSERT INTO ExtPayment (ExtPaymentID,CIO_ID,ExtPaymentDetails, Total)\n" +
@@ -382,6 +384,7 @@ public class COController implements Initializable {
                 complete.setTitle("Check Out Successful");
                 complete.setContentText("Room "+ tf_coRoomNo.getText()+"has Checked Out");
                 complete.showAndWait();
+                filltb();
             }
         } catch (SQLException e) {
             e.printStackTrace();
