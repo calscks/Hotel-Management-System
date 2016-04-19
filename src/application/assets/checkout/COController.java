@@ -324,7 +324,7 @@ public class COController implements Initializable {
             label_coReturn.setText("0.00");
             btn_coCheckout.setDisable(true);
             check_coBlacklist.setTextFill(Color.web("#000000"));
-
+            filltb();
 
         }
     }
