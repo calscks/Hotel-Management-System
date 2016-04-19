@@ -439,16 +439,18 @@ public class ResvController implements Initializable {
 
             try {
                 ResultSet rs = db.executeQuery("SELECT CustID, CustID_Type, Blacklisted " +
-                        "FROM Customer WHERE CustID='" + tf_idno + "' AND CustID_Type='" +
+                        "FROM Customer WHERE CustID='" + tf_idno.getText() + "' AND CustID_Type='" +
                         cbox_idtype.getSelectionModel().getSelectedItem() + "'");
-                if (rs.next() && (Objects.equals(rs.getString("Blacklisted"), "yes") ||
-                        Objects.equals(rs.getString("Blacklisted"), "Yes"))) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Blacklist Warning");
-                    alert.setHeaderText("This customer has been blacklisted");
-                    alert.setContentText("This customer has been blacklisted!");
-                    alert.showAndWait();
-                    return;
+                while (rs.next()) {
+
+                    if (Objects.equals(rs.getString("Blacklisted"), "yes")) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Blacklist Warning");
+                        alert.setHeaderText("This customer has been blacklisted");
+                        alert.setContentText("This customer has been blacklisted!");
+                        alert.showAndWait();
+                        return;
+                    }
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -575,15 +577,27 @@ public class ResvController implements Initializable {
                 alert3.showAndWait();
                 return;
             }
+
             //language=SQLite
-            String ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
-                    "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
-                    tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
+            String ex = "SELECT CustID FROM Customer";
             try {
-                db.executeUpdate(ex);
+                ResultSet rs = db.executeQuery(ex);
+                while (rs.next()){
+                    if (!Objects.equals(rs.getString("CustID"), tf_idno.getText())){
+                        ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
+                                "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
+                                tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
+                        try {
+                            db.executeUpdate(ex);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+
 
             ex = "INSERT INTO CustAddress VALUES ('" + tf_idno.getText() +
                     "', '" + tf_address.getText() + "', '" + tf_postcode.getText() +
