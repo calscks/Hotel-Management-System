@@ -35,13 +35,14 @@ public class COController implements Initializable {
     @FXML private TextField tf_damageprice;
     @FXML private TextField tf_coState;
     @FXML private TextField tf_coCountry;
+    @FXML  private TextField tf_coIDType;
 
     @FXML private Label label_coDeposit;
     @FXML private Label label_coExtra;
     @FXML private Label label_coPayAmt;
     @FXML private Label label_coReturn;
 
-    @FXML  private ComboBox<String> cbox_coIDType;
+
 
     @FXML private Button btn_coCheckout;
     @FXML private Button btn_missing;
@@ -249,6 +250,7 @@ public class COController implements Initializable {
     }
 
     public  void autofill(String Roomno){
+        clearfield();
         try {
             //AUTOFILLS THE SCENE
             String sql = "SELECT * FROM RoomBooking\n" +
@@ -288,8 +290,7 @@ public class COController implements Initializable {
             tf_coIDNo.setText(customerid);
             tf_coFirstName.setText(customerfname);
             tf_coLastName.setText(customerlname);
-            cbox_coIDType.getItems().add(IDtype);
-            cbox_coIDType.getSelectionModel().select(IDtype);
+            tf_coIDType.setText(IDtype);
             tf_coPostCode.setText(postcode);
             tf_coCity.setText(city);
             tf_coAddress.setText(address);
@@ -314,7 +315,6 @@ public class COController implements Initializable {
             tf_coIDNo.setText("");
             tf_coFirstName.setText("");
             tf_coLastName.setText("");
-            cbox_coIDType.getItems().removeAll(cbox_coIDType.getItems());
             tf_coPostCode.setText("");
             tf_coCity.setText("");
             tf_coAddress.setText("");
@@ -329,6 +329,24 @@ public class COController implements Initializable {
             filltb();
 
         }
+    }
+
+    private void clearfield() {
+        tf_coIDNo.setText("");
+        tf_coFirstName.setText("");
+        tf_coLastName.setText("");
+        tf_coIDType.setText("");
+        tf_coPostCode.setText("");
+        tf_coCity.setText("");
+        tf_coAddress.setText("");
+        tf_coState.setText("");
+        tf_coCountry.setText("");
+        label_coDeposit.setText("0.00");
+        label_coExtra.setText("0.00");
+        label_coPayAmt.setText("0.00");
+        label_coReturn.setText("0.00");
+        btn_coCheckout.setDisable(true);
+        check_coBlacklist.setTextFill(Color.web("#000000"));
     }
 
 
