@@ -101,9 +101,9 @@ public class AddRoomController implements Initializable{
         ObservableList<String> roomtype = FXCollections.observableArrayList();
         cbox_roomcategory.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             cbox_roomtype.getItems().clear();
-            if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("President")){
+            if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Presidential")){
                 try{
-                    ResultSet rs1 = db.executeQuery("SELECT TypeName from RoomType WHERE TypeName LIKE 'President%'");
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName from RoomType WHERE TypeName LIKE 'Pres%'");
                     while (rs1.next()){
                         roomtype.add(rs1.getString("TypeName"));
                     }
@@ -114,7 +114,7 @@ public class AddRoomController implements Initializable{
             }
             else if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Commercial")){
                 try {
-                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Commercial%'");
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Comm%'");
                     while (rs1.next()){
                         roomtype.add(rs1.getString("TypeName"));
                     }
@@ -123,9 +123,29 @@ public class AddRoomController implements Initializable{
                     e.printStackTrace();
                 }
             }
-            else {
+            else if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Premier")) {
                 try {
-                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Deluxe%'");
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Prem%'");
+                    while (rs1.next()){
+                        roomtype.add(rs1.getString("TypeName"));
+                    }
+                    cbox_roomtype.setItems(roomtype);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            } else if (cbox_roomcategory.getSelectionModel().getSelectedItem().equals("Executive")){
+                try {
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Exec%'");
+                    while (rs1.next()){
+                        roomtype.add(rs1.getString("TypeName"));
+                    }
+                    cbox_roomtype.setItems(roomtype);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    ResultSet rs1 = db.executeQuery("SELECT TypeName FROM RoomType WHERE TypeName LIKE 'Del%'");
                     while (rs1.next()){
                         roomtype.add(rs1.getString("TypeName"));
                     }
