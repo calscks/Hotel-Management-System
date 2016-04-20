@@ -582,8 +582,19 @@ public class ResvController implements Initializable {
             String ex = "SELECT CustID FROM Customer";
             try {
                 ResultSet rs = db.executeQuery(ex);
+                int size = 0;
                 while (rs.next()){
-                    if (!Objects.equals(rs.getString("CustID"), tf_idno.getText())){
+                    size++;
+                    if (!Objects.equals(rs.getString("CustID"), tf_idno.getText()) && size!= 0){
+                        ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
+                                "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
+                                tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
+                        try {
+                            db.executeUpdate(ex);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
                         ex = "INSERT INTO Customer VALUES ('" + tf_idno.getText() +
                                 "', '" + cbox_idtype.getSelectionModel().getSelectedItem() + "', '" +
                                 tf_fname.getText() + "', '" + tf_lname.getText() + "', 'no')";
@@ -594,6 +605,7 @@ public class ResvController implements Initializable {
                         }
                     }
                 }
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
